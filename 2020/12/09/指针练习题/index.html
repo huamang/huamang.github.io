@@ -16,7 +16,7 @@
 <meta property="og:description" content="使用指针方法实现字符串逆序存放后再输出编写程序：从键盘任意输入一个字符串，输出该字符串。然后，将该字符串逆序存放后再输出，要求用字符指针完成。（提示：逆序存放的函数接口：void invstr(char *s)）">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-12-09T09:08:13.831Z">
-<meta property="article:modified_time" content="2020-12-08T08:52:33.313Z">
+<meta property="article:modified_time" content="2020-12-09T15:45:04.923Z">
 <meta property="article:author" content="huamang">
 <meta name="twitter:card" content="summary">
   
@@ -149,7 +149,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="使用指针方法实现字符串逆序存放后再输出"><a href="#使用指针方法实现字符串逆序存放后再输出" class="headerlink" title="使用指针方法实现字符串逆序存放后再输出"></a>使用指针方法实现字符串逆序存放后再输出</h2><p>编写程序：从键盘任意输入一个字符串，输出该字符串。然后，将该字符串逆序存放后再输出，要求用字符指针完成。（提示：逆序存放的函数接口：void invstr(char *s)）</p>
+        <h1 id="使用指针方法实现字符串逆序存放后再输出"><a href="#使用指针方法实现字符串逆序存放后再输出" class="headerlink" title="使用指针方法实现字符串逆序存放后再输出"></a>使用指针方法实现字符串逆序存放后再输出</h1><p>编写程序：从键盘任意输入一个字符串，输出该字符串。然后，将该字符串逆序存放后再输出，要求用字符指针完成。（提示：逆序存放的函数接口：void invstr(char *s)）</p>
 <a id="more"></a>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">invstr</span><span class="params">(<span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> b;</span><br><span class="line">	<span class="keyword">int</span> len;</span><br><span class="line">	len=<span class="built_in">strlen</span>(s); <span class="comment">/*获取该字符串的长度*/</span> </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len/<span class="number">2</span>;i++)&#123; <span class="comment">/*该循环的目的是每次将字符串的头和尾换一下位置*/</span> </span><br><span class="line">		b=*(s+i); <span class="comment">/*字符串的第i个元素的地址暂时放到b里*/</span> </span><br><span class="line">		*(s+i)=*(s+len<span class="number">-1</span>-i); <span class="comment">/*将字符串的倒数第i个元素换到第i个元素*/</span> </span><br><span class="line">		*(s+len<span class="number">-1</span>-i)=b; <span class="comment">/*再将b存放的地址放回倒数第i个元素*/</span> </span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">1000</span>];</span><br><span class="line">	gets(a); <span class="comment">/*输入字符串*/</span> </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,a); <span class="comment">/*正序输出一次*/</span> </span><br><span class="line">	invstr(a); <span class="comment">/*运行函数*/</span> </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,a); <span class="comment">/*逆序输出*/</span> </span><br><span class="line"> &#125; </span><br></pre></td></tr></table></figure>
 <p>利用指针编程，用指针方法编写一函数，实现两个字符串的比较。编程点拨：即自己编写一个strcmp函数：strcmp(s1,s2)，如果s1= s2，返回值为0，如果s1≠s2, 返回它们二者第一个不同字符的ASCII码差值(如”BOY”与”BAD”, 第二个字母不同，”O”与”A”之差为79-65=14)。如果要s1&gt;s2，则输出正值，如果s1&lt;s2，则输出负值。</p>
@@ -286,7 +286,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%86%E5%BA%8F%E5%AD%98%E6%94%BE%E5%90%8E%E5%86%8D%E8%BE%93%E5%87%BA"><span class="toc-number">1.</span> <span class="toc-text">使用指针方法实现字符串逆序存放后再输出</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%86%E5%BA%8F%E5%AD%98%E6%94%BE%E5%90%8E%E5%86%8D%E8%BE%93%E5%87%BA"><span class="toc-number">1.</span> <span class="toc-text">使用指针方法实现字符串逆序存放后再输出</span></a></li></ol>
                     </div>
                 </span>
             </div>
