@@ -793,7 +793,7 @@ body {
 	left: 300px;
 	width: auto;
 	min-height: 100%;
-	background: #eaeaea;
+	background: #03a9f412;
 }
 
 .mid-col.show {
@@ -2024,10 +2024,10 @@ pre .css~* .id,pre .id {
 .article {
 	position: relative;
 	margin: 30px;
-	border: 1px solid #ddd;
-	border-top: 1px solid #fff;
-	border-bottom: 1px solid #fff;
-	background: #fff;
+	border: 1px solid #03a9f43b;
+	/*border-top: 1px solid #fff;
+	border-bottom: 1px solid #fff; */
+	background:  azure;
 	transition: all .2s ease-in;
 }
 
