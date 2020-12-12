@@ -806,7 +806,8 @@ body {
 }
 
 .left-col {
-	background-image: url("background.png");
+	/* background-image: url("background.png"); */
+	background-color: #0078d8;
 	width: 300px;
 	position: fixed;
 	opacity: 1;
