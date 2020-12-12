@@ -790,10 +790,12 @@ body {
 .mid-col {
 	position: absolute;
 	right: 0;
+	min-height: 100%;
+	/* background: #edfbfb; */
+	background: #03bcf460;
 	left: 300px;
 	width: auto;
-	min-height: 100%;
-	background: #03a9f412;
+	word-wrap:break-word
 }
 
 .mid-col.show {
@@ -806,8 +808,8 @@ body {
 }
 
 .left-col {
-	/* background-image: url("background.png"); */
-	background-color: #0078d8;
+	background-image: url("background.png");
+	/* background-color: #0078d8; */
 	width: 300px;
 	position: fixed;
 	opacity: 1;
