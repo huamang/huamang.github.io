@@ -835,11 +835,11 @@ body {
 }
 
 .left-col #header a {
-	color: #696969;
+	color: #fff;
 }
 
 .left-col #header a:hover {
-	color: #b0a0aa;
+	color: #7fffd4;
 }
 
 .left-col #header .header-subtitle {
@@ -2024,7 +2024,7 @@ pre .css~* .id,pre .id {
 .article {
 	position: relative;
 	margin: 30px;
-	border: 1px solid #03a9f43b;
+	border: 1px solid #03a8f4a2;
 	/*border-top: 1px solid #fff;
 	border-bottom: 1px solid #fff; */
 	background:  azure;
@@ -2953,7 +2953,14 @@ pre .css~* .id,pre .id {
 	}
 
 	.mid-col {
-		left: 0;
+		position: absolute;
+	    right: 0;
+	    min-height: 100%;
+	    /* background: #edfbfb; */
+	    background: #03a8f48c;
+	    left: 300px;
+	    width: auto;
+	    word-wrap:break-word
 	}
 
 	#header .header-nav,.mid-col {
