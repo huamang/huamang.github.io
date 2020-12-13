@@ -28,7 +28,7 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201213142328589.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201213142320896.png">
 <meta property="article:published_time" content="2020-12-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-13T06:26:21.886Z">
+<meta property="article:modified_time" content="2020-12-13T06:40:09.029Z">
 <meta property="article:author" content="huamang">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="笔记">
@@ -215,37 +215,68 @@
 <li>将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，<br>从而加快网页的加载速度，提高用户的体验。<br><img src="https://img-blog.csdnimg.cn/20201213140253490.png" alt="在这里插入图片描述"><h1 id="css的语法"><a href="#css的语法" class="headerlink" title="css的语法#"></a>css的语法#</h1></li>
 </ul>
 <p><strong>1.注释：</strong><br>/**/</p>
-<p><strong>2.基本语法：</strong><br>选择器 声明块<br><img src="https://img-blog.csdnimg.cn/20201213140703988.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><strong>2.基本语法：</strong><br>选择器 声明块</p>
+<p><img src="https://img-blog.csdnimg.cn/20201213140703988.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>选择器，通过选择器可以选中页面中的指定元素<br>比如 p 的作用就是选中页面中所有的p元素</p>
 <p>声明块，通过声明块来指定要为元素设置的样式<br>声明块由一个一个的声明组成<br> 声明是一个名值对结构<br>一个样式名对应一个样式值，名和值之间：以<code>:</code>连接 ，以<code>;</code>结尾   </p>
 <h1 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h1><p><strong>1.常用选择器</strong></p>
 <ul>
 <li><p>元素选择器<br>作用：根据标签名来选中指定的元素<br>语法：标签名{}<br>例子：p{}  h1{}  div{}</p>
 </li>
-<li><p>id选择器<br>作用：给元素设定id属性，根据元素的id属性值选中一个元素<br>语法：#id属性值{}<br>例子：#box{} #red{}<br><img src="https://img-blog.csdnimg.cn/20201213141018227.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201213141048975.png" alt="在这里插入图片描述"></p>
+<li><p>id选择器</p>
 </li>
-<li><p>类选择器<br>作用：给元素设定，根据元素的class属性值选中一组元素<br>语法：.class属性值<br>好处：既可以给单一标签设定样式，也可以给一组标签设定样式<br><img src="https://img-blog.csdnimg.cn/2020121314135183.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201213141413389.png" alt="在这里插入图片描述"></p>
-</li>
-<li><p>通配选择器<br>作用：选中页面中的所有元素<br>语法: *</p>
-</li>
+</ul>
+<p>作用：给元素设定id属性，根据元素的id属性值选中一个元素</p>
+<p>语法：#id属性值{}</p>
+<p>例子：#box{} #red{}</p>
+<p><img src="https://img-blog.csdnimg.cn/20201213141018227.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201213141048975.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>类选择器</li>
+</ul>
+<p>作用：给元素设定，根据元素的class属性值选中一组元素</p>
+<p>语法：.class属性值</p>
+<p>好处：既可以给单一标签设定样式，也可以给一组标签设定样式</p>
+<p><img src="https://img-blog.csdnimg.cn/2020121314135183.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201213141413389.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>通配选择器<br>作用：选中页面中的所有元素<br>语法: *</li>
 </ul>
 <p><strong>2.复合选择器</strong></p>
 <ul>
-<li><p>交集选择器<br>作用：选中同时复合多个条件的元素<br>语法：选择器1选择器2选择器3选择器n{}<br>注意点：交集选择器中如果有元素选择器，必须使用元素选择器开头<br><img src="https://img-blog.csdnimg.cn/2020121314164560.png" alt="在这里插入图片描述"></p>
-</li>
+<li>交集选择器</li>
+</ul>
+<p>作用：选中同时复合多个条件的元素</p>
+<p>语法：选择器1选择器2选择器3选择器n{}</p>
+<p>注意点：交集选择器中如果有元素选择器，必须使用元素选择器开头</p>
+<p><img src="https://img-blog.csdnimg.cn/2020121314164560.png" alt="在这里插入图片描述"></p>
+<ul>
 <li><p>并集选择器<br>作用：同时选择多个选择器对应的元素，其中可以是交集选择器<br>语法：选择器1,选择器2,选择器3,选择器n{}<br>例子： #b1,.p1,h1,span,div.red{}</p>
 </li>
-<li><p>关系选择器<br>介绍标签关系：</p>
+<li><p>关系选择器</p>
 </li>
 </ul>
+<p>介绍标签关系：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">父元素：直接包含子元素的元素叫做父元素</span><br><span class="line">子元素：直接被父元素包含的元素是子元素</span><br><span class="line">祖先元素：</span><br><span class="line">1.直接或间接包含后代元素的元素叫做祖先元素</span><br><span class="line">2.一个元素的父元素也是它的祖先元素</span><br><span class="line">后代元素：</span><br><span class="line">1.直接或间接被祖先元素包含的元素叫做后代元素</span><br><span class="line">2.子元素也是后代元素</span><br><span class="line">兄弟元素：拥有相同父元素的元素是兄弟元素</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>子元素选择器<br>作用：选中指定父元素的指定子元素<br>语法：父元素 &gt; 子元素<br><img src="https://img-blog.csdnimg.cn/20201213142106184.png" alt="在这里插入图片描述"></li>
-<li>后代元素选择器：<br>作用：选中指定元素内的指定后代元素<br>语法：祖先 后代<br><img src="https://img-blog.csdnimg.cn/20201213142151314.png" alt="在这里插入图片描述"></li>
+<li>子元素选择器</li>
+</ul>
+<p>作用：选中指定父元素的指定子元素</p>
+<p>语法：父元素 &gt; 子元素</p>
+<p><img src="https://img-blog.csdnimg.cn/20201213142106184.png" alt="在这里插入图片描述"></p>
+<ul>
+<li>后代元素选择器：</li>
+</ul>
+<p>作用：选中指定元素内的指定后代元素</p>
+<p>语法：祖先 后代</p>
+<p><img src="https://img-blog.csdnimg.cn/20201213142151314.png" alt="在这里插入图片描述"></p>
+<ul>
 <li>兄弟选择器</li>
 </ul>
-<p>1.选择下一个兄弟<br>语法：前一个 + 下一个<br><img src="https://img-blog.csdnimg.cn/20201213142328589.png" alt="在这里插入图片描述"><br>选择紧贴着p的span的兄弟元素</p>
-<p>2.选择下边所有的~符号后面标签名的兄弟<br>语法：兄 ~ 弟<br><img src="https://img-blog.csdnimg.cn/20201213142320896.png" alt="在这里插入图片描述"><br>选择p后面的所有的span兄弟元素</p>
+<p>1.选择下一个兄弟</p>
+<p>语法：前一个 + 下一个</p>
+<p><img src="https://img-blog.csdnimg.cn/20201213142328589.png" alt="在这里插入图片描述"><br>选择紧贴着p的span的兄弟元素</p>
+<p>2.选择下边所有的~符号后面标签名的兄弟</p>
+<p>语法：兄 ~ 弟<br><img src="https://img-blog.csdnimg.cn/20201213142320896.png" alt="在这里插入图片描述"><br>选择p后面的所有的span兄弟元素</p>
 
       
 
@@ -486,10 +517,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">blog</a>
-              </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
