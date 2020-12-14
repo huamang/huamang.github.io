@@ -27,8 +27,12 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201213142151314.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201213142328589.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201213142320896.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201214185055372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201214192453475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201214193908152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201214210339256.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-12-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-13T06:40:09.029Z">
+<meta property="article:modified_time" content="2020-12-14T13:19:44.289Z">
 <meta property="article:author" content="huamang">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="笔记">
@@ -212,7 +216,7 @@
 <p><strong>2.外部样式表</strong><br>以将CSS样式编写到一个外部的CSS文件中,<br>然后通过link标签来引入外部的CSS文件</p>
 <ul>
 <li>外部样式表需要通过link标签进行引入，<br>意味着只要想使用这些样式的网页都可以对其进行引用<br>使样式可以在不同页面之间进行复用</li>
-<li>将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，<br>从而加快网页的加载速度，提高用户的体验。<br><img src="https://img-blog.csdnimg.cn/20201213140253490.png" alt="在这里插入图片描述"><h1 id="css的语法"><a href="#css的语法" class="headerlink" title="css的语法#"></a>css的语法#</h1></li>
+<li>将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，<br>从而加快网页的加载速度，提高用户的体验。<br><img src="https://img-blog.csdnimg.cn/20201213140253490.png" alt="在这里插入图片描述"><h1 id="css的语法"><a href="#css的语法" class="headerlink" title="css的语法"></a>css的语法</h1></li>
 </ul>
 <p><strong>1.注释：</strong><br>/**/</p>
 <p><strong>2.基本语法：</strong><br>选择器 声明块</p>
@@ -221,62 +225,84 @@
 <p>声明块，通过声明块来指定要为元素设置的样式<br>声明块由一个一个的声明组成<br> 声明是一个名值对结构<br>一个样式名对应一个样式值，名和值之间：以<code>:</code>连接 ，以<code>;</code>结尾   </p>
 <h1 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h1><p><strong>1.常用选择器</strong></p>
 <ul>
-<li><p>元素选择器<br>作用：根据标签名来选中指定的元素<br>语法：标签名{}<br>例子：p{}  h1{}  div{}</p>
-</li>
-<li><p>id选择器</p>
-</li>
+<li>元素选择器<br>作用：根据标签名来选中指定的元素<br>语法：标签名{}<br>例子：p{}  h1{}  div{}</li>
 </ul>
-<p>作用：给元素设定id属性，根据元素的id属性值选中一个元素</p>
+<h2 id="id选择器"><a href="#id选择器" class="headerlink" title="id选择器"></a>id选择器</h2><p>作用：给元素设定id属性，根据元素的id属性值选中一个元素</p>
 <p>语法：#id属性值{}</p>
 <p>例子：#box{} #red{}</p>
 <p><img src="https://img-blog.csdnimg.cn/20201213141018227.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201213141048975.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>类选择器</li>
-</ul>
-<p>作用：给元素设定，根据元素的class属性值选中一组元素</p>
+<h2 id="类选择器"><a href="#类选择器" class="headerlink" title="类选择器"></a>类选择器</h2><p>作用：给元素设定，根据元素的class属性值选中一组元素</p>
 <p>语法：.class属性值</p>
 <p>好处：既可以给单一标签设定样式，也可以给一组标签设定样式</p>
 <p><img src="https://img-blog.csdnimg.cn/2020121314135183.png" alt="在这里插入图片描述"><br><img src="https://img-blog.csdnimg.cn/20201213141413389.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>通配选择器<br>作用：选中页面中的所有元素<br>语法: *</li>
-</ul>
+<h2 id="通配选择器"><a href="#通配选择器" class="headerlink" title="通配选择器"></a>通配选择器</h2><p> 作用：选中页面中的所有元素<br> 语法: *</p>
 <p><strong>2.复合选择器</strong></p>
-<ul>
-<li>交集选择器</li>
-</ul>
-<p>作用：选中同时复合多个条件的元素</p>
+<h2 id="交集选择器"><a href="#交集选择器" class="headerlink" title="交集选择器"></a>交集选择器</h2><p>作用：选中同时复合多个条件的元素</p>
 <p>语法：选择器1选择器2选择器3选择器n{}</p>
 <p>注意点：交集选择器中如果有元素选择器，必须使用元素选择器开头</p>
 <p><img src="https://img-blog.csdnimg.cn/2020121314164560.png" alt="在这里插入图片描述"></p>
-<ul>
-<li><p>并集选择器<br>作用：同时选择多个选择器对应的元素，其中可以是交集选择器<br>语法：选择器1,选择器2,选择器3,选择器n{}<br>例子： #b1,.p1,h1,span,div.red{}</p>
-</li>
-<li><p>关系选择器</p>
-</li>
-</ul>
-<p>介绍标签关系：</p>
+<h2 id="并集选择器"><a href="#并集选择器" class="headerlink" title="并集选择器"></a>并集选择器</h2><p>作用：同时选择多个选择器对应的元素，其中可以是交集选择器<br>语法：选择器1,选择器2,选择器3,选择器n{}<br>例子： #b1,.p1,h1,span,div.red{}</p>
+<h2 id="关系选择器"><a href="#关系选择器" class="headerlink" title="关系选择器"></a>关系选择器</h2><p>介绍标签关系：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">父元素：直接包含子元素的元素叫做父元素</span><br><span class="line">子元素：直接被父元素包含的元素是子元素</span><br><span class="line">祖先元素：</span><br><span class="line">1.直接或间接包含后代元素的元素叫做祖先元素</span><br><span class="line">2.一个元素的父元素也是它的祖先元素</span><br><span class="line">后代元素：</span><br><span class="line">1.直接或间接被祖先元素包含的元素叫做后代元素</span><br><span class="line">2.子元素也是后代元素</span><br><span class="line">兄弟元素：拥有相同父元素的元素是兄弟元素</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>子元素选择器</li>
-</ul>
-<p>作用：选中指定父元素的指定子元素</p>
+<h2 id="子元素选择器"><a href="#子元素选择器" class="headerlink" title="子元素选择器"></a>子元素选择器</h2><p>作用：选中指定父元素的指定子元素</p>
 <p>语法：父元素 &gt; 子元素</p>
 <p><img src="https://img-blog.csdnimg.cn/20201213142106184.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>后代元素选择器：</li>
-</ul>
-<p>作用：选中指定元素内的指定后代元素</p>
+<h2 id="后代元素选择器"><a href="#后代元素选择器" class="headerlink" title="后代元素选择器"></a>后代元素选择器</h2><p>作用：选中指定元素内的指定后代元素</p>
 <p>语法：祖先 后代</p>
 <p><img src="https://img-blog.csdnimg.cn/20201213142151314.png" alt="在这里插入图片描述"></p>
-<ul>
-<li>兄弟选择器</li>
-</ul>
-<p>1.选择下一个兄弟</p>
+<h2 id="兄弟选择器"><a href="#兄弟选择器" class="headerlink" title="兄弟选择器"></a>兄弟选择器</h2><p>1.选择下一个兄弟</p>
 <p>语法：前一个 + 下一个</p>
 <p><img src="https://img-blog.csdnimg.cn/20201213142328589.png" alt="在这里插入图片描述"><br>选择紧贴着p的span的兄弟元素</p>
 <p>2.选择下边所有的~符号后面标签名的兄弟</p>
 <p>语法：兄 ~ 弟<br><img src="https://img-blog.csdnimg.cn/20201213142320896.png" alt="在这里插入图片描述"><br>选择p后面的所有的span兄弟元素</p>
+<h2 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h2><p>语法：<br><code>[属性名]</code> 选择含有指定属性的元素<br><code>[属性名=属性值]</code> 选择含有指定属性和属性值的元素<br><code>[属性名^=属性值]</code> 选择属性值以指定值开头的元素<br><code>[属性名$=属性值]</code> 选择属性值以指定值结尾的元素<br><code>[属性名*=属性值]</code> 选择属性值中含有某值的元素的元素<br><img src="https://img-blog.csdnimg.cn/20201214185055372.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h2><p>伪类（不存在的类，特殊的类）<br>伪类用来描述一个元素的特殊状态<br>比如：第一个子元素、被点击的元素、鼠标移入的元素…<br>伪类一般情况下都是使用:开头</p>
+<p><code>:empty</code> 匹配冒号前面元素的类型中没有子元素的元素</p>
+<p><code>:only-child</code> 匹配他的父元素中只有唯一子元素的子元素(匹配的是冒号前的元素，也就是那个子元素)</p>
+<p><code>:first-child</code> 第一个子元素<br><code>:last-child</code> 最后一个子元素<br><code>:nth-child()</code> 选中第n个子元素</p>
+<p><code>:nth-last-child(n)</code> 指定每个冒号前元素，匹配该元素的同级兄弟元素里倒数第n个元素</p>
+<p>特殊值：<br>n 第n个 n的范围0到正无穷<br>2n 或 even 表示选中偶数位的元素<br>2n+1 或 odd 表示选中奇数位的元素<br>以上这些伪类都是根据<code>所有的子元素</code>进行排序</p>
+<p>:first-of-type<br>:last-of-type<br>:nth-of-type()<br>:nth-last-of-child(n)<br>这几个伪类的功能和上述的类似，不同点是他们是在<code>冒号前元素的父元素里面的同类型元素</code>中进行排序<br>:not() 否定伪类<br>将符合条件的元素从选择器中去除</p>
+<p><img src="https://img-blog.csdnimg.cn/20201214192453475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p><img src="https://img-blog.csdnimg.cn/20201214193908152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="a元素的伪类"><a href="#a元素的伪类" class="headerlink" title="a元素的伪类"></a>a元素的伪类</h2><p>语法：<br><code>:link</code>  用来表示没访问过的链接（正常的链接）<br><code>:visited</code>  用来表示访问过的链接，由于隐私的原因，所以visited这个伪类只能修改链接的颜色。<br><code>:hover</code> 用来表示鼠标移入的状态<br><code>:active</code> 用来表示鼠标点击下去的瞬间（如果鼠标一直按住不放就不是瞬间哈哈哈）</p>
+<h2 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h2><p>伪元素，表示页面中一些特殊的并不真实的存在的元素（特殊的位置）<br>伪元素使用 :: 开头<br>语法：<br><code>::first-letter</code> 表示第一个字母<br><code>::first-line</code> 表示第一行<br><code>::selection</code> 表示鼠标拖动选中的内容<br><code>::before</code> 元素的开始<br><code>::after</code> 元素的最后<br>before 和 after 必须结合content属性来使用<br><img src="https://img-blog.csdnimg.cn/20201214210339256.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h2 id="选择器权重"><a href="#选择器权重" class="headerlink" title="选择器权重"></a>选择器权重</h2><table>
+<thead>
+<tr>
+<th>样式</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>内联样式</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>id选择器</td>
+<td>0100</td>
+</tr>
+<tr>
+<td>类和伪类选择器</td>
+<td>0010</td>
+</tr>
+<tr>
+<td>元素选择器</td>
+<td>0001</td>
+</tr>
+<tr>
+<td>通配选择器</td>
+<td>0000</td>
+</tr>
+<tr>
+<td>继承</td>
+<td>没有优先级</td>
+</tr>
+</tbody></table>
+<p>1.比较优先级时，需要将所有的选择器的优先级进行相加计算，最后优先级越高，则越优先显示（分组选择器是单独计算的）, 一般来说选择器越详细优先级越高。</p>
+<p>2.选择器的累加不会超过其最大的数量级，类选择器在高也不会超过id选择器<br>如果优先级计算后相同，此时则优先使用靠下的样式</p>
+<p>3.可以在某一个样式的后边添加 !important ，则此时该样式会获取到最高的优先级，甚至超过内联样式。<br>注意：在开发中这个玩意一定要慎用！</p>
 
       
 
@@ -402,7 +428,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">css简介与使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">css的语法#</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">选择器</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">css简介与使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">css的语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">id选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">通配选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.4.</span> <span class="toc-text">交集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.5.</span> <span class="toc-text">并集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.6.</span> <span class="toc-text">关系选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.7.</span> <span class="toc-text">子元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E4%BB%A3%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.8.</span> <span class="toc-text">后代元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%84%E5%BC%9F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.9.</span> <span class="toc-text">兄弟选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.10.</span> <span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.11.</span> <span class="toc-text">伪类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a%E5%85%83%E7%B4%A0%E7%9A%84%E4%BC%AA%E7%B1%BB"><span class="toc-number">3.12.</span> <span class="toc-text">a元素的伪类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.13.</span> <span class="toc-text">伪元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E6%9D%83%E9%87%8D"><span class="toc-number">3.14.</span> <span class="toc-text">选择器权重</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
