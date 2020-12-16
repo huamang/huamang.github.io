@@ -31,8 +31,12 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201214192453475.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201214193908152.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201214210339256.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/2020121616500553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201216165229539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201216170536536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201216170740683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-12-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-14T13:19:44.289Z">
+<meta property="article:modified_time" content="2020-12-16T09:09:16.787Z">
 <meta property="article:author" content="huamang">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="笔记">
@@ -303,6 +307,73 @@
 <p>1.比较优先级时，需要将所有的选择器的优先级进行相加计算，最后优先级越高，则越优先显示（分组选择器是单独计算的）, 一般来说选择器越详细优先级越高。</p>
 <p>2.选择器的累加不会超过其最大的数量级，类选择器在高也不会超过id选择器<br>如果优先级计算后相同，此时则优先使用靠下的样式</p>
 <p>3.可以在某一个样式的后边添加 !important ，则此时该样式会获取到最高的优先级，甚至超过内联样式。<br>注意：在开发中这个玩意一定要慎用！</p>
+<h1 id="单位"><a href="#单位" class="headerlink" title="单位"></a>单位</h1><h2 id="长度单位"><a href="#长度单位" class="headerlink" title="长度单位"></a>长度单位</h2><ul>
+<li><p>像素<br>屏幕（显示器）实际上是由一个一个的小点点构成的<br>不同屏幕的像素大小是不同的，像素越小的屏幕显示的效果越清晰<br>所以同样的200px在不同的设备下显示效果不一样</p>
+</li>
+<li><p>百分比<br>也可以将属性值设置为相对于其父元素属性的百分比<br>设置百分比可以使子元素跟随父元素的改变而改变</p>
+</li>
+<li><p>em<br>em是相对于元素的字体大小来计算的<br>1em = 1font-size<br>系统默认的font-size是16px<br>em会根据字体大小的改变而改变<br><img src="https://img-blog.csdnimg.cn/2020121616500553.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>当加上font-size时会根据font-size来布置<br><img src="https://img-blog.csdnimg.cn/20201216165229539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+</li>
+<li><p>rem<br>rem是相对于根元素的字体大小来计算<br>与em同理，只不过他认定的font-size是根元素html里的font-size</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>&#123;</span><br><span class="line">	font-size=10px</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="颜色"><a href="#颜色" class="headerlink" title="颜色"></a>颜色</h2><p>颜色单位</p>
+<ul>
+<li>颜色名<br>在CSS中可以直接使用颜色名来设置各种颜色<br>比如：red、orange、yellow、blue、green … …<br>但是在css中直接使用颜色名是非常的不方便</li>
+<li>RGB值：<br>RGB通过三种颜色的不同浓度来调配出不同的颜色<br>R：red，G：green ，B：blue<br>每一种颜色的范围在 0 - 255 (0% - 100%) 之间<br>语法：RGB(红色,绿色,蓝色)</li>
+<li>RGBA:<br>就是在rgb的基础上增加了一个a表示不透明度<br>需要四个值，前三个和rgb一样，第四个表示不透明度<br>1表示完全不透明   0表示完全透明  .5半透明</li>
+<li>十六进制的RGB值：<br>语法：#红色绿色蓝色<br>颜色浓度通过 00-ff<br>如果颜色两位两位重复可以进行简写<br>#aabbcc –&gt; #abc，而#aabbcd就不能简写<br>一定要RGB每一项都两两重复</li>
+<li>HSL值 HSLA值<br>H 色相(0 - 360)<br>S 饱和度，颜色的浓度 0% - 100%（100%最正）<br>L 亮度，颜色的亮度 0% - 100%（50%最正）<br>A 不透明度，和之前的一样</li>
+</ul>
+<h1 id="layout"><a href="#layout" class="headerlink" title="layout"></a>layout</h1><p>关系着整个网页的布局</p>
+<h2 id="文档流"><a href="#文档流" class="headerlink" title="文档流"></a>文档流</h2><p>文档流（normal flow）</p>
+<ul>
+<li>网页是一个多层的结构，一层摞着一层</li>
+<li>通过CSS可以分别为每一层来设置样式</li>
+<li>作为用户来讲只能看到最顶上一层</li>
+<li>这些层中，最底下的一层称为文档流，文档流是网页的基础</li>
+<li>我们所创建的元素默认都是在文档流中进行排列</li>
+</ul>
+<p>对于我们来元素主要有两个状态</p>
+<ul>
+<li>在文档流中</li>
+<li>不在文档流中（脱离文档流）</li>
+</ul>
+<p>元素在文档流中有什么特点：<br>块元素：</p>
+<ul>
+<li>块元素会在页面中独占一行(自上向下垂直排列)</li>
+<li>默认宽度是父元素的全部（会把父元素撑满）</li>
+<li>默认高度是被内容撑开（子元素）</li>
+</ul>
+<p>行内元素：</p>
+<ul>
+<li>行内元素不会独占页面的一行，只占自身的大小</li>
+<li>行内元素在页面中左向右水平排列，如果一行之中不能容纳下所有的行内元素则元素会换到第二行继续自左向右排列（书写习惯一致）</li>
+<li>行内元素的默认宽度和高度都是被内容撑开</li>
+</ul>
+<h2 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h2><p>盒模型、盒子模型、框模型（box model）</p>
+<ul>
+<li>CSS将页面中的所有元素都设置为了一个矩形的盒子</li>
+<li>将元素设置为矩形的盒子后，对页面的布局就变成将不同的盒子摆放到不同的位置</li>
+<li>每一个盒子都由一下几个部分组成：<br>内容区（content）<br>内边距（padding）<br>边框（border）<br>外边距（margin）</li>
+</ul>
+<p>内容区（content），元素中的所有的子元素和文本内容都在内容区中排列<br>内容区的大小由width 和 height两个属性来设置</p>
+<ul>
+<li>width 设置内容区的宽度</li>
+<li>height 设置内容区的高度</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">width</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">height</span>: 200<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">background-color</span>: <span class="selector-id">#bfa</span>;</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201216170536536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>边框（border），边框属于盒子边缘，边框里边属于盒子内部，出了边框都是盒子的外部<br>边框的大小会影响到整个盒子的大小<br>要设置边框，需要至少设置三个样式：</p>
+<ul>
+<li>边框的宽度 border-width</li>
+<li>边框的颜色 border-color</li>
+<li>边框的样式 border-style</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border-width</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">border-color</span>: <span class="selector-tag">red</span>;</span><br><span class="line"><span class="selector-tag">border-style</span>: <span class="selector-tag">solid</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201216170740683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>边框不会影响内容区的大小，但会影响整个盒子模型的大小</p>
 
       
 
@@ -428,7 +499,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">css简介与使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">css的语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">id选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">通配选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.4.</span> <span class="toc-text">交集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.5.</span> <span class="toc-text">并集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.6.</span> <span class="toc-text">关系选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.7.</span> <span class="toc-text">子元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E4%BB%A3%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.8.</span> <span class="toc-text">后代元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%84%E5%BC%9F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.9.</span> <span class="toc-text">兄弟选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.10.</span> <span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.11.</span> <span class="toc-text">伪类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a%E5%85%83%E7%B4%A0%E7%9A%84%E4%BC%AA%E7%B1%BB"><span class="toc-number">3.12.</span> <span class="toc-text">a元素的伪类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.13.</span> <span class="toc-text">伪元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E6%9D%83%E9%87%8D"><span class="toc-number">3.14.</span> <span class="toc-text">选择器权重</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">css简介与使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">css的语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">id选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">通配选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.4.</span> <span class="toc-text">交集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.5.</span> <span class="toc-text">并集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.6.</span> <span class="toc-text">关系选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.7.</span> <span class="toc-text">子元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E4%BB%A3%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.8.</span> <span class="toc-text">后代元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%84%E5%BC%9F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.9.</span> <span class="toc-text">兄弟选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.10.</span> <span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.11.</span> <span class="toc-text">伪类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a%E5%85%83%E7%B4%A0%E7%9A%84%E4%BC%AA%E7%B1%BB"><span class="toc-number">3.12.</span> <span class="toc-text">a元素的伪类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.13.</span> <span class="toc-text">伪元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E6%9D%83%E9%87%8D"><span class="toc-number">3.14.</span> <span class="toc-text">选择器权重</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D"><span class="toc-number">4.</span> <span class="toc-text">单位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%BF%E5%BA%A6%E5%8D%95%E4%BD%8D"><span class="toc-number">4.1.</span> <span class="toc-text">长度单位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2"><span class="toc-number">4.2.</span> <span class="toc-text">颜色</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#layout"><span class="toc-number">5.</span> <span class="toc-text">layout</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E6%B5%81"><span class="toc-number">5.1.</span> <span class="toc-text">文档流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">5.2.</span> <span class="toc-text">盒子模型</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
