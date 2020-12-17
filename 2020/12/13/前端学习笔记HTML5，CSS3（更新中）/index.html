@@ -35,8 +35,9 @@
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201216165229539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201216170536536.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/20201216170740683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201217175300108.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-12-12T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-16T09:09:16.787Z">
+<meta property="article:modified_time" content="2020-12-17T15:09:50.465Z">
 <meta property="article:author" content="huamang">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="笔记">
@@ -208,22 +209,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>前端学习笔记</strong></p>
-<a id="more"></a>
-<p>网页分成三个部分：<br>结构(HTML)<br>表现(CSS)<br>行为(JavaScript)</p>
-<h1 id="css简介与使用"><a href="#css简介与使用" class="headerlink" title="css简介与使用"></a>css简介与使用</h1><p><strong>1.内部样式</strong></p>
+        <h1 id="前端学习笔记"><a href="#前端学习笔记" class="headerlink" title="前端学习笔记"></a>前端学习笔记</h1><a id="more"></a>
+<p>网页分成三个部分：</p>
+<ul>
+<li>结构(HTML)</li>
+<li>表现(CSS)</li>
+<li>行为(JavaScript)<h1 id="css简介与使用"><a href="#css简介与使用" class="headerlink" title="css简介与使用"></a>css简介与使用</h1><h2 id="1-内部样式"><a href="#1-内部样式" class="headerlink" title="1.内部样式"></a>1.内部样式</h2></li>
+</ul>
 <p>将样式编写到head中的style标签里<br>然后通过CSS的选择器来选中元素并为其设置各种样式<br>可以同时为多个标签设置样式，并且修改时只需要修改一处即可全部应用</p>
 <ul>
 <li>内部样式表更加方便对样式进行复用</li>
 <li>缺点：<br>我们的内部样式表只能对一个网页起作用，它里边的样式不能跨页面进行复用<br><img src="https://img-blog.csdnimg.cn/20201213140129335.png" alt="在这里插入图片描述"></li>
 </ul>
-<p><strong>2.外部样式表</strong><br>以将CSS样式编写到一个外部的CSS文件中,<br>然后通过link标签来引入外部的CSS文件</p>
+<h2 id="2-外部样式表"><a href="#2-外部样式表" class="headerlink" title="2.外部样式表"></a>2.外部样式表</h2><p>以将CSS样式编写到一个外部的CSS文件中,<br>然后通过link标签来引入外部的CSS文件</p>
 <ul>
 <li>外部样式表需要通过link标签进行引入，<br>意味着只要想使用这些样式的网页都可以对其进行引用<br>使样式可以在不同页面之间进行复用</li>
-<li>将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，<br>从而加快网页的加载速度，提高用户的体验。<br><img src="https://img-blog.csdnimg.cn/20201213140253490.png" alt="在这里插入图片描述"><h1 id="css的语法"><a href="#css的语法" class="headerlink" title="css的语法"></a>css的语法</h1></li>
+<li>将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，<br>从而加快网页的加载速度，提高用户的体验。<br><img src="https://img-blog.csdnimg.cn/20201213140253490.png" alt="在这里插入图片描述"><h1 id="css的语法"><a href="#css的语法" class="headerlink" title="css的语法"></a>css的语法</h1><h2 id="1-注释："><a href="#1-注释：" class="headerlink" title="1.注释：##"></a>1.注释：##</h2>/**/</li>
 </ul>
-<p><strong>1.注释：</strong><br>/**/</p>
-<p><strong>2.基本语法：</strong><br>选择器 声明块</p>
+<h2 id="2-基本语法："><a href="#2-基本语法：" class="headerlink" title="2.基本语法：##"></a>2.基本语法：##</h2><p>选择器 声明块</p>
 <p><img src="https://img-blog.csdnimg.cn/20201213140703988.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>选择器，通过选择器可以选中页面中的指定元素<br>比如 p 的作用就是选中页面中所有的p元素</p>
 <p>声明块，通过声明块来指定要为元素设置的样式<br>声明块由一个一个的声明组成<br> 声明是一个名值对结构<br>一个样式名对应一个样式值，名和值之间：以<code>:</code>连接 ，以<code>;</code>结尾   </p>
@@ -374,6 +377,62 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border-width</span>: 10<span class="selector-tag">px</span>;</span><br><span class="line"><span class="selector-tag">border-color</span>: <span class="selector-tag">red</span>;</span><br><span class="line"><span class="selector-tag">border-style</span>: <span class="selector-tag">solid</span></span><br></pre></td></tr></table></figure>
 <p><img src="https://img-blog.csdnimg.cn/20201216170740683.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
 <p>边框不会影响内容区的大小，但会影响整个盒子模型的大小</p>
+<h2 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h2><p>边框 (border)</p>
+<ul>
+<li>边框的宽度 <code>border-width</code></li>
+<li>边框的颜色 <code>border-color</code></li>
+<li>边框的样式 <code>border-style</code></li>
+</ul>
+<p><strong>宽度</strong><br>border-width: 10px; 默认值，一般都是 3个像素<br>border-width可以用来指定四个方向的边框的宽度值的情况</p>
+<ul>
+<li>四个值：上 右 下 左</li>
+<li>三个值：上 左右 下</li>
+<li>两个值：上下 左右</li>
+<li>一个值：上下左右</li>
+</ul>
+<p>除了border-width还有一组 border-xxx-width<br>xxx可以是 <code>top</code> <code>right</code> <code>bottom</code> <code>left</code><br>用来单独指定某一个边的宽度</p>
+<p><strong>颜色</strong><br>border-color用来指定边框的颜色，同样可以分别指定四个边的边框规则和border-width一样<br>border-color也可以省略不写，如果省略了则自动使用color的颜色值</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">color</span>: <span class="selector-tag">red</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>样式</strong><br>border-style 指定边框的样式，默认值是none 表示没有边框</p>
+<ul>
+<li>solid 表示实线</li>
+<li>dotted 点状虚线</li>
+<li>dashed 虚线</li>
+<li>double 双线</li>
+</ul>
+<p><strong>简写属性</strong><br> border简写属性，通过该属性可以同时设置边框所有的相关样式，并且没有顺序要求<br> 除了border以外还有四个 border-xxx</p>
+<ul>
+<li>border-top</li>
+<li>border-right</li>
+<li>border-bottom</li>
+<li>border-left</li>
+</ul>
+<p>这个方式比较方便所以用的比较多</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">border</span>: 10<span class="selector-tag">px</span> <span class="selector-tag">red</span> <span class="selector-tag">solid</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="内边距（padding）"><a href="#内边距（padding）" class="headerlink" title="内边距（padding）"></a>内边距（padding）</h2><p><img src="https://img-blog.csdnimg.cn/20201217175300108.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<ul>
+<li>内容区和边框之间的距离是内边距</li>
+<li>一共有四个方向的内边距：<ul>
+<li>padding-top<ul>
+<li>padding-right</li>
+</ul>
+</li>
+<li>padding-bottom</li>
+<li>padding-left</li>
+</ul>
+</li>
+<li>简写属性和border一样遵循上左下右规则<code>padding: 10px 20px 30px 40px;</code></li>
+</ul>
+<p>内边距的设置会影响到盒子的大小，背景颜色会延伸到内边距上</p>
+<p> 一共盒子的可见框的大小，由内容区 内边距 和 边框共同决定，<br> 所以在计算盒子大小时，需要将这三个区域加到一起计算</p>
+<h2 id="外边距（margin）"><a href="#外边距（margin）" class="headerlink" title="外边距（margin）##"></a>外边距（margin）##</h2><p>外边距不会影响盒子可见框的大小但是外边距会影响盒子的位置</p>
+<p>一共有四个方向的外边距：<br><code>margin-top</code>：上外边距，设置一个正值，元素会向下移动<br><code>margin-right</code>：默认情况下设置margin-right不会产生任何效果<br><code>margin-bottom</code>：下外边距，设置一个正值，其下边的元素会向下移动<br><code>margin-left</code>：左外边距，设置一个正值，元素会向右移动</p>
+<p>margin也可以设置负值，如果是负值则元素会向相反的方向移动</p>
+<ul>
+<li>元素在页面中是按照自左向右的顺序排列的，都往左上角挤，所以默认情况下如果我们设置的左和上外边距则会移动元素自身，而设置下和右外边距会挤开其他元素</li>
+</ul>
+<p>margin的简写属性：margin 可以同时设置四个方向的外边距 ，用法和padding一样</p>
+<p>margin会影响到盒子的实际占用空间</p>
 
       
 
@@ -499,7 +558,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">css简介与使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">2.</span> <span class="toc-text">css的语法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.</span> <span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.1.</span> <span class="toc-text">id选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.2.</span> <span class="toc-text">类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.3.</span> <span class="toc-text">通配选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.4.</span> <span class="toc-text">交集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.5.</span> <span class="toc-text">并集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.6.</span> <span class="toc-text">关系选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.7.</span> <span class="toc-text">子元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E4%BB%A3%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.8.</span> <span class="toc-text">后代元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%84%E5%BC%9F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.9.</span> <span class="toc-text">兄弟选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.10.</span> <span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.11.</span> <span class="toc-text">伪类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a%E5%85%83%E7%B4%A0%E7%9A%84%E4%BC%AA%E7%B1%BB"><span class="toc-number">3.12.</span> <span class="toc-text">a元素的伪类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">3.13.</span> <span class="toc-text">伪元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E6%9D%83%E9%87%8D"><span class="toc-number">3.14.</span> <span class="toc-text">选择器权重</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D"><span class="toc-number">4.</span> <span class="toc-text">单位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%BF%E5%BA%A6%E5%8D%95%E4%BD%8D"><span class="toc-number">4.1.</span> <span class="toc-text">长度单位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2"><span class="toc-number">4.2.</span> <span class="toc-text">颜色</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#layout"><span class="toc-number">5.</span> <span class="toc-text">layout</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E6%B5%81"><span class="toc-number">5.1.</span> <span class="toc-text">文档流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">5.2.</span> <span class="toc-text">盒子模型</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text">前端学习笔记</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%AE%80%E4%BB%8B%E4%B8%8E%E4%BD%BF%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text">css简介与使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%86%85%E9%83%A8%E6%A0%B7%E5%BC%8F"><span class="toc-number">2.1.</span> <span class="toc-text">1.内部样式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%A4%96%E9%83%A8%E6%A0%B7%E5%BC%8F%E8%A1%A8"><span class="toc-number">2.2.</span> <span class="toc-text">2.外部样式表</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#css%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">css的语法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%B3%A8%E9%87%8A%EF%BC%9A"><span class="toc-number">3.1.</span> <span class="toc-text">1.注释：##</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-number">3.2.</span> <span class="toc-text">2.基本语法：##</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.</span> <span class="toc-text">选择器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#id%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.1.</span> <span class="toc-text">id选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text">类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E9%85%8D%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.3.</span> <span class="toc-text">通配选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.4.</span> <span class="toc-text">交集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B9%B6%E9%9B%86%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.5.</span> <span class="toc-text">并集选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E7%B3%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.6.</span> <span class="toc-text">关系选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.7.</span> <span class="toc-text">子元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E4%BB%A3%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.8.</span> <span class="toc-text">后代元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%84%E5%BC%9F%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.9.</span> <span class="toc-text">兄弟选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.10.</span> <span class="toc-text">属性选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E7%B1%BB%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.11.</span> <span class="toc-text">伪类选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#a%E5%85%83%E7%B4%A0%E7%9A%84%E4%BC%AA%E7%B1%BB"><span class="toc-number">4.12.</span> <span class="toc-text">a元素的伪类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%AA%E5%85%83%E7%B4%A0%E9%80%89%E6%8B%A9%E5%99%A8"><span class="toc-number">4.13.</span> <span class="toc-text">伪元素选择器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E5%99%A8%E6%9D%83%E9%87%8D"><span class="toc-number">4.14.</span> <span class="toc-text">选择器权重</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%95%E4%BD%8D"><span class="toc-number">5.</span> <span class="toc-text">单位</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%95%BF%E5%BA%A6%E5%8D%95%E4%BD%8D"><span class="toc-number">5.1.</span> <span class="toc-text">长度单位</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%9C%E8%89%B2"><span class="toc-number">5.2.</span> <span class="toc-text">颜色</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#layout"><span class="toc-number">6.</span> <span class="toc-text">layout</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E6%A1%A3%E6%B5%81"><span class="toc-number">6.1.</span> <span class="toc-text">文档流</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B"><span class="toc-number">6.2.</span> <span class="toc-text">盒子模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%B9%E6%A1%86"><span class="toc-number">6.3.</span> <span class="toc-text">边框</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E8%BE%B9%E8%B7%9D%EF%BC%88padding%EF%BC%89"><span class="toc-number">6.4.</span> <span class="toc-text">内边距（padding）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E8%BE%B9%E8%B7%9D%EF%BC%88margin%EF%BC%89"><span class="toc-number">6.5.</span> <span class="toc-text">外边距（margin）##</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
