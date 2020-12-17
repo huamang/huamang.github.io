@@ -806,8 +806,8 @@ body {
 }
 
 .left-col {
-    background-image: url("background.png");
-	/* background: #fff; */
+    /* background-image: url("background.png"); */
+	background: rgb(41, 30, 197);
 	width: 300px;
 	position: fixed;
 	opacity: 1;
