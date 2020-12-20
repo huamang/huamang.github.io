@@ -23,22 +23,22 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta name="description" content="使用指针方法实现字符串逆序存放后再输出">
+<meta name="description" content="类和对象首先要拿class创建一个类，这个类就相当于一个图纸，创建对象就是类的实例化，就相当于那图纸造屋子，对象名&#x3D;类名()就算是给这个类创建了一个对象，这个对象就是在这个类里面了 self一个类可以生成无数个对象，当对象的方法被调用时，对象会将自身作为第一个参数传给这个方法，这个时候python才知道到底这个方法是给哪个对象用的，所以这个self就像是一把钥匙，对应着这个对象对应的门。比如下面的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="指针练习">
-<meta property="og:url" content="http://example.com/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/index.html">
+<meta property="og:title" content="对类和对象，self，__init__的理解">
+<meta property="og:url" content="http://example.com/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Huamang&#39;s Blog">
-<meta property="og:description" content="使用指针方法实现字符串逆序存放后再输出">
+<meta property="og:description" content="类和对象首先要拿class创建一个类，这个类就相当于一个图纸，创建对象就是类的实例化，就相当于那图纸造屋子，对象名&#x3D;类名()就算是给这个类创建了一个对象，这个对象就是在这个类里面了 self一个类可以生成无数个对象，当对象的方法被调用时，对象会将自身作为第一个参数传给这个方法，这个时候python才知道到底这个方法是给哪个对象用的，所以这个self就像是一把钥匙，对应着这个对象对应的门。比如下面的">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2020-12-13T06:41:12.611Z">
+<meta property="article:published_time" content="2020-12-20T14:51:45.025Z">
+<meta property="article:modified_time" content="2020-12-20T14:55:31.095Z">
 <meta property="article:author" content="huamang">
-<meta property="article:tag" content="c语言">
-<meta property="article:tag" content="指针">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="http://example.com/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/">
+<link rel="canonical" href="http://example.com/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/">
 
 
 <script class="page-configurations">
@@ -50,7 +50,7 @@
     lang   : 'zh-CN'
   };
 </script>
-<title>指针练习 | Huamang's Blog</title>
+<title>对类和对象，self，__init__的理解 | Huamang's Blog</title>
   
 
 
@@ -160,7 +160,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E9%80%86%E5%BA%8F%E5%AD%98%E6%94%BE%E5%90%8E%E5%86%8D%E8%BE%93%E5%87%BA"><span class="nav-number">1.</span> <span class="nav-text">使用指针方法实现字符串逆序存放后再输出</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.</span> <span class="nav-text">类和对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#self"><span class="nav-number">2.</span> <span class="nav-text">self</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#init"><span class="nav-number">3.</span> <span class="nav-text">init</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -235,7 +235,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -248,7 +248,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          指针练习
+          对类和对象，self，__init__的理解
         </h1>
 
         <div class="post-meta-container">
@@ -258,16 +258,10 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2020-11-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-19T00:00:00+08:00">2020-11-19</time>
+      <time title="创建时间：2020-12-20 22:51:45 / 修改时间：22:55:31" itemprop="dateCreated datePublished" datetime="2020-12-20T22:51:45+08:00">2020-12-20</time>
     </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-13 14:41:12" itemprop="dateModified" datetime="2020-12-13T14:41:12+08:00">2020-12-13</time>
-      </span>
 
   
     <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -286,13 +280,12 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="使用指针方法实现字符串逆序存放后再输出"><a href="#使用指针方法实现字符串逆序存放后再输出" class="headerlink" title="使用指针方法实现字符串逆序存放后再输出"></a>使用指针方法实现字符串逆序存放后再输出</h1><a id="more"></a>
-<p>编写程序：从键盘任意输入一个字符串，输出该字符串。然后，将该字符串逆序存放后再输出，要求用字符指针完成。（提示：逆序存放的函数接口：void invstr(char *s)）</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">invstr</span><span class="params">(<span class="keyword">char</span> *s)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> b;</span><br><span class="line">	<span class="keyword">int</span> len;</span><br><span class="line">	len=<span class="built_in">strlen</span>(s); <span class="comment">/*获取该字符串的长度*/</span> </span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;len/<span class="number">2</span>;i++)&#123; <span class="comment">/*该循环的目的是每次将字符串的头和尾换一下位置*/</span> </span><br><span class="line">		b=*(s+i); <span class="comment">/*字符串的第i个元素的地址暂时放到b里*/</span> </span><br><span class="line">		*(s+i)=*(s+len<span class="number">-1</span>-i); <span class="comment">/*将字符串的倒数第i个元素换到第i个元素*/</span> </span><br><span class="line">		*(s+len<span class="number">-1</span>-i)=b; <span class="comment">/*再将b存放的地址放回倒数第i个元素*/</span> </span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">1000</span>];</span><br><span class="line">	gets(a); <span class="comment">/*输入字符串*/</span> </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,a); <span class="comment">/*正序输出一次*/</span> </span><br><span class="line">	invstr(a); <span class="comment">/*运行函数*/</span> </span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%s&quot;</span>,a); <span class="comment">/*逆序输出*/</span> </span><br><span class="line"> &#125; </span><br></pre></td></tr></table></figure>
-<p>利用指针编程，用指针方法编写一函数，实现两个字符串的比较。编程点拨：即自己编写一个strcmp函数：strcmp(s1,s2)，如果s1= s2，返回值为0，如果s1≠s2, 返回它们二者第一个不同字符的ASCII码差值(如”BOY”与”BAD”, 第二个字母不同，”O”与”A”之差为79-65=14)。如果要s1&gt;s2，则输出正值，如果s1&lt;s2，则输出负值。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">strcmp</span><span class="params">(<span class="keyword">char</span> *s1,<span class="keyword">char</span> *s2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> len,i=<span class="number">0</span>,sum=<span class="number">0</span>,lenmax;</span><br><span class="line">	lenmax = <span class="built_in">strlen</span>(s1);</span><br><span class="line">	len = <span class="built_in">strlen</span>(s2); </span><br><span class="line">	<span class="keyword">if</span>(lenmax &lt; len)&#123;</span><br><span class="line">		lenmax = len;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lenmax <span class="keyword">and</span> sum==<span class="number">0</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(*(s1+i) &gt; *(s1+i))&#123;</span><br><span class="line">			sum = *(s1+i) - *(s2+i);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(*(s1+i) &lt; *(s2+i))&#123;</span><br><span class="line">           sum = ( - (*(s1+i) - *(s2+i)));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,sum);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">char</span> s1[<span class="number">1000</span>],s2[<span class="number">1000</span>];</span><br><span class="line">	gets(s1);</span><br><span class="line">	gets(s2);</span><br><span class="line">	<span class="built_in">strcmp</span>(s1,s2);</span><br><span class="line"> &#125; </span><br></pre></td></tr></table></figure>
-
-
+        <h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><p>首先要拿class创建一个类，这个类就相当于一个图纸，创建对象就是类的实例化，就相当于那图纸造屋子，对象名=类名()就算是给这个类创建了一个对象，这个对象就是在这个类里面了</p>
+<h2 id="self"><a href="#self" class="headerlink" title="self"></a>self</h2><p>一个类可以生成无数个对象，当对象的方法被调用时，对象会将自身作为第一个参数传给这个方法，这个时候python才知道到底这个方法是给哪个对象用的，所以这个self就像是一把钥匙，对应着这个对象对应的门。比如下面的代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span> <span class="comment"># 创建了一个名为Person的类 </span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setname</span> (<span class="params">self,itname</span>):</span> <span class="comment"># 创建一个名为setname的方法，第一个参数为self</span></span><br><span class="line">        self.itname = itname  <span class="comment"># 因为itname是外部变量，要在类中使用要加工</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">printname</span> (<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;我是%s&quot;</span> % self.itname)</span><br><span class="line">a = Person()  <span class="comment"># 实例化a</span></span><br><span class="line">a.setname(<span class="string">&quot;小明&quot;</span>) <span class="comment"># a作为self参数传入，&quot;小明&quot;作为itname参数传入</span></span><br><span class="line">a.printname()</span><br></pre></td></tr></table></figure>
+<p>对于self.itname的理解：itname是全局变量，要在类中使用还得加工一下，使用<code>self.变量名</code>将外部的变量引入类中使用，不加self.会被当做普通变量。</p>
+<h2 id="init"><a href="#init" class="headerlink" title="init"></a><strong>init</strong></h2><p>这是一个构造函数（构造方法），实例化对象时，该方法会在对象被创建的时候自动调用，实例化对象的时候是可以传入参数的，这些参数会自动传入该方法中，通过重写该方法可以自定义对象的初始化操作，不重写就默认调用<strong>init</strong>(self)。，类名就作为self，看如下代码。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span> (<span class="params">self,itname</span>):</span>  <span class="comment"># 额外添加一个参数，实例化对象时输入的内容就作为itname的参数</span></span><br><span class="line">        self.itname = itname</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">printname</span> (<span class="params">self</span>):</span></span><br><span class="line">        print(<span class="string">&quot;我是%s&quot;</span> % self.itname)</span><br><span class="line">a = Person(<span class="string">&quot;小明&quot;</span>) <span class="comment"># 创建类的时候就可以直接传入参数，类名作为self，&quot;小明&quot;作为itname</span></span><br><span class="line">a.printname()</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -318,22 +311,19 @@
 </div>
 
           <div class="post-tags">
-              <a href="/tags/c%E8%AF%AD%E8%A8%80/" rel="tag"># c语言</a>
-              <a href="/tags/%E6%8C%87%E9%92%88/" rel="tag"># 指针</a>
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/python/" rel="tag"># python</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2020/10/19/%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="prev" title="使用Hexo在Github上创建博客">
-                  <i class="fa fa-chevron-left"></i> 使用Hexo在Github上创建博客
+                <a href="/2020/12/13/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" rel="prev" title="vscode使用笔记">
+                  <i class="fa fa-chevron-left"></i> vscode使用笔记
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2020/12/08/%E5%9C%A8github%E5%88%9B%E5%BB%BA%E5%BA%93%E5%B9%B6%E5%90%91%E4%B8%8A%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" rel="next" title="在github创建库并向上上传文件">
-                  在github创建库并向上上传文件 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
