@@ -23,16 +23,24 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="Huamang&#39;s Blog">
-<meta property="og:url" content="http://example.com/tags/python/index.html">
+<meta name="description" content="Python中__new__函数的理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python中__new__函数的理解">
+<meta property="og:url" content="http://example.com/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="Huamang&#39;s Blog">
+<meta property="og:description" content="Python中__new__函数的理解">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20201224003600945.png">
+<meta property="article:published_time" content="2020-12-23T16:37:55.295Z">
+<meta property="article:modified_time" content="2020-12-23T16:50:22.505Z">
 <meta property="article:author" content="huamang">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="python">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20201224003600945.png">
 
 
-<link rel="canonical" href="http://example.com/tags/python/">
+<link rel="canonical" href="http://example.com/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/">
 
 
 <script class="page-configurations">
@@ -40,11 +48,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
-<title>标签: python | Huamang's Blog</title>
+<title>Python中__new__函数的理解 | Huamang's Blog</title>
   
 
 
@@ -141,7 +149,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -154,6 +162,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python%E4%B8%AD-new-%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">Python中__new__函数的理解</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -217,70 +226,120 @@
 </noscript>
 
 
-    <div class="main-inner tag posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <h2 class="collection-header">python
-          <small>标签</small>
-        </h2>
-      </div>
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="huamang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Huamang's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python中__new__函数的理解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
       
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+
+      <time title="创建时间：2020-12-24 00:37:55 / 修改时间：00:50:22" itemprop="dateCreated datePublished" datetime="2020-12-24T00:37:55+08:00">2020-12-24</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h2 id="Python中-new-函数的理解"><a href="#Python中-new-函数的理解" class="headerlink" title="Python中__new__函数的理解"></a>Python中__new__函数的理解</h2><a id="more"></a>
+<p>在小甲鱼的课程里，学到了__new__函数的时候，我刚看完他的例子，我是一脸懵逼啊，一点都没有头绪，为啥这样做？在看了几篇博客以后我稍有理解，在这里记录一下</p>
+<p><strong>new</strong> 是在一个对象实例化的时候所调用的第一个方法。它跟其他魔法方法不同，它的第一个参数不是 self 而是这个类（cls），而其他的参数会直接传递给 <strong>init</strong> 方法的。</p>
+<p><strong>个人理解</strong>：new方法是会在init方法前调用的，除了第一个参数，其他参数会返回给init</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Do</span> (<span class="params"><span class="built_in">str</span></span>):</span> <span class="comment">#继承str的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__new__</span>(<span class="params">cls,itstr</span>):</span> <span class="comment">#调用__new__函数，传入字符串itstr</span></span><br><span class="line">        itstr = itstr.upper() <span class="comment"># 把每个字母大写</span></span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">str</span>.__new__(cls,itstr) <span class="comment">#返回实例对象给__init__函数</span></span><br><span class="line">d = Do(<span class="string">&#x27;AbcDeFg&#x27;</span>) <span class="comment">#创建实例对象</span></span><br><span class="line">print(d)</span><br></pre></td></tr></table></figure>
+<p>创建实例对象d的时候，本来是调用init函数的<br>但是由于我们重写了new函数，所以在调用init函数之前会先调用new函数<br>我们重写的new函数第二个参数是itstr，但是我们还要加工后再返回给init<br>所以在加工完后return里写<code>str.__new__(cls,itstr)</code>重新调用new函数后把加工后的itstr返回给init函数<br>所以在调用完了new后开始调用init时，init收到的参数是加工后的itstr，所以d的值就是“ABCDEFG”了</p>
+<p>利用这个特点，我们可以在实例化初始化之前对传入的参数进行修改计算，修改以后再传给init，通熟的说就是“掉包”，例如</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Do</span>(<span class="params"><span class="built_in">float</span></span>):</span> <span class="comment"># 继承浮点数的方法</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">__new__</span>(<span class="params">cls, num</span>):</span> <span class="comment"># 传入参数num</span></span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">float</span>.__new__(cls, num*<span class="number">1.5</span>) <span class="comment"># 对num加工后返回给init</span></span><br><span class="line">print(Do(<span class="number">12</span>))</span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20201224003600945.png" alt="在这里插入图片描述"></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-24T00:37:55+08:00"
-              content="2020-12-24">
-          12-24
-        </time>
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/images/wechat_channel.jpg">
+          <span class="icon">
+            <i class="fab fa-weixin"></i>
+          </span>
+
+          <span class="label">WeChat</span>
+        </a>
       </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/" itemprop="url">
-            <span itemprop="name">Python中__new__函数的理解</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-20T22:51:45+08:00"
-              content="2020-12-20">
-          12-20
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/" itemprop="url">
-            <span itemprop="name">对类和对象，self，__init__的理解</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-    </div>
   </div>
-  
-  
-  
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/python/" rel="tag"># python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/" rel="prev" title="对类和对象，self，__init__的理解">
+                  <i class="fa fa-chevron-left"></i> 对类和对象，self，__init__的理解
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
 
 
 <script>
