@@ -1,1058 +1,233 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.2.0">
-
-
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
-
-<script class="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","version":"8.1.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}};
-  </script>
-<meta property="og:type" content="website">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Huamang's Blog - 回避现实的人，未来将更不理想</title><meta name="author" content="huamang"><meta name="copyright" content="huamang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta property="og:type" content="website">
 <meta property="og:title" content="Huamang&#39;s Blog">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Huamang&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.png">
 <meta property="article:author" content="huamang">
 <meta name="twitter:card" content="summary">
-
-
-<link rel="canonical" href="http://example.com/">
-
-
-<script class="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-<title>Huamang's Blog</title>
-  
-
-
-
-  <noscript>
-  <style>
-  body { margin-top: 2rem; }
-
-  .use-motion .menu-item,
-  .use-motion .sidebar,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header {
-    visibility: visible;
-  }
-
-  .use-motion .header,
-  .use-motion .site-brand-container .toggle,
-  .use-motion .footer { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle,
-  .use-motion .custom-logo-image {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line {
-    transform: scaleX(1);
-  }
-
-  .search-pop-overlay, .sidebar-nav { display: none; }
-  .sidebar-panel { display: block; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
-  <div class="headband"></div>
-
-  <main class="main">
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-        <span class="toggle-line"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <i class="logo-line"></i>
-      <h1 class="site-title">Huamang's Blog</h1>
-      <i class="logo-line"></i>
-    </a>
-      <p class="site-subtitle" itemprop="description">回避现实的人，未来将更不理想</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-<nav class="site-nav">
-  <ul class="main-menu menu">
-        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
-        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
-        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
-        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-        
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-
-  <aside class="sidebar">
-
-    <div class="sidebar-inner sidebar-overview-active">
-      <ul class="sidebar-nav">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <div class="sidebar-panel-container">
-        <!--noindex-->
-        <section class="post-toc-wrap sidebar-panel">
-        </section>
-        <!--/noindex-->
-
-        <section class="site-overview-wrap sidebar-panel">
-          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="huamang"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">huamang</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap site-overview-item animated">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">10</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author site-overview-item animated">
-      <span class="links-of-author-item">
-        <a href="https://github.com/huamang" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;huamang" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://blog.csdn.net/m0_51078229" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;m0_51078229" rel="noopener" target="_blank"><i class="fa fa-heart fa-fw"></i>CSDN</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="mailto:3364744355@qq.com" title="E-Mail → mailto:3364744355@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-        </section>
-      </div>
-    </div>
-  </aside>
-  <div class="sidebar-dimmer"></div>
-
-
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-  <a href="https://github.com/huamang" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
-
-<noscript>
-  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
-</noscript>
-
-
-    <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/24/%E7%94%A8%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/24/%E7%94%A8%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/" class="post-title-link" itemprop="url">用类和对象写一个计时器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-12-24 13:36:32 / 修改时间：13:50:30" itemprop="dateCreated datePublished" datetime="2020-12-24T13:36:32+08:00">2020-12-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="用类和对象写一个计时器"><a href="#用类和对象写一个计时器" class="headerlink" title="用类和对象写一个计时器"></a>用类和对象写一个计时器</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/24/%E7%94%A8%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">Python中__new__函数的理解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-12-24 00:37:55 / 修改时间：00:50:22" itemprop="dateCreated datePublished" datetime="2020-12-24T00:37:55+08:00">2020-12-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Python中-new-函数的理解"><a href="#Python中-new-函数的理解" class="headerlink" title="Python中__new__函数的理解"></a>Python中__new__函数的理解</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/" class="post-title-link" itemprop="url">对类和对象，self，__init__的理解</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-12-20 22:51:45 / 修改时间：23:25:05" itemprop="dateCreated datePublished" datetime="2020-12-20T22:51:45+08:00">2020-12-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="对类和对象，self，-init-的理解"><a href="#对类和对象，self，-init-的理解" class="headerlink" title="对类和对象，self，__init__的理解"></a>对类和对象，self，__init__的理解</h2>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/20/python%E5%AF%B9%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%EF%BC%8Cself%EF%BC%8Cinit%E7%9A%84%E7%90%86%E8%A7%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/13/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/13/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">vscode使用笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-13 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-13T00:00:00+08:00">2020-12-13</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-16 23:17:37" itemprop="dateModified" datetime="2020-12-16T23:17:37+08:00">2020-12-16</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="vscode使用笔记"><a href="#vscode使用笔记" class="headerlink" title="vscode使用笔记"></a>vscode使用笔记</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/13/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/13/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0HTML5%EF%BC%8CCSS3%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/13/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0HTML5%EF%BC%8CCSS3%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/" class="post-title-link" itemprop="url">前端学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-13 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-13T00:00:00+08:00">2020-12-13</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-21 22:31:35" itemprop="dateModified" datetime="2020-12-21T22:31:35+08:00">2020-12-21</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前端学习笔记"><a href="#前端学习笔记" class="headerlink" title="前端学习笔记"></a>前端学习笔记</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/13/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0HTML5%EF%BC%8CCSS3%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/12/hexo%E4%B8%BB%E9%A2%98yilia%E4%B8%AA%E6%80%A7%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/12/hexo%E4%B8%BB%E9%A2%98yilia%E4%B8%AA%E6%80%A7%E5%8C%96/" class="post-title-link" itemprop="url">hexo主题yilia个性化</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-12-12 00:00:00 / 修改时间：11:58:03" itemprop="dateCreated datePublished" datetime="2020-12-12T00:00:00+08:00">2020-12-12</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="展开全文的美化"><a href="#展开全文的美化" class="headerlink" title="展开全文的美化"></a>展开全文的美化</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/12/hexo%E4%B8%BB%E9%A2%98yilia%E4%B8%AA%E6%80%A7%E5%8C%96/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/09/github%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%A5%BD%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%B2%A1%E6%9C%89%E5%B0%8F%E7%BB%BF%E6%A0%BC%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/09/github%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%A5%BD%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%B2%A1%E6%9C%89%E5%B0%8F%E7%BB%BF%E6%A0%BC%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">github上搭建好个人博客上传文件没有小绿格记录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-09 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-09T00:00:00+08:00">2020-12-09</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-13 14:41:10" itemprop="dateModified" datetime="2020-12-13T14:41:10+08:00">2020-12-13</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="github上搭建好个人博客上传文件没有小绿格记录"><a href="#github上搭建好个人博客上传文件没有小绿格记录" class="headerlink" title="github上搭建好个人博客上传文件没有小绿格记录"></a>github上搭建好个人博客上传文件没有小绿格记录</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/09/github%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%A5%BD%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%B2%A1%E6%9C%89%E5%B0%8F%E7%BB%BF%E6%A0%BC%E8%AE%B0%E5%BD%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/12/08/%E5%9C%A8github%E5%88%9B%E5%BB%BA%E5%BA%93%E5%B9%B6%E5%90%91%E4%B8%8A%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/12/08/%E5%9C%A8github%E5%88%9B%E5%BB%BA%E5%BA%93%E5%B9%B6%E5%90%91%E4%B8%8A%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">在github创建库并向上上传文件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-12-08 00:00:00" itemprop="dateCreated datePublished" datetime="2020-12-08T00:00:00+08:00">2020-12-08</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-20 23:02:16" itemprop="dateModified" datetime="2020-12-20T23:02:16+08:00">2020-12-20</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="在github创建库并向上上传文件"><a href="#在github创建库并向上上传文件" class="headerlink" title="在github创建库并向上上传文件"></a>在github创建库并向上上传文件</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/12/08/%E5%9C%A8github%E5%88%9B%E5%BB%BA%E5%BA%93%E5%B9%B6%E5%90%91%E4%B8%8A%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/" class="post-title-link" itemprop="url">指针练习</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-11-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-11-19T00:00:00+08:00">2020-11-19</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-13 14:41:12" itemprop="dateModified" datetime="2020-12-13T14:41:12+08:00">2020-12-13</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="使用指针方法实现字符串逆序存放后再输出"><a href="#使用指针方法实现字符串逆序存放后再输出" class="headerlink" title="使用指针方法实现字符串逆序存放后再输出"></a>使用指针方法实现字符串逆序存放后再输出</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/19/%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="huamang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Huamang's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/10/19/%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/" class="post-title-link" itemprop="url">使用Hexo在Github上创建博客</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2020-10-19 00:00:00" itemprop="dateCreated datePublished" datetime="2020-10-19T00:00:00+08:00">2020-10-19</time>
-    </span>
-      <span class="post-meta-item">
-        <span class="post-meta-item-icon">
-          <i class="far fa-calendar-check"></i>
-        </span>
-        <span class="post-meta-item-text">更新于</span>
-        <time title="修改时间：2020-12-17 10:59:56" itemprop="dateModified" datetime="2020-12-17T10:59:56+08:00">2020-12-17</time>
-      </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="使用Hexo在Github上创建博客"><a href="#使用Hexo在Github上创建博客" class="headerlink" title="使用Hexo在Github上创建博客"></a>使用Hexo在Github上创建博客</h1>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/10/19/%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon32.png"><link rel="canonical" href="http://example.com/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
     }
-    if (activeClass) {
-      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: false,
+  isHome: true,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-12-24 14:58:30'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      const commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-</div>
-  </main>
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="full_page" id="page-header"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Huamang's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="site-info"><h1 id="site-title">Huamang's Blog</h1><div id="site-subtitle"><span id="subtitle"></span></div></div><div id="scroll-down"><i class="fas fa-angle-down scroll-down-effects"></i></div></header><main class="layout" id="content-inner"><div class="recent-posts" id="recent-posts"><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/24/%E7%94%A8%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/" title="用类和对象写一个计时器">用类和对象写一个计时器</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-24T05:36:32.842Z" title="发表于 2020-12-24 13:36:32">2020-12-24</time></span></div><div class="content">用类和对象写一个计时器
+在学了一些类和对象之后，在书上看到一个例子，用类和对象打造一个计时器，我一开始没有思路，大概看了一下书上的例题后有了思路，下面是我自己写的代码（借鉴例子）
+1234567891011121314151617import timeimport mathclass Count:    def start(self):        self.start=time.localtime()        print(&quot;开始计时&quot;)    def stop(self):        self.stop=time.localtime()        self.do()        print(&quot;计时结束&quot;)    def do(self):        self.sec=math.fabs(self.stop[5]-self.start[5])        self.min=self.stop[4]-self.start[4]        print(&quot;运行了%d秒&quot; % (self.sec+self. ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/" title="Python中__new__函数的理解">Python中__new__函数的理解</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-23T16:37:55.295Z" title="发表于 2020-12-24 00:37:55">2020-12-24</time></span></div><div class="content">Python中__new__函数的理解
+在小甲鱼的课程里，学到了__new__函数的时候，我刚看完他的例子，我是一脸懵逼啊，一点都没有头绪，为啥这样做？在看了几篇博客以后我稍有理解，在这里记录一下
+new 是在一个对象实例化的时候所调用的第一个方法。它跟其他魔法方法不同，它的第一个参数不是 self 而是这个类（cls），而其他的参数会直接传递给 init 方法的。
+个人理解：new方法是会在init方法前调用的，除了第一个参数，其他参数会返回给init
+123456class Do (str): #继承str的方法    def __new__(cls,itstr): #调用__new__函数，传入字符串itstr        itstr = itstr.upper() # 把每个字母大写        return str.__new__(cls,itstr) #返回实例对象给__init__函数d = Do(&#x27;AbcDeFg&#x27;) #创建实例对象print(d)
+创建实例对象d的时候，本来是调用init函数的但是由于我们重写了new函数，所以在调用init函数 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/13/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="vscode使用笔记">vscode使用笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-12T16:00:00.000Z" title="发表于 2020-12-13 00:00:00">2020-12-13</time></span></div><div class="content">vscode使用笔记
+推荐安装的插件这里主要推荐三款核心插件，其余的可以按需选择。
+1.Markdown All in One：目前 Vscode 最流行的 Markdown 语法解析器。
+2.Markdown PDF：使用的 Markdown 文件渲染导出插件。
+3.Markdown TOC：一款针对 Github 等平台自动生成文章目录的插件（目前主流的博客平台如 CSDN 已经不需要自己在文中生成目录了）。
+使用vscode预览Markdown文件  VScode已经默认集成markdown文档编辑插件,所以编辑md文件时已经有代码高亮。要实时预览的话按Ctrl+shift+p 后搜索Markdown找到这个    或使用快捷键Ctrl+k 放掉以后再按v  
+导入图片导入图片语法： 只记录一种图片插入方式
+1![](xxx.png)   可以是本地的路径也可以是网络上的图片地址
 
-  <footer class="footer">
-    <div class="footer-inner">
+导入代码块1使用&#96;&#96;&#96;代码内容&#96;&#96;&#96;
+大佬的博客有更全面的介绍https://www.cnblogs.com/jpfss/p/10941921.html ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/13/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0HTML5%EF%BC%8CCSS3%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/" title="前端学习笔记">前端学习笔记</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-12T16:00:00.000Z" title="发表于 2020-12-13 00:00:00">2020-12-13</time></span></div><div class="content">前端学习笔记
+网页分成三个部分：
 
+结构(HTML)
+表现(CSS)
+行为(JavaScript)css简介与使用1.内部样式
 
-<div class="copyright">
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">huamang</span>
-</div>
-<div class="busuanzi-count">
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
+将样式编写到head中的style标签里然后通过CSS的选择器来选中元素并为其设置各种样式可以同时为多个标签设置样式，并且修改时只需要修改一处即可全部应用
 
-    </div>
-  </footer>
+内部样式表更加方便对样式进行复用
+缺点：我们的内部样式表只能对一个网页起作用，它里边的样式不能跨页面进行复用
 
-  
-  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+2.外部样式表以将CSS样式编写到一个外部的CSS文件中,然后通过link标签来引入外部的CSS文件
 
-  
+外部样式表需要通过link标签进行引入，意味着只要想使用这些样式的网页都可以对其进行引用使样式可以在不同页面之间进行复用
+将样式编写到外部的CSS文件中，可以使用到浏览器的缓存机制，从而加快网页的加载速度，提高用户的体验。css的语法1.注释：##/**/
 
+2.基本语法：##选择器 声明块
 
+选择器，通过选择器可以选中页面中的指定元素比如 p 的作用就是选中页面中所有的p元素
+声明块，通过声明块来指定要为元素设置的样式声明块由一个一个的声明组成 声明是一个名值对结构一个样式名对应一个样式值 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/12/hexo%E4%B8%BB%E9%A2%98yilia%E4%B8%AA%E6%80%A7%E5%8C%96/" title="hexo主题yilia个性化">hexo主题yilia个性化</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-11T16:00:00.000Z" title="发表于 2020-12-12 00:00:00">2020-12-12</time></span></div><div class="content">展开全文的美化
+在md文件中加这个标签会有两个跑出来，我觉得很不美观所以找了另一个办法在yilia的_config.yml中把这个more改成空格就行了
+为博客网站更换logo1.将图片放在yilia的img文件夹里
+2.在yilia的config文件里把路径加上
+展开全文的使用1、node.js版本必须6.2以上2、在hexo根目录下执行命令：npm i hexo-generator-json-content --save3.在根目录下的config里加入
+123456789101112131415161718jsonContent:    meta: false    pages: false    posts:      title: true      date: true      path: true      text: false      raw: false      content: false      slug: false      updated: false      comments: false      link: false      perma ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/09/github%E4%B8%8A%E6%90%AD%E5%BB%BA%E5%A5%BD%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E6%B2%A1%E6%9C%89%E5%B0%8F%E7%BB%BF%E6%A0%BC%E8%AE%B0%E5%BD%95/" title="github上搭建好个人博客上传文件没有小绿格记录">github上搭建好个人博客上传文件没有小绿格记录</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-08T16:00:00.000Z" title="发表于 2020-12-09 00:00:00">2020-12-09</time></span></div><div class="content">github上搭建好个人博客上传文件没有小绿格记录
+本来想搭建博客后在上面更新博客在github上打卡小绿格记录但是发现小绿格没有出来我搭建完博客后上传到github的内容是这么些，但是我上传博客却不是在这里上传我是把md文件放到这个文件夹里使用下面三个命令来实现博客推送而不是git push的方式
+123hexo cleanhexo ghexo d
 
-
-
-
-  
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-
-
-
-
-
-</body>
-</html>
+但是我看到第一个文件夹里其实有更新的博客但是就是没有小绿格我看了一下我有两个branch，main和master，我的博客文件放在master里，而一个无关紧要的branch main被我创建库的时候设成了default,于是我就想改一下分支，但是没搞懂git的使用方法原理，把博客搞崩溃了。我干脆就删掉那个库重新搭建了一个博客，这次我就只设置了一个分支master搭够好了博客后我就发现使用hexo的三部上传博客也可以出现小绿格了。
+</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/12/08/%E5%9C%A8github%E5%88%9B%E5%BB%BA%E5%BA%93%E5%B9%B6%E5%90%91%E4%B8%8A%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" title="在github创建库并向上上传文件">在github创建库并向上上传文件</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-12-07T16:00:00.000Z" title="发表于 2020-12-08 00:00:00">2020-12-08</time></span></div><div class="content">在github创建库并向上上传文件
+我之前已经创建过库，绑定了密钥，所以省了很多步骤我就记录了一下过程怕自己忘记
+1，先在github创建一个库复制这个链接到时要用
+2.在本地创建一个文件夹在文件夹中使用git clone http....(这个是刚刚复制的地址)出现了你在github中创建的库的文件
+上传文件1.打开后git bash here，将你要上传的文件放到里面再使用git add . 这个git add .的意思是：将项目上所有的文件添加到仓库中的意思，如果想添加某个特定的文件，只需把.换成这个特定的文件名。 2.使用git commit  -m  “xxx” xxx是该文件的提交的注释说明 3.使用git push -u origin main这个’main’是分支名，每个人可能不一样这一步做完就算完成了详细教学可以参考其一其二这个我觉得是写的最好的
+以后要更新你的库就输入这几个命令：123git add .git commit -m &quot;&quot;git push origin main（那个-u是第一次上传的时候要用的）
+每次push要输入密码push了几天 ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/11/19/%E6%8C%87%E9%92%88%E7%BB%83%E4%B9%A0%E9%A2%98/" title="指针练习">指针练习</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-11-18T16:00:00.000Z" title="发表于 2020-11-19 00:00:00">2020-11-19</time></span></div><div class="content">使用指针方法实现字符串逆序存放后再输出
+编写程序：从键盘任意输入一个字符串，输出该字符串。然后，将该字符串逆序存放后再输出，要求用字符指针完成。（提示：逆序存放的函数接口：void invstr(char *s)）
+123456789101112131415161718192021#include&lt;stdio.h&gt;#include&lt;string.h&gt;void invstr(char *s)&#123;	char b;	int len;	len=strlen(s); /*获取该字符串的长度*/ 	for(int i=0;i&lt;len/2;i++)&#123; /*该循环的目的是每次将字符串的头和尾换一下位置*/ 		b=*(s+i); /*字符串的第i个元素的地址暂时放到b里*/ 		*(s+i)=*(s+len-1-i); /*将字符串的倒数第i个元素换到第i个元素*/ 		*(s+len-1-i)=b; /*再将b存放的地址放回倒数第i个元素*/ 	&#125;	&#125;int main()&#123;	char a[1000];	gets(a); / ...</div></div></div><div class="recent-post-item"><div class="recent-post-info no-cover"><a class="article-title" href="/2020/10/19/%E4%BD%BF%E7%94%A8Hexo%E5%9C%A8Github%E4%B8%8A%E5%88%9B%E5%BB%BA%E5%8D%9A%E5%AE%A2/" title="使用Hexo在Github上创建博客">使用Hexo在Github上创建博客</a><div class="article-meta-wrap"><span class="post-meta-date"><i class="far fa-calendar-alt"></i><span class="article-meta-label">发表于</span><time datetime="2020-10-18T16:00:00.000Z" title="发表于 2020-10-19 00:00:00">2020-10-19</time></span></div><div class="content">使用Hexo在Github上创建博客
+前言先说明一下，我在此时只是一位刚上大一的新生，还啥都不懂，文中如果有什么错误或不规范的地方请各位大佬斧正，我定会虚心接受。在10月18日晚上，学长给我布置了个作业，让我在github上构建属于自己的博客网站，我了解了一下，觉得有个属于自己的网站简直太帅了，于是就兴冲冲的开始了搭建，在10月19号下午，废物的我终于搭建好了。于是在此记录一下我搭建的过程。
+一、安装必备插件Git，Node.js。#安装Git和Node.js我就不在此多加赘述，哪里都能找到，而且讲的也详细。
+二、安装Hexo。#1、在电脑中创建文件夹比如我是这样创建的
+2、进入这个文件夹按右键选择Git bash here打开小黑框
+3、依次输入1npm install -g hexo
+安装Hexo的基础框架。
+1hexo init
+初始化hexo。
+1npm install
+安装相关组件。
+1hexo s
+生成静态页面
+这个时候你可以在本地访问自己的网站了。
+但是也只仅限于你，接下来我们要把这玩意上传到Github里面，让所有人都能访问。
+三、将本地内容上传到Github里。1、注 ...</div></div></div><nav id="pagination"><div class="pagination"><span class="page-number current">1</span></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">huamang</div><div class="author-info__description"></div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/24/%E7%94%A8%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%86%99%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/" title="用类和对象写一个计时器">用类和对象写一个计时器</a><time datetime="2020-12-24T05:36:32.842Z" title="发表于 2020-12-24 13:36:32">2020-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/24/Python%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95%E4%B8%AD__new__()%E5%87%BD%E6%95%B0%E7%9A%84%E7%90%86%E8%A7%A3%EF%BC%8C%E9%85%8D%E5%90%88%E5%B0%8F%E7%94%B2%E9%B1%BC%E7%9A%84%E4%BE%8B%E5%AD%90%E7%9A%84%E7%90%86%E8%A7%A3/" title="Python中__new__函数的理解">Python中__new__函数的理解</a><time datetime="2020-12-23T16:37:55.295Z" title="发表于 2020-12-24 00:37:55">2020-12-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/13/vscode%E4%BD%BF%E7%94%A8%E7%AC%94%E8%AE%B0/" title="vscode使用笔记">vscode使用笔记</a><time datetime="2020-12-12T16:00:00.000Z" title="发表于 2020-12-13 00:00:00">2020-12-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/13/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0HTML5%EF%BC%8CCSS3%EF%BC%88%E6%9B%B4%E6%96%B0%E4%B8%AD%EF%BC%89/" title="前端学习笔记">前端学习笔记</a><time datetime="2020-12-12T16:00:00.000Z" title="发表于 2020-12-13 00:00:00">2020-12-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2020/12/12/hexo%E4%B8%BB%E9%A2%98yilia%E4%B8%AA%E6%80%A7%E5%8C%96/" title="hexo主题yilia个性化">hexo主题yilia个性化</a><time datetime="2020-12-11T16:00:00.000Z" title="发表于 2020-12-12 00:00:00">2020-12-12</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/c%E8%AF%AD%E8%A8%80/" style="font-size: 1.1em; color: #999">c语言</a> <a href="/tags/github/" style="font-size: 1.5em; color: #99a9bf">github</a> <a href="/tags/hexo/" style="font-size: 1.3em; color: #99a1ac">hexo</a> <a href="/tags/python/" style="font-size: 1.3em; color: #99a1ac">python</a> <a href="/tags/vscode/" style="font-size: 1.1em; color: #999">vscode</a> <a href="/tags/yilia/" style="font-size: 1.1em; color: #999">yilia</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 1.1em; color: #999">前端</a> <a href="/tags/%E6%8C%87%E9%92%88/" style="font-size: 1.1em; color: #999">指针</a> <a href="/tags/%E7%AC%94%E8%AE%B0/" style="font-size: 1.5em; color: #99a9bf">笔记</a></div></div><div class="card-widget card-archives"><div class="item-headline"><i class="fas fa-archive"></i><span>归档</span></div><ul class="card-archive-list"><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/12/"><span class="card-archive-list-date">十二月 2020</span><span class="card-archive-list-count">7</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/11/"><span class="card-archive-list-date">十一月 2020</span><span class="card-archive-list-count">1</span></a></li><li class="card-archive-list-item"><a class="card-archive-list-link" href="/archives/2020/10/"><span class="card-archive-list-date">十月 2020</span><span class="card-archive-list-count">1</span></a></li></ul></div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站资讯</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">9</div></div><div class="webinfo-item"><div class="item-name">本站总字数 :</div><div class="item-count">8.4k</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"></div></div><div class="webinfo-item"><div class="item-name">本站总访问量 :</div><div class="item-count" id="busuanzi_value_site_pv"></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2020-12-24T06:58:30.872Z"></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By huamang</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script defer="defer" id="ribbon" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-ribbon.min.js" alpha="0.6" zIndex="-1" mobile="false" data-click="false"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div></body></html>
