@@ -178,6 +178,22 @@ template {
 [hidden] {
   display: none
 }
+
+/* 引用的字体样式 */
+@font-face { font-family:MyFont;
+  src: url(https://cdn.jsdelivr.net/gh/emeomo/vieu@master/webmo.woff2)}
+  body{font-family:MyFont!important;}
+
+  /* 引用的鼠标样式 */
+  body {
+    cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/default.cur),
+        default;
+    }
+    a,
+    img {
+        cursor: url(https://cdn.jsdelivr.net/gh/sviptzk/HexoStaticFile@latest/Hexo/img/pointer.cur),
+            default;
+  }
 .limit-one-line,
 .flink#article-container .flink-list > .flink-list-item a .flink-item-name,
 .flink#article-container .flink-list > .flink-list-item a .flink-item-desc,
