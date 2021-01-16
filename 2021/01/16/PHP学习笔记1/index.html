@@ -1,0 +1,296 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PHP学习笔记1 | Huamang's Blog</title><meta name="keywords" content="笔记,PHP"><meta name="author" content="huamang"><meta name="copyright" content="huamang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="php学习开始，在这记录我觉得需要注意的地方 变量变量定义：  “$”前面加上这个就是变量 变量名不能以数字开头 将变量从内存中删除使用unset($变量名)函数来删除变量  变量的作用域 局部变量：函数内定义的变量 全局变量：在自定义函数内是不可以使用的，如果想在自定义函数内调用要使用global关键字声明 静态变量：函数调用结束后保留变量值，不会被消除内存，可以用来记录博客访客或者聊天记录这样">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP学习笔记1">
+<meta property="og:url" content="http://example.com/2021/01/16/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/index.html">
+<meta property="og:site_name" content="Huamang&#39;s Blog">
+<meta property="og:description" content="php学习开始，在这记录我觉得需要注意的地方 变量变量定义：  “$”前面加上这个就是变量 变量名不能以数字开头 将变量从内存中删除使用unset($变量名)函数来删除变量  变量的作用域 局部变量：函数内定义的变量 全局变量：在自定义函数内是不可以使用的，如果想在自定义函数内调用要使用global关键字声明 静态变量：函数调用结束后保留变量值，不会被消除内存，可以用来记录博客访客或者聊天记录这样">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2021-01-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-16T17:47:37.678Z">
+<meta property="article:author" content="huamang">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="PHP">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon32.ico"><link rel="canonical" href="http://example.com/2021/01/16/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-01-17 01:47:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}const fontSizeVal = saveToLocal.get('global-font-size')
+if (fontSizeVal !== undefined) {
+  document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+}})()</script><link rel="stylesheet" href="/css/mybackground.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Huamang's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">PHP学习笔记1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-01-15T16:00:00.000Z" title="发表于 2021-01-16 00:00:00">2021-01-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-01-16T17:47:37.678Z" title="更新于 2021-01-17 01:47:37">2021-01-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>php学习开始，在这记录我觉得需要注意的地方</p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><p>变量定义：</p>
+<ul>
+<li>“$”前面加上这个就是变量</li>
+<li>变量名不能以数字开头</li>
+<li>将变量从内存中删除使用<code>unset($变量名)</code>函数来删除变量</li>
+</ul>
+<h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2><ul>
+<li>局部变量：函数内定义的变量</li>
+<li>全局变量：在自定义函数内是不可以使用的，如果想在自定义函数内调用要使用<code>global</code>关键字声明</li>
+<li>静态变量：函数调用结束后保留变量值，不会被消除内存，可以用来记录博客访客或者聊天记录这样的东西，要在函数内用<code>static</code>关键字来声明</li>
+</ul>
+<h2 id="预定义变量"><a href="#预定义变量" class="headerlink" title="预定义变量"></a>预定义变量</h2><p>预定义变量：提前定义的变量，系统定义的变量，存储许多需要用到的数据（预定义变量都是数组）<br>$_GET：获取所有表单以get方式提交的数据<br>$_POST：POST提交的数据都会保存在此<br>$_REQUEST：GET和POST提交的都会保存<br>$GLOBALS：PHP中所有的全局变量<br>$_SERVER：服务器信息<br>$_SESSION：session会话数据<br>$_COOKIE：cookie会话数据<br>$_ENV：环境信息<br>$_FILES：用户上传的文件信息</p>
+<h2 id="可变变量"><a href="#可变变量" class="headerlink" title="可变变量"></a>可变变量</h2><p>可变变量：如果一个变量保存的值刚好是另外一个变量的名字，那么可以直接通过访问一个变量得到另外一个变量的值：在变量前面再多加一个$符号。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$a</span>=<span class="string">&#x27;b&#x27;</span></span><br><span class="line"><span class="variable">$b</span>=<span class="string">&#x27;c&#x27;</span></span><br><span class="line"><span class="keyword">echo</span> <span class="variable">$$a</span></span><br></pre></td></tr></table></figure>
+<p><code>$$a</code>就相当于<code>$b</code>就是<code>c</code></p>
+<h1 id="变量传值"><a href="#变量传值" class="headerlink" title="变量传值"></a>变量传值</h1><p>分为两种，一个是<code>值传递</code>，一个是<code>引用传递</code></p>
+<h2 id="值传递"><a href="#值传递" class="headerlink" title="值传递"></a>值传递</h2><p>值传递：将变量保存的值赋值一份，然后将新的值给另外一个变量保存（两个变量没有关系）a就对应a的值，b就对应b的值<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210116002644250.png" alt="在这里插入图片描述"></p>
+<h2 id="引用传递"><a href="#引用传递" class="headerlink" title="引用传递"></a>引用传递</h2><p>引用传递：将变量保存的值所在的内存地址，传递给另外一个变量：两个变量指向同一块内存空间（两个变量是同一个值）<br>$新变量=&amp;$老变量<br>这个方式给变量赋值是让两个变量名指向同一个值，就像一棵树上的两个枝干，都是连着一个树根<br>所以改变了任何一个的值，两个的值都会改变<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210116004001894.png" alt="在这里插入图片描述"></p>
+<h1 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h1><h2 id="常量的定义"><a href="#常量的定义" class="headerlink" title="常量的定义"></a>常量的定义</h2><p>有两种定义方式，<code>define函数</code>和<code>const关键字</code></p>
+<ul>
+<li><p>define函数：<br><code>define(&#39;常数名&#39;,值)</code></p>
+</li>
+<li><p>const关键字<br><code>const 常量名 = 值</code></p>
+</li>
+</ul>
+<h2 id="命名规则"><a href="#命名规则" class="headerlink" title="命名规则"></a>命名规则</h2><ul>
+<li>常量命名不需要”$”，使用了这个符号就会被认为是变量</li>
+<li>常量一波用大写，但是默认不区分大小写</li>
+</ul>
+<h2 id="魔术常量"><a href="#魔术常量" class="headerlink" title="魔术常量"></a>魔术常量</h2><p>他们有双下划线开始+长两名+双下划线结束，这种常量称之为系统魔术常量：魔术常量的值通常会跟着环境变化，但是用户改变不了</p>
+<ul>
+<li><code>__DIR__</code>：当前被执行的脚本所在电脑的绝对路径</li>
+<li><code>__FILE__</code>：当前被执行的脚本所在的电脑的绝对路径（带自己文件的名字）</li>
+<li><code>__LINE__</code>：当前所属的行数</li>
+<li><code>__NAMESPACE__</code>：当前所属的命名空间</li>
+<li><code>__CLASS__</code>：当前所属的类</li>
+<li><code>__METHOD__</code>：当前所属的方法</li>
+</ul>
+<h1 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h1><p>PHP是一种弱类型语言，变量本身没有数据类型。</p>
+<h2 id="php的八种数据类型"><a href="#php的八种数据类型" class="headerlink" title="php的八种数据类型"></a>php的八种数据类型</h2><ul>
+<li>整型：int/integer，系统分配4个字节存储，表示整数类型（有前提）</li>
+<li>浮点型：float/double，系统分配8个字节存储，表示小数或者整型存不下的整数</li>
+<li>字符串型：string，系统根据实际长度分配，表示字符串（引号）</li>
+<li>布尔类型：bool/boolean，表示布尔类型，只有两个值：true和false</li>
+<li>复合数据类型：2个小类</li>
+<li>对象类型：object，存放对象（面向对象）</li>
+<li>数组类型：array，存储多个数据（一次性）</li>
+<li>特殊数据类型：2个小类</li>
+<li>资源类型：resource，存放资源数据（PHP外部数据，如数据库、文件）</li>
+<li>空类型：NULL，只有一个值就是NULL（不能运算）</li>
+</ul>
+<h2 id="强制转换"><a href="#强制转换" class="headerlink" title="强制转换"></a>强制转换</h2><ul>
+<li><p>强制转换规则：在变量之前增加一个括号()，然后在里面写上对应类型：int/integer….其中NULL类型用到unset()</p>
+</li>
+<li><p>其他类型转数值的说明<br>1、    布尔true为1，false为0；<br>2、    字符串转数值有自己的规则</p>
+</li>
+</ul>
+<p>2.1    以字母开头的字符串，永远为0；<br>2.2    以数字开头的字符串，取到碰到字符串为止（不会同时包含两个小数点）<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210116010042632.png" alt="在这里插入图片描述"></p>
+<h2 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h2><ul>
+<li>is_开头后面跟类型名字的函数：<code>is_XXX(变量名)</code></li>
+<li>布尔类型不能用echo来访问，无法区分是布尔的true还是字符串的true，所以有个函数<code>var_dump(变量1，变量2...)</code>这个函数会返回变量的类型和值<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/202101160214488.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></li>
+<li><code>Gettype(变量名)</code>：获取类型，得到的是该类型对应的字符串</li>
+<li><code>Settype(变量名,类型)</code>：设定数据类型：与强制转换不同：<br>1、    强制转换(类型)变量名，是对数据值复制的内容进行处理（不会处理实际存储的内容）<br>2、    settype会直接改变数据本身<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210116021613213.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><h2 id="整数类型"><a href="#整数类型" class="headerlink" title="整数类型"></a>整数类型</h2>在PHP中提供了四种整型的定义方式：十进制定义，二进制定义，八进制定义和十六进制定义<br>$a = 120;        //10进制<br>$a=0b110;    //2进制<br>$a=0120;        //8进制<br>$a=0x120;    //16进制<br>Decbin()：十进制转二进制<br>Decoct()：十进制转八进制<br>Dechex()：十进制转十六进制<br>Bindec()：二进制转十进制</li>
+</ul>
+<h2 id="浮点类型"><a href="#浮点类型" class="headerlink" title="浮点类型"></a>浮点类型</h2><p>浮点型定义有两种方式：<br>$f = 1.23;<br>$f = 1.23e10;    //科学计数法，其中e表示底10</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">huamang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/01/16/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">http://example.com/2021/01/16/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Huamang's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%AC%94%E8%AE%B0/">笔记</a><a class="post-meta__tags" href="/tags/PHP/">PHP</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/01/17/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/"><img class="prev-cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">PHP学习笔记2</div></div></a></div><div class="next-post pull-right"><a href="/2021/01/13/%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B04%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86/"><img class="next-cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">爬虫笔记4模拟登陆</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/01/17/PHP学习笔记2/" title="PHP学习笔记2"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-17</div><div class="title">PHP学习笔记2</div></div></a></div><div><a href="/2020/12/26/butterfly配置记录/" title="butterfly主题配置记录"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-26</div><div class="title">butterfly主题配置记录</div></div></a></div><div><a href="/2020/12/24/Python学习笔记/" title="Python学习笔记"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-24</div><div class="title">Python学习笔记</div></div></a></div><div><a href="/2020/12/13/vscode使用笔记/" title="vscode使用笔记"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-13</div><div class="title">vscode使用笔记</div></div></a></div><div><a href="/2021/01/03/爬虫入门学习笔记2/" title="爬虫学习笔记2"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-03</div><div class="title">爬虫学习笔记2</div></div></a></div><div><a href="/2021/01/05/爬虫入门学习笔记3/" title="爬虫学习笔记3"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-05</div><div class="title">爬虫学习笔记3</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">huamang</div><div class="author-info__description">回避现实的人，未来将更不理想</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">18</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/huamang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/huamang" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome to my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">1.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">1.1.</span> <span class="toc-text">变量的作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%84%E5%AE%9A%E4%B9%89%E5%8F%98%E9%87%8F"><span class="toc-number">1.2.</span> <span class="toc-text">预定义变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%98%E9%87%8F"><span class="toc-number">1.3.</span> <span class="toc-text">可变变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E4%BC%A0%E5%80%BC"><span class="toc-number">2.</span> <span class="toc-text">变量传值</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%80%BC%E4%BC%A0%E9%80%92"><span class="toc-number">2.1.</span> <span class="toc-text">值传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92"><span class="toc-number">2.2.</span> <span class="toc-text">引用传递</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F"><span class="toc-number">3.</span> <span class="toc-text">常量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">3.1.</span> <span class="toc-text">常量的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99"><span class="toc-number">3.2.</span> <span class="toc-text">命名规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AD%94%E6%9C%AF%E5%B8%B8%E9%87%8F"><span class="toc-number">3.3.</span> <span class="toc-text">魔术常量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.</span> <span class="toc-text">数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#php%E7%9A%84%E5%85%AB%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.1.</span> <span class="toc-text">php的八种数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.2.</span> <span class="toc-text">强制转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD"><span class="toc-number">4.3.</span> <span class="toc-text">类型判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E6%95%B0%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.4.</span> <span class="toc-text">整数类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E7%B1%BB%E5%9E%8B"><span class="toc-number">4.5.</span> <span class="toc-text">浮点类型</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/01/17/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B02/" title="PHP学习笔记2">PHP学习笔记2</a><time datetime="2021-01-16T16:00:00.000Z" title="发表于 2021-01-17 00:00:00">2021-01-17</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/01/16/PHP%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/" title="PHP学习笔记1">PHP学习笔记1</a><time datetime="2021-01-15T16:00:00.000Z" title="发表于 2021-01-16 00:00:00">2021-01-16</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/01/13/%E7%88%AC%E8%99%AB%E7%AC%94%E8%AE%B04%E6%A8%A1%E6%8B%9F%E7%99%BB%E9%99%86/" title="爬虫笔记4模拟登陆">爬虫笔记4模拟登陆</a><time datetime="2021-01-12T16:00:00.000Z" title="发表于 2021-01-13 00:00:00">2021-01-13</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 <i style="color:#FF6A6A" class="fa fa-heartbeat"></i> huamang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'LxaHnYdExlYPoPvrlNDNqtam-gzGzoHsz',
+      appKey: 'Wvsy2iebNzDRLhfqDgLovIAO',
+      placeholder: '大佬说点什么吧！',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var e=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>
