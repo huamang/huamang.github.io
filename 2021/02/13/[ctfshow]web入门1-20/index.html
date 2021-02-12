@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ctfshow web入门1-20 | Huamang's Blog</title><meta name="keywords" content="题解"><meta name="author" content="huamang"><meta name="copyright" content="huamang"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="web2view-source:是一种协议，像http一样的协议，可以强制查看源代码 web3直接在header里找到 web4查询robots.txt文件 web5涉及到了phps这个东西：phps文件就是php的源代码文件，通常用于提供给用户（访问者）查看php代码，因为用户无法直接通过Web浏览器看到php文件的内容，所以需要用phps文件代替 直接访问index.phps,浏览器会自动下载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ctfshow web入门1-20">
+<meta property="og:url" content="http://example.com/2021/02/13/[ctfshow]web%E5%85%A5%E9%97%A81-20/index.html">
+<meta property="og:site_name" content="Huamang&#39;s Blog">
+<meta property="og:description" content="web2view-source:是一种协议，像http一样的协议，可以强制查看源代码 web3直接在header里找到 web4查询robots.txt文件 web5涉及到了phps这个东西：phps文件就是php的源代码文件，通常用于提供给用户（访问者）查看php代码，因为用户无法直接通过Web浏览器看到php文件的内容，所以需要用phps文件代替 直接访问index.phps,浏览器会自动下载">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2021-02-12T17:05:20.233Z">
+<meta property="article:modified_time" content="2021-02-12T17:14:17.542Z">
+<meta property="article:author" content="huamang">
+<meta property="article:tag" content="题解">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon32.ico"><link rel="canonical" href="http://example.com/2021/02/13/[ctfshow]web%E5%85%A5%E9%97%A81-20/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}
+
+// https://stackoverflow.com/questions/16839698/jquery-getscript-alternative-in-native-javascript
+const getScript = url => new Promise((resolve, reject) => {
+  const script = document.createElement('script')
+  script.src = url
+  script.async = true
+  script.onerror = reject
+  script.onload = script.onreadystatechange = function() {
+    const loadState = this.readyState
+    if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+    script.onload = script.onreadystatechange = null
+    resolve()
+  }
+  document.head.appendChild(script)
+})</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-13 01:14:17'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}const fontSizeVal = saveToLocal.get('global-font-size')
+if (fontSizeVal !== undefined) {
+  document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+}})()</script><link rel="stylesheet" href="/css/mybackground.css"><meta name="generator" content="Hexo 5.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Huamang's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ctfshow web入门1-20</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-02-12T17:05:20.233Z" title="发表于 2021-02-13 01:05:20">2021-02-13</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-02-12T17:14:17.542Z" title="更新于 2021-02-13 01:14:17">2021-02-13</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">972</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="web2"><a href="#web2" class="headerlink" title="web2"></a>web2</h1><p><code>view-source:</code>是一种协议，像http一样的协议，可以强制查看源代码<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210202234258404.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web3"><a href="#web3" class="headerlink" title="web3"></a>web3</h1><p>直接在<code>header</code>里找到<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210202234524657.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web4"><a href="#web4" class="headerlink" title="web4"></a>web4</h1><p>查询<code>robots.txt</code>文件<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210202235115344.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/2021020223513612.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web5"><a href="#web5" class="headerlink" title="web5"></a>web5</h1><p>涉及到了<code>phps</code>这个东西：<br>phps文件就是php的源代码文件，通常用于提供给用户（访问者）查看php代码，因为用户无法直接通过Web浏览器看到php文件的内容，所以需要用phps文件代替</p>
+<p>直接访问<code>index.phps</code>,浏览器会自动下载一个phps文件<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/2021020223572075.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web6"><a href="#web6" class="headerlink" title="web6"></a>web6</h1><p>考察代码泄露。直接访问<code>url/www.zip</code>,浏览器会自动下载zip，解压后有个这个文件，我交上去错的<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203001837854.png" alt="在这里插入图片描述"><br>原来是要在url上访问<code>fl000g.txt</code>这个文件才行</p>
+<h1 id="web7"><a href="#web7" class="headerlink" title="web7"></a>web7</h1><p>Git是一个开源的分布式版本控制系统<br>git代码泄露，git上传代码会在目录创建隐藏文件夹.git，里面有你想要的信息<br>直接访问<code>url/.git/index.php</code>就行</p>
+<h1 id="web8"><a href="#web8" class="headerlink" title="web8"></a>web8</h1><p>这和上面的git一样是开源代码控制系统<br>SVN是subversion的缩写，是一个开放源代码的版本控制系统<br>信息svn泄露,直接访问<code>url/.svn</code></p>
+<h1 id="web-9"><a href="#web-9" class="headerlink" title="web 9"></a>web 9</h1><p>Vim是一个文本编辑器<br>临时文件是在vim编辑文本时就会创建的文件，如果程序正常退出，临时文件自动删除，如果意外退出就会保留，当vim异常退出后，因为未处理缓存文件，导致可以通过缓存文件恢复原始文件内容<br>以 index.php 为例：<br>第一次产生的缓存文件名为 <code>.index.php.swp</code><br>第二次意外退出后，文件名为<code>.index.php.swo</code><br>第三次产生的缓存文件则为<code>.index.php.swn</code><br>注意：index前有 “ . “</p>
+<p>直接访问<code>url/index.php.swp</code> 注意这里不加点，直接访问就行，会把文件下载下来</p>
+<h1 id="web-10"><a href="#web-10" class="headerlink" title="web 10"></a>web 10</h1><p>直接看header的cookie，flag就在那里</p>
+<h1 id="web-11"><a href="#web-11" class="headerlink" title="web 11"></a>web 11</h1><p>通过<a target="_blank" rel="noopener" href="https://zijian.aliyun.com/">dns检查</a>查询网站的TXT 记录，一般指为某个主机名或域名设置的说明。<img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203003547423.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web-12"><a href="#web-12" class="headerlink" title="web 12"></a>web 12</h1><p>访问robots.txt<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/202102030058461.png" alt="在这里插入图片描述"><br>考察了robots.txt的格式：<br>如果我们需要禁止爬虫访问某个目录，比如禁止admin、css、images等目录被索引的话robots.txt写法如下:</p>
+<blockquote>
+<p>User-agent:*<br>Disallow:/css/<br>Disallow: /admin/<br>Disallow:/images/</p>
+</blockquote>
+<p>明显去访问admin<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203005957579.png" alt="在这里插入图片描述"><br>输入用户名，密码，用户名就是admin，密码猜测是下面的手机号<img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203010054553.png" alt="在这里插入图片描述"><br>登进去拿到flag</p>
+<h1 id="web-13"><a href="#web-13" class="headerlink" title="web 13"></a>web 13</h1><p>根据题目提示找到文档，点击下载，得到后台地址和登入账号密码<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203213629456.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203213714597.png" alt="在这里插入图片描述"><br>不是直接打开这个网址，是在原地址后加上<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203213832793.png" alt="在这里插入图片描述"><br>登陆进去拿到flag</p>
+<h1 id="web-15"><a href="#web-15" class="headerlink" title="web 15"></a>web 15</h1><p>根据题目提示访问editor/<br>打开图片上传，查看图片空间，一层一层找到flag的文件夹<img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203215923397.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203215941169.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>然后访问<code>nothinghere/fl000g.txt</code>得到flag</p>
+<h1 id="web-16"><a href="#web-16" class="headerlink" title="web 16"></a>web 16</h1><p>根据题目信息找到作者信息<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203220510716.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开admin界面发现有忘记密码，有个密保，问你是哪个城市，用qq查询一下这个邮箱是西安的就直接输入西安就可以<img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203220632726.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web-16-1"><a href="#web-16-1" class="headerlink" title="web 16"></a>web 16</h1><p>题目提示到探针<br>php探针是用来探测空间、服务器运行状况和PHP信息用的，探针可以实时查看服务器硬盘资源、内存占用、网卡 流量、系统负载、服务器时间等信息。 url后缀名添加/tz.php 版本是雅黑PHP探针</p>
+<p>打开tz.php，再打开PHPINFO<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203221445968.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>打开源码搜索flag<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203221544183.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web-17"><a href="#web-17" class="headerlink" title="web 17"></a>web 17</h1><p>直接查ip就可以了<img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203222127907.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web-18"><a href="#web-18" class="headerlink" title="web 18"></a>web 18</h1><p>直接看js文件，找到101分的时候返回的是什么<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/2021020322274698.png" alt="在这里插入图片描述"><br>发现一大串Unicode代码，肯定是要转码了<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203222843614.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>去110.php找到flag</p>
+<h1 id="web-19"><a href="#web-19" class="headerlink" title="web 19"></a>web 19</h1><p>找源代码，发现这个函数是用来加密的<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203223602461.png" alt="在这里插入图片描述"><br>下面还有php代码<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203223641594.png" alt="在这里插入图片描述"><br>看了wp后知道可以通过抓包直接POST提交，可以绕过前端的加密<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203224240179.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h1 id="web-20"><a href="#web-20" class="headerlink" title="web 20"></a>web 20</h1><p>mdb文件是早期asp+access构架的数据库文件，直接查看url路径添加/db/db.mdb 下载文件<br>用vscod打开，搜索flag<br><img src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://img-blog.csdnimg.cn/20210203224851913.png" alt="在这里插入图片描述"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">huamang</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2021/02/13/[ctfshow]web%E5%85%A5%E9%97%A81-20/">http://example.com/2021/02/13/[ctfshow]web%E5%85%A5%E9%97%A81-20/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Huamang's Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E9%A2%98%E8%A7%A3/">题解</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/02/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E9%9A%BE%E9%A2%98/"><img class="next-cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">难题记录</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/02/02/ctf.show_web2/" title="ctf show_web2"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-02</div><div class="title">ctf show_web2</div></div></a></div><div><a href="/2021/02/13/记录一道难题/" title="难题记录"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-13</div><div class="title">难题记录</div></div></a></div><div><a href="/2021/02/10/[ctfshow] web入门 21-28 爆破/" title="ctfshow web入门21-28 爆破"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-10</div><div class="title">ctfshow web入门21-28 爆破</div></div></a></div><div><a href="/2021/02/02/[极客大挑战 2019]LoveSQL 1/" title="极客大挑战 2019 LoveSQL 1"><img class="cover" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-02-02</div><div class="title">极客大挑战 2019 LoveSQL 1</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" src="https://xiabor.com/img/loading.gif# optional eg ./images/loading.gif" data-original="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">huamang</div><div class="author-info__description">回避现实的人，未来将更不理想</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">20</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/huamang"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/huamang" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">Welcome to my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#web2"><span class="toc-number">1.</span> <span class="toc-text">web2</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web3"><span class="toc-number">2.</span> <span class="toc-text">web3</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web4"><span class="toc-number">3.</span> <span class="toc-text">web4</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web5"><span class="toc-number">4.</span> <span class="toc-text">web5</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web6"><span class="toc-number">5.</span> <span class="toc-text">web6</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web7"><span class="toc-number">6.</span> <span class="toc-text">web7</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web8"><span class="toc-number">7.</span> <span class="toc-text">web8</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-9"><span class="toc-number">8.</span> <span class="toc-text">web 9</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-10"><span class="toc-number">9.</span> <span class="toc-text">web 10</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-11"><span class="toc-number">10.</span> <span class="toc-text">web 11</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-12"><span class="toc-number">11.</span> <span class="toc-text">web 12</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-13"><span class="toc-number">12.</span> <span class="toc-text">web 13</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-15"><span class="toc-number">13.</span> <span class="toc-text">web 15</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-16"><span class="toc-number">14.</span> <span class="toc-text">web 16</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-16-1"><span class="toc-number">15.</span> <span class="toc-text">web 16</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-17"><span class="toc-number">16.</span> <span class="toc-text">web 17</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-18"><span class="toc-number">17.</span> <span class="toc-text">web 18</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-19"><span class="toc-number">18.</span> <span class="toc-text">web 19</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#web-20"><span class="toc-number">19.</span> <span class="toc-text">web 20</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/13/%5Bctfshow%5Dweb%E5%85%A5%E9%97%A81-20/" title="ctfshow web入门1-20">ctfshow web入门1-20</a><time datetime="2021-02-12T17:05:20.233Z" title="发表于 2021-02-13 01:05:20">2021-02-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/13/%E8%AE%B0%E5%BD%95%E4%B8%80%E9%81%93%E9%9A%BE%E9%A2%98/" title="难题记录">难题记录</a><time datetime="2021-02-12T16:54:49.669Z" title="发表于 2021-02-13 00:54:49">2021-02-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2021/02/10/%5Bctfshow%5D%20web%E5%85%A5%E9%97%A8%2021-28%20%E7%88%86%E7%A0%B4/" title="ctfshow web入门21-28 爆破">ctfshow web入门21-28 爆破</a><time datetime="2021-02-10T15:01:56.622Z" title="发表于 2021-02-10 23:01:56">2021-02-10</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url(https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg)"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 <i style="color:#FF6A6A" class="fa fa-heartbeat"></i> huamang</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})</script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'LxaHnYdExlYPoPvrlNDNqtam-gzGzoHsz',
+      appKey: 'Wvsy2iebNzDRLhfqDgLovIAO',
+      placeholder: '大佬说点什么吧！',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: true,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script></div><script>
+            window.imageLazyLoadSetting = {
+                isSPA: false,
+                processImages: null,
+            };
+        </script><script>window.addEventListener("load",function(){var t=/\.(gif|jpg|jpeg|tiff|png)$/i,r=/^data:image\/[a-z]+;base64,/;Array.prototype.slice.call(document.querySelectorAll("img[data-original]")).forEach(function(a){var e=a.parentNode;"A"===e.tagName&&(e.href.match(t)||e.href.match(r))&&(e.href=a.dataset.original)})});</script><script>!function(n){n.imageLazyLoadSetting.processImages=i;var e=n.imageLazyLoadSetting.isSPA,r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function i(){e&&(r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]")));for(var t,a=0;a<r.length;a++)0<=(t=(t=r[a]).getBoundingClientRect()).bottom&&0<=t.left&&t.top<=(n.innerHeight||document.documentElement.clientHeight)&&function(){var t,e,n,i,o=r[a];t=o,e=function(){r=r.filter(function(t){return o!==t})},n=new Image,i=t.getAttribute("data-original"),n.onload=function(){t.src=i,e&&e()},n.src=i}()}i(),n.addEventListener("scroll",function(){var t,e;t=i,e=n,clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(e)},500)})}(this);</script></body></html>
