@@ -4,7 +4,15 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Apr 2022 18:12:37 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 31 May 2022 01:09:09 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[CISCN2022] opline_crt</title>
+    <link>https://example.com/ciscn2022_crt/</link>
+    <pubDate>Tue, 31 May 2022 01:09:09 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/ciscn2022_crt/</guid>
+    <description><![CDATA[0x01 前期准备 源码 题目源码用于本地的调试，有所改动，考虑篇幅，只展示重要逻辑代码 app.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31]]></description>
+</item>
+<item>
     <title>[2022DASCTF Apr X FATE 防疫挑战赛] WP</title>
     <link>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
     <pubDate>Mon, 25 Apr 2022 18:12:37 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>Huamang</author>
     <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
     <description><![CDATA[前言 准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说]]></description>
-</item>
-<item>
-    <title>[SCTF2021]Upload_it_1复现闭包组件反序列化rce</title>
-    <link>https://example.com/sctf2021/</link>
-    <pubDate>Sun, 13 Feb 2022 19:12:40 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/sctf2021/</guid>
-    <description><![CDATA[题目地址 SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp 首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [ {]]></description>
 </item>
 </channel>
 </rss>
