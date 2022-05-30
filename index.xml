@@ -1,9 +1,90 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>LoveIt</title>
+        <title>Huamang&#39;s Blog</title>
         <link>https://example.com/</link>
-        <description>Hugo theme - LoveIt</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+        <description>Huamang&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 25 Apr 2022 18:12:37 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
-        </channel>
+        <item>
+    <title>[2022DASCTF Apr X FATE 防疫挑战赛] WP</title>
+    <link>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
+    <pubDate>Mon, 25 Apr 2022 18:12:37 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
+    <description><![CDATA[Misc SimpleFlow 看流量大概是上传了一个后门，但是会对payload加密，这里发现有flag.txt被打包 后面的包里面发现flag.zip 但是打开需要密码]]></description>
+</item>
+<item>
+    <title>[MRCTF2022] WP</title>
+    <link>https://example.com/mrctf2022_wp/</link>
+    <pubDate>Mon, 25 Apr 2022 18:01:47 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/mrctf2022_wp/</guid>
+    <description><![CDATA[Misc checkin 翻源码找到flag Web WebCheckIn 上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径 然后就往里面加了一]]></description>
+</item>
+<item>
+    <title>[*CTF2022] oh-my-lotto-revenge</title>
+    <link>https://example.com/ctf2022_oh-my-lotto-revenge/</link>
+    <pubDate>Wed, 20 Apr 2022 18:24:27 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/ctf2022_oh-my-lotto-revenge/</guid>
+    <description><![CDATA[New 相对于oh_my_lotto ，revenge进行了下面的更改 这么做，我们能走的就只有RCE了，而这里唯一能操作的一个地方就是这里，可以操作]]></description>
+</item>
+<item>
+    <title>校赛CTFd平台docker搭建—pixo主题</title>
+    <link>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</link>
+    <pubDate>Tue, 19 Apr 2022 18:27:37 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
+    <description><![CDATA[前言 搭建校赛平台，这里是发现有一个很好看的ctfd的主题pixo 所以就想着来搭建这么一个平台，这次我打算使用docker来搭建，使用dock]]></description>
+</item>
+<item>
+    <title>[*CTF2022] WP</title>
+    <link>https://example.com/ctf2022_wp/</link>
+    <pubDate>Sun, 17 Apr 2022 18:29:06 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/ctf2022_wp/</guid>
+    <description><![CDATA[Web oh-my-grafana 存在CVE-2021-43798 paylaod 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db 有个加盐的密码 再找找其他配置文件，反正任意文件读取用起来 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini 拿到了密码 1 2 3 4 5 # default admin user, created on startup admin_user =]]></description>
+</item>
+<item>
+    <title>[Java安全]类加载器ClassLoader</title>
+    <link>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+    <pubDate>Wed, 30 Mar 2022 19:17:18 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+    <description><![CDATA[前言 借用了先知社区的文章 的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J]]></description>
+</item>
+<item>
+    <title>[SUCTF2022] WP</title>
+    <link>https://example.com/suctf2022/</link>
+    <pubDate>Mon, 28 Mar 2022 18:35:14 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/suctf2022/</guid>
+    <description><![CDATA[Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这]]></description>
+</item>
+<item>
+    <title>[HMGCTF2022] WP</title>
+    <link>https://example.com/hmgctf2022/</link>
+    <pubDate>Thu, 24 Mar 2022 18:46:53 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/hmgctf2022/</guid>
+    <description><![CDATA[WEB Fan website 首先是一个www.zip的源码泄露，是laminas框架 mvc的框架首先就是看路由 在\module\Album\src\Control]]></description>
+</item>
+<item>
+    <title>[Java安全]反射</title>
+    <link>https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</link>
+    <pubDate>Mon, 07 Mar 2022 19:14:57 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
+    <description><![CDATA[前言 准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说]]></description>
+</item>
+<item>
+    <title>[SCTF2021]Upload_it_1复现闭包组件反序列化rce</title>
+    <link>https://example.com/sctf2021/</link>
+    <pubDate>Sun, 13 Feb 2022 19:12:40 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/sctf2021/</guid>
+    <description><![CDATA[题目地址 SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp 首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [ {]]></description>
+</item>
+</channel>
 </rss>

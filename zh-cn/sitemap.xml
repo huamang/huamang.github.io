@@ -2,30 +2,52 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://example.com/zh-cn/categories/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://example.com/friends/</loc><lastmod>2022-05-30T17:29:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</loc><lastmod>2022-04-25T18:12:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/categories/</loc><lastmod>2022-04-25T18:12:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://example.com/categories/"
+                        href="https://example.com/en/categories/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://example.com/zh-cn/categories/"
+                    href="https://example.com/categories/"
                     /></url><url>
-            <loc>https://example.com/zh-cn/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://example.com/categories/ctf/</loc><lastmod>2022-04-25T18:12:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/</loc><lastmod>2022-04-25T18:12:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://example.com/"
+                        href="https://example.com/en/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://example.com/zh-cn/"
+                    href="https://example.com/"
                     /></url><url>
-            <loc>https://example.com/zh-cn/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
+            <loc>https://example.com/posts/</loc><lastmod>2022-04-25T18:12:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/mrctf2022_wp/</loc><lastmod>2022-04-25T18:01:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/ctf2022_oh-my-lotto-revenge/</loc><lastmod>2022-04-20T18:24:27&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/</loc><lastmod>2022-04-19T18:27:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</loc><lastmod>2022-04-19T18:27:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/ctf2022_wp/</loc><lastmod>2022-04-17T18:29:06&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</loc><lastmod>2022-03-30T19:17:18&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/suctf2022/</loc><lastmod>2022-03-28T18:35:14&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/hmgctf2022/</loc><lastmod>2022-03-24T18:46:53&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</loc><lastmod>2022-03-07T19:14:57&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/sctf2021/</loc><lastmod>2022-02-13T19:12:40&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</loc><lastmod>2021-11-30T19:10:02&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/</loc><lastmod>2021-11-26T19:07:54&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</loc><lastmod>2021-11-16T19:01:32&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</loc><lastmod>2021-11-03T18:57:48&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</loc><lastmod>2021-09-18T18:56:41&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</loc><lastmod>2021-08-19T18:53:44&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/</loc><lastmod>2021-08-19T18:53:44&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/about/</loc><lastmod>2019-08-02T11:04:49&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
+            <loc>https://example.com/tags/</loc><changefreq>weekly</changefreq><priority>0.5</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
-                        href="https://example.com/tags/"
+                        href="https://example.com/en/tags/"
                         /><xhtml:link
                     rel="alternate"
                     hreflang="zh-cn"
-                    href="https://example.com/zh-cn/tags/"
+                    href="https://example.com/tags/"
                     /></url></urlset>

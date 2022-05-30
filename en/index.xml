@@ -1,0 +1,10 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Huamang&#39;s Blog</title>
+        <link>https://example.com/en/</link>
+        <description>Huamang&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+            <atom:link href="https://example.com/en/index.xml" rel="self" type="application/rss+xml" />
+        </channel>
+</rss>

@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>校赛CTFd平台docker搭建—pixo主题 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="校赛CTFd平台docker搭建—pixo主题" />
+<meta property="og:description" content="前言 搭建校赛平台，这里是发现有一个很好看的ctfd的主题pixo 所以就想着来搭建这么一个平台，这次我打算使用docker来搭建，使用dock" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-19T18:27:37+08:00" />
+<meta property="article:modified_time" content="2022-04-19T18:27:37+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="校赛CTFd平台docker搭建—pixo主题"/>
+<meta name="twitter:description" content="前言 搭建校赛平台，这里是发现有一个很好看的ctfd的主题pixo 所以就想着来搭建这么一个平台，这次我打算使用docker来搭建，使用dock"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" /><link rel="prev" href="https://example.com/ctf2022_wp/" /><link rel="next" href="https://example.com/ctf2022_oh-my-lotto-revenge/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "校赛CTFd平台docker搭建—pixo主题",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1043 ,
+        "url": "https:\/\/example.com\/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA\/","datePublished": "2022-04-19T18:27:37+08:00","dateModified": "2022-04-19T18:27:37+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">校赛CTFd平台docker搭建—pixo主题</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-19">2022-04-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1043 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#第一种方法的尝试">第一种方法的尝试</a></li>
+        <li><a href="#docker-compose">docker-compose</a></li>
+        <li><a href="#end">END</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>搭建校赛平台，这里是发现有一个很好看的ctfd的主题<a href="https://github.com/hmrserver/CTFd-theme-pixo" target="_blank" rel="noopener noreffer">pixo</a>
+</p>
+<p>所以就想着来搭建这么一个平台，这次我打算使用docker来搭建，使用docker搭建有两条路可走</p>
+<ul>
+<li>docker pull ctfd/ctfd</li>
+<li>docker-compose up</li>
+</ul>
+<h2 id="第一种方法的尝试">第一种方法的尝试</h2>
+<p>首先我是打算直接使用docker pull的方式来搭建的，的确可以搭建，但是主页会有广告</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025252948.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025252948.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025252948.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025252948.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025252948.png"
+        title="image-20220419025252948" /></p>
+<p>我想着怎么把他删掉，我把文件通过docker传回服务器</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">docker</span> <span class="nx">cp</span> <span class="nx">xx</span><span class="o">:</span><span class="err">/opt/CTFd ./</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后下载到本机进行搜索，发现他存在于views.py文件里面</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025306044.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025306044.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025306044.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025306044.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025306044.png"
+        title="image-20220419025306044" /></p>
+<p>我对这个文件进行了审计，发现他会在setup的时候把内容写进html内，但是这里就有问题了，我如果是pull下来的镜像，我运行的时候他就已经启动了views.py，所以我无法修改里面的广告信息。所以我无奈之下只能放弃这个方法，我开始尝试docker-compose来进行搭建</p>
+<h2 id="docker-compose">docker-compose</h2>
+<p>我从github下载到CTFd3.4.3版本的文件，我找到docker-compose.yml文件，修改了端口号一后，我就开始执行<code>docker-compose up</code></p>
+<p>我观察dockerfile，这里会进行apt的更新和下载</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025319014.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025319014.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025319014.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025319014.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025319014.png"
+        title="image-20220419025319014" /></p>
+<p>但是发现apt会下载的十分缓慢，等了很久很久都下不完，于是我选择进行换源，我dockerfile进行如下修改，增加如下命令执行</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">RUN</span>  <span class="nx">sed</span> <span class="o">-</span><span class="nx">i</span> <span class="nx">s</span><span class="err">@</span><span class="o">/</span><span class="nx">archive</span><span class="p">.</span><span class="nx">ubuntu</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="err">@</span><span class="o">/</span><span class="nx">mirrors</span><span class="p">.</span><span class="nx">aliyun</span><span class="p">.</span><span class="nx">com</span><span class="o">/</span><span class="err">@</span><span class="nx">g</span> <span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">apt</span><span class="o">/</span><span class="nx">sources</span><span class="p">.</span><span class="nx">list</span>
+<span class="nx">RUN</span>  <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">clean</span>
+<span class="nx">RUN</span> <span class="nx">apt</span><span class="o">-</span><span class="nx">get</span> <span class="nx">update</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我空了一段时间打开，发现apt已经处理好了，但是pip出问题了，他下载超时了。。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025328678.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025328678.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025328678.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025328678.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025328678.png"
+        title="image-20220419025328678" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025339382.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025339382.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025339382.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025339382.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025339382.png"
+        title="image-20220419025339382" /></p>
+<p>所以我还得对pip进行换源，我又对dockerfile进行如下的修改，添加阿里云源</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-jsx" data-lang="jsx"><span class="nx">RUN</span> <span class="nx">pip</span> <span class="nx">config</span> <span class="nx">set</span> <span class="nx">global</span><span class="p">.</span><span class="nx">index</span><span class="o">-</span><span class="nx">url</span> <span class="nx">http</span><span class="o">:</span><span class="c1">//mirrors.aliyun.com/pypi/simple
+</span><span class="c1"></span><span class="nx">RUN</span> <span class="nx">pip</span> <span class="nx">config</span> <span class="nx">set</span> <span class="nx">install</span><span class="p">.</span><span class="nx">trusted</span><span class="o">-</span><span class="nx">host</span> <span class="nx">mirrors</span><span class="p">.</span><span class="nx">aliyun</span><span class="p">.</span><span class="nx">com</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>看见pip已经把所有模块安装完毕，就当我以为快要成功的时候，发现这里又有报错，说我的80端口被占用，那我不可能因为一个docker就把80端口给让出来吧，所以我修改了docker-compose.yml文件，将Nginx的端口转发到其他的端口</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025349406.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025349406.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025349406.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025349406.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025349406.png"
+        title="image-20220419025349406" /></p>
+<p>这下总算成功的搭建起来了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://raw.githubusercontent.com/huamang/image/master/image-20220419025359651.png"
+        data-srcset="https://raw.githubusercontent.com/huamang/image/master/image-20220419025359651.png, https://raw.githubusercontent.com/huamang/image/master/image-20220419025359651.png 1.5x, https://raw.githubusercontent.com/huamang/image/master/image-20220419025359651.png 2x"
+        data-sizes="auto"
+        alt="https://raw.githubusercontent.com/huamang/image/master/image-20220419025359651.png"
+        title="image-20220419025359651" /></p>
+<h2 id="end">END</h2>
+<p>附上这次dockerfile和docker-compose.yml</p>
+<p>dockerfile</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-docker" data-lang="docker"><span class="k">FROM</span><span class="s"> python:3.7-slim-buster</span><span class="err">
+</span><span class="err"></span><span class="k">WORKDIR</span><span class="s"> /opt/CTFd</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> mkdir -p /opt/CTFd /var/log/CTFd /var/uploads<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># hadolint ignore=DL3008</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span>  sed -i s@/archive.ubuntu.com/@/mirrors.aliyun.com/@g /etc/apt/sources.list<span class="err">
+</span><span class="err"></span><span class="k">RUN</span>  apt-get clean<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> apt-get update<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> pip config <span class="nb">set</span> global.index-url http://mirrors.aliyun.com/pypi/simple<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> pip config <span class="nb">set</span> install.trusted-host mirrors.aliyun.com<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> apt-get update <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y --no-install-recommends <span class="se">\
+</span><span class="se"></span>        build-essential <span class="se">\
+</span><span class="se"></span>        python3-dev <span class="se">\
+</span><span class="se"></span>        libffi-dev <span class="se">\
+</span><span class="se"></span>        libssl-dev <span class="se">\
+</span><span class="se"></span>        git <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get clean <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> requirements.txt /opt/CTFd/<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> pip install -r requirements.txt --no-cache-dir<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">COPY</span> . /opt/CTFd<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="c"># hadolint ignore=SC2086</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> <span class="k">for</span> d in CTFd/plugins/*<span class="p">;</span> <span class="k">do</span> <span class="se">\
+</span><span class="se"></span>        <span class="k">if</span> <span class="o">[</span> -f <span class="s2">&#34;</span><span class="nv">$d</span><span class="s2">/requirements.txt&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span> <span class="se">\
+</span><span class="se"></span>            pip install -r <span class="nv">$d</span>/requirements.txt --no-cache-dir<span class="p">;</span> <span class="se">\
+</span><span class="se"></span>        <span class="k">fi</span><span class="p">;</span> <span class="se">\
+</span><span class="se"></span>    <span class="k">done</span><span class="p">;</span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">RUN</span> adduser <span class="se">\
+</span><span class="se"></span>    --disabled-login <span class="se">\
+</span><span class="se"></span>    -u <span class="m">1001</span> <span class="se">\
+</span><span class="se"></span>    --gecos <span class="s2">&#34;&#34;</span> <span class="se">\
+</span><span class="se"></span>    --shell /bin/bash <span class="se">\
+</span><span class="se"></span>    ctfd<span class="err">
+</span><span class="err"></span><span class="k">RUN</span> chmod +x /opt/CTFd/docker-entrypoint.sh <span class="se">\
+</span><span class="se"></span>    <span class="o">&amp;&amp;</span> chown -R 1001:1001 /opt/CTFd /var/log/CTFd /var/uploads<span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="k">USER</span><span class="s"> 1001</span><span class="err">
+</span><span class="err"></span><span class="k">EXPOSE</span><span class="s"> 8000</span><span class="err">
+</span><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;/opt/CTFd/docker-entrypoint.sh&#34;</span><span class="p">]</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>docker-compose.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;2&#39;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="nt">ctfd</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">build</span><span class="p">:</span><span class="w"> </span><span class="l">.</span><span class="w">
+</span><span class="w">    </span><span class="nt">user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="s2">&#34;50010:8000&#34;</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">UPLOAD_FOLDER=/var/uploads</span><span class="w">
+</span><span class="w">      </span>- <span class="l">DATABASE_URL=mysql+pymysql://ctfd:ctfd@db/ctfd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">REDIS_URL=redis://cache:6379</span><span class="w">
+</span><span class="w">      </span>- <span class="l">WORKERS=1</span><span class="w">
+</span><span class="w">      </span>- <span class="l">LOG_FOLDER=/var/log/CTFd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">ACCESS_LOG=-</span><span class="w">
+</span><span class="w">      </span>- <span class="l">ERROR_LOG=-</span><span class="w">
+</span><span class="w">      </span>- <span class="l">REVERSE_PROXY=true</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">.data/CTFd/logs:/var/log/CTFd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">.data/CTFd/uploads:/var/uploads</span><span class="w">
+</span><span class="w">      </span>- <span class="l">.:/opt/CTFd:ro</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">db</span><span class="w">
+</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">default</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">internal</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">nginx</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">nginx:1.17</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">./conf/nginx/http.conf:/etc/nginx/nginx.conf</span><span class="w">
+</span><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="m">50011</span><span class="p">:</span><span class="m">80</span><span class="w">
+</span><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">ctfd</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mariadb:10.4.12</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">MYSQL_ROOT_PASSWORD=ctfd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">MYSQL_USER=ctfd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">MYSQL_PASSWORD=ctfd</span><span class="w">
+</span><span class="w">      </span>- <span class="l">MYSQL_DATABASE=ctfd</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">      </span>- <span class="l">.data/mysql:/var/lib/mysql</span><span class="w">
+</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">internal</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="c"># This command is required to set important mariadb defaults</span><span class="w">
+</span><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci, --wait_timeout=28800, --log-warnings=0]</span><span class="w">
+</span><span class="w">
+</span><span class="w">  </span><span class="nt">cache</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">redis:4</span><span class="w">
+</span><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="l">.data/redis:/data</span><span class="w">
+</span><span class="w">    </span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">internal</span><span class="p">:</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="nt">networks</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">default</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span><span class="nt">internal</span><span class="p">:</span><span class="w">
+</span><span class="w">        </span><span class="nt">internal</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ctf2022_wp/" class="prev" rel="prev" title="[*CTF2022] WP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[*CTF2022] WP</a>
+            <a href="/ctf2022_oh-my-lotto-revenge/" class="next" rel="next" title="[*CTF2022] oh-my-lotto-revenge">[*CTF2022] oh-my-lotto-revenge<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

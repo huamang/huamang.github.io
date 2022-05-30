@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[代码审计]ThinkPHP5的文件包含漏洞 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[代码审计]ThinkPHP5的文件包含漏洞" />
+<meta property="og:description" content="漏洞影响范围 加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&lt;=ThinkPHP5&lt;=5.0." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-11-03T18:57:48+08:00" />
+<meta property="article:modified_time" content="2021-11-03T18:57:48+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[代码审计]ThinkPHP5的文件包含漏洞"/>
+<meta name="twitter:description" content="漏洞影响范围 加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&lt;=ThinkPHP5&lt;=5.0."/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" /><link rel="prev" href="https://example.com/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/" /><link rel="next" href="https://example.com/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[代码审计]ThinkPHP5的文件包含漏洞",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1198 ,
+        "url": "https:\/\/example.com\/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB\/","datePublished": "2021-11-03T18:57:48+08:00","dateModified": "2021-11-03T18:57:48+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[代码审计]ThinkPHP5的文件包含漏洞</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-03">2021-11-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1198 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#漏洞影响范围">漏洞影响范围</a></li>
+    <li><a href="#tp框架搭建">tp框架搭建</a></li>
+    <li><a href="#漏洞分析">漏洞分析</a></li>
+    <li><a href="#漏洞总结">漏洞总结</a></li>
+    <li><a href="#漏洞的修复">漏洞的修复</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="漏洞影响范围">漏洞影响范围</h1>
+<p>加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生
+漏洞影响版本：<strong>5.0.0&lt;=ThinkPHP5&lt;=5.0.18 、5.1.0&lt;=ThinkPHP&lt;=5.1.10</strong></p>
+<h1 id="tp框架搭建">tp框架搭建</h1>
+<p>tp框架由两部分组成
+应用项目: <a href="https://github.com/top-think/think" target="_blank" rel="noopener noreffer">https://github.com/top-think/think</a>
+
+核心框架: <a href="https://github.com/top-think/framework" target="_blank" rel="noopener noreffer">https://github.com/top-think/framework</a>
+
+框架下载好后，需要更名为thinkphp</p>
+<p>这里可以直接用composer来获取代码
+通过以下命令获取测试环境代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">composer create-project --prefer-dist topthink/think=5.0.18 tp5.0.18
+</code></pre></td></tr></table>
+</div>
+</div><p>将 composer.json 文件的 require 字段设置成如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;require&#34;</span><span class="err">:</span> <span class="p">{</span>
+    <span class="nt">&#34;php&#34;</span><span class="p">:</span> <span class="s2">&#34;&gt;=5.6.0&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;topthink/framework&#34;</span><span class="p">:</span> <span class="s2">&#34;5.0.18&#34;</span>
+<span class="p">}</span><span class="err">,</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后执行 composer update ，并将 application/index/controller/Index.php 文件代码设置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">namespace</span> <span class="nx">app\index\controller</span><span class="p">;</span>
+<span class="k">use</span> <span class="nx">think\Controller</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="nx">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">());</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">();</span> <span class="c1">// 当前模块/默认视图目录/当前控制器（小写）/当前操作（小写）.html
+</span><span class="c1"></span>    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>创建 application/index/view/index/index.html 文件</p>
+<h1 id="漏洞分析">漏洞分析</h1>
+<p>payload：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http://127.0.0.1/tp5.0.18/public/index?cacheFile=php://filter/read=convert.base64-encode/resource=/etc/passwd
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/7b31190fa31b4a1e87075144d220fc6f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/7b31190fa31b4a1e87075144d220fc6f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/7b31190fa31b4a1e87075144d220fc6f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/7b31190fa31b4a1e87075144d220fc6f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/7b31190fa31b4a1e87075144d220fc6f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+打断点进行调试
+先进入assign进行模板变量的赋值</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/b172a46b5515432c9d3b7ef3ba3bec52.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/b172a46b5515432c9d3b7ef3ba3bec52.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/b172a46b5515432c9d3b7ef3ba3bec52.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/b172a46b5515432c9d3b7ef3ba3bec52.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/b172a46b5515432c9d3b7ef3ba3bec52.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/f9ec8769cb0549fb89e30513f121689e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/f9ec8769cb0549fb89e30513f121689e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/f9ec8769cb0549fb89e30513f121689e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/f9ec8769cb0549fb89e30513f121689e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/f9ec8769cb0549fb89e30513f121689e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>这边会有一个过滤，看起来像sql的过滤，与我们这次的没啥关系</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/a823bf0bc5f6470280317c52fb561143.png"
+        data-srcset="https://img-blog.csdnimg.cn/a823bf0bc5f6470280317c52fb561143.png, https://img-blog.csdnimg.cn/a823bf0bc5f6470280317c52fb561143.png 1.5x, https://img-blog.csdnimg.cn/a823bf0bc5f6470280317c52fb561143.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/a823bf0bc5f6470280317c52fb561143.png"
+        title="在这里插入图片描述" /></p>
+<p>然后进入fetch方法，走完前面的缓存，就会进入一个read方法</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/951a39d6ee7a4f7b884bbb8c2ab65a64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/951a39d6ee7a4f7b884bbb8c2ab65a64.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_17%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/951a39d6ee7a4f7b884bbb8c2ab65a64.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_17%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/951a39d6ee7a4f7b884bbb8c2ab65a64.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_17%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/951a39d6ee7a4f7b884bbb8c2ab65a64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/f3602d22c4bb44dc9e9222c44b7a5637.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/f3602d22c4bb44dc9e9222c44b7a5637.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/f3602d22c4bb44dc9e9222c44b7a5637.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/f3602d22c4bb44dc9e9222c44b7a5637.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/f3602d22c4bb44dc9e9222c44b7a5637.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>这里进行了一个变量的赋值：<code>extract($vars, EXTR_OVERWRITE);</code>，但是这里他设置了一个属性：<code>EXTR_OVERWRITE</code>
+这个属性的存在，会照成一个变量覆盖的效果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/da67cd8e225d4fd18212b00913c295e4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/da67cd8e225d4fd18212b00913c295e4.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/da67cd8e225d4fd18212b00913c295e4.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/da67cd8e225d4fd18212b00913c295e4.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_19%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/da67cd8e225d4fd18212b00913c295e4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>这时候，cacheFile就会变成我们get提交的数据
+下一步就是直接包含了这个文件
+输出读取的文件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/42b63db8b6e1473599c702b91efc9b51.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/42b63db8b6e1473599c702b91efc9b51.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/42b63db8b6e1473599c702b91efc9b51.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/42b63db8b6e1473599c702b91efc9b51.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/42b63db8b6e1473599c702b91efc9b51.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>成功的包含到了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/cb6c51add313431799df1b903f14e0f8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/cb6c51add313431799df1b903f14e0f8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/cb6c51add313431799df1b903f14e0f8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/cb6c51add313431799df1b903f14e0f8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/cb6c51add313431799df1b903f14e0f8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<h1 id="漏洞总结">漏洞总结</h1>
+<p>总体来说，漏洞的思路就是：</p>
+<ol>
+<li>先通过view的assign把get数据存在数组data中</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/3dad672feb5344d5811e5dd52e1908ca.png"
+        data-srcset="https://img-blog.csdnimg.cn/3dad672feb5344d5811e5dd52e1908ca.png, https://img-blog.csdnimg.cn/3dad672feb5344d5811e5dd52e1908ca.png 1.5x, https://img-blog.csdnimg.cn/3dad672feb5344d5811e5dd52e1908ca.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/3dad672feb5344d5811e5dd52e1908ca.png"
+        title="在这里插入图片描述" /></p>
+<ol start="2">
+<li>然后进入view的fetch方法，通过<code>$vars = array_merge(self::$var, $this-&gt;data, $vars);</code>，将data中的数据再合并到vars的变量中去</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/c793f086b79948fdb247c935d8cb194a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/c793f086b79948fdb247c935d8cb194a.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/c793f086b79948fdb247c935d8cb194a.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/c793f086b79948fdb247c935d8cb194a.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/c793f086b79948fdb247c935d8cb194a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<ol start="3">
+<li>再进入了Think的fetch方法，vars变量被赋进去了</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/9cd157055c2e47d3a7507ad5715d1b4a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/9cd157055c2e47d3a7507ad5715d1b4a.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/9cd157055c2e47d3a7507ad5715d1b4a.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/9cd157055c2e47d3a7507ad5715d1b4a.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/9cd157055c2e47d3a7507ad5715d1b4a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<ol start="4">
+<li>再到template的fetch方法中去，data变量依旧继续传递下去</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/af65ea17b74f4a7983bc81f10603302f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/af65ea17b74f4a7983bc81f10603302f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/af65ea17b74f4a7983bc81f10603302f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/af65ea17b74f4a7983bc81f10603302f.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/af65ea17b74f4a7983bc81f10603302f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<ol start="5">
+<li>到template的fetch方法里面，里面有一个cacheFile变量，值为箭头所指的文件，到了read方法，data和cacheFile一起被赋值进去</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/64822dd09c894df4a548412ab1e1593b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/64822dd09c894df4a548412ab1e1593b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/64822dd09c894df4a548412ab1e1593b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/64822dd09c894df4a548412ab1e1593b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/64822dd09c894df4a548412ab1e1593b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<ol start="6">
+<li>可以看到，这里的extract函数由于EXTR_OVERWRITE设置了参数，所以cacheFile变量被覆盖了，导致后面的include就包含了我们vars中的值，而这个值我们是可以控制的，这就造成了一个文件包含的漏洞</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/ef2d178b69e34abe84cc4493c11336d1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/ef2d178b69e34abe84cc4493c11336d1.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/ef2d178b69e34abe84cc4493c11336d1.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/ef2d178b69e34abe84cc4493c11336d1.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/ef2d178b69e34abe84cc4493c11336d1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<h1 id="漏洞的修复">漏洞的修复</h1>
+<p>官方漏洞的修复方案
+他这里是用了一个<code>$this-&gt;cacheFile</code>
+这样一来，在include的时候就不会因为变量覆盖而包含到我们data中的数据了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">read</span><span class="p">(</span><span class="nv">$cacheFile</span><span class="p">,</span> <span class="nv">$vars</span> <span class="o">=</span> <span class="p">[])</span>
+<span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheFile</span> <span class="o">=</span> <span class="nv">$cacheFile</span><span class="p">;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$vars</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">is_array</span><span class="p">(</span><span class="nv">$vars</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// 模板阵列变量分解成为独立变量
+</span><span class="c1"></span>        <span class="nx">extract</span><span class="p">(</span><span class="nv">$vars</span><span class="p">,</span> <span class="nx">EXTR_OVERWRITE</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="c1">//载入模版缓存文件
+</span><span class="c1"></span>    <span class="k">include</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheFile</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里<a href="https://www.ieven762.cn/index.php/archives/101/" target="_blank" rel="noopener noreffer">学长的文章</a>
+也是提到了为啥参数不换成<code>EXTR_SKIP</code>防止变量的覆盖呢，EXTR_SKIP的作用就是：<strong>如果有冲突，不覆盖已有的变量</strong>，那么这一步就会失效，万一你确实是想传这么一个$cacheFile=xxx，那么到这里就会直接实效掉，导致功能的损坏，所以利用<code>$this-&gt;cacheFile</code>是更优的选择</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2021-11-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/" class="prev" rel="prev" title="[Java安全] 远程调试初探"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[Java安全] 远程调试初探</a>
+            <a href="/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" class="next" rel="next" title="[代码审计]Yii2反序列化漏洞分析 V2.0.38">[代码审计]Yii2反序列化漏洞分析 V2.0.38<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

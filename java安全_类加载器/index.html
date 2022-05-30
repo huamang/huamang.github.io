@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[Java安全]类加载器ClassLoader - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全]类加载器ClassLoader" />
+<meta property="og:description" content="前言 借用了先知社区的文章 的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-03-30T19:17:18+08:00" />
+<meta property="article:modified_time" content="2022-03-30T19:17:18+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[Java安全]类加载器ClassLoader"/>
+<meta name="twitter:description" content="前言 借用了先知社区的文章 的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" /><link rel="prev" href="https://example.com/suctf2022/" /><link rel="next" href="https://example.com/ctf2022_wp/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[Java安全]类加载器ClassLoader",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2227 ,
+        "url": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8\/","datePublished": "2022-03-30T19:17:18+08:00","dateModified": "2022-03-30T19:17:18+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全]类加载器ClassLoader</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-30">2022-03-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2227 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#类加载器介绍">类加载器介绍</a>
+      <ul>
+        <li><a href="#类加载器分类">类加载器分类</a></li>
+        <li><a href="#classloader类核心方法">ClassLoader类核心方法</a>
+          <ul>
+            <li>
+              <ul>
+                <li><a href="#loadclass加载指定的java类">loadClass：加载指定的java类</a></li>
+                <li><a href="#findclass查找指定的java类">findCLass：查找指定的Java类</a></li>
+                <li><a href="#findloadedclass查找jvm已经加载过的类">findLoadedClass：查找JVM已经加载过的类</a></li>
+                <li><a href="#defineclass定义一个java类将字节码解析成虚拟机识别的class对象往往和findclass方法配合使用">defineClass：定义一个Java类，将字节码解析成虚拟机识别的Class对象。往往和findClass()方法配合使用</a></li>
+                <li><a href="#resolveclass链接指定java类">resolveClass：链接指定Java类</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#自定义的类加载器">自定义的类加载器</a></li>
+        <li><a href="#urlclassloader">URLClassLoader</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="前言">前言</h1>
+<p>借用了先知社区的<a href="https://xz.aliyun.com/t/9002#toc-10" target="_blank" rel="noopener noreffer">文章</a>
+的一张图来解释这个原理</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/8472cb0f79c344fa928c19cda9a202fc.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/8472cb0f79c344fa928c19cda9a202fc.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/8472cb0f79c344fa928c19cda9a202fc.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/8472cb0f79c344fa928c19cda9a202fc.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/8472cb0f79c344fa928c19cda9a202fc.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。Java源代码通过javac编译器编译成类文件，然后JVM来执行类文件中的字节码来执行程序。</p>
+<h1 id="类加载器介绍">类加载器介绍</h1>
+<p>类加载器大致分为两类：</p>
+<ul>
+<li>JVM 默认类加载器</li>
+<li>用户自定义类加载器</li>
+</ul>
+<h2 id="类加载器分类">类加载器分类</h2>
+<ul>
+<li>引导类加载器(BootstrapClassLoader)：属于jvm一部分，不继承java.lang.ClassLoader类，也没有父加载器，主要负责加载核心java库(即JVM本身)，存储在/jre/lib/rt.jar目录当中、</li>
+<li>扩展类加载器(ExtensionsClassLoader)：sun.misc.Launcher$ExtClassLoader类实现，用来在/jre/lib/ext或者java.ext.dirs中指明的目录加载java的扩展库</li>
+<li>系统类加载器(AppClassLoader)：由sun.misc.Launcher$AppClassLoader实现，一般通过通过(java.class.path或者Classpath环境变量)来加载Java类，也就是我们常说的classpath路径。通常我们是使用这个加载类来加载Java应用类，可以使用ClassLoader.getSystemClassLoader()来获取它</li>
+<li>自定义类加载器(UserDefineClassLoader)：这个就是由用户自定义的类加载器</li>
+</ul>
+<h2 id="classloader类核心方法">ClassLoader类核心方法</h2>
+<p>除了上述引导类加载器BootstrapClassLoader，其他类加载器都是继承了CLassLoader类
+ClassLoader类是一个抽象类，主要的功能是通过指定的类的名称，找到对应的字节码，返回一java.lang.Class类的实例。</p>
+<h4 id="loadclass加载指定的java类">loadClass：加载指定的java类</h4>
+<p>加载名称为name的类，返回的结果是java.lang.Class类的实例</p>
+<p>可以看loadClass的源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">loadClass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">resolve</span><span class="o">)</span>
+        <span class="kd">throws</span> <span class="n">ClassNotFoundException</span>
+    <span class="o">{</span>
+        <span class="kd">synchronized</span> <span class="o">(</span><span class="n">getClassLoadingLock</span><span class="o">(</span><span class="n">name</span><span class="o">))</span> <span class="o">{</span>
+            <span class="c1">// First, check if the class has already been loaded
+</span><span class="c1"></span>            <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">findLoadedClass</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="kt">long</span> <span class="n">t0</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(</span><span class="n">parent</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">c</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">name</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+                    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+                        <span class="n">c</span> <span class="o">=</span> <span class="n">findBootstrapClassOrNull</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="c1">// ClassNotFoundException thrown if class not found
+</span><span class="c1"></span>                    <span class="c1">// from the non-null parent class loader
+</span><span class="c1"></span>                <span class="o">}</span>
+
+                <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="c1">// If still not found, then invoke findClass in order
+</span><span class="c1"></span>                    <span class="c1">// to find the class.
+</span><span class="c1"></span>                    <span class="kt">long</span> <span class="n">t1</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+                    <span class="n">c</span> <span class="o">=</span> <span class="n">findClass</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+
+                    <span class="c1">// this is the defining class loader; record the stats
+</span><span class="c1"></span>                    <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">PerfCounter</span><span class="o">.</span><span class="na">getParentDelegationTime</span><span class="o">().</span><span class="na">addTime</span><span class="o">(</span><span class="n">t1</span> <span class="o">-</span> <span class="n">t0</span><span class="o">);</span>
+                    <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">PerfCounter</span><span class="o">.</span><span class="na">getFindClassTime</span><span class="o">().</span><span class="na">addElapsedTimeFrom</span><span class="o">(</span><span class="n">t1</span><span class="o">);</span>
+                    <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">PerfCounter</span><span class="o">.</span><span class="na">getFindClasses</span><span class="o">().</span><span class="na">increment</span><span class="o">();</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">resolve</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">resolveClass</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">c</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>先进行findLoadedClass进行判断是否加载过这个类，如果已经加载过的话，就直接返回；如果没加载过，则使用加载器的父类的加载器去加载。当没有父类的时候，则会调用自身的findClass方法，因此可以重写findClass方法完成一些类加载的特殊要求</p>
+<h4 id="findclass查找指定的java类">findCLass：查找指定的Java类</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">findClass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">ClassNotFoundException</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="findloadedclass查找jvm已经加载过的类">findLoadedClass：查找JVM已经加载过的类</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">findLoadedClass</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="n">checkName</span><span class="o">(</span><span class="n">name</span><span class="o">))</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">findLoadedClass0</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="defineclass定义一个java类将字节码解析成虚拟机识别的class对象往往和findclass方法配合使用">defineClass：定义一个Java类，将字节码解析成虚拟机识别的Class对象。往往和findClass()方法配合使用</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">defineClass</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span><span class="o">,</span> <span class="kt">int</span> <span class="n">off</span><span class="o">,</span> <span class="kt">int</span> <span class="n">len</span><span class="o">)</span>
+        <span class="kd">throws</span> <span class="n">ClassFormatError</span>
+    <span class="o">{</span>
+        <span class="k">return</span> <span class="n">defineClass</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">b</span><span class="o">,</span> <span class="n">off</span><span class="o">,</span> <span class="n">len</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="resolveclass链接指定java类">resolveClass：链接指定Java类</h4>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">final</span> <span class="kt">void</span> <span class="nf">resolveClass</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">resolveClass0</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kd">native</span> <span class="kt">void</span> <span class="nf">resolveClass0</span><span class="o">(</span><span class="n">Class</span> <span class="n">c</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="自定义的类加载器">自定义的类加载器</h2>
+<p>那么我们如果要自定义类加载器，那么就要进行如下步骤：</p>
+<ol>
+<li>继承ClassLoader类</li>
+<li>重载fandClass方法</li>
+<li>利用defineClass方法将字节码转换成java.lang.class类对象</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/0d89669d138545389ffb221ede636289.png"
+        data-srcset="https://img-blog.csdnimg.cn/0d89669d138545389ffb221ede636289.png, https://img-blog.csdnimg.cn/0d89669d138545389ffb221ede636289.png 1.5x, https://img-blog.csdnimg.cn/0d89669d138545389ffb221ede636289.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/0d89669d138545389ffb221ede636289.png"
+        title="在这里插入图片描述" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/6d67156a6bb94cc4a71af4bd7772a616.png"
+        data-srcset="https://img-blog.csdnimg.cn/6d67156a6bb94cc4a71af4bd7772a616.png, https://img-blog.csdnimg.cn/6d67156a6bb94cc4a71af4bd7772a616.png 1.5x, https://img-blog.csdnimg.cn/6d67156a6bb94cc4a71af4bd7772a616.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/6d67156a6bb94cc4a71af4bd7772a616.png"
+        title="在这里插入图片描述" /></p>
+<p>代码示例
+messageTest</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public class messageTest {
+    public static void main(String[] args){
+        System.out.println(&#34;This is the secret!&#34;);
+    }
+}
+
+</code></pre></td></tr></table>
+</div>
+</div><p>对class文件加密的类
+encodeTest</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">encodeTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">encode</span><span class="o">(</span>
+              <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;../out/production/Classloader/messageTest.class&#34;</span><span class="o">),</span>
+              <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">&#34;../out/production/Classloader/test/messageTest.class&#34;</span><span class="o">)</span>
+        <span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">encode</span><span class="o">(</span><span class="n">File</span> <span class="n">src</span><span class="o">,</span> <span class="n">File</span> <span class="n">out</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">FileInputStream</span> <span class="n">fin</span><span class="o">;</span>
+        <span class="n">FileOutputStream</span> <span class="n">fout</span><span class="o">;</span>
+
+        <span class="n">fin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">src</span><span class="o">);</span>
+        <span class="n">fout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">out</span><span class="o">);</span>
+
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">temp</span> <span class="o">=</span> <span class="n">fin</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span><span class="c1">// 读取一个字节
+</span><span class="c1"></span>            <span class="n">fout</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">temp</span> <span class="o">^</span> <span class="n">0xff</span><span class="o">);</span><span class="c1">// 取反输出
+</span><span class="c1"></span>        <span class="o">}</span>
+        <span class="n">fin</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">fout</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再写解密类，重写findclass方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.InputStream</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">decodeTest</span> <span class="kd">extends</span> <span class="n">ClassLoader</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">rootDir</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">decodeTest</span><span class="o">(</span><span class="n">String</span> <span class="n">rootDir</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">rootDir</span> <span class="o">=</span> <span class="n">rootDir</span><span class="o">;</span>
+    <span class="o">}</span>
+    
+    <span class="c1">// 解密文件
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getClassData</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">rootDir</span> <span class="o">+</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">className</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="sc">&#39;.&#39;</span><span class="o">,</span> <span class="sc">&#39;/&#39;</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;.class&#34;</span><span class="o">;</span>
+        <span class="c1">// 将流中的数据转换为字节数组
+</span><span class="c1"></span>        <span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+        <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">1024</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+        <span class="k">while</span> <span class="o">((</span><span class="n">temp</span> <span class="o">=</span> <span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">baos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">temp</span> <span class="o">^</span> <span class="n">0xff</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">baos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span> <span class="c1">// 重写覆盖findClass
+</span><span class="c1"></span>    <span class="kd">protected</span> <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">findClass</span><span class="o">(</span><span class="n">String</span> <span class="n">className</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="n">findLoadedClass</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="n">c</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">ClassLoader</span> <span class="n">parent</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getParent</span><span class="o">();</span>
+
+            <span class="n">c</span> <span class="o">=</span> <span class="n">parent</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;父类成功加载&#34;</span><span class="o">);</span>
+                <span class="k">return</span> <span class="n">c</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">else</span> <span class="o">{</span><span class="c1">// 读取文件 转化成字节数组
+</span><span class="c1"></span>                <span class="kt">byte</span><span class="o">[]</span> <span class="n">classData</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="n">classData</span> <span class="o">=</span> <span class="n">getClassData</span><span class="o">(</span><span class="n">className</span><span class="o">);</span>
+                <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+                <span class="o">}</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">classData</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="k">throw</span> <span class="k">new</span> <span class="n">ClassNotFoundException</span><span class="o">();</span>
+                <span class="o">}</span> <span class="k">else</span> <span class="o">{</span> <span class="c1">// 调用defineClass()方法
+</span><span class="c1"></span>                    <span class="n">c</span> <span class="o">=</span> <span class="n">defineClass</span><span class="o">(</span><span class="n">className</span><span class="o">,</span> <span class="n">classData</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">classData</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+                    <span class="k">return</span> <span class="n">c</span><span class="o">;</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再写测试类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">loadClassTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">decodeTest</span> <span class="n">de</span> <span class="o">=</span> <span class="k">new</span> <span class="n">decodeTest</span><span class="o">(</span><span class="s">&#34;/Users/liucheng/Desktop/JavaSec/out/production/Classloader/test/&#34;</span><span class="o">);</span>
+        <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="n">de</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="s">&#34;messageTest&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>由于我指定的class文件是加密后的class文件，所以java自带的类加载器就加载不了，这里我们成功用自定义的类加载器去解密加载到了messageTest</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/1de1b7f2ad884842854bd8170a710fd0.png"
+        data-srcset="https://img-blog.csdnimg.cn/1de1b7f2ad884842854bd8170a710fd0.png, https://img-blog.csdnimg.cn/1de1b7f2ad884842854bd8170a710fd0.png 1.5x, https://img-blog.csdnimg.cn/1de1b7f2ad884842854bd8170a710fd0.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/1de1b7f2ad884842854bd8170a710fd0.png"
+        title="在这里插入图片描述" /></p>
+<h2 id="urlclassloader">URLClassLoader</h2>
+<p>URLClassLoader是ClassLoader的一个实现，拥有远程服务器上加载类的能力，通过这个URLClassLoader可以实现对一些webshell的远程加载</p>
+<p>这里举个例子
+我在Tomcat服务器处生成一个执行系统命令的class</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="k">try</span><span class="o">{</span>
+            <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">&#34;/System/Applications/Calculator.app/Contents/MacOS/Calculator&#34;</span><span class="o">);</span>
+        <span class="o">}</span> 
+        <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/b3a2cadf22264a219bb5d31b88ba296e.png"
+        data-srcset="https://img-blog.csdnimg.cn/b3a2cadf22264a219bb5d31b88ba296e.png, https://img-blog.csdnimg.cn/b3a2cadf22264a219bb5d31b88ba296e.png 1.5x, https://img-blog.csdnimg.cn/b3a2cadf22264a219bb5d31b88ba296e.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/b3a2cadf22264a219bb5d31b88ba296e.png"
+        title="在这里插入图片描述" /></p>
+<p>然后在项目里远程加载这个类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.net.MalformedURLException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URL</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.net.URLClassLoader</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">URLClassLoaderTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">MalformedURLException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span><span class="o">,</span> <span class="n">InstantiationException</span><span class="o">,</span> <span class="n">IllegalAccessException</span> <span class="o">{</span>
+        <span class="n">URL</span> <span class="n">url</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="s">&#34;http://101.35.98.118:12424/javatest/&#34;</span><span class="o">);</span>
+        <span class="n">URLClassLoader</span> <span class="n">cl</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URLClassLoader</span><span class="o">(</span><span class="k">new</span> <span class="n">URL</span><span class="o">[]{</span><span class="n">url</span><span class="o">});</span>
+        <span class="n">Class</span> <span class="n">c</span> <span class="o">=</span> <span class="n">cl</span><span class="o">.</span><span class="na">loadClass</span><span class="o">(</span><span class="s">&#34;Test&#34;</span><span class="o">);</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-03-30</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/suctf2022/" class="prev" rel="prev" title="[SUCTF2022] WP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[SUCTF2022] WP</a>
+            <a href="/ctf2022_wp/" class="next" rel="next" title="[*CTF2022] WP">[*CTF2022] WP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[MRCTF2022] WP - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[MRCTF2022] WP" />
+<meta property="og:description" content="Misc checkin 翻源码找到flag Web WebCheckIn 上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径 然后就往里面加了一" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/mrctf2022_wp/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-25T18:01:47+08:00" />
+<meta property="article:modified_time" content="2022-04-25T18:01:47+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[MRCTF2022] WP"/>
+<meta name="twitter:description" content="Misc checkin 翻源码找到flag Web WebCheckIn 上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径 然后就往里面加了一"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/mrctf2022_wp/" /><link rel="prev" href="https://example.com/ctf2022_oh-my-lotto-revenge/" /><link rel="next" href="https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[MRCTF2022] WP",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/mrctf2022_wp\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  584 ,
+        "url": "https:\/\/example.com\/mrctf2022_wp\/","datePublished": "2022-04-25T18:01:47+08:00","dateModified": "2022-04-25T18:01:47+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/mrctf2022_wp/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/mrctf2022_wp/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[MRCTF2022] WP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-25">2022-04-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 584 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#misc">Misc</a>
+          <ul>
+            <li><a href="#checkin">checkin</a></li>
+          </ul>
+        </li>
+        <li><a href="#web">Web</a>
+          <ul>
+            <li><a href="#webcheckin">WebCheckIn</a></li>
+          </ul>
+        </li>
+        <li><a href="#bonus">Bonus</a>
+          <ul>
+            <li><a href="#java_mem_shell_basic">Java_mem_shell_Basic</a></li>
+            <li><a href="#java_mem_shell_filter">Java_mem_shell_Filter</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="misc">Misc</h2>
+<h3 id="checkin">checkin</h3>
+<p>翻源码找到flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220423093224882.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220423093224882.png, https://tuchuang.huamang.xyz/img/image-20220423093224882.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220423093224882.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220423093224882.png"
+        title="image-20220423093224882" /></p>
+<h2 id="web">Web</h2>
+<h3 id="webcheckin">WebCheckIn</h3>
+<p>上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径</p>
+<p>然后就往里面加了一句话木马进去了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220423134056156.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220423134056156.png, https://tuchuang.huamang.xyz/img/image-20220423134056156.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220423134056156.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220423134056156.png"
+        title="image-20220423134056156" /></p>
+<p>然后发现根目录没有flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220423134126222.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220423134126222.png, https://tuchuang.huamang.xyz/img/image-20220423134126222.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220423134126222.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220423134126222.png"
+        title="image-20220423134126222" /></p>
+<p>而且只是www权限，猜测是不是要提权，看了一下php文件的权限就是root</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220423134226603.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220423134226603.png, https://tuchuang.huamang.xyz/img/image-20220423134226603.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220423134226603.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220423134226603.png"
+        title="image-20220423134226603" /></p>
+<p>于是直接用php文件反弹shell，直接反弹shell不行，会报错，这里用的curl反弹shell</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220423134319048.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220423134319048.png, https://tuchuang.huamang.xyz/img/image-20220423134319048.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220423134319048.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220423134319048.png"
+        title="image-20220423134319048" /></p>
+<p>进去直接find搜flag，成功拿到</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220423134401997.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220423134401997.png, https://tuchuang.huamang.xyz/img/image-20220423134401997.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220423134401997.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220423134401997.png"
+        title="image-20220423134401997" /></p>
+<h2 id="bonus">Bonus</h2>
+<h3 id="java_mem_shell_basic">Java_mem_shell_Basic</h3>
+<p>打开是tomcat的默认页面，进入manage看看，弱口令tomcat:tomcat登录成功，进了manage就可以随便getshell了</p>
+<p>这里把冰蝎马打包一个war包，然后传上去拿到shell</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jar cvf hmnb.war shellmh.jsp
+</code></pre></td></tr></table>
+</div>
+</div><p>然后连进冰蝎，而且给的直接就是root权限</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424074214197.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424074214197.png, https://tuchuang.huamang.xyz/img/image-20220424074214197.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424074214197.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424074214197.png"
+        title="image-20220424074214197" /></p>
+<p>感觉冰蝎的终端不好用，反弹一个shell</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424074508620.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424074508620.png, https://tuchuang.huamang.xyz/img/image-20220424074508620.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424074508620.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424074508620.png"
+        title="image-20220424074508620" /></p>
+<p>直接find查找到flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424075140362.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424075140362.png, https://tuchuang.huamang.xyz/img/image-20220424075140362.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424075140362.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424075140362.png"
+        title="image-20220424075140362" /></p>
+<h3 id="java_mem_shell_filter">Java_mem_shell_Filter</h3>
+<p>进入是一个登录页面</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424075502027.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424075502027.png, https://tuchuang.huamang.xyz/img/image-20220424075502027.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424075502027.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424075502027.png"
+        title="image-20220424075502027" /></p>
+<p>目录扫描没啥结果</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424080136132.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424080136132.png, https://tuchuang.huamang.xyz/img/image-20220424080136132.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424080136132.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424080136132.png"
+        title="image-20220424080136132" /></p>
+<p>尝试爆破一个账号密码，爆破了一大堆，找不到可用的</p>
+<p>尝试sql注入，试了很多，根本试不出报错，尝试跑一下sqlmap，还是无果</p>
+<p>后来发现是log4j。。。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424092433941.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424092433941.png, https://tuchuang.huamang.xyz/img/image-20220424092433941.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424092433941.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424092433941.png"
+        title="image-20220424092433941" /></p>
+<p>马上来打一波</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424095851667.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424095851667.png, https://tuchuang.huamang.xyz/img/image-20220424095851667.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424095851667.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424095851667.png"
+        title="image-20220424095851667" /></p>
+<p>进去以后，发现web目录有一个godzilla，密码拿到了，密钥是默认的key</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424125343511.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424125343511.png, https://tuchuang.huamang.xyz/img/image-20220424125343511.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424125343511.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424125343511.png"
+        title="image-20220424125343511" /></p>
+<p>连进哥斯拉里面</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424125415146.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424125415146.png, https://tuchuang.huamang.xyz/img/image-20220424125415146.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424125415146.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424125415146.png"
+        title="image-20220424125415146" /></p>
+<p>find没找到flag，结合题目名理解，可能是在filter内存马里面，这里用jmapdump出jvm内存</p>
+<p>首先查看pid： <code>ps -ef|grep java</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424180756412.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424180756412.png, https://tuchuang.huamang.xyz/img/image-20220424180756412.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424180756412.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424180756412.png"
+        title="image-20220424180756412" /></p>
+<p>然后dump：<code>jmap -dump:format=b,file=e.bin 51</code></p>
+<p>然后下载出来</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220424175248636.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220424175248636.png, https://tuchuang.huamang.xyz/img/image-20220424175248636.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220424175248636.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220424175248636.png"
+        title="image-20220424175248636" /></p>
+<p>找到flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220425190844505.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220425190844505.png, https://tuchuang.huamang.xyz/img/image-20220425190844505.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220425190844505.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220425190844505.png"
+        title="image-20220425190844505" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ctf2022_oh-my-lotto-revenge/" class="prev" rel="prev" title="[*CTF2022] oh-my-lotto-revenge"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[*CTF2022] oh-my-lotto-revenge</a>
+            <a href="/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/" class="next" rel="next" title="[2022DASCTF Apr X FATE 防疫挑战赛] WP">[2022DASCTF Apr X FATE 防疫挑战赛] WP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

