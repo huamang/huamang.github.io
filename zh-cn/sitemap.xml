@@ -2,8 +2,8 @@
     xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
     xmlns:xhtml="http://www.w3.org/1999/xhtml"
     ><url>
-            <loc>https://example.com/ciscn2022_crt/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://example.com/categories/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://example.com/ciscn2022_crt/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://example.com/categories/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://example.com/en/categories/"
@@ -12,8 +12,8 @@
                     hreflang="zh-cn"
                     href="https://example.com/categories/"
                     /></url><url>
-            <loc>https://example.com/categories/ctf/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://example.com/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority><xhtml:link
+            <loc>https://example.com/categories/ctf/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://example.com/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority><xhtml:link
                         rel="alternate"
                         hreflang="en"
                         href="https://example.com/en/"
@@ -22,8 +22,8 @@
                     hreflang="zh-cn"
                     href="https://example.com/"
                     /></url><url>
-            <loc>https://example.com/posts/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
-            <loc>https://example.com/friends/</loc><lastmod>2022-05-30T17:29:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>1</priority></url><url>
+            <loc>https://example.com/posts/</loc><lastmod>2022-05-31T01:09:09&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
+            <loc>https://example.com/friends/</loc><lastmod>2022-05-30T17:29:33&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url><url>
             <loc>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</loc><lastmod>2022-04-25T18:12:37&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://example.com/mrctf2022_wp/</loc><lastmod>2022-04-25T18:01:47&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>
             <loc>https://example.com/ctf2022_oh-my-lotto-revenge/</loc><lastmod>2022-04-20T18:24:27&#43;08:00</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url><url>

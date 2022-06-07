@@ -14,5 +14,6 @@
 | Whitebird   | https://whitebird0.github.io/     |
 | Harvey      | https://harvey.plus/              |
 | W0nderMaker | https://blog.csdn.net/wuyvle      |
+| Zima Blue   | https://www.zimablue.life/        |
 
 
