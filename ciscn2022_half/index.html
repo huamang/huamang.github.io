@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CISCN2022_Semifinals - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="CISCN2022_Semifinals" />
+<meta property="og:description" content="ikari 在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &#39;Engine/Loader.php&#39;; E\Loader::getInstance()-&gt;init(); // Load necessary classes $aParams = [&#39;ctrl&#39; =&gt; (!empty($_GET[&#39;p&#39;]) ? $_GET[&#39;p&#39;] : &#39;blog&#39;), &#39;act&#39; =&gt; (!empty($_GET[&#39;a&#39;]) ? $_GET[&#39;a&#39;] : &#39;index&#39;), &#39;template&#39; =&gt; (!empty($_GET[&#39;t&#39;]) ? $_GET[&#39;t&#39;] : &#39;pc&#39;), &#39;ns&#39;" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/ciscn2022_half/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-24T20:21:08+08:00" />
+<meta property="article:modified_time" content="2022-06-24T20:21:08+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="CISCN2022_Semifinals"/>
+<meta name="twitter:description" content="ikari 在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &#39;Engine/Loader.php&#39;; E\Loader::getInstance()-&gt;init(); // Load necessary classes $aParams = [&#39;ctrl&#39; =&gt; (!empty($_GET[&#39;p&#39;]) ? $_GET[&#39;p&#39;] : &#39;blog&#39;), &#39;act&#39; =&gt; (!empty($_GET[&#39;a&#39;]) ? $_GET[&#39;a&#39;] : &#39;index&#39;), &#39;template&#39; =&gt; (!empty($_GET[&#39;t&#39;]) ? $_GET[&#39;t&#39;] : &#39;pc&#39;), &#39;ns&#39;"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/ciscn2022_half/" /><link rel="prev" href="https://example.com/ciscn2022_crt/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CISCN2022_Semifinals",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/ciscn2022_half\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1036 ,
+        "url": "https:\/\/example.com\/ciscn2022_half\/","datePublished": "2022-06-24T20:21:08+08:00","dateModified": "2022-06-24T20:21:08+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/ciscn2022_half/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/ciscn2022_half/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">CISCN2022_Semifinals</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-24">2022-06-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1036 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ikari">ikari</a></li>
+    <li><a href="#xxxcloud">xxxcloud</a></li>
+    <li><a href="#template">template</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="ikari">ikari</h1>
+<p>在index.php里面有这么一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">try</span>
+<span class="p">{</span>
+    <span class="k">require</span> <span class="nx">ROOT_PATH</span> <span class="o">.</span> <span class="s1">&#39;Engine/Loader.php&#39;</span><span class="p">;</span>
+    <span class="nx">E\Loader</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">init</span><span class="p">();</span> <span class="c1">// Load necessary classes
+</span><span class="c1"></span>    <span class="nv">$aParams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ctrl&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;blog&#39;</span><span class="p">),</span> <span class="s1">&#39;act&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;index&#39;</span><span class="p">),</span> <span class="s1">&#39;template&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;pc&#39;</span><span class="p">),</span> <span class="s1">&#39;ns&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;TestProject\Controller\\&#39;</span><span class="p">)];</span>
+    
+    <span class="nx">E\Router</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$oE</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$oE</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+<span class="p">}</span>
+
+
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>我们跟进Router去看看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Router</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">run</span> <span class="p">(</span><span class="k">array</span> <span class="nv">$aParams</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ns&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;TestProject\Controller\\&#39;</span><span class="p">){</span>
+            <span class="nv">$sNamespace</span> <span class="o">=</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ns&#39;</span><span class="p">];</span>
+            <span class="nv">$sCtrlPath</span> <span class="o">=</span> <span class="nv">$sNamespace</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nv">$sNamespace</span> <span class="o">=</span> <span class="s1">&#39;TestProject\Controller\\&#39;</span><span class="p">;</span>
+            <span class="nv">$sDefCtrl</span> <span class="o">=</span> <span class="nv">$sNamespace</span> <span class="o">.</span> <span class="s1">&#39;Blog&#39;</span><span class="p">;</span>
+            <span class="nv">$sCtrlPath</span> <span class="o">=</span> <span class="nx">ROOT_PATH</span> <span class="o">.</span> <span class="s1">&#39;Controller/&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ns&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;\\&#39;</span><span class="p">){</span>
+            <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;\\system&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/^[a-zA-Z0-9\/]*$/&#39;</span><span class="p">,</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">])){</span>
+                <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ls /www/&#39;</span><span class="o">.</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">];</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ls /www/&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nv">$sTemplatePath</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;\/&#34;</span><span class="p">),</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">ROOT_PATH</span> <span class="o">.</span> <span class="s1">&#39;Template/&#39;</span> <span class="o">.</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;template&#39;</span><span class="p">]);</span>
+        <span class="k">include</span> <span class="nv">$sTemplatePath</span><span class="p">;</span>
+        <span class="nv">$sCtrl</span> <span class="o">=</span> <span class="nx">ucfirst</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">is_file</span><span class="p">(</span><span class="nv">$sCtrlPath</span> <span class="o">.</span> <span class="nv">$sCtrl</span> <span class="o">.</span> <span class="s1">&#39;.php&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">substr</span><span class="p">(</span><span class="nv">$sCtrl</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;\\&#39;</span><span class="p">))</span>
+        <span class="p">{</span>
+
+            <span class="nv">$sCtrl</span> <span class="o">=</span> <span class="nv">$sNamespace</span> <span class="o">.</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s1">&#39;\\&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$sCtrl</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">class_exists</span><span class="p">(</span><span class="nv">$sCtrl</span><span class="p">)){</span>
+                <span class="nv">$oCtrl</span> <span class="o">=</span> <span class="k">new</span> <span class="nv">$sCtrl</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="nx">call_user_func</span><span class="p">(</span><span class="nv">$sCtrl</span><span class="p">,</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]);</span>
+                <span class="k">exit</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">((</span><span class="k">new</span> <span class="nx">\ReflectionClass</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">))</span><span class="o">-&gt;</span><span class="na">hasMethod</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="k">new</span> <span class="nx">\ReflectionMethod</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">,</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]))</span><span class="o">-&gt;</span><span class="na">isPublic</span><span class="p">())</span>
+                <span class="nx">call_user_func</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">,</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]));</span>
+            <span class="k">else</span>
+                <span class="nx">call_user_func</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">,</span> <span class="s1">&#39;notFound&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nx">call_user_func</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nv">$sDefCtrl</span><span class="p">,</span> <span class="s1">&#39;notFound&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里是对路由的操作，这里，我们可以通过控制参数p选择路由，a选择路由的功能</p>
+<p>在utils里面有这个，这里可以进行文件的包含</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;php&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;Upload&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">)){</span>
+    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Dangerous Operation.&#39;</span><span class="p">);</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$name</span><span class="p">)){</span>
+      <span class="k">require</span> <span class="nv">$name</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而这个函数的入口在blog路由下的post方法，这里传一个参数f，进行包含，因为这里对参数有过滤，所以我们选择session_upload进行竞争包含</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">post</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oUtil</span><span class="o">-&gt;</span><span class="na">oPost</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oModel</span><span class="o">-&gt;</span><span class="na">getById</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_iId</span><span class="p">);</span> <span class="c1">// Get the data of the post
+</span><span class="c1"></span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oUtil</span><span class="o">-&gt;</span><span class="na">getView</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">);</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oUtil</span><span class="o">-&gt;</span><span class="na">__get</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;f&#39;</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205433693.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205433693.png, https://tuchuang.huamang.xyz/img/image-20220624205433693.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205433693.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205433693.png"
+        title="image-20220624205433693" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205443833.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205443833.png, https://tuchuang.huamang.xyz/img/image-20220624205443833.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205443833.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205443833.png"
+        title="image-20220624205443833" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205458083.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205458083.png, https://tuchuang.huamang.xyz/img/image-20220624205458083.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205458083.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205458083.png"
+        title="image-20220624205458083" /></p>
+<h1 id="xxxcloud">xxxcloud</h1>
+<p>源码中有admin的密码hash，但是解不开，这里的做法是找到token的构造算法，进行手动token生成</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205655175.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205655175.png, https://tuchuang.huamang.xyz/img/image-20220624205655175.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205655175.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205655175.png"
+        title="image-20220624205655175" /></p>
+<p>找到token计算算法</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205712736.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205712736.png, https://tuchuang.huamang.xyz/img/image-20220624205712736.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205712736.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205712736.png"
+        title="image-20220624205712736" /></p>
+<p>找到systempassword</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205737985.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205737985.png, https://tuchuang.huamang.xyz/img/image-20220624205737985.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205737985.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205737985.png"
+        title="image-20220624205737985" /></p>
+<p>计算出token</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624205752225.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624205752225.png, https://tuchuang.huamang.xyz/img/image-20220624205752225.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624205752225.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624205752225.png"
+        title="image-20220624205752225" /></p>
+<p>然后伪造登录获取flag</p>
+<p>这里的防守不知道应该用什么方式进行防守，如果是伪造token的话，那我们无法避免，因为token算法是写死的，我尝试把这个系统的一个任意文件删除修复，但是任然是exp攻击成功</p>
+<p>后来直接上了个awd的通防waf，没想到还防住了。。</p>
+<h1 id="template">template</h1>
+<p>任意文件读取 + 读 opcache缓存</p>
+<p>这里传入tpl参数，赋值为$tpl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;tpl&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;tpl&#39;</span><span class="p">]))</span><span class="o">:</span>
+    <span class="nv">$tpl</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;tpl&#39;</span><span class="p">];</span>
+<span class="k">endif</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在check方法里面，先进行后缀检测，这里过滤的是挺严的</p>
+<p>如果通过了过滤，那么就会进行file_get_contents函数，进行文件读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php">    <span class="k">private</span> <span class="k">function</span> <span class="nf">check</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nv">$arr</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="p">);</span>
+            <span class="nv">$ext</span> <span class="o">=</span> <span class="nx">end</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$ext</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;php&#39;</span><span class="p">,</span> <span class="s1">&#39;php2&#39;</span><span class="p">,</span> <span class="s1">&#39;php3&#39;</span><span class="p">,</span> <span class="s1">&#39;php4&#39;</span><span class="p">,</span> <span class="s1">&#39;php5&#39;</span><span class="p">,</span> <span class="s1">&#39;php6&#39;</span><span class="p">,</span> <span class="s1">&#39;php7&#39;</span><span class="p">,</span> <span class="s1">&#39;phtml&#39;</span><span class="p">]))</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">endif</span><span class="p">;</span>
+
+            <span class="nv">$content</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$content</span><span class="p">)</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">endif</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/script|&lt;\?/i&#39;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">)</span> <span class="p">)</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">endif</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那我们就可以进行除了php文件外，任意文件的读取了</p>
+<p>这里如果tpl是debug的话，会给phpinfo</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624210641434.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624210641434.png, https://tuchuang.huamang.xyz/img/image-20220624210641434.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624210641434.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624210641434.png"
+        title="image-20220624210641434" /></p>
+<p>这里是开启了zend_opcache，这里我们利用包含opcache进行攻击</p>
+<p>首先得计算systemid，这个的计算可以利用工具https://github.com/GoSecure/php7-opcache-override/</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220624210840281.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220624210840281.png, https://tuchuang.huamang.xyz/img/image-20220624210840281.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220624210840281.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220624210840281.png"
+        title="image-20220624210840281" /></p>
+<p>然后就是任意文件读取了</p>
+<p>http://172.16.9.44:8091/?tpl=..//&hellip;//&hellip;//&hellip;//&hellip;/var/www/cache/1116d566fdc53f79abce6c01e3a0308d/var/www/html/flag.php.bin</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-24</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ciscn2022_crt/" class="prev" rel="prev" title="[CISCN2022] online_crt"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[CISCN2022] online_crt</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

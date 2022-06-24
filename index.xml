@@ -4,9 +4,17 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 31 May 2022 01:09:09 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 24 Jun 2022 20:21:08 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>CISCN2022_Semifinals</title>
+    <link>https://example.com/ciscn2022_half/</link>
+    <pubDate>Fri, 24 Jun 2022 20:21:08 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/ciscn2022_half/</guid>
+    <description><![CDATA[ikari 在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &#39;Engine/Loader.php&#39;; E\Loader::getInstance()-&gt;init(); // Load necessary classes $aParams = [&#39;ctrl&#39; =&gt; (!empty($_GET[&#39;p&#39;]) ? $_GET[&#39;p&#39;] : &#39;blog&#39;), &#39;act&#39; =&gt; (!empty($_GET[&#39;a&#39;]) ? $_GET[&#39;a&#39;] : &#39;index&#39;), &#39;template&#39; =&gt; (!empty($_GET[&#39;t&#39;]) ? $_GET[&#39;t&#39;] : &#39;pc&#39;), &#39;ns&#39;]]></description>
+</item>
+<item>
     <title>[CISCN2022] online_crt</title>
     <link>https://example.com/ciscn2022_crt/</link>
     <pubDate>Tue, 31 May 2022 01:09:09 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>Huamang</author>
     <guid>https://example.com/hmgctf2022/</guid>
     <description><![CDATA[WEB Fan website 首先是一个www.zip的源码泄露，是laminas框架 mvc的框架首先就是看路由 在\module\Album\src\Control]]></description>
-</item>
-<item>
-    <title>[Java安全]反射</title>
-    <link>https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</link>
-    <pubDate>Mon, 07 Mar 2022 19:14:57 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
-    <description><![CDATA[前言 准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说]]></description>
 </item>
 </channel>
 </rss>
