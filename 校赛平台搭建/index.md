@@ -3,6 +3,8 @@
 
 ## 前言
 
+（使用github图床，请科学上网）
+
 搭建校赛平台，这里是发现有一个很好看的ctfd的主题[pixo](https://github.com/hmrserver/CTFd-theme-pixo)
 
 所以就想着来搭建这么一个平台，这次我打算使用docker来搭建，使用docker搭建有两条路可走
