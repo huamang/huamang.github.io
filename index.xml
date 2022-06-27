@@ -4,17 +4,9 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 26 Jun 2022 12:59:51 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 25 Jun 2022 22:46:06 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>[ACTF2022] WP</title>
-    <link>https://example.com/actf2022/</link>
-    <pubDate>Sun, 26 Jun 2022 12:59:51 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/actf2022/</guid>
-    <description><![CDATA[Web gogogo 先看dockerfile 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 FROM debian:buster RUN set -ex \ &amp;&amp; sed -i &#39;s/deb.debian.org/mirrors.ustc.edu.cn/g&#39; /etc/apt/sources.list &amp;&amp; sed -i &#39;s/security.debian.org/mirrors.ustc.edu.cn/g&#39; /etc/apt/sources.list \ &amp;&amp; apt-get update \ &amp;&amp; apt-get install wget make gcc -y \]]></description>
-</item>
-<item>
     <title>[TyphoonCon CTF 2022] WP</title>
     <link>https://example.com/typhoonconctf2022/</link>
     <pubDate>Sat, 25 Jun 2022 22:46:06 &#43;0800</pubDate>
@@ -85,6 +77,14 @@
     <author>Huamang</author>
     <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
     <description><![CDATA[前言 借用了先知社区的文章 的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J]]></description>
+</item>
+<item>
+    <title>[SUCTF2022] WP</title>
+    <link>https://example.com/suctf2022/</link>
+    <pubDate>Mon, 28 Mar 2022 18:35:14 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/suctf2022/</guid>
+    <description><![CDATA[Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这]]></description>
 </item>
 </channel>
 </rss>
