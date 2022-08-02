@@ -4,7 +4,15 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sat, 25 Jun 2022 22:46:06 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 31 Jul 2022 20:35:47 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[2022强网杯] WP</title>
+    <link>https://example.com/qwb2022/</link>
+    <pubDate>Sun, 31 Jul 2022 20:35:47 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/qwb2022/</guid>
+    <description><![CDATA[rcefile 预期解 原题改的：https://cloud.tencent.com/developer/article/1717668 首先是www.zip]]></description>
+</item>
+<item>
     <title>[TyphoonCon CTF 2022] WP</title>
     <link>https://example.com/typhoonconctf2022/</link>
     <pubDate>Sat, 25 Jun 2022 22:46:06 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>Huamang</author>
     <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
     <description><![CDATA[前言 借用了先知社区的文章 的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J]]></description>
-</item>
-<item>
-    <title>[SUCTF2022] WP</title>
-    <link>https://example.com/suctf2022/</link>
-    <pubDate>Mon, 28 Mar 2022 18:35:14 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/suctf2022/</guid>
-    <description><![CDATA[Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这]]></description>
 </item>
 </channel>
 </rss>
