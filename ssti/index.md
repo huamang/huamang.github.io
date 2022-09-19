@@ -376,14 +376,11 @@ for i in range(500):
 
 绕过方法
 
-`\{%print()%\}`
+![image-20220919090132318](https://tuchuang.huamang.xyz/img/image-20220919090132318.png)
 
-```
-{% if ... %}1{% endif %}
-{%set c=xxx %}
-```
+（直接写给gitpage整报错了）
 
-
+![image-20220919090231444](https://tuchuang.huamang.xyz/img/image-20220919090231444.png)
 
 ## []
 
