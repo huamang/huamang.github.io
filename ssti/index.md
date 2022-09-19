@@ -382,6 +382,8 @@ for i in range(500):
 {%set c=xxx %}
 ```
 
+
+
 ## []
 
 过滤了[]后，我们payload有几个地方就过不去了
