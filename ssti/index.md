@@ -376,8 +376,9 @@ for i in range(500):
 
 绕过方法
 
+`\{%print()%\}`
+
 ```
-{%print()%}
 {% if ... %}1{% endif %}
 {%set c=xxx %}
 ```
