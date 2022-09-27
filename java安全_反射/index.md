@@ -9,11 +9,12 @@
 对象可以通过反射获取他的类，类可以通过反射拿到所有⽅法（包括私有）
 通过java语言中的反射机制可以操作字节码文件，可以读和修改字节码文件
 ## 反射的基本运用
-### 1. 获取类对象
+### 1. 获取类
 #### a. forName()方法
 
 只需要知道类名，在加载JDBC的时候会采用
 实例代码
+
 ```java
 public class test1 {
     public static void main(String[] args) throws ClassNotFoundException {
@@ -26,7 +27,7 @@ public class test1 {
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png)
 
 #### b. 直接获取
-使用`.class`去获取对于的对象
+使用`.class`去获取对象
 ```java
 public class test1 {
     public static void main(String[] args) throws ClassNotFoundException {
@@ -37,7 +38,8 @@ public class test1 {
 ```
 
 #### c. getClass()方法
-getClass来获取字节码对象，必须要明确具体的类，然后创建对象
+`obj.getClass()` 如果上下⽂中存在某个类的实例 obj ，那么我们可以直接通过 obj.getClass() 来获取它的类
+
 ```java
 public class test1 {
     public static void main(String[] args) throws ClassNotFoundException {

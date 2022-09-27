@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2423 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2419 ,
         "url": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84\/","datePublished": "2022-03-07T19:14:57+08:00","dateModified": "2022-03-07T19:14:57+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -113,7 +113,7 @@
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全]反射</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
 </span>&nbsp;<span class="post-category">收录于 <a href="/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2423 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2419 字&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
                 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
                 <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -131,7 +131,7 @@
         <li><a href="#反射定义">反射定义</a></li>
         <li><a href="#反射的基本运用">反射的基本运用</a>
           <ul>
-            <li><a href="#1-获取类对象">1. 获取类对象</a>
+            <li><a href="#1-获取类">1. 获取类</a>
               <ul>
                 <li><a href="#a-forname方法">a. forName()方法</a></li>
                 <li><a href="#b-直接获取">b. 直接获取</a></li>
@@ -177,7 +177,7 @@
 <p>对象可以通过反射获取他的类，类可以通过反射拿到所有⽅法（包括私有）
 通过java语言中的反射机制可以操作字节码文件，可以读和修改字节码文件</p>
 <h2 id="反射的基本运用">反射的基本运用</h2>
-<h3 id="1-获取类对象">1. 获取类对象</h3>
+<h3 id="1-获取类">1. 获取类</h3>
 <h4 id="a-forname方法">a. forName()方法</h4>
 <p>只需要知道类名，在加载JDBC的时候会采用
 实例代码</p>
@@ -208,7 +208,7 @@
         alt="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png"
         title="在这里插入图片描述" /></p>
 <h4 id="b-直接获取">b. 直接获取</h4>
-<p>使用<code>.class</code>去获取对于的对象</p>
+<p>使用<code>.class</code>去获取对象</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -228,7 +228,7 @@
 </code></pre></td></tr></table>
 </div>
 </div><h4 id="c-getclass方法">c. getClass()方法</h4>
-<p>getClass来获取字节码对象，必须要明确具体的类，然后创建对象</p>
+<p><code>obj.getClass()</code> 如果上下⽂中存在某个类的实例 obj ，那么我们可以直接通过 obj.getClass() 来获取它的类</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
