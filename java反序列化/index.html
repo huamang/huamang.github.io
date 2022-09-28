@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  234 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2027 ,
         "url": "https:\/\/example.com\/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96\/","datePublished": "2022-09-28T16:12:56+08:00","dateModified": "2022-09-28T16:12:56+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -125,16 +125,21 @@
         <h2 class="toc-title">目录</h2>
         <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#java反序列化">Java反序列化</a></li>
+    <li>
+      <ul>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#反序列化基础">反序列化基础</a></li>
+        <li><a href="#对序列化流的分析">对序列化流的分析</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
     </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全] Java反序列化</h1><div class="post-meta">
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-28">2022-09-28</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-28">2022-09-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 234 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-28">2022-09-28</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-28">2022-09-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2027 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -142,12 +147,17 @@
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
-    <li><a href="#前言">前言</a></li>
-    <li><a href="#java反序列化">Java反序列化</a></li>
+    <li>
+      <ul>
+        <li><a href="#前言">前言</a></li>
+        <li><a href="#反序列化基础">反序列化基础</a></li>
+        <li><a href="#对序列化流的分析">对序列化流的分析</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="前言" class="headerLink">
-    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h1><p>在Java安全中，Java反序列化占据很重要的地位。</p>
+            </div><div class="content" id="content"><h2 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h2><p>在Java安全中，Java反序列化占据很重要的地位。</p>
 <p>在前面RMI的探索中，我们可以在数据包中看到，他传递的数据是序列化的</p>
 <p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928172800137.png" title="image-20220928172800137" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928172800137.png">
         <img
@@ -158,9 +168,528 @@
             alt="https://tuchuang.huamang.xyz/img/image-20220928172800137.png">
     </a></p>
 <p>Java的反序列化和PHP的反序列化其实有点类似，他们都只能将一个对象中的属性按照某种特定的格式 生成一段数据流，在反序列化的时候再按照这个格式将属性拿回来，再赋值给新的对象</p>
-<p>但Java相对PHP序列化更深入的地方在于，其提供了更加高级、灵活地方法 writeObject ，允许开发者 在序列化流中插入一些自定义数据，进而在反序列化的时候能够使用 readObject 进行读取</p>
-<h1 id="java反序列化" class="headerLink">
-    <a href="#java%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" class="header-mark"></a>Java反序列化</h1></div>
+<p>但Java相对PHP序列化更深入的地方在于，其提供了更加高级、灵活地方法 writeObject ，<strong>允许开发者在序列化流中插入一些自定义数据</strong>，进而在反序列化的时候能够使用 readObject 进行读取</p>
+<h2 id="反序列化基础" class="headerLink">
+    <a href="#%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96%e5%9f%ba%e7%a1%80" class="header-mark"></a>反序列化基础</h2><p>要比较完美的实现反序列化的操作，有两个注意点</p>
+<ol>
+<li>如果想让一个对象能够序列化，那么就要实现一个特殊的接口，这个接口就是<code>java.io.Serializable</code>，这个接口是空的，相当于是一个<strong>标记</strong>作用，意味着实现了这个接口的类可以进行序列化/反序列化</li>
+<li>设置<code>serialVersionUID</code>，在进行反序列化时，JVM 会把传来的字节流中的 serialVersionUID 与本地相应实体类的 serialVersionUID 进行比较，如果相同就认为是一致的，可以进行反序列化，否则就抛出序列化版本不一致的异常- InvalidCastException</li>
+</ol>
+<p>再来说说<code>writeObject()</code>和<code>readObject()</code></p>
+<p>在writeObject中，得先创建一个<code>ObjectOutputStream</code>，然后利用这个把对象写入字节流，然后调用writeObject来序列化对象，代码实现如下</p>
+<ul>
+<li>创建对象</li>
+<li>创建文件流</li>
+<li>创建对象输入流</li>
+<li>把对象序列化写入对象输入流</li>
+<li>释放资源关闭流</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">serializing</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">serializeObj</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">serializeObj</span><span class="o">(</span><span class="s">&#34;Huamang&#34;</span><span class="o">);</span>
+    <span class="n">FileOutputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+    <span class="n">ObjectOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="n">out</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+    <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">file</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>readObject就用对应的ObjectIntputStream和FileInputStream，读取加载在文件中的序列化对象并对其反序列化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">unserializing</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+    <span class="n">FileInputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+    <span class="n">ObjectInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+    <span class="n">serializeObj</span> <span class="n">testclass</span> <span class="o">=</span> <span class="o">(</span><span class="n">serializeObj</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="n">testclass</span><span class="o">.</span><span class="na">test</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后写主类进行函数调用，最后的代码是这样的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">serializeTest</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">&#34;./data.txt&#34;</span><span class="o">;</span>
+        <span class="n">serializeTest</span><span class="o">.</span><span class="na">serializing</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">serializeTest</span><span class="o">.</span><span class="na">unserializing</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">serializing</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">serializeObj</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">serializeObj</span><span class="o">(</span><span class="s">&#34;Huamang&#34;</span><span class="o">);</span>
+        <span class="n">FileOutputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">ObjectOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">file</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">unserializing</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">FileInputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">ObjectInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">serializeObj</span> <span class="n">testclass</span> <span class="o">=</span> <span class="o">(</span><span class="n">serializeObj</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+        <span class="n">testclass</span><span class="o">.</span><span class="na">test</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">serializeObj</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">serializeObj</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;This is &#34;</span><span class="o">+</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>成功反序列化获得对象并执行方法</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928225655695.png" title="image-20220928225655695" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928225655695.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928225655695.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928225655695.png, https://tuchuang.huamang.xyz/img/image-20220928225655695.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928225655695.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928225655695.png">
+    </a></p>
+<h2 id="对序列化流的分析" class="headerLink">
+    <a href="#%e5%af%b9%e5%ba%8f%e5%88%97%e5%8c%96%e6%b5%81%e7%9a%84%e5%88%86%e6%9e%90" class="header-mark"></a>对序列化流的分析</h2><p>这里分析一下这个序列化数据，先转hex，然后利用工具</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928225640940.png" title="image-20220928225640940" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928225640940.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928225640940.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928225640940.png, https://tuchuang.huamang.xyz/img/image-20220928225640940.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928225640940.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928225640940.png">
+    </a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">java -jar SerializationDumper-v1.13.jar aced00057372000c73657269616c697a654f626a2ef7c37a55dbe7910200014c00046e616d657400124c6a6176612f6c616e672f537472696e673b78707400074875616d616e67
+</code></pre></td></tr></table>
+</div>
+</div><p>获得结果</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">STREAM_MAGIC - 0xac ed
+STREAM_VERSION - 0x00 05
+Contents
+  TC_OBJECT - 0x73
+    TC_CLASSDESC - 0x72
+      className
+        Length - 12 - 0x00 0c
+        Value - serializeObj - 0x73657269616c697a654f626a
+      serialVersionUID - 0x2e f7 c3 7a 55 db e7 91
+      newHandle 0x00 7e 00 00
+      classDescFlags - 0x02 - SC_SERIALIZABLE
+      fieldCount - 1 - 0x00 01
+      Fields
+        0:
+          Object - L - 0x4c
+          fieldName
+            Length - 4 - 0x00 04
+            Value - name - 0x6e616d65
+          className1
+            TC_STRING - 0x74
+              newHandle 0x00 7e 00 01
+              Length - 18 - 0x00 12
+              Value - Ljava/lang/String; - 0x4c6a6176612f6c616e672f537472696e673b
+      classAnnotations
+        TC_ENDBLOCKDATA - 0x78
+      superClassDesc
+        TC_NULL - 0x70
+    newHandle 0x00 7e 00 02
+    classdata
+      serializeObj
+        values
+          name
+            (object)
+              TC_STRING - 0x74
+                newHandle 0x00 7e 00 03
+                Length - 7 - 0x00 07
+                Value - Huamang - 0x4875616d616e67
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到我的name是绑定了传入的数据&quot;Huamang&quot;的，想到前面说到：允许开发者在序列化流中插入一些自定义数据</p>
+<p>首先借鉴了feng师傅的一个图</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928232255297.png" title="image-20220928232255297" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928232255297.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928232255297.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928232255297.png, https://tuchuang.huamang.xyz/img/image-20220928232255297.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928232255297.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928232255297.png">
+    </a></p>
+<p>我们的obj是实现了Serializable接口的，但是里是空的，但是这里告诉我们，我们是可以重写readObject方法的，这样我们可以把恶意代码写入这里，然后被反序列化的时候就会执行我们构造的恶意代码，比如这样重写</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">stream</span><span class="o">)</span>
+            <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span><span class="o">{</span>
+        <span class="n">stream</span><span class="o">.</span><span class="na">defaultReadObject</span><span class="o">();</span>
+        <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">&#34;calc&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>看起来他的作用有点像PHP中的 <code>__wakeup</code>，但是他们的设计理念是不一样的</p>
+<blockquote>
+<p>Java设计 readObject 的思路和PHP的 __wakeup 不同点在于： readObject 倾向于解决“反序列化时如 何还原一个完整对象”这个问题，而PHP的 __wakeup 更倾向于解决“反序列化后如何初始化这个对象”的 问题。</p>
+</blockquote>
+<p>同样的，我们writeObject也是可以重写自定义的</p>
+<p>废话不多说我们直接上代码理解</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.Serializable</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">serializeTest2</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="n">id</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">serializeTest2</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">id</span> <span class="o">=</span> <span class="n">id</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">ObjectOutputStream</span> <span class="n">os</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">os</span><span class="o">.</span><span class="na">defaultWriteObject</span><span class="o">();</span>
+        <span class="n">os</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="s">&#34;Write Object&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">os</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">os</span><span class="o">.</span><span class="na">defaultReadObject</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">os</span><span class="o">.</span><span class="na">readObject</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后修改刚刚序列化与反序列化的方法，把序列化的类换成这个类</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">serializeTest</span> <span class="o">{</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">filename</span> <span class="o">=</span> <span class="s">&#34;./data.txt&#34;</span><span class="o">;</span>
+        <span class="n">serializeTest</span><span class="o">.</span><span class="na">serializing</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">serializeTest</span><span class="o">.</span><span class="na">unserializing</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">serializing</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">serializeTest2</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">serializeTest2</span><span class="o">(</span><span class="s">&#34;Huamang&#34;</span><span class="o">,</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">FileOutputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">ObjectOutputStream</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="n">file</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">unserializing</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">FileInputStream</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
+        <span class="n">ObjectInputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+        <span class="n">serializeTest2</span> <span class="n">testclass</span> <span class="o">=</span> <span class="o">(</span><span class="n">serializeTest2</span><span class="o">)</span> <span class="n">in</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>执行并分析序列化数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">STREAM_MAGIC - 0xac ed
+STREAM_VERSION - 0x00 05
+Contents
+  TC_OBJECT - 0x73
+    TC_CLASSDESC - 0x72
+      className
+        Length - 14 - 0x00 0e
+        Value - serializeTest2 - 0x73657269616c697a655465737432
+      serialVersionUID - 0xfd 59 ea 3d 16 b4 a0 7b
+      newHandle 0x00 7e 00 00
+      classDescFlags - 0x03 - SC_WRITE_METHOD | SC_SERIALIZABLE
+      fieldCount - 2 - 0x00 02
+      Fields
+        0:
+          Int - I - 0x49
+          fieldName
+            Length - 2 - 0x00 02
+            Value - id - 0x6964
+        1:
+          Object - L - 0x4c
+          fieldName
+            Length - 4 - 0x00 04
+            Value - name - 0x6e616d65
+          className1
+            TC_STRING - 0x74
+              newHandle 0x00 7e 00 01
+              Length - 18 - 0x00 12
+              Value - Ljava/lang/String; - 0x4c6a6176612f6c616e672f537472696e673b
+      classAnnotations
+        TC_ENDBLOCKDATA - 0x78
+      superClassDesc
+        TC_NULL - 0x70
+    newHandle 0x00 7e 00 02
+    classdata
+      serializeTest2
+        values
+          id
+            (int)1 - 0x00 00 00 01
+          name
+            (object)
+              TC_STRING - 0x74
+                newHandle 0x00 7e 00 03
+                Length - 7 - 0x00 07
+                Value - Huamang - 0x4875616d616e67
+        objectAnnotation
+          TC_STRING - 0x74
+            newHandle 0x00 7e 00 04
+            Length - 12 - 0x00 0c
+            Value - Write Object - 0x5772697465204f626a656374
+          TC_ENDBLOCKDATA - 0x78
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到我们<code>writeObject</code>的参数”Write Object“被放在了<code>objectAnnotation</code>下</p>
+<p>而在我反序列化的时候，执行<code>readObject</code>，读取到了这个数据并输出</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928234022766.png" title="image-20220928234022766" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928234022766.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928234022766.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928234022766.png, https://tuchuang.huamang.xyz/img/image-20220928234022766.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928234022766.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928234022766.png">
+    </a></p>
+</div>
 
         <div class="post-footer" id="post-footer">
     <div class="post-info">
