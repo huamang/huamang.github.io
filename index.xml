@@ -4,16 +4,9 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 28 Sep 2022 16:12:56 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Tue, 27 Sep 2022 14:43:46 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>[Java安全] Java反序列化</title>
-    <link>https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
-    <pubDate>Wed, 28 Sep 2022 16:12:56 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
-    <description><![CDATA[前言在Java安全中，Java反序列化占据很重要的地位。 在前面RMI的探索中，我们可以在数据包中看到，他传递的数据是序列化的 Java的反序列]]></description>
-</item><item>
     <title>[Java安全] RMI</title>
     <link>https://example.com/java%E5%AE%89%E5%85%A8_rmi/</link>
     <pubDate>Tue, 27 Sep 2022 14:43:46 &#43;0800</pubDate><author>
@@ -76,5 +69,12 @@
         <name>Huamang</name>
     </author><guid>https://example.com/ctf2022_oh-my-lotto-revenge/</guid>
     <description><![CDATA[New相对于oh_my_lotto，revenge进行了下面的更改 这么做，我们能走的就只有RCE了，而这里唯一能操作的一个地方就是这里，可以]]></description>
+</item><item>
+    <title>校赛CTFd平台docker搭建—pixo主题</title>
+    <link>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</link>
+    <pubDate>Tue, 19 Apr 2022 18:27:37 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
+    <description><![CDATA[前言（使用github图床，请科学上网） 搭建校赛平台，这里是发现有一个很好看的ctfd的主题pixo 所以就想着来搭建这么一个平台，这次我打算]]></description>
 </item></channel>
 </rss>
