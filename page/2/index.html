@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
+
+<head>
 	<meta name="generator" content="Hugo 0.87.0" />
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="Huamang&#39;s Blog" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="Huamang&#39;s Blog" />
 <meta property="og:description" content="Huamang&#39;s Blog" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://example.com/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="og:site_name" content="Huamang&#39;s Blog" />
@@ -16,10 +17,14 @@
 <meta name="twitter:title" content="Huamang&#39;s Blog"/>
 <meta name="twitter:description" content="Huamang&#39;s Blog"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="Huamang&#39;s Blog">
-    <link rel="feed" href="/index.xml" type="application/rss+xml" title="Huamang&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/" /><link rel="alternate" href="/index.xml" type="application/rss+xml" title="Huamang&#39;s Blog">
+    <link rel="feed" href="/index.xml" type="application/rss+xml" title="Huamang&#39;s Blog"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "WebSite",
@@ -29,31 +34,38 @@
             },"description": "Huamang's Blog","image": "https:\/\/example.com\/images\/Apple-Devices-Preview.png","thumbnailUrl": "https:\/\/example.com\/images\/screenshot.png","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","name": "Huamang's Blog"
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/en/">English</option><option value="/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/en/">English</option><option value="/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -69,90 +81,105 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/en/">English</option><option value="/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/en/">English</option><option value="/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="page home" data-home="posts"><div class="home-profile"><div class="home-avatar"><a href="/posts/" title="所有文章"><img
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="page home" posts><div class="home-profile"><div class="home-avatar"><a href="/posts/" title="所有文章"><img
         class="lazyload"
-        src="/svg/loading.min.svg"
         data-src="/images/avatar.png"
         data-srcset="/images/avatar.png, /images/avatar.png 1.5x, /images/avatar.png 2x"
         data-sizes="auto"
         alt="/images/avatar.png"
-        title="/images/avatar.png" width="320" height="320" /></a></div><div class="home-subtitle"><div id="id-1" class="typeit"></div></div><div class="links"><a href="https://github.com/https://github.com/huamang" title="GitHub" target="_blank" rel="noopener noreffer me"><i class="fab fa-github-alt fa-fw" aria-hidden="true"></i></a>
-<a href="https://twitter.com/https://twitter.com/Huamang7" title="Twitter" target="_blank" rel="noopener noreffer me"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a>
-</div></div>
+        title="/images/avatar.png" height="6rem" width="6rem"></a></div><h2 class="home-subtitle"><div id="id-1" class="typeit"></div></h2><div class="links"><a href="https://github.com/huamang" title="GitHub" target="_blank" rel="noopener noreferrer me"><i class="fab fa-github-alt fa-fw"></i></a><a href="https://twitter.com/Huamang7" title="Twitter" target="_blank" rel="noopener noreferrer me"><i class="fab fa-twitter fa-fw"></i></a></div></div>
 <article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
+        <a href="/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/">[Java安全]类加载器ClassLoader</a>
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-30">2022-03-30</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div><div class="content">前言借用了先知社区的文章的一张图来解释这个原理 负责动态加载Java类到Java虚拟机的内存空间中，用于加载系统、网络或者其他来源的类文件。J</div><div class="post-footer">
+        <a href="/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/">阅读全文</a></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/suctf2022/">[SUCTF2022] WP</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-28">2022-03-28</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div><div class="content">Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-28">2022-03-28</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class="content">MiscHi hacker下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他</div><div class="post-footer">
         <a href="/suctf2022/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/hmgctf2022/">[HMGCTF2022] WP</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-24">2022-03-24</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div><div class="content">WEB Fan website 首先是一个www.zip的源码泄露，是laminas框架 mvc的框架首先就是看路由 在\module\Album\src\Control</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-24">2022-03-24</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class="content">WEBFan website首先是一个www.zip的源码泄露，是laminas框架 mvc的框架首先就是看路由 在\module\Album\src\Co</div><div class="post-footer">
         <a href="/hmgctf2022/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/">[Java安全]反射</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-07">2022-03-07</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div><div class="content">前言 准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-03-07">2022-03-07</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div><div class="content">前言准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说</div><div class="post-footer">
         <a href="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/sctf2021/">[SCTF2021]Upload_it_1复现闭包组件反序列化rce</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-02-13">2022-02-13</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div><div class="content">题目地址 SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp 首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [ {</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2022-02-13">2022-02-13</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div><div class="content">题目地址SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [</div><div class="post-footer">
         <a href="/sctf2021/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">[代码审计]信呼OA2.3.1版本代码审计</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-30">2021-11-30</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div><div class="content">前言 对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-30">2021-11-30</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div><div class="content">前言对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）</div><div class="post-footer">
         <a href="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/">[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-26">2021-11-26</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div><div class="content">前言 漏洞存在版本，分为两大版本： ThinkPHP 5.0-5.0.24 ThinkPHP 5.1.0-5.1.30 环境搭建 1 composer create-project topthink/think=5.0.5 thinkphp5.0.5 --prefer-dist 修改composer.json 1 2 3 4 &#34;require&#34;: { &#34;php&#34;: &#34;&gt;=5.4.0&#34;, &#34;topthink/framework&#34;: &#34;5.0.5&#34; }, 执行composer update 漏洞分</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-26">2021-11-26</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div><div class="content">前言漏洞存在版本，分为两大版本： ThinkPHP 5.0-5.0.24 ThinkPHP 5.1.0-5.1.30 环境搭建1 composer create-project topthink/think=5.0.5 thinkphp5.0.5 --prefer-dist 修改composer.json 1 2 3 4 &#34;require&#34;: { &#34;php&#34;: &#34;&gt;=5.4.0&#34;, &#34;topthink/framework&#34;: &#34;5.0.5&#34; }, 执行composer update 漏洞分</div><div class="post-footer">
         <a href="/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">[代码审计]Yii2反序列化漏洞分析 V2.0.38</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-16">2021-11-16</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div><div class="content">前言 漏洞存在版本&lt;2.0.38 CVE-2020-15148 框架搭建 直接去github下载，修改好cookie的key，然后就可以访问/web了 漏洞分析 先看git</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-16">2021-11-16</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div><div class="content">前言漏洞存在版本&lt;2.0.38 CVE-2020-15148 框架搭建直接去github下载，修改好cookie的key，然后就可以访问/web了 漏洞分析先看git</div><div class="post-footer">
         <a href="/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">[代码审计]ThinkPHP5的文件包含漏洞</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-03">2021-11-03</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/ctf/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>CTF</a></span></div><div class="content">漏洞影响范围 加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&lt;=ThinkPHP5&lt;=5.0.</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-11-03">2021-11-03</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div><div class="content">漏洞影响范围加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&lt;=ThinkPHP5&lt;=5.0.</div><div class="post-footer">
         <a href="/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/">[Java安全] 远程调试初探</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-09-18">2021-09-18</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div><div class="content">Jar包的调试 这里以冰蝎做示例 把冰蝎的jar包和他必须的db数据库文件放到项目的lib目录下 把jar包添加到库 如下配置调试配置 新建远程JVM</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-09-18">2021-09-18</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div><div class="content">Jar包的调试这里以冰蝎做示例 把冰蝎的jar包和他必须的db数据库文件放到项目的lib目录下 把jar包添加到库 如下配置调试配置 新建远程JVM</div><div class="post-footer">
         <a href="/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/">阅读全文</a></div>
 </article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h1 class="single-title" itemprop="name headline">
         <a href="/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/">利用PHP的NAN和INF来获取字符串来自增绕过长度限制</a>
-    </h1><div class="post-meta"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-08-19">2021-08-19</time></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div><div class="content">最近在一道题目 里面学到了一个新的小技巧 在php中，字符串是可以递增的，如下： 但是不可递减 这道题是这样的 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19</div><div class="post-footer">
+    </h1><div class="post-meta">
+        <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+        </span>&nbsp;<span class="post-publish">发布于 <time datetime="2021-08-19">2021-08-19</time></span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div><div class="content">最近在一道题目里面学到了一个新的小技巧 在php中，字符串是可以递增的，如下： 但是不可递减 这道题是这样的 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19</div><div class="post-footer">
         <a href="/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/">阅读全文</a></div>
 </article><ul class="pagination"><li class="page-item ">
                     <span class="page-link">
@@ -163,16 +190,22 @@
                         <a href="/page/2/">2</a>
                     </span>
                 </li></ul></div></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@8.5.4/dist/index.umd.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"data":{"id-1":"Welcome to my page!"},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"data":{"id-1":"Welcome to my page!"},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"},"typeit":{"cursorChar":"|","cursorSpeed":1000,"data":{"id-1":["id-1"]},"duration":-1,"speed":100}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/typeit@7.0.4/dist/typeit.min.js"></script></div>
+</body>
+
 </html>

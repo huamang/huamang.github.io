@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>[代码审计]信呼OA2.3.1版本代码审计 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[代码审计]信呼OA2.3.1版本代码审计" />
-<meta property="og:description" content="前言 对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[代码审计]信呼OA2.3.1版本代码审计 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[代码审计]信呼OA2.3.1版本代码审计" />
+<meta property="og:description" content="前言对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-11-30T19:10:02+08:00" />
@@ -15,11 +16,15 @@
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
 <meta name="twitter:title" content="[代码审计]信呼OA2.3.1版本代码审计"/>
-<meta name="twitter:description" content="前言 对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）"/>
+<meta name="twitter:description" content="前言对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" /><link rel="prev" href="https://example.com/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/" /><link rel="next" href="https://example.com/sctf2021/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" /><link rel="prev" href="https://example.com/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/" /><link rel="next" href="https://example.com/sctf2021/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -42,31 +47,38 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -82,46 +94,58 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[代码审计]信呼OA2.3.1版本代码审计</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2021-11-30">2021-11-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1172 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            </div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#环境搭建">环境搭建</a></li>
+    <li><a href="#漏洞分析">漏洞分析</a>
+      <ul>
+        <li><a href="#修改任意用户密码">修改任意用户密码</a></li>
+        <li><a href="#文件上传处sql盲注">文件上传处sql盲注</a></li>
+        <li><a href="#未授权备份">未授权备份</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[代码审计]信呼OA2.3.1版本代码审计</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2021-11-30">2021-11-30</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2021-11-30">2021-11-30</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1172 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -136,26 +160,25 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="前言">前言</h1>
-<p>对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）
+            </div><div class="content" id="content"><h1 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h1><p>对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）
 这次比赛结束打算好好审计一波</p>
-<h1 id="环境搭建">环境搭建</h1>
-<p>此次代码审计我用的是2.3.1版本
+<h1 id="环境搭建" class="headerLink">
+    <a href="#%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-mark"></a>环境搭建</h1><p>此次代码审计我用的是2.3.1版本
 项目地址：
-<a href="https://xinhu-1251238447.file.myqcloud.com/file/xinhu_utf8_v2.3.1.zip" target="_blank" rel="noopener noreffer">https://xinhu-1251238447.file.myqcloud.com/file/xinhu_utf8_v2.3.1.zip</a>
-</p>
+<a href="https://xinhu-1251238447.file.myqcloud.com/file/xinhu_utf8_v2.3.1.zip" target="_blank" rel="noopener noreferrer">https://xinhu-1251238447.file.myqcloud.com/file/xinhu_utf8_v2.3.1.zip</a></p>
 <p>安装好后，修改admin的密码，成功初始化</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
-<h1 id="漏洞分析">漏洞分析</h1>
-<h2 id="修改任意用户密码">修改任意用户密码</h2>
-<p>在安装完该OA系统后，我修改了默认密码为1234qwer</p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/fdf633e0cf3540b093b92e0eb3afcd07.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
+<h1 id="漏洞分析" class="headerLink">
+    <a href="#%e6%bc%8f%e6%b4%9e%e5%88%86%e6%9e%90" class="header-mark"></a>漏洞分析</h1><h2 id="修改任意用户密码" class="headerLink">
+    <a href="#%e4%bf%ae%e6%94%b9%e4%bb%bb%e6%84%8f%e7%94%a8%e6%88%b7%e5%af%86%e7%a0%81" class="header-mark"></a>修改任意用户密码</h2><p>在安装完该OA系统后，我修改了默认密码为1234qwer</p>
 <p>漏洞存在于<code>webmain/task/api/reimplatAction.php</code>中
 看到这里的代码</p>
 <div class="highlight"><div class="chroma">
@@ -252,23 +275,23 @@
 <span class="k">echo</span> <span class="nv">$test</span><span class="p">;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/0dd21c2adc464157a9a91256c1cf0da9.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>发包时还是得用post方法发包，成功拿到恶意修改的sign</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/1815187d3ab24384a275dd862894c9aa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>此时我们再把这个sign作为post数据穿进去，经过<code>getpostdata()</code>获取到data，再通过相同的key去通过<code>strunlook()</code>进行解密，从而进入判断条件
 修改密码</p>
 <div class="highlight"><div class="chroma">
@@ -280,62 +303,62 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>发包如下</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/75f56ad99204490095b12fb0d9984caa.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>密码成功修改成了123456</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
-<h2 id="文件上传处sql盲注">文件上传处sql盲注</h2>
-<p>需要先登录后台才能使用文件上传</p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/4bd411f95b0646a3b98bf0c113f97c4b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
+<h2 id="文件上传处sql盲注" class="headerLink">
+    <a href="#%e6%96%87%e4%bb%b6%e4%b8%8a%e4%bc%a0%e5%a4%84sql%e7%9b%b2%e6%b3%a8" class="header-mark"></a>文件上传处sql盲注</h2><p>需要先登录后台才能使用文件上传</p>
 <p><code>webmain/public/upload/uploadAction.php</code>
 在upfileAjax方法里面，找到执行sql语句处，跟进uploadback方法</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/8eda1e6b6faa48d283f190b33b3a22d5.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>这里有一个过滤函数，跟进看一下</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/7875ab291df4424294780faaecc822ff.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>这里注释说明了是过滤特殊的文件名，可以看到，这里过滤的很少</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/3579b810fb2a46d78fd9e296f2dcd93e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>修改uptype为*，文件名为sql注入语句，可以看到成功延时
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<a class="lightgallery" href="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/46cfd111fc8b4bedaf8d2deddf6279e8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>盲注语句可以这样写，这里单独的<code>()</code>会被过滤掉，双写就可以了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -345,36 +368,36 @@
 <pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="mi">1</span><span class="s1">&#39; and if(ascii(substr((select database(())),1,1))&gt;1,SLEEP(3),0)-- -
 </span></code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/16dd014707934f08a4db3ff30ec27863.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>这样就可以写脚本跑内容了，这里就不多说了</p>
-<h2 id="未授权备份">未授权备份</h2>
-<p>在webmain/task/runt/sysAction.php中
+<h2 id="未授权备份" class="headerLink">
+    <a href="#%e6%9c%aa%e6%8e%88%e6%9d%83%e5%a4%87%e4%bb%bd" class="header-mark"></a>未授权备份</h2><p>在webmain/task/runt/sysAction.php中
 这里用beifenClassModel调用了他的start方法</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/00cc3703c04a49cdb534ee609f030d65.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>找到beifenClassModel，看到里面的start方法
 会把数据库数据备份到upload/data目录下，以时间命名</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/eed38931fa114eddacec1dc326ba9ea7.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>payload：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -385,39 +408,43 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以发现已经备份过来了</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_12%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/fb1399d437a443ecb8ccafaebfb8b0cc.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>都是可以直接访问的，可以爆破一下文件名去拿</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark%2ctype_ZHJvaWRzYW5zZmFsbGJhY2s%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/15c16ce598bf4fcc8e67b28413a38350.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>这里是可以拿到管理员密码的</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png"
-        data-srcset="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png, https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png 1.5x, https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png"
+            data-srcset="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png, https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png 1.5x, https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/aacfad43346e4fa6a232035f5e9bd976.png">
+    </a></p>
 <p>这个的前提是知道数据库的库名，不然还是打不了了，默认是xinhu</p>
-</div><div class="post-footer" id="post-footer">
+</div>
+
+        <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2021-11-30</span>
-            </div></div>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -433,20 +460,26 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析</a>
-            <a href="/sctf2021/" class="next" rel="next" title="[SCTF2021]Upload_it_1复现闭包组件反序列化rce">[SCTF2021]Upload_it_1复现闭包组件反序列化rce<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/" class="prev" rel="prev" title="[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析"><i class="fas fa-angle-left fa-fw"></i>[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析</a>
+            <a href="/sctf2021/" class="next" rel="next" title="[SCTF2021]Upload_it_1复现闭包组件反序列化rce">[SCTF2021]Upload_it_1复现闭包组件反序列化rce<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
 </html>

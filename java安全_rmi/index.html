@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>[Java安全]RMI - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全]RMI" />
-<meta property="og:description" content="前言 RMI全程Remote Method Invocation，远程⽅法调⽤ 他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[Java安全] RMI - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全] RMI" />
+<meta property="og:description" content="前言RMI全程Remote Method Invocation，远程⽅法调⽤ 他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/java%E5%AE%89%E5%85%A8_rmi/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-27T14:43:46+08:00" />
@@ -14,21 +15,25 @@
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
-<meta name="twitter:title" content="[Java安全]RMI"/>
-<meta name="twitter:description" content="前言 RMI全程Remote Method Invocation，远程⽅法调⽤ 他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，"/>
+<meta name="twitter:title" content="[Java安全] RMI"/>
+<meta name="twitter:description" content="前言RMI全程Remote Method Invocation，远程⽅法调⽤ 他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/java%E5%AE%89%E5%85%A8_rmi/" /><link rel="prev" href="https://example.com/ssti/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/java%E5%AE%89%E5%85%A8_rmi/" /><link rel="prev" href="https://example.com/ssti/" /><link rel="next" href="https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "[Java安全]RMI",
+        "headline": "[Java安全] RMI",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_rmi\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1979 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1989 ,
         "url": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_rmi\/","datePublished": "2022-09-27T14:43:46+08:00","dateModified": "2022-09-27T14:43:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -42,31 +47,38 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_rmi/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_rmi/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -82,46 +94,61 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_rmi/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_rmi/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全]RMI</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-category">收录于 <a href="/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1979 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 4 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            </div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#rmi简单实现">RMI简单实现</a>
+      <ul>
+        <li><a href="#server">Server</a></li>
+        <li><a href="#client">Client</a></li>
+      </ul>
+    </li>
+    <li><a href="#rmi攻击">RMI攻击</a>
+      <ul>
+        <li><a href="#先留坑">先留坑</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全] RMI</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1989 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -139,8 +166,8 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="前言">前言</h1>
-<p>RMI全程<code>Remote Method Invocation</code>，远程⽅法调⽤</p>
+            </div><div class="content" id="content"><h1 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h1><p>RMI全程<code>Remote Method Invocation</code>，远程⽅法调⽤</p>
 <p>他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，是Java独有的一种机制，他是由三层架构模式来实现的</p>
 <ul>
 <li>Client-客户端：客户端调用服务端的方法</li>
@@ -150,26 +177,26 @@
 <blockquote>
 <p>为了屏蔽网络通信的复杂性，RMI 引入了两个概念，分别是 Stubs（客户端存根） 以及 Skeletons（服务端骨架），当客户端（Client）试图调用一个在远端的 Object 时，实际调用的是客户端本地的一个代理类（Proxy），这个代理类就称为 Stub，而在调用远端（Server）的目标类之前，也会经过一个对应的远端代理类，就是 Skeleton，它从 Stub 中接收远程方法调用并传递给真实的目标类。Stubs 以及 Skeletons 的调用对于 RMI 服务的使用者来讲是隐藏的，我们无需主动的去调用相关的方法。但实际的客户端和服务端的网络通信时通过 Stub 和 Skeleton 来实现的。</p>
 </blockquote>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220927162458903.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220927162458903.png, https://tuchuang.huamang.xyz/img/image-20220927162458903.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220927162458903.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220927162458903.png"
-        title="image-20220927162458903" /></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220927211311444.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220927211311444.png, https://tuchuang.huamang.xyz/img/image-20220927211311444.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220927211311444.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220927211311444.png"
-        title="image-20220927211311444" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220927162458903.png" title="image-20220927162458903" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220927162458903.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220927162458903.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220927162458903.png, https://tuchuang.huamang.xyz/img/image-20220927162458903.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220927162458903.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220927162458903.png">
+    </a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220927211311444.png" title="image-20220927211311444" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220927211311444.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220927211311444.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220927211311444.png, https://tuchuang.huamang.xyz/img/image-20220927211311444.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220927211311444.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220927211311444.png">
+    </a></p>
 <p>RMI Registry就像⼀个<strong>⽹关</strong>，他⾃⼰是不会执⾏远程⽅法的，但RMI Server可以在上⾯注册⼀个Name 到对象的绑定关系；RMI Client通过Name向RMI Registry查询，得到这个绑定关系，然后再连接RMI Server；最后，远程⽅法实际上在RMI Server上调⽤。</p>
-<h1 id="rmi简单实现">RMI简单实现</h1>
-<h2 id="server">Server</h2>
-<p>首先从Server来下手：</p>
+<h1 id="rmi简单实现" class="headerLink">
+    <a href="#rmi%e7%ae%80%e5%8d%95%e5%ae%9e%e7%8e%b0" class="header-mark"></a>RMI简单实现</h1><h2 id="server" class="headerLink">
+    <a href="#server" class="header-mark"></a>Server</h2><p>首先从Server来下手：</p>
 <p>⼀个RMIServer分为三部分：</p>
 <ol>
 <li>⼀个继承了 java.rmi.Remote 的接⼝，其中定义我们要远程调⽤的函数，⽐如这⾥的 hello()</li>
@@ -294,35 +321,35 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>这样就算是把服务端给简单搭建好了</p>
-<h2 id="client">Client</h2>
-<p>现在来搭建服务器端，进行远程加载服务端的代码，服务端加载远程代码的步骤：</p>
+<h2 id="client" class="headerLink">
+    <a href="#client" class="header-mark"></a>Client</h2><p>现在来搭建服务器端，进行远程加载服务端的代码，服务端加载远程代码的步骤：</p>
 <ol>
 <li>使用<code>Naming</code> 在<code>Registry</code>中寻找到名字是Hello的对象</li>
 <li>调用远程对象的方法属性</li>
 </ol>
 <p>Naming有很多方法</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220928002633273.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220928002633273.png, https://tuchuang.huamang.xyz/img/image-20220928002633273.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928002633273.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220928002633273.png"
-        title="image-20220928002633273" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928002633273.png" title="image-20220928002633273" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928002633273.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928002633273.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928002633273.png, https://tuchuang.huamang.xyz/img/image-20220928002633273.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928002633273.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928002633273.png">
+    </a></p>
 <p>这里用lookup来测试，他返回：a reference for a remote object，远程对象的引用</p>
 <ul>
 <li>此<code>Naming.lookup()</code>调用检查在 localhost 中运行的 RMI 注册表中是否存在名为“Hello”的绑定</li>
 <li>它返回一个必须转换为我期望的任何远程接口的对象</li>
 <li>然后就可以使用该对象调用接口中定义的远程方法</li>
 </ul>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220928003106171.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220928003106171.png, https://tuchuang.huamang.xyz/img/image-20220928003106171.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928003106171.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220928003106171.png"
-        title="image-20220928003106171" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928003106171.png" title="image-20220928003106171" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928003106171.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928003106171.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928003106171.png, https://tuchuang.huamang.xyz/img/image-20220928003106171.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928003106171.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928003106171.png">
+    </a></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -357,43 +384,42 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220928014249327.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220928014249327.png, https://tuchuang.huamang.xyz/img/image-20220928014249327.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928014249327.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220928014249327.png"
-        title="image-20220928014249327" /></p>
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928014249327.png" title="image-20220928014249327" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928014249327.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928014249327.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928014249327.png, https://tuchuang.huamang.xyz/img/image-20220928014249327.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928014249327.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928014249327.png">
+    </a></p>
 <p>这样就算简单的完成了一个RMI的操作</p>
 <p>远程也可以加载成功（虚拟机）</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220928020228917.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220928020228917.png, https://tuchuang.huamang.xyz/img/image-20220928020228917.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928020228917.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220928020228917.png"
-        title="image-20220928020228917" /></p>
-<h1 id="rmi攻击">RMI攻击</h1>
-<h2 id="先留坑">先留坑</h2>
-<hr>
-<p><a href="https://xz.aliyun.com/t/9261" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/9261</a>
-</p>
-<p><a href="https://xz.aliyun.com/t/6660" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/6660</a>
-</p>
-<p><a href="https://redmango.top/article/70" target="_blank" rel="noopener noreffer">https://redmango.top/article/70</a>
-</p>
-<p><a href="https://paper.seebug.org/1091/" target="_blank" rel="noopener noreffer">https://paper.seebug.org/1091/</a>
-</p>
-<p><a href="https://su18.org/post/rmi-attack" target="_blank" rel="noopener noreffer">https://su18.org/post/rmi-attack</a>
-</p>
-</div><div class="post-footer" id="post-footer">
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220928020228917.png" title="image-20220928020228917" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220928020228917.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220928020228917.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220928020228917.png, https://tuchuang.huamang.xyz/img/image-20220928020228917.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220928020228917.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220928020228917.png">
+    </a></p>
+<h1 id="rmi攻击" class="headerLink">
+    <a href="#rmi%e6%94%bb%e5%87%bb" class="header-mark"></a>RMI攻击</h1><h2 id="先留坑" class="headerLink">
+    <a href="#%e5%85%88%e7%95%99%e5%9d%91" class="header-mark"></a>先留坑</h2><hr>
+<p><a href="https://xz.aliyun.com/t/9261" target="_blank" rel="noopener noreferrer">https://xz.aliyun.com/t/9261</a></p>
+<p><a href="https://xz.aliyun.com/t/6660" target="_blank" rel="noopener noreferrer">https://xz.aliyun.com/t/6660</a></p>
+<p><a href="https://redmango.top/article/70" target="_blank" rel="noopener noreferrer">https://redmango.top/article/70</a></p>
+<p><a href="https://paper.seebug.org/1091/" target="_blank" rel="noopener noreferrer">https://paper.seebug.org/1091/</a></p>
+<p><a href="https://su18.org/post/rmi-attack" target="_blank" rel="noopener noreferrer">https://su18.org/post/rmi-attack</a></p>
+</div>
+
+        <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-09-27</span>
-            </div></div>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -409,19 +435,26 @@
         </section>
     </div>
 
-    <div class="post-nav"><a href="/ssti/" class="prev" rel="prev" title="SSTI_OF_FLASK"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>SSTI_OF_FLASK</a></div>
+    <div class="post-nav"><a href="/ssti/" class="prev" rel="prev" title="SSTI_OF_FLASK"><i class="fas fa-angle-left fa-fw"></i>SSTI_OF_FLASK</a>
+            <a href="/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/" class="next" rel="next" title="[Java安全] Java反序列化">[Java安全] Java反序列化<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
 </html>

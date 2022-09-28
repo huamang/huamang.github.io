@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>[Java安全]反射 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全]反射" />
-<meta property="og:description" content="前言 准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[Java安全]反射 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全]反射" />
+<meta property="og:description" content="前言准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-03-07T19:14:57+08:00" />
@@ -15,11 +16,15 @@
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
 <meta name="twitter:title" content="[Java安全]反射"/>
-<meta name="twitter:description" content="前言 准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说"/>
+<meta name="twitter:description" content="前言准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" /><link rel="prev" href="https://example.com/sctf2021/" /><link rel="next" href="https://example.com/hmgctf2022/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" /><link rel="prev" href="https://example.com/sctf2021/" /><link rel="next" href="https://example.com/hmgctf2022/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2419 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2534 ,
         "url": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84\/","datePublished": "2022-03-07T19:14:57+08:00","dateModified": "2022-03-07T19:14:57+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -42,31 +47,38 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -82,46 +94,92 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全]反射</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-category">收录于 <a href="/categories/java/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2419 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 5 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            </div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#反射">反射</a>
+      <ul>
+        <li><a href="#反射定义">反射定义</a></li>
+        <li><a href="#反射的基本运用">反射的基本运用</a>
+          <ul>
+            <li><a href="#1-获取类">1. 获取类</a>
+              <ul>
+                <li><a href="#a-forname方法">a. forName()方法</a></li>
+                <li><a href="#b-直接获取">b. 直接获取</a></li>
+                <li><a href="#c-getclass方法">c. getClass()方法</a></li>
+                <li><a href="#d-getsystemclassloaderloadclass方法">d. getSystemClassLoader().loadClass()方法</a></li>
+              </ul>
+            </li>
+            <li><a href="#2-获取类方法">2. 获取类方法</a>
+              <ul>
+                <li><a href="#a-getdeclaredmethods">a. getDeclaredMethods</a></li>
+                <li><a href="#b-getdeclaredmethod">b. getDeclaredMethod</a></li>
+                <li><a href="#c-getmethods">c. getMethods</a></li>
+                <li><a href="#d-getmethod">d. getMethod</a></li>
+              </ul>
+            </li>
+            <li><a href="#3-获取成员变量">3. 获取成员变量</a>
+              <ul>
+                <li><a href="#a-getdeclaredfields">a. getDeclaredFields</a></li>
+                <li><a href="#b-getdeclaredfieldstring-name">b. getDeclaredField(String name)</a></li>
+                <li><a href="#c-getfields">c. getFields()</a></li>
+                <li><a href="#d-getfieldstring-name">d. getField(String name)</a></li>
+              </ul>
+            </li>
+            <li><a href="#4-获取构造函数constructor">4. 获取构造函数Constructor</a></li>
+            <li><a href="#5-反射创建类对象">5. 反射创建类对象</a>
+              <ul>
+                <li><a href="#newinstance">newInstance</a></li>
+                <li><a href="#invoke">invoke</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><a href="#runtime的rce例子访问限制突破">Runtime的rce例子（访问限制突破）</a></li>
+        <li><a href="#后记">后记</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全]反射</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-03-07">2022-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2534 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -170,16 +228,16 @@
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="前言">前言</h1>
-<p>准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说了，开干吧</p>
-<h1 id="反射">反射</h1>
-<h2 id="反射定义">反射定义</h2>
-<p>对象可以通过反射获取他的类，类可以通过反射拿到所有⽅法（包括私有）
+            </div><div class="content" id="content"><h1 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h1><p>准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说了，开干吧</p>
+<h1 id="反射" class="headerLink">
+    <a href="#%e5%8f%8d%e5%b0%84" class="header-mark"></a>反射</h1><h2 id="反射定义" class="headerLink">
+    <a href="#%e5%8f%8d%e5%b0%84%e5%ae%9a%e4%b9%89" class="header-mark"></a>反射定义</h2><p>对象可以通过反射获取他的类，类可以通过反射拿到所有⽅法（包括私有）
 通过java语言中的反射机制可以操作字节码文件，可以读和修改字节码文件</p>
-<h2 id="反射的基本运用">反射的基本运用</h2>
-<h3 id="1-获取类">1. 获取类</h3>
-<h4 id="a-forname方法">a. forName()方法</h4>
-<p>只需要知道类名，在加载JDBC的时候会采用
+<h2 id="反射的基本运用" class="headerLink">
+    <a href="#%e5%8f%8d%e5%b0%84%e7%9a%84%e5%9f%ba%e6%9c%ac%e8%bf%90%e7%94%a8" class="header-mark"></a>反射的基本运用</h2><h3 id="1-获取类" class="headerLink">
+    <a href="#1-%e8%8e%b7%e5%8f%96%e7%b1%bb" class="header-mark"></a>1. 获取类</h3><h4 id="a-forname方法" class="headerLink">
+    <a href="#a-forname%e6%96%b9%e6%b3%95" class="header-mark"></a>a. forName()方法</h4><p>只需要知道类名，在加载JDBC的时候会采用
 实例代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -199,16 +257,16 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png"
-        data-srcset="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png, https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png 1.5x, https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png"
-        title="在这里插入图片描述" /></p>
-<h4 id="b-直接获取">b. 直接获取</h4>
-<p>使用<code>.class</code>去获取对象</p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png"
+            data-srcset="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png, https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png 1.5x, https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/2566ff1a93cf44d8977983c04fbd013b.png">
+    </a></p>
+<h4 id="b-直接获取" class="headerLink">
+    <a href="#b-%e7%9b%b4%e6%8e%a5%e8%8e%b7%e5%8f%96" class="header-mark"></a>b. 直接获取</h4><p>使用<code>.class</code>去获取对象</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -227,8 +285,8 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="c-getclass方法">c. getClass()方法</h4>
-<p><code>obj.getClass()</code> 如果上下⽂中存在某个类的实例 obj ，那么我们可以直接通过 obj.getClass() 来获取它的类</p>
+</div><h4 id="c-getclass方法" class="headerLink">
+    <a href="#c-getclass%e6%96%b9%e6%b3%95" class="header-mark"></a>c. getClass()方法</h4><p><code>obj.getClass()</code> 如果上下⽂中存在某个类的实例 obj ，那么我们可以直接通过 obj.getClass() 来获取它的类</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -251,8 +309,8 @@
 
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="d-getsystemclassloaderloadclass方法">d. getSystemClassLoader().loadClass()方法</h4>
-<p>这个方法和forName类似，只要有类名就可以了，但是区别在于，forName的静态JVM会装载类，并执行static()中的代码</p>
+</div><h4 id="d-getsystemclassloaderloadclass方法" class="headerLink">
+    <a href="#d-getsystemclassloaderloadclass%e6%96%b9%e6%b3%95" class="header-mark"></a>d. getSystemClassLoader().loadClass()方法</h4><p>这个方法和forName类似，只要有类名就可以了，但是区别在于，forName的静态JVM会装载类，并执行static()中的代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -271,9 +329,9 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="2-获取类方法">2. 获取类方法</h3>
-<h4 id="a-getdeclaredmethods">a. getDeclaredMethods</h4>
-<p>返回类或接口声明的所有方法，包括public、protected、private和默认方法，但是不包括继承的方法</p>
+</div><h3 id="2-获取类方法" class="headerLink">
+    <a href="#2-%e8%8e%b7%e5%8f%96%e7%b1%bb%e6%96%b9%e6%b3%95" class="header-mark"></a>2. 获取类方法</h3><h4 id="a-getdeclaredmethods" class="headerLink">
+    <a href="#a-getdeclaredmethods" class="header-mark"></a>a. getDeclaredMethods</h4><p>返回类或接口声明的所有方法，包括public、protected、private和默认方法，但是不包括继承的方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -302,16 +360,16 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
-<h4 id="b-getdeclaredmethod">b. getDeclaredMethod</h4>
-<p>获取特定的方法，第一个参数是方法名，第二个参数是该方法的参数对应的class对象，例如这里Runtime的exec方法参数为一个String，所以这里的第二个参数是String.class</p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_18%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/8ec532ec19184237be6dc890b081a196.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
+<h4 id="b-getdeclaredmethod" class="headerLink">
+    <a href="#b-getdeclaredmethod" class="header-mark"></a>b. getDeclaredMethod</h4><p>获取特定的方法，第一个参数是方法名，第二个参数是该方法的参数对应的class对象，例如这里Runtime的exec方法参数为一个String，所以这里的第二个参数是String.class</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -336,22 +394,22 @@
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h4 id="c-getmethods">c. getMethods</h4>
-<p>返回某个类所有的public方法，包括继承类的public方法</p>
-<h4 id="d-getmethod">d. getMethod</h4>
-<p>参数同理getDeclaredMethod</p>
-<h3 id="3-获取成员变量">3. 获取成员变量</h3>
-<p>同理Method的那几个方法</p>
-<h4 id="a-getdeclaredfields">a. getDeclaredFields</h4>
-<p>获取类的成员的所有变量数组，但是不包括父类的</p>
-<h4 id="b-getdeclaredfieldstring-name">b. getDeclaredField(String name)</h4>
-<p>获取特定的，参数是想要的方法的名称</p>
-<h4 id="c-getfields">c. getFields()</h4>
-<p>同理，只能获得public的，但是包括了父类的</p>
-<h4 id="d-getfieldstring-name">d. getField(String name)</h4>
-<p>同理，参数是想要的方法的名称</p>
-<h3 id="4-获取构造函数constructor">4. 获取构造函数Constructor</h3>
-<div class="highlight"><div class="chroma">
+</div><h4 id="c-getmethods" class="headerLink">
+    <a href="#c-getmethods" class="header-mark"></a>c. getMethods</h4><p>返回某个类所有的public方法，包括继承类的public方法</p>
+<h4 id="d-getmethod" class="headerLink">
+    <a href="#d-getmethod" class="header-mark"></a>d. getMethod</h4><p>参数同理getDeclaredMethod</p>
+<h3 id="3-获取成员变量" class="headerLink">
+    <a href="#3-%e8%8e%b7%e5%8f%96%e6%88%90%e5%91%98%e5%8f%98%e9%87%8f" class="header-mark"></a>3. 获取成员变量</h3><p>同理Method的那几个方法</p>
+<h4 id="a-getdeclaredfields" class="headerLink">
+    <a href="#a-getdeclaredfields" class="header-mark"></a>a. getDeclaredFields</h4><p>获取类的成员的所有变量数组，但是不包括父类的</p>
+<h4 id="b-getdeclaredfieldstring-name" class="headerLink">
+    <a href="#b-getdeclaredfieldstring-name" class="header-mark"></a>b. getDeclaredField(String name)</h4><p>获取特定的，参数是想要的方法的名称</p>
+<h4 id="c-getfields" class="headerLink">
+    <a href="#c-getfields" class="header-mark"></a>c. getFields()</h4><p>同理，只能获得public的，但是包括了父类的</p>
+<h4 id="d-getfieldstring-name" class="headerLink">
+    <a href="#d-getfieldstring-name" class="header-mark"></a>d. getField(String name)</h4><p>同理，参数是想要的方法的名称</p>
+<h3 id="4-获取构造函数constructor" class="headerLink">
+    <a href="#4-%e8%8e%b7%e5%8f%96%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0constructor" class="header-mark"></a>4. 获取构造函数Constructor</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -372,9 +430,9 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>后面两个方法的参数是对于方法的参数的类型的class对象，和Method的那个类似，例如<code>String.class</code></p>
-<h3 id="5-反射创建类对象">5. 反射创建类对象</h3>
-<h4 id="newinstance">newInstance</h4>
-<p>可以通过反射来生成实例化对象，一般我们使用Class对象的<code>newInstance()</code>方法来进行创建类对象</p>
+<h3 id="5-反射创建类对象" class="headerLink">
+    <a href="#5-%e5%8f%8d%e5%b0%84%e5%88%9b%e5%bb%ba%e7%b1%bb%e5%af%b9%e8%b1%a1" class="header-mark"></a>5. 反射创建类对象</h3><h4 id="newinstance" class="headerLink">
+    <a href="#newinstance" class="header-mark"></a>newInstance</h4><p>可以通过反射来生成实例化对象，一般我们使用Class对象的<code>newInstance()</code>方法来进行创建类对象</p>
 <p>创建的方法就是：只需要通过forname方法获取到的class对象中进行newInstance方法创建即可</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -386,8 +444,8 @@
 </span><span class="c1"></span><span class="n">Object</span> <span class="n">m1</span> <span class="o">=</span>  <span class="n">c</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span> <span class="c1">// 创建类对象
 </span></code></pre></td></tr></table>
 </div>
-</div><h4 id="invoke">invoke</h4>
-<p>invoke方法位于java.lang.reflect.Method类中，用于<font color=red>执行某个的对象的目标方法</font>,一般会和getMethod方法配合进行调用。</p>
+</div><h4 id="invoke" class="headerLink">
+    <a href="#invoke" class="header-mark"></a>invoke</h4><p>invoke方法位于java.lang.reflect.Method类中，用于<font color=red>执行某个的对象的目标方法</font>,一般会和getMethod方法配合进行调用。</p>
 <p>使用用法：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -446,14 +504,14 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png"
-        data-srcset="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png, https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png 1.5x, https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png"
-        title="在这里插入图片描述" /></p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png"
+            data-srcset="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png, https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png 1.5x, https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/1ebd5c7d63104bccbf48b0ab98708375.png">
+    </a></p>
 <p>简单来说就是这样</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -464,8 +522,8 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 </code></pre></td></tr></table>
 </div>
 </div><p>先forName拿到Class，再newInstance获取类对象，再getMethod获取方法，然后调用</p>
-<h2 id="runtime的rce例子访问限制突破">Runtime的rce例子（访问限制突破）</h2>
-<p>Runtime类里面有一个exec方法，可以执行命令</p>
+<h2 id="runtime的rce例子访问限制突破" class="headerLink">
+    <a href="#runtime%e7%9a%84rce%e4%be%8b%e5%ad%90%e8%ae%bf%e9%97%ae%e9%99%90%e5%88%b6%e7%aa%81%e7%a0%b4" class="header-mark"></a>Runtime的rce例子（访问限制突破）</h2><p>Runtime类里面有一个exec方法，可以执行命令</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -495,14 +553,14 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 </code></pre></td></tr></table>
 </div>
 </div><p>但是发现报错了</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入代码片" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入代码片" data-thumbnail="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/1303337d47a04902a8a971cdc2009a1c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>出现这个问题的原因：</p>
 <ol>
 <li>使用的类没有无参构造函数</li>
@@ -514,14 +572,14 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 </blockquote>
 <p>简单来说，私有的属性、方法、构造方法，可以通过这个去突破限制，<code>xxx.setAccessible(true)</code>
 可以看到Runtime的构造方法是private的</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_13%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_13%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_13%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+<p><a class="lightgallery" href="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_13%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_13%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_13%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/6fb8f828c4f44083b1fc2190af6040bd.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>那么这里我们就可以这么去突破限制
 先获取构造方法，然后setAccessible获取访问权限
 然后再最后invoke里面，第一个参数写成con.newInstance()</p>
@@ -559,14 +617,14 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        data-srcset="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
-        data-sizes="auto"
-        alt="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-        title="在这里插入图片描述" /></p>
+</div><p><a class="lightgallery" href="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16" title="在这里插入图片描述" data-thumbnail="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+        <img
+            class="lazyload"
+            data-src="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+            data-srcset="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16, https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 1.5x, https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark%2ctype_d3F5LXplbmhlaQ%2cshadow_50%2ctext_Q1NETiBAaHVhbWFuZ2dn%2csize_20%2ccolor_FFFFFF%2ct_70%2cg_se%2cx_16 2x"
+            data-sizes="auto"
+            alt="https://img-blog.csdnimg.cn/10431445cf734dacaeb98a41b0f0e77d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16">
+    </a></p>
 <p>这里有一个疑问，如果把con.newInstance单独提取出来，他打开计算器不会显示出来，但是后台的确是启动了，不知道啥原因</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -602,8 +660,8 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 <span class="o">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="后记">后记</h2>
-<p>反射中常用的几个重要方法：</p>
+</div><h2 id="后记" class="headerLink">
+    <a href="#%e5%90%8e%e8%ae%b0" class="header-mark"></a>后记</h2><p>反射中常用的几个重要方法：</p>
 <ul>
 <li>获取类的⽅法： forName</li>
 <li>实例化类对象的⽅法： newInstance</li>
@@ -611,12 +669,16 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
 <li>执⾏函数的⽅法： invoke</li>
 <li>限制突破方法：setAccessible</li>
 </ul>
-</div><div class="post-footer" id="post-footer">
+</div>
+
+        <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-03-07</span>
-            </div></div>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -632,20 +694,26 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
         </section>
     </div>
 
-    <div class="post-nav"><a href="/sctf2021/" class="prev" rel="prev" title="[SCTF2021]Upload_it_1复现闭包组件反序列化rce"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[SCTF2021]Upload_it_1复现闭包组件反序列化rce</a>
-            <a href="/hmgctf2022/" class="next" rel="next" title="[HMGCTF2022] WP">[HMGCTF2022] WP<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/sctf2021/" class="prev" rel="prev" title="[SCTF2021]Upload_it_1复现闭包组件反序列化rce"><i class="fas fa-angle-left fa-fw"></i>[SCTF2021]Upload_it_1复现闭包组件反序列化rce</a>
+            <a href="/hmgctf2022/" class="next" rel="next" title="[HMGCTF2022] WP">[HMGCTF2022] WP<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
 </html>

