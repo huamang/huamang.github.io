@@ -303,3 +303,14 @@ Contents
 
 ![image-20220928234022766](https://tuchuang.huamang.xyz/img/image-20220928234022766.png)
 
+参考文章：
+
+《Java安全漫谈》
+
+http://h0cksr.xyz/archives/207
+
+https://redmango.top/article/34
+
+https://www.liaoxuefeng.com/wiki/1252599548343744/1298366845681698
+
+
