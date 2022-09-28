@@ -16,5 +16,6 @@
 | W0nderMaker | https://blog.csdn.net/wuyvle      |
 | Zima Blue   | https://www.zimablue.life/        |
 | MiaoTony    | https://miaotony.xyz/             |
+| h0cksr      | http://h0cksr.xyz/                |
 
 
