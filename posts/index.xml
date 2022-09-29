@@ -4,7 +4,14 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 29 Sep 2022 00:34:07 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 29 Sep 2022 14:05:47 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java安全] CommonsCollections1链分析</title>
+    <link>https://example.com/cc1/</link>
+    <pubDate>Thu, 29 Sep 2022 14:05:47 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/cc1/</guid>
+    <description><![CDATA[前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习 CommonCollection1简]]></description>
+</item><item>
     <title>[Java安全] URLDNS</title>
     <link>https://example.com/urldns/</link>
     <pubDate>Thu, 29 Sep 2022 00:34:07 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
     <description><![CDATA[MiscSimpleFlow看流量大概是上传了一个后门，但是会对payload加密，这里发现有flag.txt被打包 后面的包里面发现flag]]></description>
-</item><item>
-    <title>[MRCTF2022] WP</title>
-    <link>https://example.com/mrctf2022_wp/</link>
-    <pubDate>Mon, 25 Apr 2022 18:01:47 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/mrctf2022_wp/</guid>
-    <description><![CDATA[Misccheckin翻源码找到flag WebWebCheckIn上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件]]></description>
 </item></channel>
 </rss>
