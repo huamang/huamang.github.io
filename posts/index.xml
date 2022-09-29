@@ -4,7 +4,14 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 28 Sep 2022 16:12:56 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 29 Sep 2022 00:34:07 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java安全] URLDNS</title>
+    <link>https://example.com/urldns/</link>
+    <pubDate>Thu, 29 Sep 2022 00:34:07 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/urldns/</guid>
+    <description><![CDATA[前言Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门 ys]]></description>
+</item><item>
     <title>[Java安全] Java反序列化</title>
     <link>https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
     <pubDate>Wed, 28 Sep 2022 16:12:56 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/mrctf2022_wp/</guid>
     <description><![CDATA[Misccheckin翻源码找到flag WebWebCheckIn上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件]]></description>
-</item><item>
-    <title>[*CTF2022] oh-my-lotto-revenge</title>
-    <link>https://example.com/ctf2022_oh-my-lotto-revenge/</link>
-    <pubDate>Wed, 20 Apr 2022 18:24:27 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/ctf2022_oh-my-lotto-revenge/</guid>
-    <description><![CDATA[New相对于oh_my_lotto，revenge进行了下面的更改 这么做，我们能走的就只有RCE了，而这里唯一能操作的一个地方就是这里，可以]]></description>
 </item></channel>
 </rss>
