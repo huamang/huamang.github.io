@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noodp" />
     <title class="pjax-title">[Java安全] CommonsCollections1链分析 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全] CommonsCollections1链分析" />
-<meta property="og:description" content="前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习 CommonCollection1简" />
+<meta property="og:description" content="前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习 CommonCollection1前" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://example.com/cc1/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-09-29T14:05:47+08:00" />
@@ -16,7 +16,7 @@
 <meta name="twitter:image" content="https://example.com/logo.png"/>
 
 <meta name="twitter:title" content="[Java安全] CommonsCollections1链分析"/>
-<meta name="twitter:description" content="前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习 CommonCollection1简"/>
+<meta name="twitter:description" content="前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习 CommonCollection1前"/>
 <meta name="application-name" content="LoveIt">
 <meta name="apple-mobile-web-app-title" content="LoveIt">
 
@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/cc1\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  4450 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  5740 ,
         "url": "https:\/\/example.com\/cc1\/","datePublished": "2022-09-29T14:05:47+08:00","dateModified": "2022-09-29T14:05:47+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -127,7 +127,7 @@
   <ul>
     <li><a href="#commoncollection1">CommonCollection1</a>
       <ul>
-        <li><a href="#简化版">简化版</a>
+        <li><a href="#前菜">前菜</a>
           <ul>
             <li><a href="#transformed">Transformed</a></li>
             <li><a href="#constanttransformer">ConstantTransformer</a></li>
@@ -140,10 +140,14 @@
         <li><a href="#cc1">CC1</a>
           <ul>
             <li><a href="#annotationinvocationhandler">AnnotationInvocationHandler</a></li>
-            <li><a href="#poc构造">POC构造</a></li>
+            <li><a href="#poc构造">POC构造</a>
+              <ul>
+                <li><a href="#runtime">Runtime</a></li>
+                <li><a href="#retention">Retention</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
-        <li><a href="#最后的疑惑">最后的疑惑</a></li>
       </ul>
     </li>
   </ul>
@@ -152,8 +156,8 @@
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4450 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5740 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 12 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -163,7 +167,7 @@
   <ul>
     <li><a href="#commoncollection1">CommonCollection1</a>
       <ul>
-        <li><a href="#简化版">简化版</a>
+        <li><a href="#前菜">前菜</a>
           <ul>
             <li><a href="#transformed">Transformed</a></li>
             <li><a href="#constanttransformer">ConstantTransformer</a></li>
@@ -176,18 +180,22 @@
         <li><a href="#cc1">CC1</a>
           <ul>
             <li><a href="#annotationinvocationhandler">AnnotationInvocationHandler</a></li>
-            <li><a href="#poc构造">POC构造</a></li>
+            <li><a href="#poc构造">POC构造</a>
+              <ul>
+                <li><a href="#runtime">Runtime</a></li>
+                <li><a href="#retention">Retention</a></li>
+              </ul>
+            </li>
           </ul>
         </li>
-        <li><a href="#最后的疑惑">最后的疑惑</a></li>
       </ul>
     </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><p>前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习</p>
 <h1 id="commoncollection1" class="headerLink">
-    <a href="#commoncollection1" class="header-mark"></a>CommonCollection1</h1><h2 id="简化版" class="headerLink">
-    <a href="#%e7%ae%80%e5%8c%96%e7%89%88" class="header-mark"></a>简化版</h2><p>首先P牛帮我们简化CC链成如下代码</p>
+    <a href="#commoncollection1" class="header-mark"></a>CommonCollection1</h1><h2 id="前菜" class="headerLink">
+    <a href="#%e5%89%8d%e8%8f%9c" class="header-mark"></a>前菜</h2><p>首先P牛帮我们简化CC链成如下代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -730,7 +738,8 @@
 </ol>
 <p>所以，这也解释了为什么我前面用到 Retention.class ，因为Retention有一个方法，名为value；所 以，为了再满足第二个条件，我需要给Map中放入一个Key是value的元素：</p>
 </blockquote>
-<p>但是发现这样还是不能执行命令的，这里报错了，原因是Runtime是不能被反序列化的，我们最早传给ConstantTransformer的是 <code>Runtime.getRuntime()</code> ，而Runtime没有实现serializable接口，是不能被序列化的</p>
+<h4 id="runtime" class="headerLink">
+    <a href="#runtime" class="header-mark"></a>Runtime</h4><p>但是发现这样还是不能执行命令的，这里报错了，原因是Runtime是不能被反序列化的，我们最早传给ConstantTransformer的是 <code>Runtime.getRuntime()</code> ，而Runtime没有实现serializable接口，是不能被序列化的</p>
 <p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930021727592.png" title="image-20220930021727592" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930021727592.png">
         <img
             class="lazyload"
@@ -773,9 +782,212 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>以前的Runtime.getRuntime() 是<code>java.lang.Runtime</code>对象，无法序列化，现在变成了Runtime.class，是java.lang.Class 对象，Class类有实现Serializable接口，所以可以被序列化</p>
-<p>至此，CC1就分析结束了</p>
-<h2 id="最后的疑惑" class="headerLink">
-    <a href="#%e6%9c%80%e5%90%8e%e7%9a%84%e7%96%91%e6%83%91" class="header-mark"></a>最后的疑惑</h2><p>Java注释相关的技术还不太懂，这里有师傅分析过：https://xz.aliyun.com/t/9873</p>
+<p>这里我们跟一下，仔细的弄清楚这个操作：</p>
+<p><strong>第一次循环</strong></p>
+<p><code>iTransformers[0] = ConstantTransformer(Runtime.class)</code>
+object不重要不影响</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930141338876.png" title="image-20220930141338876" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930141338876.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930141338876.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930141338876.png, https://tuchuang.huamang.xyz/img/image-20220930141338876.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930141338876.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930141338876.png">
+    </a></p>
+<p><strong>第二次循环</strong></p>
+<p>前面的ConstantTransformer(Runtime.class)执行了transform，返回<strong>class java.lang.Runtime</strong>，作为object</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">iTransformers</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">InvokerTransformer</span><span class="o">(</span><span class="s">&#34;getMethod&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]</span> <span class="o">{</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Class</span><span class="o">[].</span><span class="na">class</span> <span class="o">},</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span> <span class="s">&#34;getRuntime&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>进入InvokerTransformer的transform，input是<strong>class java.lang.Runtime</strong>，method是<code>getMethod</code>，参数iArgs是<code>{&quot;getRuntime&quot;,new Class[0]}</code>，</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">return method.invoke(input, this.iArgs);
+返回：public static java.lang.Runtime java.lang.Runtime.getRuntime()
+</code></pre></td></tr></table>
+</div>
+</div><p>其实就等价于</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">Runtime.class.getMethod(&#34;getRuntime&#34;,new Class[0])
+</code></pre></td></tr></table>
+</div>
+</div><p><strong>第三次循环</strong></p>
+<p>object为getRuntime方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">iTransformers</span><span class="o">[</span><span class="n">1</span><span class="o">]</span> <span class="o">=</span> <span class="n">InvokerTransformer</span><span class="o">(</span><span class="s">&#34;invoke&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]</span> <span class="o">{</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Object</span><span class="o">[].</span><span class="na">class</span> <span class="o">},</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]</span> <span class="o">{</span> <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="n">0</span><span class="o">]})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>同理的执行</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930142900541.png" title="image-20220930142900541" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930142900541.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930142900541.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930142900541.png, https://tuchuang.huamang.xyz/img/image-20220930142900541.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930142900541.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930142900541.png">
+    </a></p>
+<p>等价于</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">invoke</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="kd">public</span> <span class="kd">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Runtime</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">(),{</span> <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="n">0</span><span class="o">]})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>返回了我们千呼万唤的Runtime对象</p>
+<p><strong>第四次循环</strong></p>
+<p>现在我们通过反射已经拿到了Runtime对象了，接下来就是执行Runtime的exec了</p>
+<p>这个就不多说，前面已经分析过了</p>
+<h4 id="retention" class="headerLink">
+    <a href="#retention" class="header-mark"></a>Retention</h4><p><del>Java注释相关的技术还不太懂，这里有师傅分析过：https://xz.aliyun.com/t/9873</del></p>
+<p>没分析完整，心里一直过不去，所以到第二天还是老老实实跟了一遍这里</p>
+<p>我们关注这个点的起始点，就在readObject中的这么一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">if (var7 != null)
+</code></pre></td></tr></table>
+</div>
+</div><p>首先我们构造这个AnnotationInvocationHandler对象的时候，var1我们传入的是Retention.class，var2传入的是我们构造的TransformedMap</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="n">AnnotationInvocationHandler</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Annotation</span><span class="o">&gt;</span> <span class="n">var1</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">var2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Class</span><span class="o">[]</span> <span class="n">var3</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="na">getInterfaces</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">var1</span><span class="o">.</span><span class="na">isAnnotation</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">var3</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">var3</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">Annotation</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">type</span> <span class="o">=</span> <span class="n">var1</span><span class="o">;</span>
+            <span class="k">this</span><span class="o">.</span><span class="na">memberValues</span> <span class="o">=</span> <span class="n">var2</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">AnnotationFormatError</span><span class="o">(</span><span class="s">&#34;Attempt to create proxy for a non-annotation type.&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>var1会被赋值给<code>this.type</code>，var2会被赋值给<code>this.memberValues</code></p>
+<p>在反序列化的时候，进入readObject方法，执行了这么一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">var2</span> <span class="o">=</span> <span class="n">AnnotationType</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">type</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们跟进AnnotationType.getInstance，传入的参数是this.type也就是Retention.class</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">AnnotationType</span> <span class="nf">getInstance</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Annotation</span><span class="o">&gt;</span> <span class="n">var0</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">JavaLangAccess</span> <span class="n">var1</span> <span class="o">=</span> <span class="n">SharedSecrets</span><span class="o">.</span><span class="na">getJavaLangAccess</span><span class="o">();</span>
+        <span class="n">AnnotationType</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="na">getAnnotationType</span><span class="o">(</span><span class="n">var0</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">var2</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">var2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnnotationType</span><span class="o">(</span><span class="n">var0</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">var1</span><span class="o">.</span><span class="na">casAnnotationType</span><span class="o">(</span><span class="n">var0</span><span class="o">,</span> <span class="o">(</span><span class="n">AnnotationType</span><span class="o">)</span><span class="kc">null</span><span class="o">,</span> <span class="n">var2</span><span class="o">))</span> <span class="o">{</span>
+                <span class="n">var2</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="na">getAnnotationType</span><span class="o">(</span><span class="n">var0</span><span class="o">);</span>
+
+                <span class="k">assert</span> <span class="n">var2</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="k">return</span> <span class="n">var2</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里会进入到 <code>new AnnotationType(var0);</code>，然后继续往下走，此时的var2的值就是Retention的方法列表，Retention只有一个方法那就是value()</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930133338320.png" title="image-20220930133338320" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930133338320.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930133338320.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930133338320.png, https://tuchuang.huamang.xyz/img/image-20220930133338320.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930133338320.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930133338320.png">
+    </a></p>
+<p>我们再往下跟，var2传递到var3，然后就进入循环，这里循环把方法列表var3中的方法取出存在var6</p>
+<p>然后再执行<code>String var7 = var6.getName();</code>，获取方法名存在var7中</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930135719053.png" title="image-20220930135719053" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930135719053.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930135719053.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930135719053.png, https://tuchuang.huamang.xyz/img/image-20220930135719053.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930135719053.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930135719053.png">
+    </a></p>
+<p>然后再put作为键值存入memberTypes</p>
+<p>走出这个方法，可以看到var2的memberTypes是个HashMap，他的第一个元素的键值就是Retention的方法value的字符串</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930135943513.png" title="image-20220930135943513" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930135943513.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930135943513.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930135943513.png, https://tuchuang.huamang.xyz/img/image-20220930135943513.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930135943513.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930135943513.png">
+    </a></p>
+<p>然后再回到readObject，这里var2出来以后，他的memberTypes赋值给了var3</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930140202901.png" title="image-20220930140202901" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930140202901.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930140202901.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930140202901.png, https://tuchuang.huamang.xyz/img/image-20220930140202901.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930140202901.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930140202901.png">
+    </a></p>
+<p>继续往下，var6是var5的key，也就是“value”，终于走到var7</p>
+<p><code>var7=var3.get(&quot;value&quot;)</code></p>
+<p>刚好我们var3的键就是value，所以var7不会为null，就执行了我们想要的setValue了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930140650215.png" title="image-20220930140650215" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930140650215.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20220930140650215.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20220930140650215.png, https://tuchuang.huamang.xyz/img/image-20220930140650215.png 1.5x, https://tuchuang.huamang.xyz/img/image-20220930140650215.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20220930140650215.png">
+    </a></p>
+<p>至此，CommonCollection1利用链我们就已经分析结束了</p>
 </div>
 
         <div class="post-footer" id="post-footer">

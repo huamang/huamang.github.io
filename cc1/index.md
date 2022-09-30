@@ -5,7 +5,7 @@
 
 # CommonCollection1
 
-## 简化版
+## 前菜
 
 首先P牛帮我们简化CC链成如下代码
 
@@ -350,6 +350,8 @@ if (var7 != null)
 >
 >所以，这也解释了为什么我前面用到 Retention.class ，因为Retention有一个方法，名为value；所 以，为了再满足第二个条件，我需要给Map中放入一个Key是value的元素：
 
+#### Runtime
+
 但是发现这样还是不能执行命令的，这里报错了，原因是Runtime是不能被反序列化的，我们最早传给ConstantTransformer的是 `Runtime.getRuntime()` ，而Runtime没有实现serializable接口，是不能被序列化的
 
 ![image-20220930021727592](https://tuchuang.huamang.xyz/img/image-20220930021727592.png)
@@ -377,12 +379,144 @@ Transformer[] transformers = new Transformer[] {
 
 以前的Runtime.getRuntime() 是`java.lang.Runtime`对象，无法序列化，现在变成了Runtime.class，是java.lang.Class 对象，Class类有实现Serializable接口，所以可以被序列化
 
-至此，CC1就分析结束了
-
-## 最后的疑惑
-
-Java注释相关的技术还不太懂，这里有师傅分析过：https://xz.aliyun.com/t/9873
+这里我们跟一下，仔细的弄清楚这个操作：
 
 
 
+**第一次循环**
+
+`iTransformers[0] = ConstantTransformer(Runtime.class)`
+object不重要不影响
+
+![image-20220930141338876](https://tuchuang.huamang.xyz/img/image-20220930141338876.png)
+
+**第二次循环**
+
+前面的ConstantTransformer(Runtime.class)执行了transform，返回**class java.lang.Runtime**，作为object
+
+```java
+iTransformers[1] = InvokerTransformer("getMethod", new Class[] {String.class, Class[].class }, new Object[] { "getRuntime", new Class[0] })
+```
+
+进入InvokerTransformer的transform，input是**class java.lang.Runtime**，method是`getMethod`，参数iArgs是`{"getRuntime",new Class[0]}`，
+
+```
+return method.invoke(input, this.iArgs);
+返回：public static java.lang.Runtime java.lang.Runtime.getRuntime()
+```
+
+其实就等价于
+
+```
+Runtime.class.getMethod("getRuntime",new Class[0])
+```
+
+**第三次循环**
+
+object为getRuntime方法
+
+```java
+iTransformers[1] = InvokerTransformer("invoke", new Class[] { Object.class, Object[].class }, new Object[] { null, new Object[0]})
+```
+
+同理的执行
+
+![image-20220930142900541](https://tuchuang.huamang.xyz/img/image-20220930142900541.png)
+
+等价于
+
+```java
+invoke.invoke(public static java.lang.Runtime java.lang.Runtime.getRuntime(),{ null, new Object[0]})
+```
+
+返回了我们千呼万唤的Runtime对象
+
+**第四次循环**
+
+现在我们通过反射已经拿到了Runtime对象了，接下来就是执行Runtime的exec了
+
+这个就不多说，前面已经分析过了
+
+#### Retention
+
+~~Java注释相关的技术还不太懂，这里有师傅分析过：https://xz.aliyun.com/t/9873~~
+
+没分析完整，心里一直过不去，所以到第二天还是老老实实跟了一遍这里
+
+我们关注这个点的起始点，就在readObject中的这么一段代码
+
+```
+if (var7 != null)
+```
+
+首先我们构造这个AnnotationInvocationHandler对象的时候，var1我们传入的是Retention.class，var2传入的是我们构造的TransformedMap
+
+```java
+    AnnotationInvocationHandler(Class<? extends Annotation> var1, Map<String, Object> var2) {
+        Class[] var3 = var1.getInterfaces();
+        if (var1.isAnnotation() && var3.length == 1 && var3[0] == Annotation.class) {
+            this.type = var1;
+            this.memberValues = var2;
+        } else {
+            throw new AnnotationFormatError("Attempt to create proxy for a non-annotation type.");
+        }
+    }
+```
+
+var1会被赋值给`this.type`，var2会被赋值给`this.memberValues`
+
+在反序列化的时候，进入readObject方法，执行了这么一段代码
+
+```java
+var2 = AnnotationType.getInstance(this.type);
+```
+
+我们跟进AnnotationType.getInstance，传入的参数是this.type也就是Retention.class
+
+```java
+public static AnnotationType getInstance(Class<? extends Annotation> var0) {
+        JavaLangAccess var1 = SharedSecrets.getJavaLangAccess();
+        AnnotationType var2 = var1.getAnnotationType(var0);
+        if (var2 == null) {
+            var2 = new AnnotationType(var0);
+            if (!var1.casAnnotationType(var0, (AnnotationType)null, var2)) {
+                var2 = var1.getAnnotationType(var0);
+
+                assert var2 != null;
+            }
+        }
+
+        return var2;
+    }
+```
+
+这里会进入到 `new AnnotationType(var0);`，然后继续往下走，此时的var2的值就是Retention的方法列表，Retention只有一个方法那就是value()
+
+![image-20220930133338320](https://tuchuang.huamang.xyz/img/image-20220930133338320.png)
+
+我们再往下跟，var2传递到var3，然后就进入循环，这里循环把方法列表var3中的方法取出存在var6
+
+然后再执行`String var7 = var6.getName();`，获取方法名存在var7中
+
+![image-20220930135719053](https://tuchuang.huamang.xyz/img/image-20220930135719053.png)
+
+然后再put作为键值存入memberTypes
+
+走出这个方法，可以看到var2的memberTypes是个HashMap，他的第一个元素的键值就是Retention的方法value的字符串
+
+![image-20220930135943513](https://tuchuang.huamang.xyz/img/image-20220930135943513.png)
+
+然后再回到readObject，这里var2出来以后，他的memberTypes赋值给了var3
+
+![image-20220930140202901](https://tuchuang.huamang.xyz/img/image-20220930140202901.png)
+
+继续往下，var6是var5的key，也就是“value”，终于走到var7
+
+`var7=var3.get("value")`
+
+刚好我们var3的键就是value，所以var7不会为null，就执行了我们想要的setValue了
+
+![image-20220930140650215](https://tuchuang.huamang.xyz/img/image-20220930140650215.png)
+
+至此，CommonCollection1利用链我们就已经分析结束了
 
