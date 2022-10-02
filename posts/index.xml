@@ -4,7 +4,14 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 29 Sep 2022 14:05:47 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Oct 2022 15:51:14 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java安全] CommonsCollections6链分析</title>
+    <link>https://example.com/cc6/</link>
+    <pubDate>Sun, 02 Oct 2022 15:51:14 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/cc6/</guid>
+    <description><![CDATA[前言之前我们分析了CC1，从简化版开始学习，再到完整分析CC1，再学习了动态代理和LazyMap的利用链构造，但是都有一个缺陷就是版本限制，]]></description>
+</item><item>
     <title>[Java安全] CommonsCollections1链分析</title>
     <link>https://example.com/cc1/</link>
     <pubDate>Thu, 29 Sep 2022 14:05:47 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/ciscn2022_crt/</guid>
     <description><![CDATA[0x01 前期准备源码题目源码用于本地的调试，有所改动，考虑篇幅，只展示重要逻辑代码 app.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31]]></description>
-</item><item>
-    <title>[2022DASCTF Apr X FATE 防疫挑战赛] WP</title>
-    <link>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
-    <pubDate>Mon, 25 Apr 2022 18:12:37 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
-    <description><![CDATA[MiscSimpleFlow看流量大概是上传了一个后门，但是会对payload加密，这里发现有flag.txt被打包 后面的包里面发现flag]]></description>
 </item></channel>
 </rss>

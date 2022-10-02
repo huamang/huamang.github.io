@@ -524,48 +524,6 @@ public static AnnotationType getInstance(Class<? extends Annotation> var0) {
 
 # LazyMap
 
-前一篇文章说了，我们所测试的jdk版本是8u71以前的版本，而此版本以后的jdk，Java 官方修改了 sun.reflect.annotation.AnnotationInvocationHandler 的 readObject函数
-
-变成了如下代码
-
-```java
-    private void readObject(ObjectInputStream var1) throws IOException, ClassNotFoundException {
-        GetField var2 = var1.readFields();
-        Class var3 = (Class)var2.get("type", (Object)null);
-        Map var4 = (Map)var2.get("memberValues", (Object)null);
-        AnnotationType var5 = null;
-
-        try {
-            var5 = AnnotationType.getInstance(var3);
-        } catch (IllegalArgumentException var13) {
-            throw new InvalidObjectException("Non-annotation type in annotation serial stream");
-        }
-
-        Map var6 = var5.memberTypes();
-        LinkedHashMap var7 = new LinkedHashMap();
-
-        String var10;
-        Object var11;
-        for(Iterator var8 = var4.entrySet().iterator(); var8.hasNext(); var7.put(var10, var11)) {
-            Entry var9 = (Entry)var8.next();
-            var10 = (String)var9.getKey();
-            var11 = null;
-            Class var12 = (Class)var6.get(var10);
-            if (var12 != null) {
-                var11 = var9.getValue();
-                if (!var12.isInstance(var11) && !(var11 instanceof ExceptionProxy)) {
-                    var11 = (new AnnotationTypeMismatchExceptionProxy(var11.getClass() + "[" + var11 + "]")).setMember((Method)var5.members().get(var10));
-                }
-            }
-        }
-
-        AnnotationInvocationHandler.UnsafeAccessor.setType(this, var3);
-        AnnotationInvocationHandler.UnsafeAccessor.setMemberValues(this, var7);
-    }
-```
-
-他让我们传入的Map不会再执行set或put操作了，所以这里就不能再用了
-
 观察ysoserial中的CC1的payload，可以发现这里用的不是我们上一篇文章介绍到的TransformedMap而是LazyMap
 
 ![image-20220930152414864](https://tuchuang.huamang.xyz/img/image-20220930152414864.png)
@@ -772,7 +730,49 @@ public class CC1pro {
 
 # 后记
 
-同样的，CC1依然是不能在高版本运行的，对于高版本的绕过，就在我们的下一篇文章CommonCollection6
+前一篇文章说了，我们所测试的jdk版本是8u71以前的版本，而此版本以后的jdk，Java 官方修改了 sun.reflect.annotation.AnnotationInvocationHandler 的 readObject函数
+
+变成了如下代码
+
+```java
+    private void readObject(ObjectInputStream var1) throws IOException, ClassNotFoundException {
+        GetField var2 = var1.readFields();
+        Class var3 = (Class)var2.get("type", (Object)null);
+        Map var4 = (Map)var2.get("memberValues", (Object)null);
+        AnnotationType var5 = null;
+
+        try {
+            var5 = AnnotationType.getInstance(var3);
+        } catch (IllegalArgumentException var13) {
+            throw new InvalidObjectException("Non-annotation type in annotation serial stream");
+        }
+
+        Map var6 = var5.memberTypes();
+        LinkedHashMap var7 = new LinkedHashMap();
+
+        String var10;
+        Object var11;
+        for(Iterator var8 = var4.entrySet().iterator(); var8.hasNext(); var7.put(var10, var11)) {
+            Entry var9 = (Entry)var8.next();
+            var10 = (String)var9.getKey();
+            var11 = null;
+            Class var12 = (Class)var6.get(var10);
+            if (var12 != null) {
+                var11 = var9.getValue();
+                if (!var12.isInstance(var11) && !(var11 instanceof ExceptionProxy)) {
+                    var11 = (new AnnotationTypeMismatchExceptionProxy(var11.getClass() + "[" + var11 + "]")).setMember((Method)var5.members().get(var10));
+                }
+            }
+        }
+
+        AnnotationInvocationHandler.UnsafeAccessor.setType(this, var3);
+        AnnotationInvocationHandler.UnsafeAccessor.setMemberValues(this, var7);
+    }
+```
+
+他让我们传入的Map不会再执行set或put操作了，所以这里就不能再用了
+
+对于高版本的绕过，就在我们的下一篇文章CommonCollection6
 
 
 

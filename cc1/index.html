@@ -22,7 +22,7 @@
 
 <meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/cc1/" /><link rel="prev" href="https://example.com/urldns/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/cc1/" /><link rel="prev" href="https://example.com/urldns/" /><link rel="next" href="https://example.com/cc6/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
         <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
     {
@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/cc1\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  7844 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  7824 ,
         "url": "https:\/\/example.com\/cc1\/","datePublished": "2022-09-29T14:05:47+08:00","dateModified": "2022-09-29T14:05:47+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -160,7 +160,7 @@
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7844 字&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-29">2022-09-29</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7824 字&nbsp;
                 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 16 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
@@ -997,82 +997,7 @@ object不重要不影响</p>
     </a></p>
 <p>至此，CommonCollection1利用链我们就已经分析结束了</p>
 <h1 id="lazymap" class="headerLink">
-    <a href="#lazymap" class="header-mark"></a>LazyMap</h1><p>前一篇文章说了，我们所测试的jdk版本是8u71以前的版本，而此版本以后的jdk，Java 官方修改了 sun.reflect.annotation.AnnotationInvocationHandler 的 readObject函数</p>
-<p>变成了如下代码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">var1</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
-        <span class="n">GetField</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="na">readFields</span><span class="o">();</span>
-        <span class="n">Class</span> <span class="n">var3</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">)</span><span class="n">var2</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;type&#34;</span><span class="o">,</span> <span class="o">(</span><span class="n">Object</span><span class="o">)</span><span class="kc">null</span><span class="o">);</span>
-        <span class="n">Map</span> <span class="n">var4</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">)</span><span class="n">var2</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;memberValues&#34;</span><span class="o">,</span> <span class="o">(</span><span class="n">Object</span><span class="o">)</span><span class="kc">null</span><span class="o">);</span>
-        <span class="n">AnnotationType</span> <span class="n">var5</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
-        <span class="k">try</span> <span class="o">{</span>
-            <span class="n">var5</span> <span class="o">=</span> <span class="n">AnnotationType</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">var3</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">var13</span><span class="o">)</span> <span class="o">{</span>
-            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidObjectException</span><span class="o">(</span><span class="s">&#34;Non-annotation type in annotation serial stream&#34;</span><span class="o">);</span>
-        <span class="o">}</span>
-
-        <span class="n">Map</span> <span class="n">var6</span> <span class="o">=</span> <span class="n">var5</span><span class="o">.</span><span class="na">memberTypes</span><span class="o">();</span>
-        <span class="n">LinkedHashMap</span> <span class="n">var7</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">();</span>
-
-        <span class="n">String</span> <span class="n">var10</span><span class="o">;</span>
-        <span class="n">Object</span> <span class="n">var11</span><span class="o">;</span>
-        <span class="k">for</span><span class="o">(</span><span class="n">Iterator</span> <span class="n">var8</span> <span class="o">=</span> <span class="n">var4</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span> <span class="n">var8</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();</span> <span class="n">var7</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">var10</span><span class="o">,</span> <span class="n">var11</span><span class="o">))</span> <span class="o">{</span>
-            <span class="n">Entry</span> <span class="n">var9</span> <span class="o">=</span> <span class="o">(</span><span class="n">Entry</span><span class="o">)</span><span class="n">var8</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
-            <span class="n">var10</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">var9</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
-            <span class="n">var11</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-            <span class="n">Class</span> <span class="n">var12</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">)</span><span class="n">var6</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">var10</span><span class="o">);</span>
-            <span class="k">if</span> <span class="o">(</span><span class="n">var12</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-                <span class="n">var11</span> <span class="o">=</span> <span class="n">var9</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
-                <span class="k">if</span> <span class="o">(!</span><span class="n">var12</span><span class="o">.</span><span class="na">isInstance</span><span class="o">(</span><span class="n">var11</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!(</span><span class="n">var11</span> <span class="k">instanceof</span> <span class="n">ExceptionProxy</span><span class="o">))</span> <span class="o">{</span>
-                    <span class="n">var11</span> <span class="o">=</span> <span class="o">(</span><span class="k">new</span> <span class="n">AnnotationTypeMismatchExceptionProxy</span><span class="o">(</span><span class="n">var11</span><span class="o">.</span><span class="na">getClass</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;[&#34;</span> <span class="o">+</span> <span class="n">var11</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">)).</span><span class="na">setMember</span><span class="o">((</span><span class="n">Method</span><span class="o">)</span><span class="n">var5</span><span class="o">.</span><span class="na">members</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">var10</span><span class="o">));</span>
-                <span class="o">}</span>
-            <span class="o">}</span>
-        <span class="o">}</span>
-
-        <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">UnsafeAccessor</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">var3</span><span class="o">);</span>
-        <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">UnsafeAccessor</span><span class="o">.</span><span class="na">setMemberValues</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">var7</span><span class="o">);</span>
-    <span class="o">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>他让我们传入的Map不会再执行set或put操作了，所以这里就不能再用了</p>
-<p>观察ysoserial中的CC1的payload，可以发现这里用的不是我们上一篇文章介绍到的TransformedMap而是LazyMap</p>
+    <a href="#lazymap" class="header-mark"></a>LazyMap</h1><p>观察ysoserial中的CC1的payload，可以发现这里用的不是我们上一篇文章介绍到的TransformedMap而是LazyMap</p>
 <p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20220930152414864.png" title="image-20220930152414864" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20220930152414864.png">
         <img
             class="lazyload"
@@ -1424,7 +1349,82 @@ object不重要不影响</p>
 </code></pre></td></tr></table>
 </div>
 </div><h1 id="后记" class="headerLink">
-    <a href="#%e5%90%8e%e8%ae%b0" class="header-mark"></a>后记</h1><p>同样的，CC1依然是不能在高版本运行的，对于高版本的绕过，就在我们的下一篇文章CommonCollection6</p>
+    <a href="#%e5%90%8e%e8%ae%b0" class="header-mark"></a>后记</h1><p>前一篇文章说了，我们所测试的jdk版本是8u71以前的版本，而此版本以后的jdk，Java 官方修改了 sun.reflect.annotation.AnnotationInvocationHandler 的 readObject函数</p>
+<p>变成了如下代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">ObjectInputStream</span> <span class="n">var1</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">GetField</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="na">readFields</span><span class="o">();</span>
+        <span class="n">Class</span> <span class="n">var3</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">)</span><span class="n">var2</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;type&#34;</span><span class="o">,</span> <span class="o">(</span><span class="n">Object</span><span class="o">)</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">Map</span> <span class="n">var4</span> <span class="o">=</span> <span class="o">(</span><span class="n">Map</span><span class="o">)</span><span class="n">var2</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;memberValues&#34;</span><span class="o">,</span> <span class="o">(</span><span class="n">Object</span><span class="o">)</span><span class="kc">null</span><span class="o">);</span>
+        <span class="n">AnnotationType</span> <span class="n">var5</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">var5</span> <span class="o">=</span> <span class="n">AnnotationType</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">var3</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IllegalArgumentException</span> <span class="n">var13</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidObjectException</span><span class="o">(</span><span class="s">&#34;Non-annotation type in annotation serial stream&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">Map</span> <span class="n">var6</span> <span class="o">=</span> <span class="n">var5</span><span class="o">.</span><span class="na">memberTypes</span><span class="o">();</span>
+        <span class="n">LinkedHashMap</span> <span class="n">var7</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">();</span>
+
+        <span class="n">String</span> <span class="n">var10</span><span class="o">;</span>
+        <span class="n">Object</span> <span class="n">var11</span><span class="o">;</span>
+        <span class="k">for</span><span class="o">(</span><span class="n">Iterator</span> <span class="n">var8</span> <span class="o">=</span> <span class="n">var4</span><span class="o">.</span><span class="na">entrySet</span><span class="o">().</span><span class="na">iterator</span><span class="o">();</span> <span class="n">var8</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();</span> <span class="n">var7</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">var10</span><span class="o">,</span> <span class="n">var11</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">Entry</span> <span class="n">var9</span> <span class="o">=</span> <span class="o">(</span><span class="n">Entry</span><span class="o">)</span><span class="n">var8</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+            <span class="n">var10</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span><span class="n">var9</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+            <span class="n">var11</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="n">Class</span> <span class="n">var12</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">)</span><span class="n">var6</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">var10</span><span class="o">);</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">var12</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">var11</span> <span class="o">=</span> <span class="n">var9</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+                <span class="k">if</span> <span class="o">(!</span><span class="n">var12</span><span class="o">.</span><span class="na">isInstance</span><span class="o">(</span><span class="n">var11</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!(</span><span class="n">var11</span> <span class="k">instanceof</span> <span class="n">ExceptionProxy</span><span class="o">))</span> <span class="o">{</span>
+                    <span class="n">var11</span> <span class="o">=</span> <span class="o">(</span><span class="k">new</span> <span class="n">AnnotationTypeMismatchExceptionProxy</span><span class="o">(</span><span class="n">var11</span><span class="o">.</span><span class="na">getClass</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34;[&#34;</span> <span class="o">+</span> <span class="n">var11</span> <span class="o">+</span> <span class="s">&#34;]&#34;</span><span class="o">)).</span><span class="na">setMember</span><span class="o">((</span><span class="n">Method</span><span class="o">)</span><span class="n">var5</span><span class="o">.</span><span class="na">members</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">var10</span><span class="o">));</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+
+        <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">UnsafeAccessor</span><span class="o">.</span><span class="na">setType</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">var3</span><span class="o">);</span>
+        <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">UnsafeAccessor</span><span class="o">.</span><span class="na">setMemberValues</span><span class="o">(</span><span class="k">this</span><span class="o">,</span> <span class="n">var7</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>他让我们传入的Map不会再执行set或put操作了，所以这里就不能再用了</p>
+<p>对于高版本的绕过，就在我们的下一篇文章CommonCollection6</p>
 <p>参考文章：</p>
 <p>Java安全漫谈</p>
 <p><a href="https://ego00.blog.csdn.net/article/details/119705730" target="_blank" rel="noopener noreferrer">https://ego00.blog.csdn.net/article/details/119705730</a></p>
@@ -1454,7 +1454,8 @@ object不重要不影响</p>
         </section>
     </div>
 
-    <div class="post-nav"><a href="/urldns/" class="prev" rel="prev" title="[Java安全] URLDNS"><i class="fas fa-angle-left fa-fw"></i>[Java安全] URLDNS</a></div>
+    <div class="post-nav"><a href="/urldns/" class="prev" rel="prev" title="[Java安全] URLDNS"><i class="fas fa-angle-left fa-fw"></i>[Java安全] URLDNS</a>
+            <a href="/cc6/" class="next" rel="next" title="[Java安全] CommonsCollections6链分析">[Java安全] CommonsCollections6链分析<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
         </main><footer class="footer">
