@@ -5,7 +5,7 @@
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
             <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>[Java]Templatesimpl与字节码</title>
+    <title>[Java安全] Templatesimpl与字节码</title>
     <link>https://example.com/templatesimpl/</link>
     <pubDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</pubDate><author>
         <name>Huamang</name>
