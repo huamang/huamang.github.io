@@ -4,7 +4,14 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 02 Oct 2022 15:51:14 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java]Templatesimpl与字节码</title>
+    <link>https://example.com/templatesimpl/</link>
+    <pubDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/templatesimpl/</guid>
+    <description><![CDATA[Java字节码 URLClassLoader远程加载在前面学习classloader的时候就学习到了URLClassLoader，进行远程加载]]></description>
+</item><item>
     <title>[Java安全] CommonsCollections6链分析</title>
     <link>https://example.com/cc6/</link>
     <pubDate>Sun, 02 Oct 2022 15:51:14 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/ciscn2022_half/</guid>
     <description><![CDATA[ikari在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &#39;Engine/Loader.php&#39;; E\Loader::getInstance()-&gt;init(); // Load necessary classes $aParams = [&#39;ctrl&#39; =&gt; (!empty($_GET[&#39;p&#39;]) ? $_GET[&#39;p&#39;] : &#39;blog&#39;), &#39;act&#39; =&gt; (!empty($_GET[&#39;a&#39;]) ? $_GET[&#39;a&#39;] : &#39;index&#39;), &#39;template&#39; =&gt; (!empty($_GET[&#39;t&#39;]) ?]]></description>
-</item><item>
-    <title>[CISCN2022] online_crt</title>
-    <link>https://example.com/ciscn2022_crt/</link>
-    <pubDate>Tue, 31 May 2022 01:09:09 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/ciscn2022_crt/</guid>
-    <description><![CDATA[0x01 前期准备源码题目源码用于本地的调试，有所改动，考虑篇幅，只展示重要逻辑代码 app.py 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31]]></description>
 </item></channel>
 </rss>
