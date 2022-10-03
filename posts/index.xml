@@ -4,7 +4,14 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 20:47:28 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java安全] CommonsCollections3链分析</title>
+    <link>https://example.com/cc3/</link>
+    <pubDate>Mon, 03 Oct 2022 20:47:28 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/cc3/</guid>
+    <description><![CDATA[前言因为一些反序列化的过滤工具的原因，把CC1的InvokeTransformer等给过滤了，所以设计出CC3来绕过⼀些规则对Invoker]]></description>
+</item><item>
     <title>[Java安全] Templatesimpl与字节码</title>
     <link>https://example.com/templatesimpl/</link>
     <pubDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/typhoonconctf2022/</guid>
     <description><![CDATA[KnowMe首先是扫了个目录，发现了robots.txt 1 2 /items.php /var/www/flag 这里的items.php是一个查询接口 经测试是order by的盲注，这里我写]]></description>
-</item><item>
-    <title>[CISCN2022] Semifinals</title>
-    <link>https://example.com/ciscn2022_half/</link>
-    <pubDate>Fri, 24 Jun 2022 20:21:08 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/ciscn2022_half/</guid>
-    <description><![CDATA[ikari在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &#39;Engine/Loader.php&#39;; E\Loader::getInstance()-&gt;init(); // Load necessary classes $aParams = [&#39;ctrl&#39; =&gt; (!empty($_GET[&#39;p&#39;]) ? $_GET[&#39;p&#39;] : &#39;blog&#39;), &#39;act&#39; =&gt; (!empty($_GET[&#39;a&#39;]) ? $_GET[&#39;a&#39;] : &#39;index&#39;), &#39;template&#39; =&gt; (!empty($_GET[&#39;t&#39;]) ?]]></description>
 </item></channel>
 </rss>
