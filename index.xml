@@ -4,9 +4,16 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 20:47:28 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 22:30:52 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>[Java安全] Shiro反序列化漏洞</title>
+    <link>https://example.com/shiro1/</link>
+    <pubDate>Mon, 03 Oct 2022 22:30:52 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/shiro1/</guid>
+    <description><![CDATA[测试环境搭建我这里用的是P牛的JavaThings，这里有一个Maven构建的非常简易的Shiro的应用 这里用idea打开，然后构建Mave]]></description>
+</item><item>
     <title>[Java安全] CommonsCollections3链分析</title>
     <link>https://example.com/cc3/</link>
     <pubDate>Mon, 03 Oct 2022 20:47:28 &#43;0800</pubDate><author>
@@ -69,12 +76,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/qwb2022/</guid>
     <description><![CDATA[rcefile预期解原题改的：https://cloud.tencent.com/developer/article/1717668 首先是w]]></description>
-</item><item>
-    <title>[TyphoonCon CTF 2022] WP</title>
-    <link>https://example.com/typhoonconctf2022/</link>
-    <pubDate>Sat, 25 Jun 2022 22:46:06 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/typhoonconctf2022/</guid>
-    <description><![CDATA[KnowMe首先是扫了个目录，发现了robots.txt 1 2 /items.php /var/www/flag 这里的items.php是一个查询接口 经测试是order by的盲注，这里我写]]></description>
 </item></channel>
 </rss>
