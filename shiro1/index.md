@@ -1,4 +1,4 @@
-# [Java安全] Shiro反序列化漏洞
+# [Java安全] Shiro反序列化CC链漏洞
 
 
 
