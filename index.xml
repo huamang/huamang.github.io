@@ -4,9 +4,16 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 03 Oct 2022 22:30:52 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 05 Oct 2022 22:03:34 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>[Java安全] CommonsCollections4链分析</title>
+    <link>https://example.com/cc4/</link>
+    <pubDate>Wed, 05 Oct 2022 22:03:34 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/cc4/</guid>
+    <description><![CDATA[前言Apache Commons Collections有以下两 个分⽀版本： commons-collections:commons-collections org.apache.commons:commons-collections4 前者是Commons Collections⽼的版本包，当时版本号是3.2.1]]></description>
+</item><item>
     <title>[Java安全] Shiro反序列化CC链漏洞</title>
     <link>https://example.com/shiro1/</link>
     <pubDate>Mon, 03 Oct 2022 22:30:52 &#43;0800</pubDate><author>
@@ -69,12 +76,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/ssti/</guid>
     <description><![CDATA[前言之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点 F]]></description>
-</item><item>
-    <title>[2022强网杯] WP</title>
-    <link>https://example.com/qwb2022/</link>
-    <pubDate>Sun, 31 Jul 2022 20:35:47 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/qwb2022/</guid>
-    <description><![CDATA[rcefile预期解原题改的：https://cloud.tencent.com/developer/article/1717668 首先是w]]></description>
 </item></channel>
 </rss>
