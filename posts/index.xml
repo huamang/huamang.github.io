@@ -4,8 +4,15 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Oct 2022 15:20:08 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
-    <title>[Java反序列化]Java-CommonsBeanutils1利用链分析</title>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Oct 2022 17:57:59 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>[Java安全] CommonsBeanutils1在Shiro中的利用</title>
+    <link>https://example.com/shiro2/</link>
+    <pubDate>Thu, 06 Oct 2022 17:57:59 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/shiro2/</guid>
+    <description><![CDATA[前言为什么CB1会和Shiro扯上关系，前面我们研究Shiro反序列化的时候，使用的是P牛的demo，我们可以看到maven项目里是装了一个]]></description>
+</item><item>
+    <title>[Java安全] CommonsBeanutils1利用链分析</title>
     <link>https://example.com/cb1/</link>
     <pubDate>Thu, 06 Oct 2022 15:20:08 &#43;0800</pubDate><author>
         <name>Huamang</name>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
     <description><![CDATA[前言在Java安全中，Java反序列化占据很重要的地位。 在前面RMI的探索中，我们可以在数据包中看到，他传递的数据是序列化的 Java的反序列]]></description>
-</item><item>
-    <title>[Java安全] RMI</title>
-    <link>https://example.com/java%E5%AE%89%E5%85%A8_rmi/</link>
-    <pubDate>Tue, 27 Sep 2022 14:43:46 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/java%E5%AE%89%E5%85%A8_rmi/</guid>
-    <description><![CDATA[前言RMI全程Remote Method Invocation，远程⽅法调⽤ 他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，]]></description>
 </item></channel>
 </rss>
