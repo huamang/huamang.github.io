@@ -33,7 +33,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_rmi\/"
-        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1989 ,
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2105 ,
         "url": "https:\/\/example.com\/java%E5%AE%89%E5%85%A8_rmi\/","datePublished": "2022-09-27T14:43:46+08:00","dateModified": "2022-09-27T14:43:46+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
             "@type": "Organization",
             "name": "xxxx","logo": {
@@ -143,8 +143,8 @@
             <div class="post-meta-line">
                 <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
                 </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1989 字&nbsp;
-                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-09-27">2022-09-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2105 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -168,7 +168,9 @@
 </nav></div>
             </div><div class="content" id="content"><h1 id="前言" class="headerLink">
     <a href="#%e5%89%8d%e8%a8%80" class="header-mark"></a>前言</h1><p>RMI全程<code>Remote Method Invocation</code>，远程⽅法调⽤</p>
-<p>他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，是Java独有的一种机制，他是由三层架构模式来实现的</p>
+<p>他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，是Java独有的一种机制</p>
+<p>在网络传输的过程中，<strong>RMI中的对象是通过序列化的方式进行编码传输的</strong>，也就意味着，RMI在接受到序列化编码的对象后会进行反序列化，而在反序列化攻击中，我们可能很头疼怎么触发反序列化链，因此我们 可以利用RMI服务作为反序列化利用链的触发点</p>
+<p>他是由三层架构模式来实现的</p>
 <ul>
 <li>Client-客户端：客户端调用服务端的方法</li>
 <li>Server-服务端：远程调用方法对象的提供者，也是代码真正执行的地方，执行结束会返回给客户端一个方法执行的结果。</li>
