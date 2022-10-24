@@ -4,9 +4,16 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Thu, 06 Oct 2022 17:57:59 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 24 Oct 2022 13:08:26 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>[Java安全] CommonsCollections7链分析</title>
+    <link>https://example.com/cc7/</link>
+    <pubDate>Mon, 24 Oct 2022 13:08:26 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/cc7/</guid>
+    <description><![CDATA[gadget1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 Gadget chain: Hashtable.readObject Hashtable.reconstitutionPut AbstractMapDecorator.equals AbstractMap.equals LazyMap.get() ChainedTransformer.transform() ConstantTransformer.transform() InvokerTransformer.transform() Method.invoke() Class.getMethod() InvokerTransformer.transform() Method.invoke() Runtime.getRuntime() InvokerTransformer.transform() Method.invoke() Runtime.exec() 利用链分析CC7的关键点是利用到AbstractMap的equals方]]></description>
+</item><item>
     <title>[Java安全] CommonsBeanutils1在Shiro中的利用</title>
     <link>https://example.com/shiro2/</link>
     <pubDate>Thu, 06 Oct 2022 17:57:59 &#43;0800</pubDate><author>
@@ -69,12 +76,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/urldns/</guid>
     <description><![CDATA[前言Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门 ys]]></description>
-</item><item>
-    <title>[Java安全] Java反序列化</title>
-    <link>https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
-    <pubDate>Wed, 28 Sep 2022 16:12:56 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
-    <description><![CDATA[前言在Java安全中，Java反序列化占据很重要的地位。 在前面RMI的探索中，我们可以在数据包中看到，他传递的数据是序列化的 Java的反序列]]></description>
 </item></channel>
 </rss>
