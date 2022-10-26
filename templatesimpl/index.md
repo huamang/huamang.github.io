@@ -209,3 +209,10 @@ public class TempClass extends AbstractTranslet {
 ![image-20221003173827012](https://tuchuang.huamang.xyz/img/image-20221003173827012.png)
 
 
+
+当然，TemplatesImpl的newTransformer的外面其实还有一层，是`getOutputProperties`
+
+![image-20221026114030708](https://tuchuang.huamang.xyz/img/image-20221026114030708.png)
+
+而有的地方是存在`getProperty`方法的，对这个方法要有敏感度，他会调用JavaBean的getter方法，而`getOutputProperties`就是一个getter方法。利用可以参考CB1
+

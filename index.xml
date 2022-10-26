@@ -4,9 +4,16 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 24 Oct 2022 17:46:10 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 26 Oct 2022 10:49:50 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>ROME</title>
+    <link>https://example.com/rome/</link>
+    <pubDate>Wed, 26 Oct 2022 10:49:50 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/rome/</guid>
+    <description><![CDATA[Gadgetysoserial利用的是ObjectBean 1 2 3 4 5 6 7 8 9 10 11 12 * TemplatesImpl.getOutputProperties() * NativeMethodAccessorImpl.invoke0(Method, Object, Object[]) * NativeMethodAccessorImpl.invoke(Object, Object[]) * DelegatingMethodAccessorImpl.invoke(Object, Object[]) * Method.invoke(Object, Object...) * ToStringBean.toString(String) * ToStringBean.toString() * ObjectBean.toString() * EqualsBean.beanHashCode() * ObjectBean.hashCode() * HashMap&lt;K,V&gt;.hash(Object) * HashMap&lt;K,V&gt;.readObject(ObjectInputStream)]]></description>
+</item><item>
     <title>[Java安全] Jdk7u21链分析</title>
     <link>https://example.com/jdk7u21/</link>
     <pubDate>Mon, 24 Oct 2022 17:46:10 &#43;0800</pubDate><author>
@@ -69,12 +76,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/cc6/</guid>
     <description><![CDATA[前言之前我们分析了CC1，从简化版开始学习，再到完整分析CC1，再学习了动态代理和LazyMap的利用链构造，但是都有一个缺陷就是版本限制，]]></description>
-</item><item>
-    <title>[Java安全] CommonsCollections1链分析</title>
-    <link>https://example.com/cc1/</link>
-    <pubDate>Thu, 29 Sep 2022 14:05:47 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/cc1/</guid>
-    <description><![CDATA[前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习 CommonCollection1前]]></description>
 </item></channel>
 </rss>
