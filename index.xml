@@ -4,9 +4,16 @@
         <link>https://example.com/</link>
         <description>Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Wed, 26 Oct 2022 10:49:50 &#43;0800</lastBuildDate>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 31 Oct 2022 10:27:38 &#43;0800</lastBuildDate>
             <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
+    <title>[2022祥云杯] wp</title>
+    <link>https://example.com/xyb2022/</link>
+    <pubDate>Mon, 31 Oct 2022 10:27:38 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/xyb2022/</guid>
+    <description><![CDATA[Webezjava/myTest路由可以直接反序列化 而且存在CC4.0，可以直接cc4打 yso本地打通，但是远程打不了，发现是不出网的，这里]]></description>
+</item><item>
     <title>[Java安全] ROME链分析</title>
     <link>https://example.com/rome/</link>
     <pubDate>Wed, 26 Oct 2022 10:49:50 &#43;0800</pubDate><author>
@@ -69,12 +76,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/templatesimpl/</guid>
     <description><![CDATA[Java字节码 URLClassLoader远程加载在前面学习classloader的时候就学习到了URLClassLoader，进行远程加载]]></description>
-</item><item>
-    <title>[Java安全] CommonsCollections6链分析</title>
-    <link>https://example.com/cc6/</link>
-    <pubDate>Sun, 02 Oct 2022 15:51:14 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/cc6/</guid>
-    <description><![CDATA[前言之前我们分析了CC1，从简化版开始学习，再到完整分析CC1，再学习了动态代理和LazyMap的利用链构造，但是都有一个缺陷就是版本限制，]]></description>
 </item></channel>
 </rss>
