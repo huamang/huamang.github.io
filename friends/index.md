@@ -3,20 +3,21 @@
 
 
 
-| Name        | Blog                              |
-| ----------- | --------------------------------- |
-| mung29      | http://dongyu29.xyz               |
-| Thnpkm      | http://thnpkm.xyz/                |
-| Sunlight    | https://sunlight316.cn            |
-| Yenkoc      | https://yenkoc.github.io/         |
-| Zhong3      | https://www.ieven762.cn/          |
-| Aur0ra      | https://www.cnblogs.com/Aurora-M/ |
-| Whitebird   | https://whitebird0.github.io/     |
-| Harvey      | https://harvey.plus/              |
-| W0nderMaker | https://blog.csdn.net/wuyvle      |
-| Zima Blue   | https://www.zimablue.life/        |
-| MiaoTony    | https://miaotony.xyz/             |
-| h0cksr      | http://h0cksr.xyz/                |
-| Pupi1       | https://pupil857.github.io/       |
-| 书鱼        | https://bkfish.github.io/         |
+| 大佬们    | Blog                              |
+| --------- | --------------------------------- |
+| Yenkoc    | https://yenkoc.github.io/         |
+| Zhong3    | https://www.ieven762.cn/          |
+| Aur0ra    | https://www.cnblogs.com/Aurora-M/ |
+| Whitebird | https://whitebird0.github.io/     |
+| Harvey    | https://harvey.plus/              |
+| Zima Blue | https://www.zimablue.life/        |
+
+------
+
+| 校队伙伴    | Blog                         |
+| ----------- | ---------------------------- |
+| mung29      | http://dongyu29.xyz          |
+| Thnpkm      | http://thnpkm.xyz/           |
+| Sunlight    | https://sunlight316.cn       |
+| W0nderMaker | https://blog.csdn.net/wuyvle |
 
