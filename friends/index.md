@@ -11,6 +11,7 @@
 | Whitebird | https://whitebird0.github.io/     |
 | Harvey    | https://harvey.plus/              |
 | Zima Blue | https://www.zimablue.life/        |
+| 书鱼      | https://ctf.org.cn/               |
 
 ------
 
@@ -20,4 +21,5 @@
 | Thnpkm      | http://thnpkm.xyz/           |
 | Sunlight    | https://sunlight316.cn       |
 | W0nderMaker | https://blog.csdn.net/wuyvle |
+
 
