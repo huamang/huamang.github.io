@@ -4,7 +4,14 @@
         <link>https://example.com/posts/</link>
         <description>所有文章 | Huamang&#39;s Blog</description>
         <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>3364744355@qq.com (Huamang)</managingEditor>
-            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Mon, 31 Oct 2022 10:27:38 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>3364744355@qq.com (Huamang)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Fri, 04 Nov 2022 12:04:30 &#43;0800</lastBuildDate><atom:link href="https://example.com/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Fastjson</title>
+    <link>https://example.com/fastjson/</link>
+    <pubDate>Fri, 04 Nov 2022 12:04:30 &#43;0800</pubDate><author>
+        <name>Huamang</name>
+    </author><guid>https://example.com/fastjson/</guid>
+    <description><![CDATA[Fastjsonfastjson 是阿里巴巴的开源 JSON 解析库，它可以解析 JSON 格式的字符串，支持将 Java Bean 序列化为 JSON 字符串，也可以从 JSON 字符串反序列化到 JavaBean。 序列化与反序列]]></description>
+</item><item>
     <title>[2022祥云杯] wp</title>
     <link>https://example.com/xyb2022/</link>
     <pubDate>Mon, 31 Oct 2022 10:27:38 &#43;0800</pubDate><author>
@@ -67,12 +74,5 @@
         <name>Huamang</name>
     </author><guid>https://example.com/cc3/</guid>
     <description><![CDATA[前言因为一些反序列化的过滤工具的原因，把CC1的InvokeTransformer等给过滤了，所以设计出CC3来绕过⼀些规则对Invoker]]></description>
-</item><item>
-    <title>[Java安全] Templatesimpl与字节码</title>
-    <link>https://example.com/templatesimpl/</link>
-    <pubDate>Mon, 03 Oct 2022 14:39:19 &#43;0800</pubDate><author>
-        <name>Huamang</name>
-    </author><guid>https://example.com/templatesimpl/</guid>
-    <description><![CDATA[Java字节码 URLClassLoader远程加载在前面学习classloader的时候就学习到了URLClassLoader，进行远程加载]]></description>
 </item></channel>
 </rss>

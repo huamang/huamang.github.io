@@ -12,6 +12,7 @@
 | Harvey    | https://harvey.plus/              |
 | Zima Blue | https://www.zimablue.life/        |
 | 书鱼      | https://ctf.org.cn/               |
+| Pupi1     | https://pupil857.github.io/       |
 
 ------
 

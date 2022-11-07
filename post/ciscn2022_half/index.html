@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='ikari 在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &amp;#39;Engine/Loader.php&amp;#39;; E\Loader::getInstance()-&amp;gt;init(); // Load necessary classes $aParams = [&amp;#39;ctrl&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;p&amp;#39;]) ? $_GET[&amp;#39;p&amp;#39;] : &amp;#39;blog&amp;#39;), &amp;#39;act&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;a&amp;#39;]) ? $_GET[&amp;#39;a&amp;#39;] : &amp;#39;index&amp;#39;), &amp;#39;template&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;t&amp;#39;]) ? $_GET[&amp;#39;t&amp;#39;] : &amp;#39;pc&amp;#39;), &amp;#39;ns&amp;#39;'>
+<title>[CISCN2022] Semifinals</title>
+
+<link rel='canonical' href='https://example.com/post/ciscn2022_half/'>
+
+<link rel="stylesheet" href="/scss/style.min.a50aba51166dc5bc1c208df7b60653be38aa0ed7b643534462b6f2a9afb0a257.css"><meta property='og:title' content='[CISCN2022] Semifinals'>
+<meta property='og:description' content='ikari 在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &amp;#39;Engine/Loader.php&amp;#39;; E\Loader::getInstance()-&amp;gt;init(); // Load necessary classes $aParams = [&amp;#39;ctrl&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;p&amp;#39;]) ? $_GET[&amp;#39;p&amp;#39;] : &amp;#39;blog&amp;#39;), &amp;#39;act&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;a&amp;#39;]) ? $_GET[&amp;#39;a&amp;#39;] : &amp;#39;index&amp;#39;), &amp;#39;template&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;t&amp;#39;]) ? $_GET[&amp;#39;t&amp;#39;] : &amp;#39;pc&amp;#39;), &amp;#39;ns&amp;#39;'>
+<meta property='og:url' content='https://example.com/post/ciscn2022_half/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-06-24T20:21:08&#43;08:00'/><meta property='article:modified_time' content='2022-06-24T20:21:08&#43;08:00'/>
+<meta name="twitter:title" content="[CISCN2022] Semifinals">
+<meta name="twitter:description" content="ikari 在index.php里面有这么一段代码 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 try { require ROOT_PATH . &amp;#39;Engine/Loader.php&amp;#39;; E\Loader::getInstance()-&amp;gt;init(); // Load necessary classes $aParams = [&amp;#39;ctrl&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;p&amp;#39;]) ? $_GET[&amp;#39;p&amp;#39;] : &amp;#39;blog&amp;#39;), &amp;#39;act&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;a&amp;#39;]) ? $_GET[&amp;#39;a&amp;#39;] : &amp;#39;index&amp;#39;), &amp;#39;template&amp;#39; =&amp;gt; (!empty($_GET[&amp;#39;t&amp;#39;]) ? $_GET[&amp;#39;t&amp;#39;] : &amp;#39;pc&amp;#39;), &amp;#39;ns&amp;#39;">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#ikari">ikari</a></li>
+    <li><a href="#xxxcloud">xxxcloud</a></li>
+    <li><a href="#template">template</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #fc2828; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/ciscn2022_half/">[CISCN2022] Semifinals</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 24, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="ikari">ikari</h1>
+<p>在index.php里面有这么一段代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">try</span>
+<span class="p">{</span>
+    <span class="k">require</span> <span class="nx">ROOT_PATH</span> <span class="o">.</span> <span class="s1">&#39;Engine/Loader.php&#39;</span><span class="p">;</span>
+    <span class="nx">E\Loader</span><span class="o">::</span><span class="na">getInstance</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">init</span><span class="p">();</span> <span class="c1">// Load necessary classes
+</span><span class="c1"></span>    <span class="nv">$aParams</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ctrl&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;blog&#39;</span><span class="p">),</span> <span class="s1">&#39;act&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;a&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;index&#39;</span><span class="p">),</span> <span class="s1">&#39;template&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;pc&#39;</span><span class="p">),</span> <span class="s1">&#39;ns&#39;</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">])</span> <span class="o">?</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;n&#39;</span><span class="p">]</span> <span class="o">:</span> <span class="s1">&#39;TestProject\Controller\\&#39;</span><span class="p">)];</span>
+    
+    <span class="nx">E\Router</span><span class="o">::</span><span class="na">run</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="k">catch</span> <span class="p">(</span><span class="nx">\Exception</span> <span class="nv">$oE</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$oE</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">();</span>
+<span class="p">}</span>
+
+
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>我们跟进Router去看看</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">class</span> <span class="nc">Router</span>
+<span class="p">{</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">function</span> <span class="nf">run</span> <span class="p">(</span><span class="k">array</span> <span class="nv">$aParams</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ns&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;TestProject\Controller\\&#39;</span><span class="p">){</span>
+            <span class="nv">$sNamespace</span> <span class="o">=</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ns&#39;</span><span class="p">];</span>
+            <span class="nv">$sCtrlPath</span> <span class="o">=</span> <span class="nv">$sNamespace</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="nv">$sNamespace</span> <span class="o">=</span> <span class="s1">&#39;TestProject\Controller\\&#39;</span><span class="p">;</span>
+            <span class="nv">$sDefCtrl</span> <span class="o">=</span> <span class="nv">$sNamespace</span> <span class="o">.</span> <span class="s1">&#39;Blog&#39;</span><span class="p">;</span>
+            <span class="nv">$sCtrlPath</span> <span class="o">=</span> <span class="nx">ROOT_PATH</span> <span class="o">.</span> <span class="s1">&#39;Controller/&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ns&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;\\&#39;</span><span class="p">){</span>
+            <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;\\system&#39;</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/^[a-zA-Z0-9\/]*$/&#39;</span><span class="p">,</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">])){</span>
+                <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ls /www/&#39;</span><span class="o">.</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">];</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ls /www/&#39;</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="nv">$sTemplatePath</span> <span class="o">=</span> <span class="nx">str_replace</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s2">&#34;.&#34;</span><span class="p">,</span><span class="s2">&#34;\/&#34;</span><span class="p">),</span> <span class="s2">&#34;&#34;</span><span class="p">,</span> <span class="nx">ROOT_PATH</span> <span class="o">.</span> <span class="s1">&#39;Template/&#39;</span> <span class="o">.</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;template&#39;</span><span class="p">]);</span>
+        <span class="k">include</span> <span class="nv">$sTemplatePath</span><span class="p">;</span>
+        <span class="nv">$sCtrl</span> <span class="o">=</span> <span class="nx">ucfirst</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;ctrl&#39;</span><span class="p">]);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">is_file</span><span class="p">(</span><span class="nv">$sCtrlPath</span> <span class="o">.</span> <span class="nv">$sCtrl</span> <span class="o">.</span> <span class="s1">&#39;.php&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="nx">substr</span><span class="p">(</span><span class="nv">$sCtrl</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">===</span> <span class="s1">&#39;\\&#39;</span><span class="p">))</span>
+        <span class="p">{</span>
+
+            <span class="nv">$sCtrl</span> <span class="o">=</span> <span class="nv">$sNamespace</span> <span class="o">.</span> <span class="nx">str_replace</span><span class="p">(</span><span class="s1">&#39;\\&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">,</span><span class="nv">$sCtrl</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">class_exists</span><span class="p">(</span><span class="nv">$sCtrl</span><span class="p">)){</span>
+                <span class="nv">$oCtrl</span> <span class="o">=</span> <span class="k">new</span> <span class="nv">$sCtrl</span><span class="p">;</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="nx">call_user_func</span><span class="p">(</span><span class="nv">$sCtrl</span><span class="p">,</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]);</span>
+                <span class="k">exit</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">((</span><span class="k">new</span> <span class="nx">\ReflectionClass</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">))</span><span class="o">-&gt;</span><span class="na">hasMethod</span><span class="p">(</span><span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="k">new</span> <span class="nx">\ReflectionMethod</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">,</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]))</span><span class="o">-&gt;</span><span class="na">isPublic</span><span class="p">())</span>
+                <span class="nx">call_user_func</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">,</span> <span class="nv">$aParams</span><span class="p">[</span><span class="s1">&#39;act&#39;</span><span class="p">]));</span>
+            <span class="k">else</span>
+                <span class="nx">call_user_func</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="nv">$oCtrl</span><span class="p">,</span> <span class="s1">&#39;notFound&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="nx">call_user_func</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="k">new</span> <span class="nv">$sDefCtrl</span><span class="p">,</span> <span class="s1">&#39;notFound&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里是对路由的操作，这里，我们可以通过控制参数p选择路由，a选择路由的功能</p>
+<p>在utils里面有这个，这里可以进行文件的包含</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="fm">__get</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;php&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;Upload&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">stripos</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span><span class="s1">&#39;:&#39;</span><span class="p">)){</span>
+    <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Dangerous Operation.&#39;</span><span class="p">);</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">file_exists</span><span class="p">(</span><span class="nv">$name</span><span class="p">)){</span>
+      <span class="k">require</span> <span class="nv">$name</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>而这个函数的入口在blog路由下的post方法，这里传一个参数f，进行包含，因为这里对参数有过滤，所以我们选择session_upload进行竞争包含</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">post</span><span class="p">()</span>
+<span class="p">{</span>
+  <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">render</span> <span class="o">==</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oUtil</span><span class="o">-&gt;</span><span class="na">oPost</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oModel</span><span class="o">-&gt;</span><span class="na">getById</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_iId</span><span class="p">);</span> <span class="c1">// Get the data of the post
+</span><span class="c1"></span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oUtil</span><span class="o">-&gt;</span><span class="na">getView</span><span class="p">(</span><span class="s1">&#39;post&#39;</span><span class="p">);</span>
+  <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">oUtil</span><span class="o">-&gt;</span><span class="na">__get</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;f&#39;</span><span class="p">]);</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20220624205433693.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205433693"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624205443833.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205443833"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624205458083.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205458083"
+	
+	
+></p>
+<h1 id="xxxcloud">xxxcloud</h1>
+<p>源码中有admin的密码hash，但是解不开，这里的做法是找到token的构造算法，进行手动token生成</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624205655175.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205655175"
+	
+	
+></p>
+<p>找到token计算算法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624205712736.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205712736"
+	
+	
+></p>
+<p>找到systempassword</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624205737985.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205737985"
+	
+	
+></p>
+<p>计算出token</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624205752225.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624205752225"
+	
+	
+></p>
+<p>然后伪造登录获取flag</p>
+<p>这里的防守不知道应该用什么方式进行防守，如果是伪造token的话，那我们无法避免，因为token算法是写死的，我尝试把这个系统的一个任意文件删除修复，但是任然是exp攻击成功</p>
+<p>后来直接上了个awd的通防waf，没想到还防住了。。</p>
+<h1 id="template">template</h1>
+<p>任意文件读取 + 读 opcache缓存</p>
+<p>这里传入tpl参数，赋值为$tpl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;tpl&#39;</span><span class="p">])</span> <span class="o">&amp;&amp;</span> <span class="nx">is_string</span><span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;tpl&#39;</span><span class="p">]))</span><span class="o">:</span>
+    <span class="nv">$tpl</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;tpl&#39;</span><span class="p">];</span>
+<span class="k">endif</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后在check方法里面，先进行后缀检测，这里过滤的是挺严的</p>
+<p>如果通过了过滤，那么就会进行file_get_contents函数，进行文件读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php">    <span class="k">private</span> <span class="k">function</span> <span class="nf">check</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">try</span><span class="p">{</span>
+            <span class="nv">$arr</span> <span class="o">=</span> <span class="nx">explode</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="p">);</span>
+            <span class="nv">$ext</span> <span class="o">=</span> <span class="nx">end</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">in_array</span><span class="p">(</span><span class="nv">$ext</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;php&#39;</span><span class="p">,</span> <span class="s1">&#39;php2&#39;</span><span class="p">,</span> <span class="s1">&#39;php3&#39;</span><span class="p">,</span> <span class="s1">&#39;php4&#39;</span><span class="p">,</span> <span class="s1">&#39;php5&#39;</span><span class="p">,</span> <span class="s1">&#39;php6&#39;</span><span class="p">,</span> <span class="s1">&#39;php7&#39;</span><span class="p">,</span> <span class="s1">&#39;phtml&#39;</span><span class="p">]))</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">endif</span><span class="p">;</span>
+
+            <span class="nv">$content</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">tpl</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nv">$content</span><span class="p">)</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">endif</span><span class="p">;</span>
+
+            <span class="k">if</span> <span class="p">(</span> <span class="nx">preg_match</span><span class="p">(</span><span class="s1">&#39;/script|&lt;\?/i&#39;</span><span class="p">,</span> <span class="nv">$content</span><span class="p">)</span> <span class="p">)</span><span class="o">:</span>
+                <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+            <span class="k">endif</span><span class="p">;</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="k">true</span><span class="p">;</span>
+    <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那我们就可以进行除了php文件外，任意文件的读取了</p>
+<p>这里如果tpl是debug的话，会给phpinfo</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624210641434.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624210641434"
+	
+	
+></p>
+<p>这里是开启了zend_opcache，这里我们利用包含opcache进行攻击</p>
+<p>首先得计算systemid，这个的计算可以利用工具https://github.com/GoSecure/php7-opcache-override/</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20220624210840281.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20220624210840281"
+	
+	
+></p>
+<p>然后就是任意文件读取了</p>
+<p>http://172.16.9.44:8091/?tpl=..//&hellip;//&hellip;//&hellip;//&hellip;/var/www/cache/1116d566fdc53f79abce6c01e3a0308d/var/www/html/flag.php.bin</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/xyb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022祥云杯] wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/qwb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022强网杯] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/typhoonconctf2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[TyphoonCon CTF 2022] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_crt/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] online_crt</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022DASCTF Apr X FATE 防疫挑战赛] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>
