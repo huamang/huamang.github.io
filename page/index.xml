@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on Huamang</title>
-        <link>https://example.com/page/</link>
+        <link>https://blog.huamang.xyz/page/</link>
         <description>Recent content in Pages on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://example.com/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 01 Sep 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.huamang.xyz/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>About</title>
-        <link>https://example.com/about/</link>
+        <link>https://blog.huamang.xyz/about/</link>
         <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/about/</guid>
+        <guid>https://blog.huamang.xyz/about/</guid>
         <description>&lt;p&gt;Me:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hello, I am interested in CTF and Penetration&lt;/li&gt;
@@ -25,27 +25,27 @@
         </item>
         <item>
         <title>Archives</title>
-        <link>https://example.com/archives/</link>
+        <link>https://blog.huamang.xyz/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/archives/</guid>
+        <guid>https://blog.huamang.xyz/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Friends</title>
-        <link>https://example.com/friends/</link>
+        <link>https://blog.huamang.xyz/friends/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/friends/</guid>
+        <guid>https://blog.huamang.xyz/friends/</guid>
         <description>&lt;p&gt;按时间排序，膜拜大佬中~&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>https://example.com/search/</link>
+        <link>https://blog.huamang.xyz/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/search/</guid>
+        <guid>https://blog.huamang.xyz/search/</guid>
         <description></description>
         </item>
         

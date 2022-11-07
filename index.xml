@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Huamang</title>
-        <link>https://example.com/</link>
+        <link>https://blog.huamang.xyz/</link>
         <description>Recent content on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 07 Nov 2022 20:53:03 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 07 Nov 2022 20:53:03 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>[2022祥云杯] wp</title>
-        <link>https://example.com/post/xyb2022/</link>
+        <link>https://blog.huamang.xyz/post/xyb2022/</link>
         <pubDate>Mon, 31 Oct 2022 10:27:38 +0800</pubDate>
         
-        <guid>https://example.com/post/xyb2022/</guid>
+        <guid>https://blog.huamang.xyz/post/xyb2022/</guid>
         <description>&lt;h1 id=&#34;web&#34;&gt;Web&lt;/h1&gt;
 &lt;h2 id=&#34;ezjava&#34;&gt;ezjava&lt;/h2&gt;
 &lt;p&gt;/myTest路由可以直接反序列化&lt;/p&gt;
@@ -613,10 +613,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] ROME链分析</title>
-        <link>https://example.com/post/rome/</link>
+        <link>https://blog.huamang.xyz/post/rome/</link>
         <pubDate>Wed, 26 Oct 2022 10:49:50 +0800</pubDate>
         
-        <guid>https://example.com/post/rome/</guid>
+        <guid>https://blog.huamang.xyz/post/rome/</guid>
         <description>&lt;h1 id=&#34;gadget&#34;&gt;Gadget&lt;/h1&gt;
 &lt;p&gt;ysoserial利用的是ObjectBean&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -1213,10 +1213,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] Jdk7u21链分析</title>
-        <link>https://example.com/post/jdk7u21/</link>
+        <link>https://blog.huamang.xyz/post/jdk7u21/</link>
         <pubDate>Mon, 24 Oct 2022 17:46:10 +0800</pubDate>
         
-        <guid>https://example.com/post/jdk7u21/</guid>
+        <guid>https://blog.huamang.xyz/post/jdk7u21/</guid>
         <description>&lt;h1 id=&#34;gadget&#34;&gt;Gadget&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1735,10 +1735,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] CommonsCollections7链分析</title>
-        <link>https://example.com/post/cc7/</link>
+        <link>https://blog.huamang.xyz/post/cc7/</link>
         <pubDate>Mon, 24 Oct 2022 13:08:26 +0800</pubDate>
         
-        <guid>https://example.com/post/cc7/</guid>
+        <guid>https://blog.huamang.xyz/post/cc7/</guid>
         <description>&lt;h1 id=&#34;gadget&#34;&gt;gadget&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -2243,10 +2243,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] CommonsBeanutils1在Shiro中的利用</title>
-        <link>https://example.com/post/shiro2/</link>
+        <link>https://blog.huamang.xyz/post/shiro2/</link>
         <pubDate>Thu, 06 Oct 2022 17:57:59 +0800</pubDate>
         
-        <guid>https://example.com/post/shiro2/</guid>
+        <guid>https://blog.huamang.xyz/post/shiro2/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;为什么CB1会和Shiro扯上关系，前面我们研究Shiro反序列化的时候，使用的是P牛的demo，我们可以看到maven项目里是装了一个CC3.2.1的，如果我把这个依赖删除的话&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://tuchuang.huamang.xyz/img/image-20221006182000927.png&#34;
@@ -2432,10 +2432,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] CommonsBeanutils1利用链分析</title>
-        <link>https://example.com/post/cb1/</link>
+        <link>https://blog.huamang.xyz/post/cb1/</link>
         <pubDate>Thu, 06 Oct 2022 15:20:08 +0800</pubDate>
         
-        <guid>https://example.com/post/cb1/</guid>
+        <guid>https://blog.huamang.xyz/post/cb1/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Apache Commons Beanutils 是 Apache Commons 工具集下的另一个项目，它提供了对普通Java类对象（也称为JavaBean）的一些操作方法&lt;/p&gt;
 &lt;p&gt;JavaBean就不多说了，搞过一点javaweb开发都知道的，commons-beanutils中提供了一个静态方法 &lt;code&gt;PropertyUtils.getProperty&lt;/code&gt; ，让使用者可以直接调用任意JavaBean的getter方法，比如：&lt;/p&gt;
@@ -2680,10 +2680,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] CommonsCollections4链分析</title>
-        <link>https://example.com/post/cc4/</link>
+        <link>https://blog.huamang.xyz/post/cc4/</link>
         <pubDate>Wed, 05 Oct 2022 22:03:34 +0800</pubDate>
         
-        <guid>https://example.com/post/cc4/</guid>
+        <guid>https://blog.huamang.xyz/post/cc4/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Apache Commons Collections有以下两 个分⽀版本：&lt;/p&gt;
 &lt;ul&gt;
@@ -3158,10 +3158,10 @@ queue.add(2);
         </item>
         <item>
         <title>[Java安全] Shiro反序列化CC链漏洞</title>
-        <link>https://example.com/post/shiro1/</link>
+        <link>https://blog.huamang.xyz/post/shiro1/</link>
         <pubDate>Mon, 03 Oct 2022 22:30:52 +0800</pubDate>
         
-        <guid>https://example.com/post/shiro1/</guid>
+        <guid>https://blog.huamang.xyz/post/shiro1/</guid>
         <description>&lt;h1 id=&#34;测试环境搭建&#34;&gt;测试环境搭建&lt;/h1&gt;
 &lt;p&gt;我这里用的是P牛的&lt;a class=&#34;link&#34; href=&#34;https://github.com/phith0n/JavaThings&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;JavaThings&lt;/a&gt;，这里有一个Maven构建的非常简易的Shiro的应用&lt;/p&gt;
@@ -3656,10 +3656,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] CommonsCollections3链分析</title>
-        <link>https://example.com/post/cc3/</link>
+        <link>https://blog.huamang.xyz/post/cc3/</link>
         <pubDate>Mon, 03 Oct 2022 20:47:28 +0800</pubDate>
         
-        <guid>https://example.com/post/cc3/</guid>
+        <guid>https://blog.huamang.xyz/post/cc3/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;因为一些反序列化的过滤工具的原因，把CC1的InvokeTransformer等给过滤了，所以设计出CC3来绕过⼀些规则对InvokerTransformer的限制&lt;/p&gt;
 &lt;h1 id=&#34;cc1与templatesimpl&#34;&gt;CC1与TemplatesImpl&lt;/h1&gt;
@@ -3914,10 +3914,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] Templatesimpl与字节码</title>
-        <link>https://example.com/post/templatesimpl/</link>
+        <link>https://blog.huamang.xyz/post/templatesimpl/</link>
         <pubDate>Mon, 03 Oct 2022 14:39:19 +0800</pubDate>
         
-        <guid>https://example.com/post/templatesimpl/</guid>
+        <guid>https://blog.huamang.xyz/post/templatesimpl/</guid>
         <description>&lt;h1 id=&#34;java字节码&#34;&gt;Java字节码&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&#34;https://tuchuang.huamang.xyz/img/image-20221003145149412.png&#34;
 	
@@ -4323,10 +4323,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] CommonsCollections6链分析</title>
-        <link>https://example.com/post/cc6/</link>
+        <link>https://blog.huamang.xyz/post/cc6/</link>
         <pubDate>Sun, 02 Oct 2022 15:51:14 +0800</pubDate>
         
-        <guid>https://example.com/post/cc6/</guid>
+        <guid>https://blog.huamang.xyz/post/cc6/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;之前我们分析了CC1，从简化版开始学习，再到完整分析CC1，再学习了动态代理和LazyMap的利用链构造，但是都有一个缺陷就是版本限制，只能适用于8u71之前的链子，因为AnnotationInvocationHandler的readObject方法发生了改变，CC6就是为了高版本Java的利用问题&lt;/p&gt;
 &lt;h1 id=&#34;cc6&#34;&gt;CC6&lt;/h1&gt;
@@ -4757,10 +4757,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] CommonsCollections1链分析</title>
-        <link>https://example.com/post/cc1/</link>
+        <link>https://blog.huamang.xyz/post/cc1/</link>
         <pubDate>Thu, 29 Sep 2022 14:05:47 +0800</pubDate>
         
-        <guid>https://example.com/post/cc1/</guid>
+        <guid>https://blog.huamang.xyz/post/cc1/</guid>
         <description>&lt;p&gt;前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习&lt;/p&gt;
 &lt;h1 id=&#34;commoncollection1&#34;&gt;CommonCollection1&lt;/h1&gt;
 &lt;h2 id=&#34;前菜&#34;&gt;前菜&lt;/h2&gt;
@@ -6030,10 +6030,10 @@ object不重要不影响&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] URLDNS</title>
-        <link>https://example.com/post/urldns/</link>
+        <link>https://blog.huamang.xyz/post/urldns/</link>
         <pubDate>Thu, 29 Sep 2022 00:34:07 +0800</pubDate>
         
-        <guid>https://example.com/post/urldns/</guid>
+        <guid>https://blog.huamang.xyz/post/urldns/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门&lt;/p&gt;
 &lt;h1 id=&#34;ysoserial&#34;&gt;ysoserial&lt;/h1&gt;
@@ -6592,10 +6592,10 @@ object不重要不影响&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] Java反序列化</title>
-        <link>https://example.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
         <pubDate>Wed, 28 Sep 2022 16:12:56 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在Java安全中，Java反序列化占据很重要的地位。&lt;/p&gt;
 &lt;p&gt;在前面RMI的探索中，我们可以在数据包中看到，他传递的数据是序列化的&lt;/p&gt;
@@ -7151,10 +7151,10 @@ Contents
         </item>
         <item>
         <title>[Java安全] RMI</title>
-        <link>https://example.com/post/java%E5%AE%89%E5%85%A8_rmi/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_rmi/</link>
         <pubDate>Tue, 27 Sep 2022 14:43:46 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%AE%89%E5%85%A8_rmi/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_rmi/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;RMI全程&lt;code&gt;Remote Method Invocation&lt;/code&gt;，远程⽅法调⽤&lt;/p&gt;
 &lt;p&gt;他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，是Java独有的一种机制&lt;/p&gt;
@@ -7422,10 +7422,10 @@ Contents
         </item>
         <item>
         <title>SSTI_OF_FLASK</title>
-        <link>https://example.com/post/ssti/</link>
+        <link>https://blog.huamang.xyz/post/ssti/</link>
         <pubDate>Mon, 19 Sep 2022 02:09:13 +0800</pubDate>
         
-        <guid>https://example.com/post/ssti/</guid>
+        <guid>https://blog.huamang.xyz/post/ssti/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点&lt;/p&gt;
 &lt;h1 id=&#34;flask&#34;&gt;Flask&lt;/h1&gt;
@@ -8291,10 +8291,10 @@ for i in range(500):
         </item>
         <item>
         <title>[2022强网杯] WP</title>
-        <link>https://example.com/post/qwb2022/</link>
+        <link>https://blog.huamang.xyz/post/qwb2022/</link>
         <pubDate>Sun, 31 Jul 2022 20:35:47 +0800</pubDate>
         
-        <guid>https://example.com/post/qwb2022/</guid>
+        <guid>https://blog.huamang.xyz/post/qwb2022/</guid>
         <description>&lt;h1 id=&#34;rcefile&#34;&gt;rcefile&lt;/h1&gt;
 &lt;h2 id=&#34;预期解&#34;&gt;预期解&lt;/h2&gt;
 &lt;p&gt;原题改的：https://cloud.tencent.com/developer/article/1717668&lt;/p&gt;
@@ -10033,10 +10033,10 @@ Table: mdl_user_private_key
         </item>
         <item>
         <title>[TyphoonCon CTF 2022] WP</title>
-        <link>https://example.com/post/typhoonconctf2022/</link>
+        <link>https://blog.huamang.xyz/post/typhoonconctf2022/</link>
         <pubDate>Sat, 25 Jun 2022 22:46:06 +0800</pubDate>
         
-        <guid>https://example.com/post/typhoonconctf2022/</guid>
+        <guid>https://blog.huamang.xyz/post/typhoonconctf2022/</guid>
         <description>&lt;h1 id=&#34;knowme&#34;&gt;KnowMe&lt;/h1&gt;
 &lt;p&gt;首先是扫了个目录，发现了robots.txt&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -10573,10 +10573,10 @@ Table: secretkeys
         </item>
         <item>
         <title>[CISCN2022] Semifinals</title>
-        <link>https://example.com/post/ciscn2022_half/</link>
+        <link>https://blog.huamang.xyz/post/ciscn2022_half/</link>
         <pubDate>Fri, 24 Jun 2022 20:21:08 +0800</pubDate>
         
-        <guid>https://example.com/post/ciscn2022_half/</guid>
+        <guid>https://blog.huamang.xyz/post/ciscn2022_half/</guid>
         <description>&lt;h1 id=&#34;ikari&#34;&gt;ikari&lt;/h1&gt;
 &lt;p&gt;在index.php里面有这么一段代码&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -10944,10 +10944,10 @@ Table: secretkeys
         </item>
         <item>
         <title>[CISCN2022] online_crt</title>
-        <link>https://example.com/post/ciscn2022_crt/</link>
+        <link>https://blog.huamang.xyz/post/ciscn2022_crt/</link>
         <pubDate>Tue, 31 May 2022 01:09:09 +0800</pubDate>
         
-        <guid>https://example.com/post/ciscn2022_crt/</guid>
+        <guid>https://blog.huamang.xyz/post/ciscn2022_crt/</guid>
         <description>&lt;h1 id=&#34;0x01-前期准备&#34;&gt;0x01 前期准备&lt;/h1&gt;
 &lt;h2 id=&#34;源码&#34;&gt;源码&lt;/h2&gt;
 &lt;p&gt;题目源码用于本地的调试，有所改动，考虑篇幅，只展示重要逻辑代码&lt;/p&gt;
@@ -11312,10 +11312,10 @@ go run main.go
         </item>
         <item>
         <title>[2022DASCTF Apr X FATE 防疫挑战赛] WP</title>
-        <link>https://example.com/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
+        <link>https://blog.huamang.xyz/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
         <pubDate>Mon, 25 Apr 2022 18:12:37 +0800</pubDate>
         
-        <guid>https://example.com/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
+        <guid>https://blog.huamang.xyz/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
         <description>&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
 &lt;h3 id=&#34;simpleflow&#34;&gt;SimpleFlow&lt;/h3&gt;
 &lt;p&gt;看流量大概是上传了一个后门，但是会对payload加密，这里发现有flag.txt被打包&lt;/p&gt;
@@ -11911,10 +11911,10 @@ go run main.go
         </item>
         <item>
         <title>[MRCTF2022] WP</title>
-        <link>https://example.com/post/mrctf2022_wp/</link>
+        <link>https://blog.huamang.xyz/post/mrctf2022_wp/</link>
         <pubDate>Mon, 25 Apr 2022 18:01:47 +0800</pubDate>
         
-        <guid>https://example.com/post/mrctf2022_wp/</guid>
+        <guid>https://blog.huamang.xyz/post/mrctf2022_wp/</guid>
         <description>&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
 &lt;h3 id=&#34;checkin&#34;&gt;checkin&lt;/h3&gt;
 &lt;p&gt;翻源码找到flag&lt;/p&gt;
@@ -12139,10 +12139,10 @@ go run main.go
         </item>
         <item>
         <title>[*CTF2022] oh-my-lotto-revenge</title>
-        <link>https://example.com/post/ctf2022_oh-my-lotto-revenge/</link>
+        <link>https://blog.huamang.xyz/post/ctf2022_oh-my-lotto-revenge/</link>
         <pubDate>Wed, 20 Apr 2022 18:24:27 +0800</pubDate>
         
-        <guid>https://example.com/post/ctf2022_oh-my-lotto-revenge/</guid>
+        <guid>https://blog.huamang.xyz/post/ctf2022_oh-my-lotto-revenge/</guid>
         <description>&lt;h2 id=&#34;new&#34;&gt;New&lt;/h2&gt;
 &lt;p&gt;相对于&lt;a class=&#34;link&#34; href=&#34;https://www.huamang.xyz/index.php/archives/152/#h2ZAoFX0WCRWOf64MY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;oh_my_lotto&lt;/a&gt;，revenge进行了下面的更改&lt;/p&gt;
@@ -12507,10 +12507,10 @@ https_proxy = test.huamang.xyz
         </item>
         <item>
         <title>校赛CTFd平台docker搭建—pixo主题</title>
-        <link>https://example.com/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</link>
+        <link>https://blog.huamang.xyz/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</link>
         <pubDate>Tue, 19 Apr 2022 18:27:37 +0800</pubDate>
         
-        <guid>https://example.com/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
+        <guid>https://blog.huamang.xyz/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;（使用github图床，请科学上网）&lt;/p&gt;
 &lt;p&gt;搭建校赛平台，这里是发现有一个很好看的ctfd的主题&lt;a class=&#34;link&#34; href=&#34;https://github.com/hmrserver/CTFd-theme-pixo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -12873,10 +12873,10 @@ https_proxy = test.huamang.xyz
         </item>
         <item>
         <title>[*CTF2022] WP</title>
-        <link>https://example.com/post/ctf2022_wp/</link>
+        <link>https://blog.huamang.xyz/post/ctf2022_wp/</link>
         <pubDate>Sun, 17 Apr 2022 18:29:06 +0800</pubDate>
         
-        <guid>https://example.com/post/ctf2022_wp/</guid>
+        <guid>https://blog.huamang.xyz/post/ctf2022_wp/</guid>
         <description>&lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
 &lt;h3 id=&#34;oh-my-grafana&#34;&gt;oh-my-grafana&lt;/h3&gt;
 &lt;p&gt;存在CVE-2021-43798
@@ -13288,10 +13288,10 @@ Flag is in my pocket!”
         </item>
         <item>
         <title>[Java安全]类加载器ClassLoader</title>
-        <link>https://example.com/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
         <pubDate>Wed, 30 Mar 2022 19:17:18 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;借用了先知社区的&lt;a class=&#34;link&#34; href=&#34;https://xz.aliyun.com/t/9002#toc-10&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;文章&lt;/a&gt;的一张图来解释这个原理&lt;/p&gt;
@@ -13809,10 +13809,10 @@ encodeTest&lt;/p&gt;
         </item>
         <item>
         <title>[SUCTF2022] WP</title>
-        <link>https://example.com/post/suctf2022/</link>
+        <link>https://blog.huamang.xyz/post/suctf2022/</link>
         <pubDate>Mon, 28 Mar 2022 18:35:14 +0800</pubDate>
         
-        <guid>https://example.com/post/suctf2022/</guid>
+        <guid>https://blog.huamang.xyz/post/suctf2022/</guid>
         <description>&lt;h1 id=&#34;misc&#34;&gt;Misc&lt;/h1&gt;
 &lt;h2 id=&#34;hi-hacker&#34;&gt;Hi hacker&lt;/h2&gt;
 &lt;p&gt;下载到是一个流量包，分析tcp流，发现是一个后面执行命令的&lt;/p&gt;
@@ -15526,10 +15526,10 @@ toString方法只有what有，那么f1的值就应该是what了&lt;/p&gt;
         </item>
         <item>
         <title>[HMGCTF2022] WP</title>
-        <link>https://example.com/post/hmgctf2022/</link>
+        <link>https://blog.huamang.xyz/post/hmgctf2022/</link>
         <pubDate>Thu, 24 Mar 2022 18:46:53 +0800</pubDate>
         
-        <guid>https://example.com/post/hmgctf2022/</guid>
+        <guid>https://blog.huamang.xyz/post/hmgctf2022/</guid>
         <description>&lt;h1 id=&#34;web&#34;&gt;WEB&lt;/h1&gt;
 &lt;h2 id=&#34;fan-website&#34;&gt;Fan website&lt;/h2&gt;
 &lt;p&gt;首先是一个www.zip的源码泄露，是laminas框架
@@ -16381,10 +16381,10 @@ mvc的框架首先就是看路由
         </item>
         <item>
         <title>[Java安全]反射</title>
-        <link>https://example.com/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</link>
         <pubDate>Mon, 07 Mar 2022 19:14:57 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说了，开干吧&lt;/p&gt;
 &lt;h1 id=&#34;反射&#34;&gt;反射&lt;/h1&gt;
@@ -16842,10 +16842,10 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
         </item>
         <item>
         <title>[SCTF2021]Upload_it_1复现闭包组件反序列化rce</title>
-        <link>https://example.com/post/sctf2021/</link>
+        <link>https://blog.huamang.xyz/post/sctf2021/</link>
         <pubDate>Sun, 13 Feb 2022 19:12:40 +0800</pubDate>
         
-        <guid>https://example.com/post/sctf2021/</guid>
+        <guid>https://blog.huamang.xyz/post/sctf2021/</guid>
         <description>&lt;h1 id=&#34;题目地址&#34;&gt;题目地址&lt;/h1&gt;
 &lt;p&gt;SycloverTeam提供了题目的docker环境
 &lt;a class=&#34;link&#34; href=&#34;https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -17094,10 +17094,10 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
         </item>
         <item>
         <title>[代码审计]信呼OA2.3.1版本代码审计</title>
-        <link>https://example.com/post/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</link>
+        <link>https://blog.huamang.xyz/post/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</link>
         <pubDate>Tue, 30 Nov 2021 19:10:02 +0800</pubDate>
         
-        <guid>https://example.com/post/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</guid>
+        <guid>https://blog.huamang.xyz/post/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;对于这个OA的代码审计是在最近的西湖论剑比赛中出的一个web题，题目是2.3.1版本的信呼OA，在当时是最新版的（2021.11.20）
 这次比赛结束打算好好审计一波&lt;/p&gt;
@@ -17408,10 +17408,10 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
         </item>
         <item>
         <title>[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析</title>
-        <link>https://example.com/post/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/</link>
+        <link>https://blog.huamang.xyz/post/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/</link>
         <pubDate>Fri, 26 Nov 2021 19:07:54 +0800</pubDate>
         
-        <guid>https://example.com/post/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/</guid>
+        <guid>https://blog.huamang.xyz/post/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;漏洞存在版本，分为两大版本：&lt;/p&gt;
 &lt;ul&gt;
@@ -17825,10 +17825,10 @@ filter就是filters遍历出来的，之前遍历覆盖成了system
         </item>
         <item>
         <title>[代码审计]Yii2反序列化漏洞分析 V2.0.38</title>
-        <link>https://example.com/post/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
+        <link>https://blog.huamang.xyz/post/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</link>
         <pubDate>Tue, 16 Nov 2021 19:01:32 +0800</pubDate>
         
-        <guid>https://example.com/post/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
+        <guid>https://blog.huamang.xyz/post/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;漏洞存在版本&amp;lt;2.0.38
 CVE-2020-15148&lt;/p&gt;
@@ -18866,10 +18866,10 @@ poc5: BatchQueryResult.__destruct() -&amp;gt; DbSession.close() -&amp;gt; DbSess
         </item>
         <item>
         <title>[代码审计]ThinkPHP5的文件包含漏洞</title>
-        <link>https://example.com/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</link>
+        <link>https://blog.huamang.xyz/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</link>
         <pubDate>Wed, 03 Nov 2021 18:57:48 +0800</pubDate>
         
-        <guid>https://example.com/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</guid>
+        <guid>https://blog.huamang.xyz/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/</guid>
         <description>&lt;h1 id=&#34;漏洞影响范围&#34;&gt;漏洞影响范围&lt;/h1&gt;
 &lt;p&gt;加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生
 漏洞影响版本：&lt;strong&gt;5.0.0&amp;lt;=ThinkPHP5&amp;lt;=5.0.18 、5.1.0&amp;lt;=ThinkPHP&amp;lt;=5.1.10&lt;/strong&gt;&lt;/p&gt;
@@ -19161,10 +19161,10 @@ poc5: BatchQueryResult.__destruct() -&amp;gt; DbSession.close() -&amp;gt; DbSess
         </item>
         <item>
         <title>[Java安全] 远程调试初探</title>
-        <link>https://example.com/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</link>
+        <link>https://blog.huamang.xyz/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</link>
         <pubDate>Sat, 18 Sep 2021 18:56:41 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</guid>
         <description>&lt;h1 id=&#34;jar包的调试&#34;&gt;Jar包的调试&lt;/h1&gt;
 &lt;p&gt;这里以冰蝎做示例
 把冰蝎的jar包和他必须的db数据库文件放到项目的lib目录下
@@ -19372,10 +19372,10 @@ export debugFlag
         </item>
         <item>
         <title>利用PHP的NAN和INF来获取字符串来自增绕过长度限制</title>
-        <link>https://example.com/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</link>
+        <link>https://blog.huamang.xyz/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</link>
         <pubDate>Thu, 19 Aug 2021 18:53:44 +0800</pubDate>
         
-        <guid>https://example.com/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</guid>
+        <guid>https://blog.huamang.xyz/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</guid>
         <description>&lt;p&gt;最近在&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/m0_51078229/article/details/119745997&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;一道题目&lt;/a&gt;里面学到了一个新的小技巧
 在php中，字符串是可以递增的，如下：
@@ -19498,10 +19498,10 @@ $_=1/C ---&amp;gt; INF
         </item>
         <item>
         <title>About</title>
-        <link>https://example.com/about/</link>
+        <link>https://blog.huamang.xyz/about/</link>
         <pubDate>Tue, 01 Sep 2020 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/about/</guid>
+        <guid>https://blog.huamang.xyz/about/</guid>
         <description>&lt;p&gt;Me:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Hello, I am interested in CTF and Penetration&lt;/li&gt;
@@ -19515,27 +19515,27 @@ $_=1/C ---&amp;gt; INF
         </item>
         <item>
         <title>Archives</title>
-        <link>https://example.com/archives/</link>
+        <link>https://blog.huamang.xyz/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/archives/</guid>
+        <guid>https://blog.huamang.xyz/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Friends</title>
-        <link>https://example.com/friends/</link>
+        <link>https://blog.huamang.xyz/friends/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/friends/</guid>
+        <guid>https://blog.huamang.xyz/friends/</guid>
         <description>&lt;p&gt;按时间排序，膜拜大佬中~&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>https://example.com/search/</link>
+        <link>https://blog.huamang.xyz/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/search/</guid>
+        <guid>https://blog.huamang.xyz/search/</guid>
         <description></description>
         </item>
         

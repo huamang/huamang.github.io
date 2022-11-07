@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>技术分享 on Huamang</title>
-        <link>https://example.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/</link>
+        <link>https://blog.huamang.xyz/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/</link>
         <description>Recent content in 技术分享 on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 19 Sep 2022 02:09:13 +0800</lastBuildDate><atom:link href="https://example.com/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 19 Sep 2022 02:09:13 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SSTI_OF_FLASK</title>
-        <link>https://example.com/post/ssti/</link>
+        <link>https://blog.huamang.xyz/post/ssti/</link>
         <pubDate>Mon, 19 Sep 2022 02:09:13 +0800</pubDate>
         
-        <guid>https://example.com/post/ssti/</guid>
+        <guid>https://blog.huamang.xyz/post/ssti/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;之前一直是套着公式去做ssti的题目，遇到需要一些变化的，可能就会卡住了，所以这里打算学习并梳理一下关于Python中SSTI的知识点&lt;/p&gt;
 &lt;h1 id=&#34;flask&#34;&gt;Flask&lt;/h1&gt;
@@ -877,10 +877,10 @@ for i in range(500):
         </item>
         <item>
         <title>校赛CTFd平台docker搭建—pixo主题</title>
-        <link>https://example.com/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</link>
+        <link>https://blog.huamang.xyz/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</link>
         <pubDate>Tue, 19 Apr 2022 18:27:37 +0800</pubDate>
         
-        <guid>https://example.com/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
+        <guid>https://blog.huamang.xyz/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;（使用github图床，请科学上网）&lt;/p&gt;
 &lt;p&gt;搭建校赛平台，这里是发现有一个很好看的ctfd的主题&lt;a class=&#34;link&#34; href=&#34;https://github.com/hmrserver/CTFd-theme-pixo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1243,10 +1243,10 @@ for i in range(500):
         </item>
         <item>
         <title>[SCTF2021]Upload_it_1复现闭包组件反序列化rce</title>
-        <link>https://example.com/post/sctf2021/</link>
+        <link>https://blog.huamang.xyz/post/sctf2021/</link>
         <pubDate>Sun, 13 Feb 2022 19:12:40 +0800</pubDate>
         
-        <guid>https://example.com/post/sctf2021/</guid>
+        <guid>https://blog.huamang.xyz/post/sctf2021/</guid>
         <description>&lt;h1 id=&#34;题目地址&#34;&gt;题目地址&lt;/h1&gt;
 &lt;p&gt;SycloverTeam提供了题目的docker环境
 &lt;a class=&#34;link&#34; href=&#34;https://github.com/SycloverTeam/SCTF2021/tree/master/web/Upload_it_1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1495,10 +1495,10 @@ for i in range(500):
         </item>
         <item>
         <title>利用PHP的NAN和INF来获取字符串来自增绕过长度限制</title>
-        <link>https://example.com/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</link>
+        <link>https://blog.huamang.xyz/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</link>
         <pubDate>Thu, 19 Aug 2021 18:53:44 +0800</pubDate>
         
-        <guid>https://example.com/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</guid>
+        <guid>https://blog.huamang.xyz/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/</guid>
         <description>&lt;p&gt;最近在&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/m0_51078229/article/details/119745997&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;一道题目&lt;/a&gt;里面学到了一个新的小技巧
 在php中，字符串是可以递增的，如下：

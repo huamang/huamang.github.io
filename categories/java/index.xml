@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Java on Huamang</title>
-        <link>https://example.com/categories/java/</link>
+        <link>https://blog.huamang.xyz/categories/java/</link>
         <description>Recent content in Java on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Fri, 04 Nov 2022 12:04:30 +0800</lastBuildDate><atom:link href="https://example.com/categories/java/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 04 Nov 2022 12:04:30 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/categories/java/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>[Java安全] ROME链分析</title>
-        <link>https://example.com/post/rome/</link>
+        <link>https://blog.huamang.xyz/post/rome/</link>
         <pubDate>Wed, 26 Oct 2022 10:49:50 +0800</pubDate>
         
-        <guid>https://example.com/post/rome/</guid>
+        <guid>https://blog.huamang.xyz/post/rome/</guid>
         <description>&lt;h1 id=&#34;gadget&#34;&gt;Gadget&lt;/h1&gt;
 &lt;p&gt;ysoserial利用的是ObjectBean&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -608,10 +608,10 @@
         </item>
         <item>
         <title>[Java安全] Jdk7u21链分析</title>
-        <link>https://example.com/post/jdk7u21/</link>
+        <link>https://blog.huamang.xyz/post/jdk7u21/</link>
         <pubDate>Mon, 24 Oct 2022 17:46:10 +0800</pubDate>
         
-        <guid>https://example.com/post/jdk7u21/</guid>
+        <guid>https://blog.huamang.xyz/post/jdk7u21/</guid>
         <description>&lt;h1 id=&#34;gadget&#34;&gt;Gadget&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1130,10 +1130,10 @@
         </item>
         <item>
         <title>[Java安全] CommonsCollections7链分析</title>
-        <link>https://example.com/post/cc7/</link>
+        <link>https://blog.huamang.xyz/post/cc7/</link>
         <pubDate>Mon, 24 Oct 2022 13:08:26 +0800</pubDate>
         
-        <guid>https://example.com/post/cc7/</guid>
+        <guid>https://blog.huamang.xyz/post/cc7/</guid>
         <description>&lt;h1 id=&#34;gadget&#34;&gt;gadget&lt;/h1&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -1638,10 +1638,10 @@
         </item>
         <item>
         <title>[Java安全] CommonsBeanutils1在Shiro中的利用</title>
-        <link>https://example.com/post/shiro2/</link>
+        <link>https://blog.huamang.xyz/post/shiro2/</link>
         <pubDate>Thu, 06 Oct 2022 17:57:59 +0800</pubDate>
         
-        <guid>https://example.com/post/shiro2/</guid>
+        <guid>https://blog.huamang.xyz/post/shiro2/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;为什么CB1会和Shiro扯上关系，前面我们研究Shiro反序列化的时候，使用的是P牛的demo，我们可以看到maven项目里是装了一个CC3.2.1的，如果我把这个依赖删除的话&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;https://tuchuang.huamang.xyz/img/image-20221006182000927.png&#34;
@@ -1827,10 +1827,10 @@
         </item>
         <item>
         <title>[Java安全] CommonsBeanutils1利用链分析</title>
-        <link>https://example.com/post/cb1/</link>
+        <link>https://blog.huamang.xyz/post/cb1/</link>
         <pubDate>Thu, 06 Oct 2022 15:20:08 +0800</pubDate>
         
-        <guid>https://example.com/post/cb1/</guid>
+        <guid>https://blog.huamang.xyz/post/cb1/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Apache Commons Beanutils 是 Apache Commons 工具集下的另一个项目，它提供了对普通Java类对象（也称为JavaBean）的一些操作方法&lt;/p&gt;
 &lt;p&gt;JavaBean就不多说了，搞过一点javaweb开发都知道的，commons-beanutils中提供了一个静态方法 &lt;code&gt;PropertyUtils.getProperty&lt;/code&gt; ，让使用者可以直接调用任意JavaBean的getter方法，比如：&lt;/p&gt;
@@ -2075,10 +2075,10 @@
         </item>
         <item>
         <title>[Java安全] CommonsCollections4链分析</title>
-        <link>https://example.com/post/cc4/</link>
+        <link>https://blog.huamang.xyz/post/cc4/</link>
         <pubDate>Wed, 05 Oct 2022 22:03:34 +0800</pubDate>
         
-        <guid>https://example.com/post/cc4/</guid>
+        <guid>https://blog.huamang.xyz/post/cc4/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Apache Commons Collections有以下两 个分⽀版本：&lt;/p&gt;
 &lt;ul&gt;
@@ -2553,10 +2553,10 @@ queue.add(2);
         </item>
         <item>
         <title>[Java安全] Shiro反序列化CC链漏洞</title>
-        <link>https://example.com/post/shiro1/</link>
+        <link>https://blog.huamang.xyz/post/shiro1/</link>
         <pubDate>Mon, 03 Oct 2022 22:30:52 +0800</pubDate>
         
-        <guid>https://example.com/post/shiro1/</guid>
+        <guid>https://blog.huamang.xyz/post/shiro1/</guid>
         <description>&lt;h1 id=&#34;测试环境搭建&#34;&gt;测试环境搭建&lt;/h1&gt;
 &lt;p&gt;我这里用的是P牛的&lt;a class=&#34;link&#34; href=&#34;https://github.com/phith0n/JavaThings&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;JavaThings&lt;/a&gt;，这里有一个Maven构建的非常简易的Shiro的应用&lt;/p&gt;
@@ -3051,10 +3051,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] CommonsCollections3链分析</title>
-        <link>https://example.com/post/cc3/</link>
+        <link>https://blog.huamang.xyz/post/cc3/</link>
         <pubDate>Mon, 03 Oct 2022 20:47:28 +0800</pubDate>
         
-        <guid>https://example.com/post/cc3/</guid>
+        <guid>https://blog.huamang.xyz/post/cc3/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;因为一些反序列化的过滤工具的原因，把CC1的InvokeTransformer等给过滤了，所以设计出CC3来绕过⼀些规则对InvokerTransformer的限制&lt;/p&gt;
 &lt;h1 id=&#34;cc1与templatesimpl&#34;&gt;CC1与TemplatesImpl&lt;/h1&gt;
@@ -3309,10 +3309,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] Templatesimpl与字节码</title>
-        <link>https://example.com/post/templatesimpl/</link>
+        <link>https://blog.huamang.xyz/post/templatesimpl/</link>
         <pubDate>Mon, 03 Oct 2022 14:39:19 +0800</pubDate>
         
-        <guid>https://example.com/post/templatesimpl/</guid>
+        <guid>https://blog.huamang.xyz/post/templatesimpl/</guid>
         <description>&lt;h1 id=&#34;java字节码&#34;&gt;Java字节码&lt;/h1&gt;
 &lt;p&gt;&lt;img src=&#34;https://tuchuang.huamang.xyz/img/image-20221003145149412.png&#34;
 	
@@ -3718,10 +3718,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] CommonsCollections6链分析</title>
-        <link>https://example.com/post/cc6/</link>
+        <link>https://blog.huamang.xyz/post/cc6/</link>
         <pubDate>Sun, 02 Oct 2022 15:51:14 +0800</pubDate>
         
-        <guid>https://example.com/post/cc6/</guid>
+        <guid>https://blog.huamang.xyz/post/cc6/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;之前我们分析了CC1，从简化版开始学习，再到完整分析CC1，再学习了动态代理和LazyMap的利用链构造，但是都有一个缺陷就是版本限制，只能适用于8u71之前的链子，因为AnnotationInvocationHandler的readObject方法发生了改变，CC6就是为了高版本Java的利用问题&lt;/p&gt;
 &lt;h1 id=&#34;cc6&#34;&gt;CC6&lt;/h1&gt;
@@ -4152,10 +4152,10 @@ TiedMapEntry(outMap,obj) -&amp;gt; tme : 等待触发newTransformer
         </item>
         <item>
         <title>[Java安全] CommonsCollections1链分析</title>
-        <link>https://example.com/post/cc1/</link>
+        <link>https://blog.huamang.xyz/post/cc1/</link>
         <pubDate>Thu, 29 Sep 2022 14:05:47 +0800</pubDate>
         
-        <guid>https://example.com/post/cc1/</guid>
+        <guid>https://blog.huamang.xyz/post/cc1/</guid>
         <description>&lt;p&gt;前面写了很多，现在终于到大名鼎鼎的CC链了，这里我还是跟P牛的《Java安全漫谈》来对CC链进行分析学习&lt;/p&gt;
 &lt;h1 id=&#34;commoncollection1&#34;&gt;CommonCollection1&lt;/h1&gt;
 &lt;h2 id=&#34;前菜&#34;&gt;前菜&lt;/h2&gt;
@@ -5425,10 +5425,10 @@ object不重要不影响&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] URLDNS</title>
-        <link>https://example.com/post/urldns/</link>
+        <link>https://blog.huamang.xyz/post/urldns/</link>
         <pubDate>Thu, 29 Sep 2022 00:34:07 +0800</pubDate>
         
-        <guid>https://example.com/post/urldns/</guid>
+        <guid>https://blog.huamang.xyz/post/urldns/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;Java反序列化的基础知识前面已经大概了解了，现在终于到上手的时候了，这里按p牛说的来，先从DNSURL下手，进行反序列利用链的入门&lt;/p&gt;
 &lt;h1 id=&#34;ysoserial&#34;&gt;ysoserial&lt;/h1&gt;
@@ -5987,10 +5987,10 @@ object不重要不影响&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全] Java反序列化</title>
-        <link>https://example.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</link>
         <pubDate>Wed, 28 Sep 2022 16:12:56 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;
 &lt;p&gt;在Java安全中，Java反序列化占据很重要的地位。&lt;/p&gt;
 &lt;p&gt;在前面RMI的探索中，我们可以在数据包中看到，他传递的数据是序列化的&lt;/p&gt;
@@ -6546,10 +6546,10 @@ Contents
         </item>
         <item>
         <title>[Java安全] RMI</title>
-        <link>https://example.com/post/java%E5%AE%89%E5%85%A8_rmi/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_rmi/</link>
         <pubDate>Tue, 27 Sep 2022 14:43:46 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%AE%89%E5%85%A8_rmi/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_rmi/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;RMI全程&lt;code&gt;Remote Method Invocation&lt;/code&gt;，远程⽅法调⽤&lt;/p&gt;
 &lt;p&gt;他的功能是让一个Java虚拟机上的对象调用另一个Java虚拟机中对象上的方法，是Java独有的一种机制&lt;/p&gt;
@@ -6817,10 +6817,10 @@ Contents
         </item>
         <item>
         <title>[Java安全]类加载器ClassLoader</title>
-        <link>https://example.com/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</link>
         <pubDate>Wed, 30 Mar 2022 19:17:18 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;借用了先知社区的&lt;a class=&#34;link&#34; href=&#34;https://xz.aliyun.com/t/9002#toc-10&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;文章&lt;/a&gt;的一张图来解释这个原理&lt;/p&gt;
@@ -7338,10 +7338,10 @@ encodeTest&lt;/p&gt;
         </item>
         <item>
         <title>[Java安全]反射</title>
-        <link>https://example.com/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</link>
+        <link>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</link>
         <pubDate>Mon, 07 Mar 2022 19:14:57 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E5%AE%89%E5%85%A8_%E5%8F%8D%E5%B0%84/</guid>
         <description>&lt;h1 id=&#34;前言&#34;&gt;前言&lt;/h1&gt;
 &lt;p&gt;准备入手学习java的安全了，感觉这也是一个大的趋势，想着尽早进入到java安全的探索中，在反序列化链的学习之前，需要先学习反射，不多说了，开干吧&lt;/p&gt;
 &lt;h1 id=&#34;反射&#34;&gt;反射&lt;/h1&gt;
@@ -7799,10 +7799,10 @@ args： 用于方法的调用，是一个object的数组，参数有可能是多
         </item>
         <item>
         <title>[Java安全] 远程调试初探</title>
-        <link>https://example.com/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</link>
+        <link>https://blog.huamang.xyz/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</link>
         <pubDate>Sat, 18 Sep 2021 18:56:41 +0800</pubDate>
         
-        <guid>https://example.com/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</guid>
+        <guid>https://blog.huamang.xyz/post/java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1_%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95%E5%88%9D%E6%8E%A2/</guid>
         <description>&lt;h1 id=&#34;jar包的调试&#34;&gt;Jar包的调试&lt;/h1&gt;
 &lt;p&gt;这里以冰蝎做示例
 把冰蝎的jar包和他必须的db数据库文件放到项目的lib目录下

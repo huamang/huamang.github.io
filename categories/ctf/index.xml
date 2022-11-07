@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>CTF on Huamang</title>
-        <link>https://example.com/categories/ctf/</link>
+        <link>https://blog.huamang.xyz/categories/ctf/</link>
         <description>Recent content in CTF on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 07 Nov 2022 20:53:03 +0800</lastBuildDate><atom:link href="https://example.com/categories/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 07 Nov 2022 20:53:03 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/categories/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>[2022祥云杯] wp</title>
-        <link>https://example.com/post/xyb2022/</link>
+        <link>https://blog.huamang.xyz/post/xyb2022/</link>
         <pubDate>Mon, 31 Oct 2022 10:27:38 +0800</pubDate>
         
-        <guid>https://example.com/post/xyb2022/</guid>
+        <guid>https://blog.huamang.xyz/post/xyb2022/</guid>
         <description>&lt;h1 id=&#34;web&#34;&gt;Web&lt;/h1&gt;
 &lt;h2 id=&#34;ezjava&#34;&gt;ezjava&lt;/h2&gt;
 &lt;p&gt;/myTest路由可以直接反序列化&lt;/p&gt;
@@ -613,10 +613,10 @@ claims with a signature from another valid token.&lt;/p&gt;
         </item>
         <item>
         <title>[2022强网杯] WP</title>
-        <link>https://example.com/post/qwb2022/</link>
+        <link>https://blog.huamang.xyz/post/qwb2022/</link>
         <pubDate>Sun, 31 Jul 2022 20:35:47 +0800</pubDate>
         
-        <guid>https://example.com/post/qwb2022/</guid>
+        <guid>https://blog.huamang.xyz/post/qwb2022/</guid>
         <description>&lt;h1 id=&#34;rcefile&#34;&gt;rcefile&lt;/h1&gt;
 &lt;h2 id=&#34;预期解&#34;&gt;预期解&lt;/h2&gt;
 &lt;p&gt;原题改的：https://cloud.tencent.com/developer/article/1717668&lt;/p&gt;
@@ -2355,10 +2355,10 @@ Table: mdl_user_private_key
         </item>
         <item>
         <title>[TyphoonCon CTF 2022] WP</title>
-        <link>https://example.com/post/typhoonconctf2022/</link>
+        <link>https://blog.huamang.xyz/post/typhoonconctf2022/</link>
         <pubDate>Sat, 25 Jun 2022 22:46:06 +0800</pubDate>
         
-        <guid>https://example.com/post/typhoonconctf2022/</guid>
+        <guid>https://blog.huamang.xyz/post/typhoonconctf2022/</guid>
         <description>&lt;h1 id=&#34;knowme&#34;&gt;KnowMe&lt;/h1&gt;
 &lt;p&gt;首先是扫了个目录，发现了robots.txt&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -2895,10 +2895,10 @@ Table: secretkeys
         </item>
         <item>
         <title>[CISCN2022] Semifinals</title>
-        <link>https://example.com/post/ciscn2022_half/</link>
+        <link>https://blog.huamang.xyz/post/ciscn2022_half/</link>
         <pubDate>Fri, 24 Jun 2022 20:21:08 +0800</pubDate>
         
-        <guid>https://example.com/post/ciscn2022_half/</guid>
+        <guid>https://blog.huamang.xyz/post/ciscn2022_half/</guid>
         <description>&lt;h1 id=&#34;ikari&#34;&gt;ikari&lt;/h1&gt;
 &lt;p&gt;在index.php里面有这么一段代码&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -3266,10 +3266,10 @@ Table: secretkeys
         </item>
         <item>
         <title>[CISCN2022] online_crt</title>
-        <link>https://example.com/post/ciscn2022_crt/</link>
+        <link>https://blog.huamang.xyz/post/ciscn2022_crt/</link>
         <pubDate>Tue, 31 May 2022 01:09:09 +0800</pubDate>
         
-        <guid>https://example.com/post/ciscn2022_crt/</guid>
+        <guid>https://blog.huamang.xyz/post/ciscn2022_crt/</guid>
         <description>&lt;h1 id=&#34;0x01-前期准备&#34;&gt;0x01 前期准备&lt;/h1&gt;
 &lt;h2 id=&#34;源码&#34;&gt;源码&lt;/h2&gt;
 &lt;p&gt;题目源码用于本地的调试，有所改动，考虑篇幅，只展示重要逻辑代码&lt;/p&gt;
@@ -3634,10 +3634,10 @@ go run main.go
         </item>
         <item>
         <title>[2022DASCTF Apr X FATE 防疫挑战赛] WP</title>
-        <link>https://example.com/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
+        <link>https://blog.huamang.xyz/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</link>
         <pubDate>Mon, 25 Apr 2022 18:12:37 +0800</pubDate>
         
-        <guid>https://example.com/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
+        <guid>https://blog.huamang.xyz/post/2022dasctf%E5%9B%9B%E6%9C%88%E8%B5%9B_wp/</guid>
         <description>&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
 &lt;h3 id=&#34;simpleflow&#34;&gt;SimpleFlow&lt;/h3&gt;
 &lt;p&gt;看流量大概是上传了一个后门，但是会对payload加密，这里发现有flag.txt被打包&lt;/p&gt;
@@ -4233,10 +4233,10 @@ go run main.go
         </item>
         <item>
         <title>[MRCTF2022] WP</title>
-        <link>https://example.com/post/mrctf2022_wp/</link>
+        <link>https://blog.huamang.xyz/post/mrctf2022_wp/</link>
         <pubDate>Mon, 25 Apr 2022 18:01:47 +0800</pubDate>
         
-        <guid>https://example.com/post/mrctf2022_wp/</guid>
+        <guid>https://blog.huamang.xyz/post/mrctf2022_wp/</guid>
         <description>&lt;h2 id=&#34;misc&#34;&gt;Misc&lt;/h2&gt;
 &lt;h3 id=&#34;checkin&#34;&gt;checkin&lt;/h3&gt;
 &lt;p&gt;翻源码找到flag&lt;/p&gt;
@@ -4461,10 +4461,10 @@ go run main.go
         </item>
         <item>
         <title>[*CTF2022] oh-my-lotto-revenge</title>
-        <link>https://example.com/post/ctf2022_oh-my-lotto-revenge/</link>
+        <link>https://blog.huamang.xyz/post/ctf2022_oh-my-lotto-revenge/</link>
         <pubDate>Wed, 20 Apr 2022 18:24:27 +0800</pubDate>
         
-        <guid>https://example.com/post/ctf2022_oh-my-lotto-revenge/</guid>
+        <guid>https://blog.huamang.xyz/post/ctf2022_oh-my-lotto-revenge/</guid>
         <description>&lt;h2 id=&#34;new&#34;&gt;New&lt;/h2&gt;
 &lt;p&gt;相对于&lt;a class=&#34;link&#34; href=&#34;https://www.huamang.xyz/index.php/archives/152/#h2ZAoFX0WCRWOf64MY&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;oh_my_lotto&lt;/a&gt;，revenge进行了下面的更改&lt;/p&gt;
@@ -4829,10 +4829,10 @@ https_proxy = test.huamang.xyz
         </item>
         <item>
         <title>[*CTF2022] WP</title>
-        <link>https://example.com/post/ctf2022_wp/</link>
+        <link>https://blog.huamang.xyz/post/ctf2022_wp/</link>
         <pubDate>Sun, 17 Apr 2022 18:29:06 +0800</pubDate>
         
-        <guid>https://example.com/post/ctf2022_wp/</guid>
+        <guid>https://blog.huamang.xyz/post/ctf2022_wp/</guid>
         <description>&lt;h2 id=&#34;web&#34;&gt;Web&lt;/h2&gt;
 &lt;h3 id=&#34;oh-my-grafana&#34;&gt;oh-my-grafana&lt;/h3&gt;
 &lt;p&gt;存在CVE-2021-43798
@@ -5244,10 +5244,10 @@ Flag is in my pocket!”
         </item>
         <item>
         <title>[SUCTF2022] WP</title>
-        <link>https://example.com/post/suctf2022/</link>
+        <link>https://blog.huamang.xyz/post/suctf2022/</link>
         <pubDate>Mon, 28 Mar 2022 18:35:14 +0800</pubDate>
         
-        <guid>https://example.com/post/suctf2022/</guid>
+        <guid>https://blog.huamang.xyz/post/suctf2022/</guid>
         <description>&lt;h1 id=&#34;misc&#34;&gt;Misc&lt;/h1&gt;
 &lt;h2 id=&#34;hi-hacker&#34;&gt;Hi hacker&lt;/h2&gt;
 &lt;p&gt;下载到是一个流量包，分析tcp流，发现是一个后面执行命令的&lt;/p&gt;
@@ -6961,10 +6961,10 @@ toString方法只有what有，那么f1的值就应该是what了&lt;/p&gt;
         </item>
         <item>
         <title>[HMGCTF2022] WP</title>
-        <link>https://example.com/post/hmgctf2022/</link>
+        <link>https://blog.huamang.xyz/post/hmgctf2022/</link>
         <pubDate>Thu, 24 Mar 2022 18:46:53 +0800</pubDate>
         
-        <guid>https://example.com/post/hmgctf2022/</guid>
+        <guid>https://blog.huamang.xyz/post/hmgctf2022/</guid>
         <description>&lt;h1 id=&#34;web&#34;&gt;WEB&lt;/h1&gt;
 &lt;h2 id=&#34;fan-website&#34;&gt;Fan website&lt;/h2&gt;
 &lt;p&gt;首先是一个www.zip的源码泄露，是laminas框架
