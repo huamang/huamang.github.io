@@ -7,6 +7,14 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <lastBuildDate>Mon, 07 Nov 2022 20:53:03 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[Java安全] Fastjson的反序列化</title>
+        <link>https://blog.huamang.xyz/post/fastjson/</link>
+        <pubDate>Fri, 04 Nov 2022 12:04:30 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/fastjson/</guid>
+        <description>前言 在学习反序列化的时候，我不禁会想，链子就算满天飞，但是可能现实环境就是没有一个允许用户控制的反序列化的点来触发。 之前学习到的Shiro5</description>
+        </item>
+        <item>
         <title>[2022祥云杯] wp</title>
         <link>https://blog.huamang.xyz/post/xyb2022/</link>
         <pubDate>Mon, 31 Oct 2022 10:27:38 +0800</pubDate>
