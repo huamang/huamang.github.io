@@ -6,7 +6,15 @@
         <description>Recent content in Posts on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Fri, 11 Nov 2022 15:04:12 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 12 Nov 2022 21:38:39 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[CVE-2022-40871] Dolibarr任意添加管理员与RCE漏洞分析</title>
+        <link>https://blog.huamang.xyz/post/cve-2022-40871/</link>
+        <pubDate>Sat, 12 Nov 2022 21:38:39 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/cve-2022-40871/</guid>
+        <description>漏洞简介 Dolibarr ERP &amp;amp; CRM &amp;lt;=15.0.3 is vulnerable to Eval injection. By default, any administrator can be added to the installation page of dolibarr, and if successfully added, malicious code can be inserted into the database and then execute it by eval. CVE编号：CVE-2022-2633 漏洞描述：D</description>
+        </item>
+        <item>
         <title>[CVE-2022-2633] WordPress All-in-One插件SSRF&#43;任意文件下载</title>
         <link>https://blog.huamang.xyz/post/cve-2022-2633/</link>
         <pubDate>Fri, 11 Nov 2022 15:04:12 +0800</pubDate>
