@@ -71,6 +71,14 @@
         <description>gadget 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 Gadget chain: Hashtable.readObject Hashtable.reconstitutionPut AbstractMapDecorator.equals AbstractMap.equals LazyMap.get() ChainedTransformer.transform() ConstantTransformer.transform() InvokerTransformer.transform() Method.invoke() Class.getMethod() InvokerTransformer.transform() Method.invoke() Runtime.getRuntime() InvokerTransformer.transform() Method.invoke() Runtime.exec() 利用链分析 CC7的关键点是利用到AbstractMap的equals</description>
         </item>
         <item>
+        <title>[Java安全] JNDI注入基础</title>
+        <link>https://blog.huamang.xyz/post/jndi/</link>
+        <pubDate>Fri, 21 Oct 2022 11:34:28 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/jndi/</guid>
+        <description>JNDI结构 JNDI（The Java Naming and Directory Interface，Java命名和目录接口）是一组在Java应用中访问命名和目录服务的API，命名服务将</description>
+        </item>
+        <item>
         <title>[Java安全] CommonsBeanutils1在Shiro中的利用</title>
         <link>https://blog.huamang.xyz/post/shiro2/</link>
         <pubDate>Thu, 06 Oct 2022 17:57:59 +0800</pubDate>
