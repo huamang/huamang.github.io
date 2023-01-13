@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='漏洞影响范围 加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&amp;lt;=ThinkPHP5&amp;lt;=5.0.'>
-<title>[代码审计]ThinkPHP5的文件包含漏洞</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析'>
+<title>禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析</title>
 
-<link rel='canonical' href='https://blog.huamang.xyz/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/'>
+<link rel='canonical' href='https://blog.huamang.xyz/post/zentao_rce/'>
 
-<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='[代码审计]ThinkPHP5的文件包含漏洞'>
-<meta property='og:description' content='漏洞影响范围 加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&amp;lt;=ThinkPHP5&amp;lt;=5.0.'>
-<meta property='og:url' content='https://blog.huamang.xyz/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/'>
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析'>
+<meta property='og:description' content='禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/zentao_rce/'>
 <meta property='og:site_name' content='Huamang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-11-03T18:57:48&#43;08:00'/><meta property='article:modified_time' content='2021-11-03T18:57:48&#43;08:00'/>
-<meta name="twitter:title" content="[代码审计]ThinkPHP5的文件包含漏洞">
-<meta name="twitter:description" content="漏洞影响范围 加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生 漏洞影响版本：5.0.0&amp;lt;=ThinkPHP5&amp;lt;=5.0.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-01-13T18:20:31&#43;08:00'/><meta property='article:modified_time' content='2023-01-13T18:20:31&#43;08:00'/>
+<meta name="twitter:title" content="禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析">
+<meta name="twitter:description" content="禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析">
     </head>
     <body class="
     article-page
@@ -284,11 +284,20 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#漏洞影响范围">漏洞影响范围</a></li>
-    <li><a href="#tp框架搭建">tp框架搭建</a></li>
-    <li><a href="#漏洞分析">漏洞分析</a></li>
-    <li><a href="#漏洞总结">漏洞总结</a></li>
-    <li><a href="#漏洞的修复">漏洞的修复</a></li>
+    <li><a href="#漏洞简介">漏洞简介</a></li>
+    <li><a href="#漏洞分析">漏洞分析</a>
+      <ol>
+        <li><a href="#环境搭建">环境搭建</a></li>
+        <li><a href="#权限绕过">权限绕过</a></li>
+        <li><a href="#命令执行">命令执行</a></li>
+      </ol>
+    </li>
+    <li><a href="#漏洞修复">漏洞修复</a>
+      <ol>
+        <li><a href="#权限绕过修复">权限绕过修复</a></li>
+        <li><a href="#命令执行修复">命令执行修复</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -316,9 +325,13 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/tp5%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">[代码审计]ThinkPHP5的文件包含漏洞</a>
+            <a href="/post/zentao_rce/">禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析</a>
         </h2>
     
+        
+        <h3 class="article-subtitle">
+            禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析
+        </h3>
         
     </div>
 
@@ -338,7 +351,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Nov 03, 2021</time>
+                <time class="article-time--published">Jan 13, 2023</time>
             </div>
         
 
@@ -353,7 +366,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 3 分钟
+                    阅读时长: 2 分钟
                 </time>
             </div>
         
@@ -368,293 +381,193 @@
     <section class="article-content">
     
     
-    <h1 id="漏洞影响范围">漏洞影响范围</h1>
-<p>加载模版解析变量时存在变量覆盖问题，导致文件包含漏洞的产生
-漏洞影响版本：<strong>5.0.0&lt;=ThinkPHP5&lt;=5.0.18 、5.1.0&lt;=ThinkPHP&lt;=5.1.10</strong></p>
-<h1 id="tp框架搭建">tp框架搭建</h1>
-<p>tp框架由两部分组成
-应用项目: <a class="link" href="https://github.com/top-think/think"  target="_blank" rel="noopener"
-    >https://github.com/top-think/think</a>
-核心框架: <a class="link" href="https://github.com/top-think/framework"  target="_blank" rel="noopener"
-    >https://github.com/top-think/framework</a>
-框架下载好后，需要更名为thinkphp</p>
-<p>这里可以直接用composer来获取代码
-通过以下命令获取测试环境代码：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">composer create-project --prefer-dist topthink/think=5.0.18 tp5.0.18
-</code></pre></td></tr></table>
-</div>
-</div><p>将 composer.json 文件的 require 字段设置成如下：</p>
+    <h1 id="漏洞简介">漏洞简介</h1>
+<p>漏洞描述：前台权限绕过，可以调用后台的功能，可配合后台的远程命令执行漏洞</p>
+<p>影响版本：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th><strong>禅道系统</strong></th>
+<th><strong>影响版本</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>开源版</td>
+<td>17.4以下的未知版本&lt;=version&lt;=18.0.beta1</td>
+</tr>
+<tr>
+<td>旗舰版</td>
+<td>3.4以下的未知版本&lt;=version&lt;=4.0.beta1</td>
+</tr>
+<tr>
+<td>企业版</td>
+<td>7.4以下的未知版本&lt;=version&lt;=8.0.beta1 8.0.beta2</td>
+</tr>
+</tbody>
+</table></div>
+<h1 id="漏洞分析">漏洞分析</h1>
+<h2 id="环境搭建">环境搭建</h2>
+<p>源码下载地址：https://www.zentao.net/dynamic/zentaopms18.0.beta1-81862.html</p>
+<h2 id="权限绕过">权限绕过</h2>
+<p>这里出现权限绕过的原因，就是当他判断你权限出问题后，处理方式不是直接return，而是丢出一个异常，这就导致代码仍然往下执行，触发loadModule</p>
+<p>这里判断没有权限，然后进入deny</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113182719269.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113182719269"
+	
+	
+></p>
+<p>进入deny后，由于没有权限，所以利用的这个end，直接抛出异常，但是程序仍然进行</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113182800659.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113182800659"
+	
+	
+></p>
+<p>这里进入catch，发现只是echo出来，程序没退出</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113182811777.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113182811777"
+	
+	
+></p>
+<p>直接loadModule了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113182823342.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113182823342"
+	
+	
+></p>
+<p>但是这里还有一个先决条件，他判断权限之前，还有一层判断，这里必须得有一个<code>$this-&gt;app-&gt;user</code>​</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="s2">&#34;require&#34;</span><span class="err">:</span> <span class="p">{</span>
-    <span class="nt">&#34;php&#34;</span><span class="p">:</span> <span class="s2">&#34;&gt;=5.6.0&#34;</span><span class="p">,</span>
-    <span class="nt">&#34;topthink/framework&#34;</span><span class="p">:</span> <span class="s2">&#34;5.0.18&#34;</span>
-<span class="p">}</span><span class="err">,</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>然后执行 composer update ，并将 application/index/controller/Index.php 文件代码设置如下：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="k">namespace</span> <span class="nx">app\index\controller</span><span class="p">;</span>
-<span class="k">use</span> <span class="nx">think\Controller</span><span class="p">;</span>
-<span class="k">class</span> <span class="nc">Index</span> <span class="k">extends</span> <span class="nx">Controller</span>
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">))</span>
 <span class="p">{</span>
-    <span class="k">public</span> <span class="k">function</span> <span class="nf">index</span><span class="p">()</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">user</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">session</span><span class="o">-&gt;</span><span class="na">user</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">commonModel</span><span class="o">::</span><span class="na">hasPriv</span><span class="p">(</span><span class="nv">$module</span><span class="p">,</span> <span class="nv">$method</span><span class="p">))</span>
     <span class="p">{</span>
-        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">assign</span><span class="p">(</span><span class="nx">request</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">get</span><span class="p">());</span>
-        <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">fetch</span><span class="p">();</span> <span class="c1">// 当前模块/默认视图目录/当前控制器（小写）/当前操作（小写）.html
-</span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></td></tr></table>
-</div>
-</div><p>创建 application/index/view/index/index.html 文件</p>
-<h1 id="漏洞分析">漏洞分析</h1>
-<p>payload：</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">http://127.0.0.1/tp5.0.18/public/index?cacheFile=php://filter/read=convert.base64-encode/resource=/etc/passwd
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://img-blog.csdnimg.cn/7b31190fa31b4a1e87075144d220fc6f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
->
-打断点进行调试
-先进入assign进行模板变量的赋值</p>
-<p><img src="https://img-blog.csdnimg.cn/b172a46b5515432c9d3b7ef3ba3bec52.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p><img src="https://img-blog.csdnimg.cn/f9ec8769cb0549fb89e30513f121689e.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p>这边会有一个过滤，看起来像sql的过滤，与我们这次的没啥关系</p>
-<p><img src="https://img-blog.csdnimg.cn/a823bf0bc5f6470280317c52fb561143.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p>然后进入fetch方法，走完前面的缓存，就会进入一个read方法</p>
-<p><img src="https://img-blog.csdnimg.cn/951a39d6ee7a4f7b884bbb8c2ab65a64.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_17,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p><img src="https://img-blog.csdnimg.cn/f3602d22c4bb44dc9e9222c44b7a5637.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p>这里进行了一个变量的赋值：<code>extract($vars, EXTR_OVERWRITE);</code>，但是这里他设置了一个属性：<code>EXTR_OVERWRITE</code>
-这个属性的存在，会照成一个变量覆盖的效果</p>
-<p><img src="https://img-blog.csdnimg.cn/da67cd8e225d4fd18212b00913c295e4.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_19,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p>这时候，cacheFile就会变成我们get提交的数据
-下一步就是直接包含了这个文件
-输出读取的文件</p>
-<p><img src="https://img-blog.csdnimg.cn/42b63db8b6e1473599c702b91efc9b51.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<p>成功的包含到了</p>
-<p><img src="https://img-blog.csdnimg.cn/cb6c51add313431799df1b903f14e0f8.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<h1 id="漏洞总结">漏洞总结</h1>
-<p>总体来说，漏洞的思路就是：</p>
-<ol>
-<li>先通过view的assign把get数据存在数组data中</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/3dad672feb5344d5811e5dd52e1908ca.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<ol start="2">
-<li>然后进入view的fetch方法，通过<code>$vars = array_merge(self::$var, $this-&gt;data, $vars);</code>，将data中的数据再合并到vars的变量中去</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/c793f086b79948fdb247c935d8cb194a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<ol start="3">
-<li>再进入了Think的fetch方法，vars变量被赋进去了</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/9cd157055c2e47d3a7507ad5715d1b4a.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<ol start="4">
-<li>再到template的fetch方法中去，data变量依旧继续传递下去</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/af65ea17b74f4a7983bc81f10603302f.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<ol start="5">
-<li>到template的fetch方法里面，里面有一个cacheFile变量，值为箭头所指的文件，到了read方法，data和cacheFile一起被赋值进去</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/64822dd09c894df4a548412ab1e1593b.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<ol start="6">
-<li>可以看到，这里的extract函数由于EXTR_OVERWRITE设置了参数，所以cacheFile变量被覆盖了，导致后面的include就包含了我们vars中的值，而这个值我们是可以控制的，这就造成了一个文件包含的漏洞</li>
-</ol>
-<p><img src="https://img-blog.csdnimg.cn/ef2d178b69e34abe84cc4493c11336d1.png?x-oss-process=image/watermark,type_ZHJvaWRzYW5zZmFsbGJhY2s,shadow_50,text_Q1NETiBAaHVhbWFuZ2dn,size_20,color_FFFFFF,t_70,g_se,x_16"
-	
-	
-	
-	loading="lazy"
-	
-		alt="在这里插入图片描述"
-	
-	
-></p>
-<h1 id="漏洞的修复">漏洞的修复</h1>
-<p>官方漏洞的修复方案
-他这里是用了一个<code>$this-&gt;cacheFile</code>
-这样一来，在include的时候就不会因为变量覆盖而包含到我们data中的数据了</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">public</span> <span class="k">function</span> <span class="nf">read</span><span class="p">(</span><span class="nv">$cacheFile</span><span class="p">,</span> <span class="nv">$vars</span> <span class="o">=</span> <span class="p">[])</span>
-<span class="p">{</span>
-    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheFile</span> <span class="o">=</span> <span class="nv">$cacheFile</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$vars</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">is_array</span><span class="p">(</span><span class="nv">$vars</span><span class="p">))</span> <span class="p">{</span>
-        <span class="c1">// 模板阵列变量分解成为独立变量
-</span><span class="c1"></span>        <span class="nx">extract</span><span class="p">(</span><span class="nv">$vars</span><span class="p">,</span> <span class="nx">EXTR_OVERWRITE</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nv">$module</span> <span class="o">==</span> <span class="s1">&#39;story&#39;</span> <span class="k">and</span> <span class="o">!</span><span class="k">empty</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">[</span><span class="s1">&#39;storyType&#39;</span><span class="p">])</span> <span class="k">and</span> <span class="nx">strpos</span><span class="p">(</span><span class="s2">&#34;,story,requirement,&#34;</span><span class="p">,</span> <span class="s2">&#34;,</span><span class="si">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">[</span><span class="s1">&#39;storyType&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">,&#34;</span><span class="p">)</span> <span class="o">!==</span> <span class="k">false</span><span class="p">)</span> <span class="nv">$module</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">app</span><span class="o">-&gt;</span><span class="na">params</span><span class="p">[</span><span class="s1">&#39;storyType&#39;</span><span class="p">];</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">deny</span><span class="p">(</span><span class="nv">$module</span><span class="p">,</span> <span class="nv">$method</span><span class="p">);</span>
     <span class="p">}</span>
-    <span class="c1">//载入模版缓存文件
-</span><span class="c1"></span>    <span class="k">include</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">cacheFile</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></td></tr></table>
 </div>
-</div><p>这里<a class="link" href="https://www.ieven762.cn/index.php/archives/101/"  target="_blank" rel="noopener"
-    >学长的文章</a>也是提到了为啥参数不换成<code>EXTR_SKIP</code>防止变量的覆盖呢，EXTR_SKIP的作用就是：<strong>如果有冲突，不覆盖已有的变量</strong>，那么这一步就会失效，万一你确实是想传这么一个$cacheFile=xxx，那么到这里就会直接实效掉，导致功能的损坏，所以利用<code>$this-&gt;cacheFile</code>是更优的选择</p>
+</div><p>所以你的zentaosid还不能随便写，得写一个注册了的，而zentaosid可以在这里注册</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113182947005.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113182947005"
+	
+	
+></p>
+<p>注册了zentaosid后，就可以在前面绕过权限了，所以我们就可以研究后台有什么漏洞可以组合利用</p>
+<p>‍</p>
+<h2 id="命令执行">命令执行</h2>
+<p>命令执行的调用栈</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113182956505.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113182956505"
+	
+	
+></p>
+<p>首先loadModule到edit里</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113183003180.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113183003180"
+	
+	
+></p>
+<p>进入update，在update里进入checkConnection</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113183012327.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113183012327"
+	
+	
+></p>
+<p>到这里解析POST数据，然后当scm为Subversion的时候，client参数进行命令注入</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113183019647.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113183019647"
+	
+	
+></p>
+<p>‍</p>
+<h1 id="漏洞修复">漏洞修复</h1>
+<h2 id="权限绕过修复">权限绕过修复</h2>
+<p>可以看到权限绕过的修复的也很简单，只需要把他die掉，不会继续往下loadModule就可以了，</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113183031220.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113183031220"
+	
+	
+></p>
+<h2 id="命令执行修复">命令执行修复</h2>
+<p>然后对于命令执行的修复，在update这里进行了一个checkClient，检测post表单中的client是否非法</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230113183042183.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230113183042183"
+	
+	
+></p>
+<p>‍</p>
+<p>参考链接：</p>
+<p><a class="link" href="https://mp.weixin.qq.com/s?__biz=MzkzNjMxNDM0Mg==&amp;mid=2247485644&amp;idx=1&amp;sn=4bfa7d4ec2944dfa8755cc26b0454aa8&amp;chksm=c2a1dc45f5d655534fe3205299ace389b080f51ce5ec3698cf1690c49171024b27cbfba4fa8d&amp;mpshare=1&amp;scene=23&amp;srcid=0113qssUnmKRjguVYiNxENC1&amp;sharer_sharetime=1673575280804&amp;sharer_shareid=469809710d09fc57ce8e9f39fcebec6c%23rd"  target="_blank" rel="noopener"
+    >link1</a></p>
 
 </section>
 
@@ -688,19 +601,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/post/zentao_rce/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">禅道cms前台权限绕过&#43;后台远程命令执行漏洞分析</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="">
@@ -749,6 +649,19 @@
 
         <div class="article-details">
             <h2 class="article-title">[代码审计]信呼OA2.3.1版本代码审计</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/thinkphp5.0.x%E5%8F%98%E9%87%8F%E8%A6%86%E7%9B%96%E5%AF%BC%E8%87%B4%E7%9A%84rce%E5%88%86%E6%9E%90/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[代码审计]ThinkPHP 5.0.x 变量覆盖导致的RCE分析</h2>
         </div>
     </a>
 </article>
