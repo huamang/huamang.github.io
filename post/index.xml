@@ -7,14 +7,6 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <lastBuildDate>Fri, 13 Jan 2023 18:20:31 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Zentaopms前台权限绕过&#43;后台远程命令执行漏洞分析</title>
-        <link>https://blog.huamang.xyz/post/zentao_rce/</link>
-        <pubDate>Fri, 13 Jan 2023 18:20:31 +0800</pubDate>
-        
-        <guid>https://blog.huamang.xyz/post/zentao_rce/</guid>
-        <description>漏洞简介 漏洞描述：前台权限绕过，可以调用后台的功能，可配合后台的远程命令执行漏洞 影响版本： 禅道系统 影响版本 开源版 17.4以下的未知版本&amp;lt</description>
-        </item>
-        <item>
         <title>YApi远程命令执行漏洞分析</title>
         <link>https://blog.huamang.xyz/post/yapi/</link>
         <pubDate>Fri, 02 Dec 2022 01:44:11 +0800</pubDate>
