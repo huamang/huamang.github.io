@@ -6,7 +6,15 @@
         <description>Recent content in Posts on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 31 Jan 2023 18:34:29 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 01 Jun 2023 18:12:37 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>[2023饶派杯XCTF车联网挑战赛] WP</title>
+        <link>https://blog.huamang.xyz/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/</link>
+        <pubDate>Thu, 01 Jun 2023 18:12:37 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/</guid>
+        <description>饶派杯 web writeup Easy_sql crossall_act.php 的 execsql sql 注入老洞，提示说这个版本加密算法改了，但是service.php是混淆过的，无法直接读到里面的函数内容，但是自己调试可以</description>
+        </item>
+        <item>
         <title>Zentaopms前台权限绕过&#43;后台远程命令执行漏洞分析</title>
         <link>https://blog.huamang.xyz/post/zentao_rce/</link>
         <pubDate>Fri, 13 Jan 2023 18:20:31 +0800</pubDate>

