@@ -558,7 +558,7 @@
 	
 	
 ></p>
-<p>给服务器价格vanzy用户配置下公私钥，再跑admin路由会发现这里dial本地的2221端口连接失败了</p>
+<p>给服务器加个vanzy用户配置下公私钥，再跑admin路由会发现这里dial本地的2221端口连接失败了</p>
 <p><img src="https://tuchuang.huamang.xyz/img/image-20230619123528819.png"
 	
 	
@@ -848,13 +848,13 @@ Content-Type: application/octet-stream
 </div><p>覆盖暂时没找到原生类的call方法可以覆盖写文件的，而有个原生类的call是经常用：<code>SoapClient</code></p>
 <p>可以用他的ssrf和crlf打组合拳，这样我们就可以把cookie塞入</p>
 <p>本地测试了下确实可以的crlf</p>
-<p><img src="https://tuchuang.huamang.xyz/img/image-20230619131218158.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619134753956.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image-20230619131218158"
+		alt="image-20230619134753956"
 	
 	
 ></p>
@@ -896,6 +896,9 @@ Content-Type: application/octet-stream
 </code></pre></td></tr></table>
 </div>
 </div><p>这里直接去翻flask的源码，这里他的cookie、pin的生成是利用了<code>werkzeug</code>，定位到代码里</p>
+<blockquote>
+<p>注意最好是拉个python3.8的环境，我本以为我本机3.9环境算法会和3.8一样，但是事实证明有区别，这个坑踩了好久没排掉 ：(</p>
+</blockquote>
 <p>首先是pin码和cookiename的计算：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
