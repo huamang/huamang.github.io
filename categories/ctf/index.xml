@@ -7,6 +7,14 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <lastBuildDate>Mon, 19 Jun 2023 12:22:58 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/categories/ctf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>SCTF2023</title>
+        <link>https://blog.huamang.xyz/post/sctf2023/</link>
+        <pubDate>Mon, 19 Jun 2023 12:22:58 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/sctf2023/</guid>
+        <description>ezcheck1n 关注到这里海报是2022的 访问这个图片的路径，不能拼接在2023之后 路径加上2023的话，防问啥都会rewrite到2023.php，肯定</description>
+        </item>
+        <item>
         <title>[2023饶派杯XCTF车联网挑战赛] WP</title>
         <link>https://blog.huamang.xyz/post/%E9%A5%B6%E6%B4%BE%E6%9D%AF/</link>
         <pubDate>Thu, 01 Jun 2023 18:12:37 +0800</pubDate>
