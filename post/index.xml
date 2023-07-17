@@ -6,7 +6,15 @@
         <description>Recent content in Posts on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Mon, 19 Jun 2023 12:22:58 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 18 Jul 2023 00:37:35 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Solr Cloud RCE漏洞分析</title>
+        <link>https://blog.huamang.xyz/post/solr_cloud_rce/</link>
+        <pubDate>Tue, 18 Jul 2023 00:37:35 +0800</pubDate>
+        
+        <guid>https://blog.huamang.xyz/post/solr_cloud_rce/</guid>
+        <description>影响版本 8.10.0 &amp;lt;= Apache Solr &amp;lt; 9.2.0 环境搭建 9.1.1 9.1.0-src 9.1.0-bin 8.11.2 solr-8.11.2.tgz solr-8.11.2-src.tgz 8系列通过Ant 构建，不能直接导入idea，需要在目录下提前构建下 ant ivy-bootstrap、an</description>
+        </item>
+        <item>
         <title>SCTF2023</title>
         <link>https://blog.huamang.xyz/post/sctf2023/</link>
         <pubDate>Mon, 19 Jun 2023 12:22:58 +0800</pubDate>

