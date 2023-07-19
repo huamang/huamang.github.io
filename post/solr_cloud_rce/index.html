@@ -397,16 +397,16 @@
 </blockquote>
 <p>‍</p>
 <p>idea打开src项目会自动用gradle构建好，慢慢等个一万年就好了</p>
-<p><img src="/assets/image-20230417191918-a4vpzhi.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011207957.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011207957"
 	
 	
->​</p>
+></p>
 <p>这里会重新构建idea项目结构，并且编译好</p>
 <p>然后创建一个远程监听，接着去bin项目启动cloud模式，添加参数到debug</p>
 <div class="highlight"><div class="chroma">
@@ -417,16 +417,16 @@
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="p">.</span><span class="o">/</span><span class="nx">solr</span> <span class="nx">start</span> <span class="o">-</span><span class="nx">e</span> <span class="nx">cloud</span> <span class="o">-</span><span class="nx">a</span> <span class="s">&#34;-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005&#34;</span>
 </code></pre></td></tr></table>
 </div>
-</div><p><img src="/assets/image-20230418004923-174jqaq.png"
+</div><p><img src="https://tuchuang.huamang.xyz/img/image-20230720011234746.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011234746"
 	
 	
->​</p>
+></p>
 <h2 id="漏洞分析">漏洞分析</h2>
 <p>漏洞路径是利用<code>org.apache.solr.core.SolrConfig#initLibs</code>​里的下面的代码去加载Evil Jar包执行static 代码块中恶意代码</p>
 <div class="highlight"><div class="chroma">
@@ -563,27 +563,27 @@
 <p>简单来说他会遍历<code>META-INF/services</code>​文件夹找实现类去加载，所以我们得去实现这个文件夹下的接口</p>
 <p>这里8和9的貌似有点小区别</p>
 <p>8.11.2</p>
-<p><img src="/assets/image-20230418141259-idt33go.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011249453.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011249453"
 	
 	
 ></p>
 <p>9.1.0</p>
-<p><img src="/assets/image-20230418141211-1xpno4j.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011258536.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011258536"
 	
 	
->​</p>
+></p>
 <p>这里我选的和360那篇文章一样的<code>PostingsFormat</code>​接口去实现一个恶意类，然后在static里面放恶意代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -803,38 +803,38 @@
 </div><p>‍</p>
 <p>那么我们就得创建一个带恶意配置文件SolrConfig.xml的schema了</p>
 <p>但是直接新建scheme，会报错失败</p>
-<p><img src="/assets/image-20230418144140-tszma8e.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011310443.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011310443"
 	
 	
->​</p>
+></p>
 <p>这是因为他的加载机制，由于是cloud部署，所以他默认会去zookeeper里加载</p>
-<p><img src="/assets/image-20230418150150-cryau2k.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011321476.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011321476"
 	
 	
->​</p>
+></p>
 <p>这里会找传上去的conf文件夹，但是是找不到的，因为这里多拼接一个<code>.designer</code>​</p>
-<p><img src="/assets/image-20230418150342-627e4fx.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011333034.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011333034"
 	
 	
->​</p>
+></p>
 <p>但是这里还是有解决办法，分开单独来传</p>
 <p>首先传我们的Configset，可以直接套用他自带的Configset，位置在<code>solr/configsets</code>​ ，挑一个压缩后上传就行，上传用API</p>
 <div class="highlight"><div class="chroma">
@@ -855,16 +855,16 @@
 </code></pre></td></tr></table>
 </div>
 </div><p>可以看到这里就传上去了</p>
-<p><img src="/assets/image-20230418153143-d6u7quk.png"
+<p><img src="https://tuchuang.huamang.xyz/img/image-20230720011344112.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="image"
+		alt="image-20230720011344112"
 	
 	
->​​</p>
+></p>
 <p>这个时候，就到最后一步了，我们需要加载jar包，加载的方法就是通过solrconfig.xml里面的lib标签去指定，但是我们没有入口传入jar包，所以我们只能通过临时文件的方法去加载jar包</p>
 <p>这里又有一个接口，solr允许开启远程资源加载，开启后可以使用jar协议去远程加载jar包，本地会落地成临时文件</p>
 <div class="highlight"><div class="chroma">
