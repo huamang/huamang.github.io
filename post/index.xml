@@ -6,7 +6,7 @@
         <description>Recent content in Posts on Huamang</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <lastBuildDate>Tue, 18 Jul 2023 00:37:35 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 01 Jan 2024 00:34:39 +0800</lastBuildDate><atom:link href="https://blog.huamang.xyz/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Solr Cloud RCE漏洞分析</title>
         <link>https://blog.huamang.xyz/post/solr_cloud_rce/</link>
         <pubDate>Tue, 18 Jul 2023 00:37:35 +0800</pubDate>

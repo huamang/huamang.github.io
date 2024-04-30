@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='最近在一道题目里面学到了一个新的小技巧 在php中，字符串是可以递增的，如下： 但是不可递减 这道题是这样的 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19'>
-<title>利用PHP的NAN和INF来获取字符串来自增绕过长度限制</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='2023年回顾 我的2023年，是幸运与不幸交织、汗水与泪水混杂、机遇与挫折并存的一年。 在一月份入职了赛博昆仑攻防团队实习， 遇到了很好的同事@'>
+<title>2023</title>
 
-<link rel='canonical' href='https://blog.huamang.xyz/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/'>
+<link rel='canonical' href='https://blog.huamang.xyz/post/2023/'>
 
-<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='利用PHP的NAN和INF来获取字符串来自增绕过长度限制'>
-<meta property='og:description' content='最近在一道题目里面学到了一个新的小技巧 在php中，字符串是可以递增的，如下： 但是不可递减 这道题是这样的 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19'>
-<meta property='og:url' content='https://blog.huamang.xyz/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/'>
+<link rel="stylesheet" href="/scss/style.min.a3acb339192261971279929bada446e8966aa7224703ebfd992d05448daed96b.css"><meta property='og:title' content='2023'>
+<meta property='og:description' content='2023年回顾 我的2023年，是幸运与不幸交织、汗水与泪水混杂、机遇与挫折并存的一年。 在一月份入职了赛博昆仑攻防团队实习， 遇到了很好的同事@'>
+<meta property='og:url' content='https://blog.huamang.xyz/post/2023/'>
 <meta property='og:site_name' content='Huamang'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2021-08-19T18:53:44&#43;08:00'/><meta property='article:modified_time' content='2021-08-19T18:53:44&#43;08:00'/>
-<meta name="twitter:title" content="利用PHP的NAN和INF来获取字符串来自增绕过长度限制">
-<meta name="twitter:description" content="最近在一道题目里面学到了一个新的小技巧 在php中，字符串是可以递增的，如下： 但是不可递减 这道题是这样的 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-01-01T00:34:39&#43;08:00'/><meta property='article:modified_time' content='2024-01-01T00:34:39&#43;08:00'/>
+<meta name="twitter:title" content="2023">
+<meta name="twitter:description" content="2023年回顾 我的2023年，是幸运与不幸交织、汗水与泪水混杂、机遇与挫折并存的一年。 在一月份入职了赛博昆仑攻防团队实习， 遇到了很好的同事@">
     </head>
     <body class="
     article-page
@@ -262,7 +262,42 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#2023年回顾">2023年回顾</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -272,16 +307,12 @@
     
     <header class="article-category">
         
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" style="background-color: #9738e0; color: #fff;">
-                技术分享
-            </a>
-        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/post/%E5%88%A9%E7%94%A8php%E7%9A%84nan%E5%92%8Cinf%E6%9D%A5%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9D%A5%E8%87%AA%E5%A2%9E%E7%BB%95%E8%BF%87%E9%95%BF%E5%BA%A6%E9%99%90%E5%88%B6/">利用PHP的NAN和INF来获取字符串来自增绕过长度限制</a>
+            <a href="/post/2023/">2023</a>
         </h2>
     
         
@@ -303,7 +334,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 19, 2021</time>
+                <time class="article-time--published">Jan 01, 2024</time>
             </div>
         
 
@@ -318,7 +349,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 1 分钟
+                    阅读时长: 5 分钟
                 </time>
             </div>
         
@@ -333,124 +364,433 @@
     <section class="article-content">
     
     
-    <p>最近在<a class="link" href="https://blog.csdn.net/m0_51078229/article/details/119745997"  target="_blank" rel="noopener"
-    >一道题目</a>里面学到了一个新的小技巧
-在php中，字符串是可以递增的，如下：
-但是不可递减</p>
-<p><img src="https://img-blog.csdnimg.cn/b8e678eff65441339beeb3465388113b.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzUxMDc4MjI5,size_16,color_FFFFFF,t_70"
+    <h2 id="2023年回顾">2023年回顾</h2>
+<p>我的2023年，是幸运与不幸交织、汗水与泪水混杂、机遇与挫折并存的一年。</p>
+<hr>
+<p>在一月份入职了赛博昆仑攻防团队实习， 遇到了很好的同事<code>@12end </code> <code>@haya</code> <code>@sᴇᴠᴇɴᴛᴇᴇɴ</code> ，很好的领导<code>@aming</code>。这段实习，经历了大大小小各种各样的事情，也感谢同事和领导对我的照顾。</p>
+<p>刚来深圳，租了个不错的小窝，梦开始的地方。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/2c0be7e21a1de924b0200f0fe97225f6_720.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="在这里插入图片描述"
+		alt="2c0be7e21a1de924b0200f0fe97225f6_720"
 	
 	
 ></p>
-<p>这道题是这样的</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-<span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
-<span class="k">if</span> <span class="p">(</span><span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;looklook&#39;</span><span class="p">]){</span>
-    <span class="nx">highlight_file</span><span class="p">(</span><span class="no">__FILE__</span><span class="p">);</span>
-<span class="p">}</span><span class="k">else</span><span class="p">{</span>
-    <span class="nx">setcookie</span><span class="p">(</span><span class="s2">&#34;hint&#34;</span><span class="p">,</span> <span class="s2">&#34;?looklook&#34;</span><span class="p">,</span> <span class="nx">time</span><span class="p">()</span><span class="o">+</span><span class="mi">3600</span><span class="p">);</span>
-<span class="p">}</span>
-<span class="k">if</span> <span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;ctf_show&#39;</span><span class="p">]))</span> <span class="p">{</span>
-    <span class="nv">$ctfshow</span> <span class="o">=</span> <span class="nv">$_POST</span><span class="p">[</span><span class="s1">&#39;ctf_show&#39;</span><span class="p">];</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">is_string</span><span class="p">(</span><span class="nv">$ctfshow</span><span class="p">)</span> <span class="o">||</span> <span class="nx">strlen</span><span class="p">(</span><span class="nv">$ctfshow</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">107</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/[!@#%^&amp;*:&#39;</span><span class="se">\&#34;</span><span class="s2">|`a-zA-BD-Z~</span><span class="se">\\\\</span><span class="s2">]|[4-9]/&#34;</span><span class="p">,</span><span class="nv">$ctfshow</span><span class="p">)){</span>
-            <span class="k">eval</span><span class="p">(</span><span class="nv">$ctfshow</span><span class="p">);</span>
-        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-            <span class="k">echo</span><span class="p">(</span><span class="s2">&#34;fucccc hacker!!&#34;</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-
-    <span class="nx">phpinfo</span><span class="p">();</span>
-<span class="p">}</span>
-<span class="cp">?&gt;</span><span class="err">
-</span></code></pre></td></tr></table>
-</div>
-</div><p>可以看到，这里长度的限制是107，我们如果拼接一个_GET，如果硬从C开始自增，那可能会超过限制，T理C太远了，所以这里学到了两个新的操作</p>
-<p>在<a class="link" href="https://blog.csdn.net/rfrder/article/details/119535886"  target="_blank" rel="noopener"
-    >这篇文章</a>有写到（也是原题）</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback">$_=C/C ---&gt; NAN
-$_=1/C ---&gt; INF
-</code></pre></td></tr></table>
-</div>
-</div><p>但是这不是string类型，但在php里面，我们可以通过拼接一个字符串来让他转成String类型
-比如这里我写如下代码</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="o">&lt;?</span><span class="nx">php</span>
-
-<span class="nv">$a</span> <span class="o">=</span> <span class="p">(</span><span class="nx">C</span><span class="o">/</span><span class="nx">C</span><span class="o">.</span><span class="nx">C</span><span class="p">);</span>
-<span class="nv">$b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="nx">C</span><span class="o">.</span><span class="nx">C</span><span class="p">);</span>
-<span class="nx">var_dump</span><span class="p">(</span><span class="nv">$a</span><span class="p">);</span>
-<span class="nx">var_dump</span><span class="p">(</span><span class="nv">$b</span><span class="p">);</span>
-</code></pre></td></tr></table>
-</div>
-</div><p><img src="https://img-blog.csdnimg.cn/e6200a7ca3c24f22b06d941f6df7deca.png"
+<p>涮个牛肉开心下</p>
+<p><img src="https://tuchuang.huamang.xyz/img/1746f093c5c4851f210f772515e66924_720.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="在这里插入图片描述"
+		alt="1746f093c5c4851f210f772515e66924_720"
 	
 	
 ></p>
-<p>成功得到string类型，这里我们就使用索引就可以单选中字母了</p>
-<p><img src="https://img-blog.csdnimg.cn/d06cdfac3dec4eb5aa85650fe9aacfa0.png"
+<p>工位工位工位，小却很温馨。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101014908929.png"
 	
 	
 	
 	loading="lazy"
 	
-		alt="在这里插入图片描述"
+		alt="image-20240101014908929"
 	
 	
 ></p>
-<p>这样做就可以从N开始递增了，避开了长度的限制</p>
+<p>回校办免听手续，顺便参加下比赛，大早上六点起来出发去赛场，拿了个第二，和冠军失之交臂</p>
+<p><img src="https://tuchuang.huamang.xyz/img/ca114eedb36818d21fa66e2347b29022_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="ca114eedb36818d21fa66e2347b29022_720"
+	
+	
+></p>
+<p>深圳开花了，很喜欢窗外的风景。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/6027b377899831113dee1e0a4fb5c8e9_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="6027b377899831113dee1e0a4fb5c8e9_720"
+	
+	
+></p>
+<p>在家做了一餐椰子鸡，结果被窗外的蜜蜂看上了，给我蛰了一口，全身过敏头脑发晕，一个人打车到附近医院打针。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101011348921.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101011348921"
+	
+	
+></p>
+<p>非常期待的打项目，干到晚上十二点，回去疯狂做笔记哈哈哈哈，收获满满！</p>
+<p><img src="https://tuchuang.huamang.xyz/img/140cfbb5f27c3a0b81abc4307f62725e_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="140cfbb5f27c3a0b81abc4307f62725e_720"
+	
+	
+></p>
+<p>还记得当时四个人挤在wework，拿个纸壳箱支着吃太二酸菜鱼的画面哈哈哈。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101015434733.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101015434733"
+	
+	
+></p>
+<p>公司搬家咯，帮忙喂了一次同事的猫，超级漂亮的布偶，名字叫洛干，会主动把肚子翻过来给你摸。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/0df0cb9a65f20aee51886fea5495521f_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="0df0cb9a65f20aee51886fea5495521f_720"
+	
+	
+></p>
+<p>出差出差出差，拿<code>@haya</code>的相机拍的，这个云太好看了。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/f651fd11d4fd87b66eef880299c7ef6f_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="f651fd11d4fd87b66eef880299c7ef6f_720"
+	
+	
+></p>
+<p>出差的间隙，去线下参加了这个车联网挑战赛，和队友一起拼出了个第三名，web给干AK咯</p>
+<p><img src="https://tuchuang.huamang.xyz/img/cc34d04fff964ebe7697471356935175_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="cc34d04fff964ebe7697471356935175_720"
+	
+	
+></p>
+<p>去福州参加CISCN复赛咯，挺进决赛圈！把学弟们送进决赛圈。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/4e7802ab15fdacdfa22c5efa21d1f248_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="4e7802ab15fdacdfa22c5efa21d1f248_720"
+	
+	
+></p>
+<p>我大半夜做比赛准备，这人直接睡大觉了，这不得留点丑照哈哈哈。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101020407640.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101020407640"
+	
+	
+></p>
+<p>马不停蹄，又去重庆参加工业互联网了，人手严重不足，只能勉强混个三等奖了。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/bda4800d577a1731ea6afd7a406eb836_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="bda4800d577a1731ea6afd7a406eb836_720"
+	
+	
+></p>
+<p>国护前出差多，遇见新同事 <code>@ma4ter</code> ，挖洞大佬。干了一个月跑路去微信了，活成了我梦想的样子。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/335fa95167b2181931f6c0073b2bd395_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="335fa95167b2181931f6c0073b2bd395_720"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/45728ecaf901e4433acf19db03f35ea1.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="45728ecaf901e4433acf19db03f35ea1"
+	
+	
+></p>
+<p>兜兜转转，到国护了，管氏翅吧！国护卯足了劲，现场裁判都说我黑眼圈重&hellip;</p>
+<p><img src="https://tuchuang.huamang.xyz/img/229303fb9ab0c80319eb2ffbefdd2a6e.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="229303fb9ab0c80319eb2ffbefdd2a6e"
+	
+	
+></p>
+<p>来北京了，那必须得尝尝豆汁，本来以为只是臭一点，味道可能和普通豆浆一样，但是我错了，这东西又臭又酸，喝不了一点。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/8aeb095bb13a040d65f8506f993bc972.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="8aeb095bb13a040d65f8506f993bc972"
+	
+	
+></p>
+<p>国护结束，也忙了挺长一阵子，回学校开学办手续，顺便喘口气，和<code>@书鱼</code>哥哥去钓鱼了，直接&quot;双飞&quot;</p>
+<p><img src="https://tuchuang.huamang.xyz/img/b86976d26cbb7c7c636560c161862049.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="b86976d26cbb7c7c636560c161862049"
+	
+	
+></p>
+<p>几个人的努力下，钓足了一盘菜。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/be4f4594614cf737f3e501c49419d063.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="be4f4594614cf737f3e501c49419d063"
+	
+	
+></p>
+<p>因为是M1的MAC，ARM架构导致很多事情不方便，所以组了一台服务器，256G内存+4T固态，装上ESXI配合Tailscale做网络穿透爽到飞起，机箱放家里，在哪里都能流畅的使用虚拟机。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/e74ff992c2d4b419d796e62100be3bac.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="e74ff992c2d4b419d796e62100be3bac"
+	
+	
+></p>
+<p>回深圳后，因为护网出差了很久，在家里住的时间都很少了，打开了很久没开的窗户，看到这个夜色就觉得这房子真没租错。</p>
+<p>实习的工资只能支撑我租3千以下的房子，我不想合租，那么我唯一的选择就是在城中村，走在城中村的握手楼下，会质疑自己真的是到大城市了么。但是我租的这间房子，每当看到窗户外面的高楼大厦时，就会让我觉得我还是在那个光鲜亮丽的深圳。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/2e072718110b6d1fcc2a08ce786fba9c.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="2e072718110b6d1fcc2a08ce786fba9c"
+	
+	
+></p>
+<p>公司搬家后，新环境很不错，就是附近没有什么很好的租房</p>
+<p><img src="https://tuchuang.huamang.xyz/img/03ed4361fa4f9d93e0545185ec1afadc_720.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="03ed4361fa4f9d93e0545185ec1afadc_720"
+	
+	
+></p>
+<p>这个时候，残酷的秋招也开始了，最开始因为同事和ld和我说愿意给我转正的机会而且待遇不错，所以我有点想躺平，也变得有点自负，只投了几家大型的互联网公司。但是当大多都石沉大海时，我才开始慢慢意识到事情严重性，竞争太激烈了。</p>
+<p>开门红是中孚信息元亨实验室，非常感谢<code>毁三观</code>师傅对我的认可，待遇和工作都是非常不错的</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101024510801.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101024510801"
+	
+	
+></p>
+<p>然后过了段时间，其他投的都没啥消息了，我就又投了几个大厂，然后收到了小米的面试，聊的也挺开心，接着就是等二面了。</p>
+<p>去武汉出差咯，又解锁了一个新的城市！体验了一下武汉的过早，热干面和三鲜豆皮是真的好吃！</p>
+<p><img src="https://tuchuang.huamang.xyz/img/5d173109ef2573df488c34d95682aa15.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="5d173109ef2573df488c34d95682aa15"
+	
+	
+></p>
+<p>在武汉出差的后一天，小米二面了，在外面酒店里面了很久，我只记得我嗓子都干了。</p>
+<p>过了有一段时间了，回校体测，跑1000米，跑完要了我半条命，腿瘸了一周才缓过来。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101032044686.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101032044686"
+	
+	
+></p>
+<p>顺便摸了下书鱼哥哥的奖牌，太成功了。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101025714634.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101025714634"
+	
+	
+></p>
+<p>在摸到奖牌的那天晚上，突然收到小米的hr电话，通知面试已经通过。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101025811229.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101025811229"
+	
+	
+></p>
+<p>开奖后不久，看到群里有说理想汽车有招聘，我就试着投了下简历。简历评估通过后也是进入面试了。</p>
+<p>一面面试官基础很扎实，问的技术很细节很底层，也面试了很久，差不多一个小时二十多分钟才结束。也是非常感谢内推的我师傅以及面试官对我的认可，后面也是一路过关斩将，收到录取意向。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101030346502.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101030346502"
+	
+	
+></p>
+<p>理想汽车挺久没开奖的，因为有点焦虑，在同时也是投了一下绿盟科技和深信服。</p>
+<p>深信服面了一面后，就一直没消息了，后来有一天面试官通过手机号加到我，和我说面试通过了，但是投的太晚没有HC了，让我赶紧投点别的公司，这里也是很感谢这位师傅的好心提醒，被暖到了。</p>
+<p>绿盟科技面试的是广州的部门，广州这个城市是我一直比较向往的，相比于深圳，广州的生存压力要小一些，能在当社畜的同时也能感受一下生活与美食。绿盟科技在经过4轮面试后也是顺利拿到了offer。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101031049355.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101031049355"
+	
+	
+></p>
+<p>一年一度的鹏城杯，虽然我没参赛，但是也跟着SU一起去聚一聚。第一次喝白酒，记得那天风很大很冷，但是白酒下肚后就全身暖起来了。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101032634854.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101032634854"
+	
+	
+></p>
+<p>比赛结束后，<code>@Pupi1</code>毕哥哥带我进了一下威士忌吧，发现了新大陆，深圳这家威士忌吧叫做Unlimited，他们的特调也叫做Unlimited，有一种木质清香，味道带点苦，第一次喝有点被惊艳到。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101033035951.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101033035951"
+	
+	
+></p>
+<p><img src="https://tuchuang.huamang.xyz/img/56a9a2404c3fc6154af6736a28e9d686.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="56a9a2404c3fc6154af6736a28e9d686"
+	
+	
+></p>
+<p>毕业生信息采集回学校，顺便带女朋友去逛了下本地的威士忌吧，没想到也是很不错的，这个是偏果香味。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101033459103.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101033459103"
+	
+	
+></p>
+<p>家里出了点事，回了趟老家。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101033928121.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101033928121"
+	
+	
+></p>
+<p>回深圳了，心里太郁闷，找兄弟们出来喝点酒。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101034004138.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101034004138"
+	
+	
+></p>
+<p>好地方当然得带着好兄弟一起来，拉着一起来试了一下。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/0ac625ad4741e79ba5726e510307f89f.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="0ac625ad4741e79ba5726e510307f89f"
+	
+	
+></p>
+<p>因为准备回学校写毕设，也想体验一下最后的校园生活，所以没有续签实习协议了，在22号提了离职，准备离开一起奋斗了一年的团队。说实话还是很不舍，再次感谢团队给我带来的一切。</p>
+<p><img src="https://tuchuang.huamang.xyz/img/image-20240101011013025.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20240101011013025"
+	
+	
+></p>
 
 </section>
 
@@ -479,54 +819,6 @@ $_=1/C ---&gt; INF
     
 
     
-
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
-            
-                
-<article class="">
-    <a href="/post/ssti/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">SSTI_OF_FLASK</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/post/%E6%A0%A1%E8%B5%9B%E5%B9%B3%E5%8F%B0%E6%90%AD%E5%BB%BA/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">校赛CTFd平台docker搭建—pixo主题</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/post/sctf2021/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">[SCTF2021]Upload_it_1复现闭包组件反序列化rce</h2>
-        </div>
-    </a>
-</article>
-
-            
-        </div>
-    </div>
-</aside>
 
      
     

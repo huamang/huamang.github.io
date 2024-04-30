@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.huamang.xyz/</loc>
-    <lastmod>2023-07-18T00:37:35+08:00</lastmod>
+    <lastmod>2024-01-01T00:34:39+08:00</lastmod>
   </url><url>
-    <loc>https://blog.huamang.xyz/categories/</loc>
-    <lastmod>2023-07-18T00:37:35+08:00</lastmod>
+    <loc>https://blog.huamang.xyz/post/2023/</loc>
+    <lastmod>2024-01-01T00:34:39+08:00</lastmod>
   </url><url>
     <loc>https://blog.huamang.xyz/post/</loc>
+    <lastmod>2024-01-01T00:34:39+08:00</lastmod>
+  </url><url>
+    <loc>https://blog.huamang.xyz/categories/</loc>
     <lastmod>2023-07-18T00:37:35+08:00</lastmod>
   </url><url>
     <loc>https://blog.huamang.xyz/post/solr_cloud_rce/</loc>
